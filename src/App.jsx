@@ -164,7 +164,7 @@ export default function App() {
   return <div className={`app ${isDark ? "dark" : "light"}`}>
     <aside className="sidebar">
       <div className="logo-mark">📖</div><div className="brand-script">ReneBook</div>
-      <h1>{t(lang, "Proverbios", "Proverbs")}</h1><p className="brand-subtitle">{t(lang, "Sabiduría diaria", "Daily wisdom")}</p>
+      <h1>{t(lang, "Proverbios", "Proverbs")}</h1><p className="brand-subtitle">{t(lang, "Plataforma ReneBook", "ReneBook Platform"), "Daily wisdom")}</p>
       <nav className="side-nav">{[["🏠",t(lang,"Inicio","Home"),"inicio"],["📖",t(lang,"Capítulos","Chapters"),"lectura"],["🏷️",t(lang,"Temas","Themes"),"lectura"],["☀️",t(lang,"Versículo del día","Verse of the day"),"inicio"],["♡",t(lang,"Favoritos","Favorites"),"devocional"],["⚙️",t(lang,"Configuración","Settings"),"datos"]].map(([icon,label,target])=><button key={label} onClick={()=>setActiveTab(target)} className={activeTab===target?"active":""}><span>{icon}</span>{label}</button>)}</nav>
       <div className="theme-box"><p>{t(lang,"Tema","Theme")}</p><button className={themeMode==="light"?"selected":""} onClick={()=>setThemeMode("light")}>☀️ {t(lang,"Claro","Light")}</button><button className={themeMode==="dark"?"selected":""} onClick={()=>setThemeMode("dark")}>🌙 {t(lang,"Oscuro","Dark")}</button></div>
       <div className="signature">By ReneBook</div>
