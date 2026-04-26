@@ -153,13 +153,14 @@ export default function App() {
       else console.log(content);
     } catch { console.log(content); }
   }
-
-  const tabs = [
-    { id: "inicio", label: t(lang, "Inicio", "Home"), icon: "▦" },
-    { id: "lectura", label: t(lang, "Lectura", "Reading"), icon: "📖" },
-    { id: "devocional", label: t(lang, "Devocional", "Devotional"), icon: "♡" },
-    { id: "datos", label: t(lang, "Datos", "Data"), icon: "▥" }
-  ];
+  
+    const tabs = [
+  { id: "biblia", icon: "📖", label: t(lang, "Biblia", "Bible") },
+  { id: "devocional", icon: "✨", label: t(lang, "Devocional", "Devotional") },
+  { id: "temas", icon: "📚", label: t(lang, "Temas", "Themes") },
+  { id: "kids", icon: "🧒", label: t(lang, "Niños", "Kids") },
+  { id: "datos", icon: "📊", label: t(lang, "Datos", "Data") }
+];
 
   return <div className={`app ${isDark ? "dark" : "light"}`}>
     <aside className="sidebar">
@@ -189,12 +190,12 @@ export default function App() {
       {(activeTab==="inicio"||activeTab==="devocional")&&<section className="devotional-grid"><article className="devotional-card panel"><div className="section-title"><span className="round-icon blue-icon">✨</span><div><p className="eyebrow">{t(lang,"Devocional seleccionado","Selected devotional")}</p><h3>{selectedVerse?.reference}</h3><p>{lang==="en"?"WEB":"RVR1909"}</p></div></div><div className="text-box"><p className="eyebrow">{t(lang,"Texto bíblico","Bible text")}</p><h4>{selectedVerse?.text}</h4></div><div className="text-box"><p className="eyebrow">{t(lang,"Meditación","Meditation")}</p>{editMode?<textarea value={selectedVerse?.meditation||""} onChange={(e)=>setEdits((prev)=>({...prev,[selectedVerse.key]:e.target.value}))}/>:<p>{selectedVerse?.meditation}</p>}</div><div className="action-row"><button onClick={()=>setEditMode(!editMode)} className="primary-btn">{editMode?t(lang,"Guardar edición","Save edit"):t(lang,"Editar meditación","Edit meditation")}</button><button onClick={()=>setCompleted((prev)=>({...prev,[selectedVerse.key]:!prev[selectedVerse.key]}))} className="outline-btn">{completed[selectedVerse?.key]?t(lang,"Completado","Completed"):t(lang,"Marcar leído","Mark as read")}</button><button onClick={()=>copyDevotional()} className="outline-btn">{t(lang,"Copiar","Copy")}</button></div><div className="signature dark-signature">By ReneBook</div></article><article className="language-card panel"><span className="round-icon blue-icon">🌐</span><p className="eyebrow">{t(lang,"Cambiar idioma","Change language")}</p><h3>{lang==="es"?"Cambiar al inglés":"Change to Spanish"}</h3><p>{t(lang,"Explora Proverbios en otro idioma y enriquece tu estudio devocional.","Explore Proverbs in another language and enrich your devotional study.")}</p><button onClick={()=>setLang(lang==="es"?"en":"es")} className="glow-btn">{lang==="es"?"Cambiar a English":"Change to Español"} →</button></article></section>}
 
       {activeTab==="datos"&&<section className="panel data-panel"><h3>{t(lang,"Formato de datos recomendado","Recommended data format")}</h3><p>{t(lang,"Carga Proverbios completo desde JSON o CSV usando RVR1909 y WEB.","Load the full book of Proverbs from JSON or CSV using RVR1909 and WEB.")}</p><pre>{`{
-  "app": "ReneBook — Proverbios",
-  "versions": ["RVR1909", "WEB"],
-  "license": "Public Domain",
-  "default_language": "es",
-  "signature": "By ReneBook",
-  "logo": "/assets/renebook-logo.png",
+  app": "ReneBook Plataforma",
+"versions": ["RVR1909", "WEB"],
+"license": "Public Domain",
+"default_language": "es",
+"signature": "By ReneBook",
+"logo": "/assets/logo.png",
   "verses": [{
     "chapter": 3,
     "verse": 5,
