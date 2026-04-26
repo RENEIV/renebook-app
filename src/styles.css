@@ -215,3 +215,9 @@ button {
   color: #ffffff !important;
   opacity: 1 !important;
 }
+.dark [class*="badge"],
+.dark [class*="circle"],
+.dark [class*="verse"] {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
