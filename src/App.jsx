@@ -213,3 +213,36 @@ const tabs = [
   { id: "temas", label: t(lang, "Temas", "Themes"), icon: "📚" },
   { id: "kids", label: t(lang, "Niños", "Kids"), icon: "🧒" }
 ];    
+const biblia = {
+  "Proverbios": {
+    3: {
+      1: "Hijo mío, no te olvides de mi ley...",
+      2: "Porque largura de días..."
+    }
+  }
+};
+    if (activeTab === "biblia") {
+  return (
+    <div>
+      <h2>{t(lang, "Biblia", "Bible")}</h2>
+      {/* aquí lista libros */}
+    </div>
+  );
+}
+    if (activeTab === "kids") {
+  return (
+    <div className="kids-section">
+      <h2>🧒 {t(lang, "Niños", "Kids")}</h2>
+
+      <div className="card">
+        <h3>📖 David y Goliat</h3>
+        <p>Historia corta para niños</p>
+      </div>
+
+      <div className="card">
+        <h3>🐋 Jonás</h3>
+        <p>Historia interactiva</p>
+      </div>
+    </div>
+  );
+}
