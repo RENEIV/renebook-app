@@ -150,3 +150,35 @@ button {
 .app.dark .content-grid > * {
   border-radius: 18px;
 }
+/* === FORCE DARK MODE PREMIUM === */
+
+.dark {
+  background: radial-gradient(circle at top left, #06162f 0%, #020617 45%, #000000 100%) !important;
+  color: #ffffff !important;
+}
+
+.dark .main,
+.dark .panel,
+.dark .hero,
+.dark .hero.panel,
+.dark .content-grid > *,
+.dark .theme-box {
+  background: linear-gradient(145deg, #0f172a, #020617) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(96,165,250,0.28) !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.75), 0 0 30px rgba(37,99,235,0.22) !important;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark p,
+.dark span {
+  color: #f8fbff !important;
+}
+
+.dark button {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 30px rgba(37,99,235,0.45) !important;
+}
