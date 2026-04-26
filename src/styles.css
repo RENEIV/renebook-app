@@ -221,3 +221,23 @@ button {
   color: #ffffff !important;
   opacity: 1 !important;
 }
+/* === FIX DARK MODE CIRCLE NUMBERS === */
+
+.dark .verse-list div,
+.dark .verse-list span,
+.dark [class*="verse"] span,
+.dark [class*="item"] span {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.dark [class*="badge"],
+.dark [class*="circle"],
+.dark [class*="number"] {
+  background: linear-gradient(145deg, #0f766e, #14b8a6) !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  border: 1px solid rgba(153,246,228,0.9) !important;
+  box-shadow: 0 0 18px rgba(20,184,166,0.55) !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6) !important;
+}
