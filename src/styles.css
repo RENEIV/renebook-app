@@ -107,3 +107,46 @@ button {
     font-size: 34px;
   }
 }
+/* === DARK MODE IMPROVEMENT === */
+
+.app.dark {
+  background: radial-gradient(circle at top left, #0b1220, #05080f);
+  color: #f8fbff;
+}
+
+/* HERO PANEL */
+.app.dark .hero-panel {
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* TARJETAS */
+.app.dark .card {
+  background: linear-gradient(145deg, #0f1f3d, #020617);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+}
+
+/* TEXTO PRINCIPAL */
+.app.dark h1,
+.app.dark h2 {
+  color: #ffffff;
+}
+
+/* TEXTO SECUNDARIO */
+.app.dark p {
+  color: #cbd5e1;
+}
+
+/* BOTONES */
+.app.dark button {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  box-shadow: 0 10px 25px rgba(37,99,235,0.5);
+}
+
+/* CONTORNO DE TARJETAS */
+.app.dark .content-grid > * {
+  border-radius: 18px;
+}
