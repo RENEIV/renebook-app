@@ -256,3 +256,30 @@ button {
 .dark .content-grid div {
   background-color: rgba(255,255,255,0.08) !important;
 }
+/* === PREMIUM DARK BADGES / VERSE CIRCLES === */
+
+.dark .content-grid [class*="badge"],
+.dark .content-grid [class*="circle"],
+.dark .content-grid [class*="pill"],
+.dark .content-grid [class*="number"],
+.dark .content-grid [class*="verse"] {
+  background: linear-gradient(145deg, #1d4ed8, #3b82f6) !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+  border: 1px solid rgba(191,219,254,0.85) !important;
+  box-shadow:
+    0 0 18px rgba(59,130,246,0.75),
+    inset 0 1px 8px rgba(255,255,255,0.22) !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85) !important;
+}
+
+/* Números dentro del círculo */
+.dark .content-grid [class*="badge"] *,
+.dark .content-grid [class*="circle"] *,
+.dark .content-grid [class*="pill"] *,
+.dark .content-grid [class*="number"] *,
+.dark .content-grid [class*="verse"] * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
