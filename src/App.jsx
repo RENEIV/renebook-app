@@ -207,3 +207,9 @@ export default function App() {
     </main>
   </div>;
 }
+const tabs = [
+  { id: "biblia", label: t(lang, "Biblia", "Bible"), icon: "📖" },
+  { id: "devocional", label: t(lang, "Devocional", "Devotional"), icon: "✨" },
+  { id: "temas", label: t(lang, "Temas", "Themes"), icon: "📚" },
+  { id: "kids", label: t(lang, "Niños", "Kids"), icon: "🧒" }
+];    
