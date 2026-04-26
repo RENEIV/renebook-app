@@ -66,7 +66,7 @@ const meditationsEn = {
 function t(lang, es, en) { return lang === "en" ? en : es; }
 function clampChapter(chapter) { return Math.min(Math.max(Number(chapter) || 1, 1), 31); }
 function getTheme(chapter, lang) { const i = clampChapter(chapter) - 1; return lang === "en" ? themesEn[i] : themesEs[i]; }
-function getVerseText(key, chapter, verse, lang) { return lang === "en" ? (versesEn[key] || "") : (versesEs[key] || "Texto bíblico pendiente de integrar desde JSON/CSV RVR1909 de dominio público."); }
+function getVerseText(key, chapter, verse, lang) { return lang === "en" ? (versesEn[key] || "") : (versesEs[key] || ""); }
 function getMeditation(key, chapter, verse, lang, edits) { if (edits[key]) return edits[key]; return lang === "en" ? (meditationsEn[key] || `Guided meditation: Proverbs ${chapter}:${verse} invites us to examine the heart, receive counsel, and ask God for wisdom for daily life.`) : (meditationsEs[key] || `Meditación guía: Proverbios ${chapter}:${verse} invita a examinar el corazón, recibir consejo y pedir sabiduría para la vida diaria.`); }
 
 function buildVerses(chapter, lang, edits) {
