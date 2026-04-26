@@ -164,14 +164,14 @@ export default function App() {
   return <div className={`app ${isDark ? "dark" : "light"}`}>
     <aside className="sidebar">
       <div className="logo-mark">📖</div><div className="brand-script">ReneBook</div>
-      <h1>{t(lang, "Proverbios", "Proverbs")}</h1><p className="brand-subtitle">{t(lang, "Plataforma ReneBook", "ReneBook Platform"), "Daily wisdom")}</p>
+      <h1>{t(lang, "Proverbios", "Proverbs")}</h1><p className="brand-subtitle"> <p>{t(lang, "Plataforma ReneBook", "ReneBook Platform")}</p>
       <nav className="side-nav">{[["🏠",t(lang,"Inicio","Home"),"inicio"],["📖",t(lang,"Capítulos","Chapters"),"lectura"],["🏷️",t(lang,"Temas","Themes"),"lectura"],["☀️",t(lang,"Versículo del día","Verse of the day"),"inicio"],["♡",t(lang,"Favoritos","Favorites"),"devocional"],["⚙️",t(lang,"Configuración","Settings"),"datos"]].map(([icon,label,target])=><button key={label} onClick={()=>setActiveTab(target)} className={activeTab===target?"active":""}><span>{icon}</span>{label}</button>)}</nav>
       <div className="theme-box"><p>{t(lang,"Tema","Theme")}</p><button className={themeMode==="light"?"selected":""} onClick={()=>setThemeMode("light")}>☀️ {t(lang,"Claro","Light")}</button><button className={themeMode==="dark"?"selected":""} onClick={()=>setThemeMode("dark")}>🌙 {t(lang,"Oscuro","Dark")}</button></div>
       <div className="signature">By ReneBook</div>
     </aside>
 
     <main className="main">
-      <header className="hero panel"><div><p className="eyebrow">{t(lang,"APLICACIÓN PREMIUM","PREMIUM APP")}</p><h2>{t(lang, "Plataforma ReneBook", "ReneBook Platform"),"Proverbs for Everyday Life")}</h2><p className="hero-subtitle">{t(lang,"Lectura bíblica de dominio público, meditación breve y progreso diario.","Public-domain Bible reading, short meditation, and daily progress.")}</p></div>
+      <header className="hero panel"><div><p className="eyebrow">{t(lang,"APLICACIÓN PREMIUM","PREMIUM APP")} <h2>{t(lang, "Plataforma ReneBook", "ReneBook Platform")}</h2>,"Proverbs for Everyday Life")}</h2><p className="hero-subtitle">{t(lang,"Lectura bíblica de dominio público, meditación breve y progreso diario.","Public-domain Bible reading, short meditation, and daily progress.")}</p></div>
         <div className="hero-actions"><div className="language-toggle"><button onClick={()=>setLang("es")} className={lang==="es"?"active":""}>Español</button><button onClick={()=>setLang("en")} className={lang==="en"?"active":""}>English</button></div><button onClick={()=>setEditMode(!editMode)} className="primary-btn">{editMode?t(lang,"Guardar","Save"):t(lang,"Editar","Edit")}</button><button onClick={()=>copyDevotional()} className="outline-btn">⧉ {t(lang,"Copiar","Copy")}</button></div>
         <div className="top-tabs">{tabs.map((tab)=><button key={tab.id} onClick={()=>setActiveTab(tab.id)} className={activeTab===tab.id?"active":""}><span>{tab.icon}</span>{tab.label}</button>)}</div>
       </header>
