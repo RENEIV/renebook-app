@@ -171,7 +171,7 @@ export default function App() {
     </aside>
 
     <main className="main">
-      <header className="hero panel"><div><p className="eyebrow">{t(lang,"APLICACIÓN PREMIUM","PREMIUM APP")}</p><h2>{t(lang,"Proverbios para la vida diaria","Proverbs for Everyday Life")}</h2><p className="hero-subtitle">{t(lang,"Lectura bíblica de dominio público, meditación breve y progreso diario.","Public-domain Bible reading, short meditation, and daily progress.")}</p></div>
+      <header className="hero panel"><div><p className="eyebrow">{t(lang,"APLICACIÓN PREMIUM","PREMIUM APP")}</p><h2>{t(lang, "Plataforma ReneBook", "ReneBook Platform"),"Proverbs for Everyday Life")}</h2><p className="hero-subtitle">{t(lang,"Lectura bíblica de dominio público, meditación breve y progreso diario.","Public-domain Bible reading, short meditation, and daily progress.")}</p></div>
         <div className="hero-actions"><div className="language-toggle"><button onClick={()=>setLang("es")} className={lang==="es"?"active":""}>Español</button><button onClick={()=>setLang("en")} className={lang==="en"?"active":""}>English</button></div><button onClick={()=>setEditMode(!editMode)} className="primary-btn">{editMode?t(lang,"Guardar","Save"):t(lang,"Editar","Edit")}</button><button onClick={()=>copyDevotional()} className="outline-btn">⧉ {t(lang,"Copiar","Copy")}</button></div>
         <div className="top-tabs">{tabs.map((tab)=><button key={tab.id} onClick={()=>setActiveTab(tab.id)} className={activeTab===tab.id?"active":""}><span>{tab.icon}</span>{tab.label}</button>)}</div>
       </header>
