@@ -4,130 +4,173 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Renebook | Proyecto de Acceso Bíblico Digital</title>
-  <meta name="description" content="Renebook es una plataforma digital enfocada en facilitar el acceso a la sabiduría bíblica de manera clara, práctica y accesible en español e inglés." />
-
+  <meta name="description" content="Renebook es un proyecto de acceso bíblico digital con enfoque pastoral, educativo, bilingüe y móvil." />
   <style>
+    :root {
+      --bg: #07111f;
+      --card: rgba(12, 29, 55, .82);
+      --text: #f7fbff;
+      --muted: #bdd1e6;
+      --soft: #89a8c8;
+      --line: rgba(255,255,255,.13);
+      --blue: #6db7ff;
+      --cyan: #75f0ff;
+      --gold: #ffd36b;
+      --green: #9ff0bf;
+      --shadow: 0 28px 80px rgba(0,0,0,.44);
+      --radius: 26px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: #ffffff;
-      line-height: 1.7;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(109,183,255,.23), transparent 34rem),
+        radial-gradient(circle at 90% 22%, rgba(117,240,255,.11), transparent 28rem),
+        linear-gradient(145deg, #040913 0%, var(--bg) 48%, #0b1a31 100%);
+      line-height: 1.65;
+      min-height: 100vh;
     }
-
-    .container {
-      max-width: 950px;
-      margin: auto;
-      padding: 60px 22px;
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(16px); background: rgba(4,9,19,.74); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .logo { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(145deg, var(--blue), #172d58); box-shadow: 0 0 30px rgba(109,183,255,.28); }
+    .brand small { display: block; color: var(--soft); font-weight: 600; margin-top: -3px; }
+    .links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .links a { padding: 10px 14px; border: 1px solid transparent; color: #dbeaff; border-radius: 999px; font-weight: 800; font-size: 14px; }
+    .links a:hover, .links a.active { border-color: var(--line); background: rgba(255,255,255,.07); color: #fff; }
+    .hero { padding: 68px 0 30px; }
+    .panel { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(10,25,48,.84), rgba(13,43,82,.72)); box-shadow: var(--shadow); border-radius: var(--radius); overflow: hidden; padding: clamp(24px, 5vw, 52px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; color: #dff5ff; background: rgba(109,183,255,.12); border: 1px solid rgba(109,183,255,.22); font-size: 14px; font-weight: 900; }
+    h1 { font-size: clamp(36px, 6vw, 68px); line-height: 1.03; margin: 18px 0 14px; letter-spacing: -1.3px; }
+    h2 { font-size: clamp(27px, 4vw, 42px); margin: 0 0 12px; line-height: 1.1; }
+    h3 { margin: 0 0 8px; font-size: 21px; }
+    p { color: var(--muted); margin: 0 0 14px; }
+    .lead { font-size: clamp(18px, 2vw, 22px); color: #d9eaff; max-width: 850px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 17px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); font-weight: 900; cursor: pointer; transition: transform .18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, #98d8ff, var(--blue)); box-shadow: 0 18px 44px rgba(109,183,255,.25); }
+    .btn-secondary { color: #eff8ff; background: rgba(255,255,255,.08); }
+    .section { padding: 34px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; min-height: 230px; box-shadow: 0 18px 45px rgba(0,0,0,.22); }
+    .icon { font-size: 35px; display: block; margin-bottom: 10px; }
+    .metric { font-size: 34px; color: var(--gold); font-weight: 900; line-height: 1; margin-bottom: 8px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+    .timeline { display: grid; gap: 12px; margin-top: 18px; }
+    .step { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 18px; border-radius: 18px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
+    .step b { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; background: rgba(255,211,107,.16); color: var(--gold); }
+    blockquote { margin: 16px 0 0; padding: 18px; border-left: 4px solid var(--gold); background: rgba(255,255,255,.06); border-radius: 18px; font-size: 19px; color: #fff; }
+    footer { padding: 34px 0 46px; color: var(--soft); text-align: center; }
+    @media (max-width: 900px) {
+      .grid, .two { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; padding: 15px 0; }
+      .links { justify-content: flex-start; }
     }
-
-    .card {
-      background: linear-gradient(145deg, #0d1b33, #10294d);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 35px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-    }
-
-    h1 {
-      font-size: 34px;
-      margin-bottom: 18px;
-      color: #ffffff;
-    }
-
-    h2 {
-      font-size: 24px;
-      margin-top: 28px;
-      color: #6db7ff;
-    }
-
-    p {
-      font-size: 18px;
-      color: #dce9f9;
-    }
-
-    ul {
-      font-size: 18px;
-      color: #dce9f9;
-      padding-left: 24px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: rgba(109,183,255,0.15);
-      color: #9fd0ff;
-      padding: 8px 14px;
-      border-radius: 999px;
-      margin-bottom: 18px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .footer {
-      margin-top: 35px;
-      font-size: 15px;
-      color: #9fb3c8;
-    }
-
-    a {
-      color: #6db7ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      p, ul {
-        font-size: 17px;
-      }
-
-      .card {
-        padding: 26px;
-      }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .hero { padding-top: 40px; }
+      .links a { padding: 9px 11px; }
     }
   </style>
 </head>
-
 <body>
-  <main class="container">
-    <section class="card">
-      <span class="tag">Renebook | Biblia • Proverbios • Tecnología</span>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Navegación principal">
+      <a class="brand" href="/index.html" aria-label="Renebook Plataforma inicio">
+        <span class="logo" aria-hidden="true">📖</span>
+        <span>Renebook Plataforma <small>Proyecto digital bíblico</small></span>
+      </a>
+      <div class="links">
+        <a href="/index.html">Inicio</a>
+        <a href="/app-biblia.html">App Biblia</a>
+        <a class="active" href="/proyecto.html">Proyecto</a>
+        <a href="/vision.html">Visión</a>
+      </div>
+    </nav>
+  </header>
 
-      <h1>Renebook – Proyecto de Acceso Bíblico Digital</h1>
+  <main>
+    <section class="shell hero">
+      <div class="panel">
+        <span class="eyebrow">🧭 Proyecto de acceso bíblico digital</span>
+        <h1>Renebook ayuda a entrar, leer y permanecer en la Palabra.</h1>
+        <p class="lead">La versión anterior ya comunicaba acceso bíblico claro, práctico y accesible. Esta actualización fortalece la experiencia: más navegación, mejor jerarquía visual, bilingüismo, devocionales breves y una ruta más interactiva para el usuario.</p>
+        <blockquote>“Lámpara es á mis pies tu palabra, Y lumbrera á mi camino.” — Salmo 119:105, RVR1909</blockquote>
+        <div class="actions">
+          <a class="btn btn-primary" href="/app-biblia.html">Probar App Biblia</a>
+          <a class="btn btn-secondary" href="/vision.html">Leer visión</a>
+        </div>
+      </div>
+    </section>
 
-      <p>
-        Renebook es una plataforma digital enfocada en facilitar el acceso a la sabiduría bíblica
-        de manera clara, práctica y accesible para personas de todas las edades y contextos.
-      </p>
+    <section class="shell section">
+      <h2>Arquitectura del proyecto</h2>
+      <p>Renebook se organiza como una plataforma sencilla de cuatro páginas. Cada página cumple una función concreta y evita que el usuario se quede perdido en una portada sin acceso real al contenido.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="icon">🏠</span>
+          <h3>Inicio</h3>
+          <p>Presenta la plataforma, dirige al usuario hacia la App Biblia y muestra una ruta espiritual básica.</p>
+        </article>
+        <article class="card">
+          <span class="icon">📱</span>
+          <h3>App Biblia</h3>
+          <p>Contiene devocionales, versos, botones interactivos, progreso local y sección para niños.</p>
+        </article>
+        <article class="card">
+          <span class="icon">🌎</span>
+          <h3>Visión</h3>
+          <p>Explica el propósito pastoral, misional, educativo y familiar de Renebook.</p>
+        </article>
+      </div>
+    </section>
 
-      <p>
-        El proyecto nace con la visión de conectar la fe con herramientas digitales modernas,
-        ofreciendo una experiencia de lectura optimizada, especialmente en el libro de Proverbios,
-        promoviendo crecimiento espiritual diario.
-      </p>
+    <section class="shell section">
+      <div class="two">
+        <article class="card">
+          <div class="metric">01</div>
+          <h3>Fe y tecnología</h3>
+          <p>El diseño usa herramientas digitales modernas sin perder el centro bíblico. La tecnología sirve a la Palabra; no la reemplaza.</p>
+        </article>
+        <article class="card">
+          <div class="metric">02</div>
+          <h3>Lectura accesible</h3>
+          <p>La interfaz es móvil, clara, con alto contraste, botones grandes y contenido breve para lectura diaria.</p>
+        </article>
+        <article class="card">
+          <div class="metric">03</div>
+          <h3>Contenido bilingüe</h3>
+          <p>Español e inglés permiten servir a familias, jóvenes y comunidades con necesidades lingüísticas mixtas.</p>
+        </article>
+        <article class="card">
+          <div class="metric">04</div>
+          <h3>Formación espiritual</h3>
+          <p>Cada devocional incluye reflexión, aplicación y oración para mover al usuario de información a obediencia práctica.</p>
+        </article>
+      </div>
+    </section>
 
-      <h2>Enfoque principal</h2>
-
-      <ul>
-        <li>Acceso bíblico simplificado.</li>
-        <li>Lectura clara y sin distracciones.</li>
-        <li>Contenido en español e inglés.</li>
-        <li>Diseño accesible para dispositivos móviles.</li>
-        <li>Integración de fe, tecnología y formación espiritual.</li>
-      </ul>
-
-      <p>
-        Renebook no es solo una herramienta tecnológica, sino un puente entre la necesidad espiritual
-        y la accesibilidad digital en el mundo actual.
-      </p>
-
-      <div class="footer">
-        Sitio oficial: <a href="https://renebook.org">renebook.org</a>
+    <section class="shell section">
+      <div class="panel">
+        <span class="eyebrow">🛠️ Próximas mejoras sugeridas</span>
+        <h2>Modelo escalable para GitHub y Netlify.</h2>
+        <div class="timeline">
+          <div class="step"><b>1</b><div><h3>Subir estos cuatro archivos</h3><p>Reemplazar index.html, app-biblia.html, proyecto.html y vision.html en el repositorio actual.</p></div></div>
+          <div class="step"><b>2</b><div><h3>Agregar más Proverbios</h3><p>Extender el arreglo de devocionales dentro de app-biblia.html con más versos RVR1909/KJV.</p></div></div>
+          <div class="step"><b>3</b><div><h3>Crear módulos nuevos</h3><p>Después se puede añadir historias para niños, lectura por capítulos, preguntas, plan semanal y modo maestro/pastor.</p></div></div>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer class="shell">
+    Renebook.org · Proyecto de acceso bíblico digital · Biblia, sabiduría y formación espiritual.
+  </footer>
 </body>
 </html>
