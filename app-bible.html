@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Renebook | App Biblia Interactiva</title>
+  <meta name="description" content="App Biblia Renebook con versos de dominio público, devocionales breves, Proverbios para niños y lectura bilingüe español-inglés." />
+  <style>
+    :root {
+      --bg: #06101e;
+      --bg-2: #0b1b33;
+      --card: rgba(12, 29, 55, .82);
+      --card-2: rgba(15, 42, 82, .88);
+      --text: #f7fbff;
+      --muted: #bdd1e6;
+      --soft: #89a8c8;
+      --line: rgba(255,255,255,.13);
+      --blue: #6db7ff;
+      --cyan: #75f0ff;
+      --gold: #ffd36b;
+      --green: #9ff0bf;
+      --red: #ff9b9b;
+      --shadow: 0 28px 80px rgba(0,0,0,.44);
+      --radius: 26px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(109,183,255,.22), transparent 32rem),
+        radial-gradient(circle at 92% 28%, rgba(255,211,107,.12), transparent 30rem),
+        linear-gradient(145deg, #030811 0%, var(--bg) 48%, #0b1b33 100%);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(16px); background: rgba(4,9,19,.74); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .logo { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(145deg, var(--blue), #172d58); box-shadow: 0 0 30px rgba(109,183,255,.28); }
+    .brand small { display: block; color: var(--soft); font-weight: 600; margin-top: -3px; }
+    .links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .links a, .chip, .tool-btn {
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      color: #dbeaff;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      background: transparent;
+      cursor: pointer;
+    }
+    .links a:hover, .links a.active, .chip.active, .tool-btn:hover { border-color: var(--line); background: rgba(255,255,255,.07); color: #fff; }
+    .hero { padding: 62px 0 24px; }
+    .grid { display: grid; grid-template-columns: .84fr 1.16fr; gap: 22px; align-items: start; }
+    .panel, .reader, .kid-card, .mini-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(10,25,48,.84), rgba(13,43,82,.72));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .panel { padding: 24px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; color: #dff5ff; background: rgba(109,183,255,.12); border: 1px solid rgba(109,183,255,.22); font-size: 14px; font-weight: 900; }
+    h1 { font-size: clamp(34px, 5vw, 60px); line-height: 1.04; margin: 18px 0 12px; letter-spacing: -1px; }
+    h2 { font-size: clamp(26px, 4vw, 42px); line-height: 1.08; margin: 0 0 12px; letter-spacing: -.5px; }
+    h3 { margin: 0 0 8px; font-size: 21px; }
+    p { color: var(--muted); margin: 0 0 14px; }
+    .lead { font-size: clamp(17px, 2vw, 21px); color: #d9eaff; }
+    .quick { display: grid; gap: 12px; margin-top: 18px; }
+    .mini-card { padding: 16px; box-shadow: 0 15px 45px rgba(0,0,0,.22); }
+    .mini-card b { color: var(--gold); }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .reader { min-height: 600px; }
+    .reader-top { padding: 22px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; background: rgba(255,255,255,.035); }
+    .search { display: flex; gap: 10px; flex-wrap: wrap; }
+    .search input { flex: 1 1 240px; min-height: 46px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.08); color: #fff; padding: 0 14px; outline: none; }
+    .search input::placeholder { color: #9cb7d2; }
+    .reader-body { padding: clamp(22px, 4vw, 34px); }
+    .ref-row { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+    .reference { color: var(--cyan); font-weight: 900; }
+    .source { color: var(--soft); font-size: 13px; font-weight: 800; }
+    blockquote { margin: 14px 0 22px; font-size: clamp(24px, 4vw, 42px); line-height: 1.22; letter-spacing: -.45px; color: #fff; }
+    .devobox { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+    .box { border: 1px solid var(--line); border-radius: 20px; padding: 18px; background: rgba(255,255,255,.055); }
+    .box strong { display: block; color: var(--gold); margin-bottom: 6px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 17px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); font-weight: 900; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #06111f; background: linear-gradient(135deg, #98d8ff, var(--blue)); box-shadow: 0 18px 44px rgba(109,183,255,.25); }
+    .btn-secondary { color: #eff8ff; background: rgba(255,255,255,.08); }
+    .btn-gold { color: #181006; background: linear-gradient(135deg, #ffe49c, var(--gold)); }
+    .progress-wrap { margin-top: 20px; }
+    .progress-label { display: flex; justify-content: space-between; color: var(--soft); font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+    .progress { height: 12px; background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
+    .progress span { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--green), var(--cyan), var(--blue)); transition: width .25s ease; }
+    .section { padding: 34px 0; }
+    .kids-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .kid-card { padding: 20px; min-height: 230px; box-shadow: 0 18px 45px rgba(0,0,0,.22); }
+    .kid-card .emoji { font-size: 36px; margin-bottom: 8px; display: block; }
+    .kid-card p { font-size: 16px; }
+    .notice { color: var(--soft); font-size: 13px; padding-top: 12px; }
+    .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(120px); background: rgba(5,12,23,.94); color: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; box-shadow: var(--shadow); transition: transform .22s ease; z-index: 99; }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    footer { padding: 34px 0 46px; color: var(--soft); text-align: center; }
+    @media (max-width: 980px) {
+      .grid, .devobox, .kids-grid { grid-template-columns: 1fr; }
+      .reader-top { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; padding: 15px 0; }
+      .links { justify-content: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .hero { padding-top: 38px; }
+      .links a, .chip, .tool-btn { padding: 9px 11px; }
+      .panel { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Navegación principal">
+      <a class="brand" href="/index.html" aria-label="Renebook Plataforma inicio">
+        <span class="logo" aria-hidden="true">📖</span>
+        <span>Renebook Plataforma <small>App Biblia interactiva</small></span>
+      </a>
+      <div class="links">
+        <a href="/index.html">Inicio</a>
+        <a class="active" href="/app-biblia.html">App Biblia</a>
+        <a href="/proyecto.html">Proyecto</a>
+        <a href="/vision.html">Visión</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div class="grid">
+        <aside class="panel">
+          <span class="eyebrow">📱 Lectura bíblica guiada</span>
+          <h1>Devocionales breves para leer y aplicar hoy.</h1>
+          <p class="lead">Selecciona un tema, cambia de idioma, copia el devocional y marca tu avance. La experiencia está pensada para celular, familias y nuevos lectores.</p>
+          <div class="toolbar" aria-label="Filtros de devocionales">
+            <button class="chip active" data-filter="all">Todos</button>
+            <button class="chip" data-filter="sabiduria">Sabiduría</button>
+            <button class="chip" data-filter="guia">Guía</button>
+            <button class="chip" data-filter="descanso">Descanso</button>
+            <button class="chip" data-filter="evangelio">Evangelio</button>
+          </div>
+          <div class="quick" aria-label="Resumen">
+            <div class="mini-card"><b>Versiones:</b> RVR1909 en español y KJV en inglés.</div>
+            <div class="mini-card"><b>Enfoque:</b> verso, reflexión, aplicación, oración y niños.</div>
+            <div class="mini-card"><b>Privacidad:</b> el progreso se guarda solamente en este navegador.</div>
+          </div>
+        </aside>
+
+        <section class="reader" id="devocionales" aria-live="polite">
+          <div class="reader-top">
+            <div class="search">
+              <input id="searchBox" type="search" placeholder="Buscar: sabiduría, descanso, camino..." aria-label="Buscar devocionales" />
+            </div>
+            <div class="toolbar">
+              <button class="tool-btn active" id="spanishBtn" type="button">Español</button>
+              <button class="tool-btn" id="englishBtn" type="button">English</button>
+            </div>
+          </div>
+
+          <div class="reader-body">
+            <div class="ref-row">
+              <div>
+                <div class="reference" id="reference">Proverbios 1:7</div>
+                <div class="source" id="source">RVR1909 · Texto bíblico de dominio público</div>
+              </div>
+              <div class="source" id="counter">1 de 5</div>
+            </div>
+
+            <blockquote id="verseText">El principio de la sabiduría es el temor de Jehová: Los insensatos desprecian la sabiduría y la enseñanza.</blockquote>
+
+            <div class="devobox">
+              <article class="box">
+                <strong id="reflectionTitle">Reflexión</strong>
+                <p id="reflectionText">La sabiduría bíblica no es solamente acumular información, sino aprender a vivir delante de Dios con reverencia, humildad y obediencia.</p>
+              </article>
+              <article class="box">
+                <strong id="applicationTitle">Aplicación</strong>
+                <p id="applicationText">Antes de tomar decisiones hoy, ora, escucha la Palabra y pregunta: ¿esto honra a Dios y edifica a mi familia?</p>
+              </article>
+            </div>
+
+            <div class="box" style="margin-top:16px;">
+              <strong id="prayerTitle">Oración</strong>
+              <p id="prayerText">Señor, guía mi corazón hacia tu sabiduría. Enséñame a caminar con humildad, claridad y obediencia. En el nombre de Jesús. Amén.</p>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-secondary" id="prevBtn" type="button">← Anterior</button>
+              <button class="btn btn-primary" id="nextBtn" type="button">Siguiente →</button>
+              <button class="btn btn-gold" id="completeBtn" type="button">Marcar leído</button>
+              <button class="btn btn-secondary" id="copyBtn" type="button">Copiar devocional</button>
+            </div>
+
+            <div class="progress-wrap">
+              <div class="progress-label"><span id="progressText">Progreso espiritual</span><span id="progressCount">0/5</span></div>
+              <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="shell section" id="ninos">
+      <span class="eyebrow">🧒 Proverbios para niños</span>
+      <h2>Una sección sencilla para enseñar sabiduría con ternura.</h2>
+      <p>Estas tarjetas ayudan a explicar los principios de Proverbios en lenguaje claro, familiar y visual. Se pueden ampliar después con historias, juegos, preguntas y actividades.</p>
+      <div class="kids-grid" id="kidsGrid"></div>
+      <p class="notice">Nota: los textos devocionales son redacción original para Renebook; los versos base usan RVR1909 y KJV.</p>
+    </section>
+  </main>
+
+  <footer class="shell">
+    Renebook.org · App Biblia · RVR1909 / KJV · Devocionales originales para formación espiritual.
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
+
+  <script>
+    const devotionals = [
+      {
+        tag: 'sabiduria',
+        es: {
+          ref: 'Proverbios 1:7',
+          source: 'RVR1909 · Texto bíblico de dominio público',
+          verse: 'El principio de la sabiduría es el temor de Jehová: Los insensatos desprecian la sabiduría y la enseñanza.',
+          reflection: 'La sabiduría bíblica no es solamente acumular información, sino aprender a vivir delante de Dios con reverencia, humildad y obediencia.',
+          application: 'Antes de tomar decisiones hoy, ora, escucha la Palabra y pregunta: ¿esto honra a Dios y edifica a mi familia?',
+          prayer: 'Señor, guía mi corazón hacia tu sabiduría. Enséñame a caminar con humildad, claridad y obediencia. En el nombre de Jesús. Amén.',
+          kid: 'Sabiduría es escuchar a Dios antes de actuar. Un niño sabio aprende, obedece y trata bien a otros.'
+        },
+        en: {
+          ref: 'Proverbs 1:7',
+          source: 'KJV · Public domain Bible text',
+          verse: 'The fear of the LORD is the beginning of knowledge: but fools despise wisdom and instruction.',
+          reflection: 'Biblical wisdom is not only information. It is learning to live before God with reverence, humility, and obedience.',
+          application: 'Before making decisions today, pray, listen to Scripture, and ask: does this honor God and build up my family?',
+          prayer: 'Lord, guide my heart toward your wisdom. Teach me to walk with humility, clarity, and obedience. In Jesus’ name. Amen.',
+          kid: 'Wisdom means listening to God before acting. A wise child learns, obeys, and treats others well.'
+        }
+      },
+      {
+        tag: 'guia',
+        es: {
+          ref: 'Proverbios 3:5-6',
+          source: 'RVR1909 · Texto bíblico de dominio público',
+          verse: 'Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia. Reconócelo en todos tus caminos, Y él enderezará tus veredas.',
+          reflection: 'Confiar en Dios es descansar el corazón en su carácter. Él no siempre muestra todo el mapa, pero sí dirige el próximo paso.',
+          application: 'Entrega a Dios una decisión concreta. Escríbela, ora por ella y busca consejo bíblico antes de apresurarte.',
+          prayer: 'Padre, no quiero apoyarme solo en mi prudencia. Reconozco tu señorío en mis caminos y recibo tu dirección. En el nombre de Jesús. Amén.',
+          kid: 'Cuando no sabes qué hacer, puedes orar. Dios ayuda a sus hijos a escoger el buen camino.'
+        },
+        en: {
+          ref: 'Proverbs 3:5-6',
+          source: 'KJV · Public domain Bible text',
+          verse: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.',
+          reflection: 'Trusting God means resting the heart in his character. He may not show the whole map, but he guides the next faithful step.',
+          application: 'Give God one specific decision. Write it down, pray over it, and seek biblical counsel before rushing.',
+          prayer: 'Father, I do not want to lean only on my understanding. I acknowledge your lordship in my ways and receive your direction. In Jesus’ name. Amen.',
+          kid: 'When you do not know what to do, you can pray. God helps his children choose the good path.'
+        }
+      },
+      {
+        tag: 'guia',
+        es: {
+          ref: 'Salmo 119:105',
+          source: 'RVR1909 · Texto bíblico de dominio público',
+          verse: 'Lámpara es á mis pies tu palabra, Y lumbrera á mi camino.',
+          reflection: 'La Palabra no fue dada para decorar la vida, sino para alumbrarla. En tiempos confusos, Dios ofrece claridad suficiente para obedecer.',
+          application: 'Lee un versículo despacio y pregúntate: ¿qué debo creer, corregir o practicar hoy?',
+          prayer: 'Señor, alumbra mi mente y mis pasos con tu Palabra. Dame un corazón enseñable y firme. En el nombre de Jesús. Amén.',
+          kid: 'La Biblia es como una luz. Nos ayuda a caminar sin tropezar en la oscuridad.'
+        },
+        en: {
+          ref: 'Psalm 119:105',
+          source: 'KJV · Public domain Bible text',
+          verse: 'Thy word is a lamp unto my feet, and a light unto my path.',
+          reflection: 'The Word was not given to decorate life, but to illuminate it. In confusing times, God gives enough light to obey.',
+          application: 'Read one verse slowly and ask: what should I believe, correct, or practice today?',
+          prayer: 'Lord, shine your Word over my mind and my steps. Give me a teachable and steady heart. In Jesus’ name. Amen.',
+          kid: 'The Bible is like a light. It helps us walk without stumbling in the dark.'
+        }
+      },
+      {
+        tag: 'descanso',
+        es: {
+          ref: 'Mateo 11:28',
+          source: 'RVR1909 · Texto bíblico de dominio público',
+          verse: 'Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.',
+          reflection: 'Cristo no llama solamente a los fuertes; llama a los cansados. Su descanso no niega la carga, pero la pone bajo su gracia.',
+          application: 'Nombra delante de Dios la carga que llevas. No la escondas. Preséntala a Cristo con fe sencilla.',
+          prayer: 'Jesús, vengo a ti con mis cargas. Dame descanso, dirección y un corazón renovado por tu gracia. En tu nombre. Amén.',
+          kid: 'Jesús cuida a los cansados. Puedes hablar con Él cuando estás triste, preocupado o sin fuerzas.'
+        },
+        en: {
+          ref: 'Matthew 11:28',
+          source: 'KJV · Public domain Bible text',
+          verse: 'Come unto me, all ye that labour and are heavy laden, and I will give you rest.',
+          reflection: 'Christ does not call only the strong; he calls the weary. His rest does not deny the burden, but brings it under his grace.',
+          application: 'Name before God the burden you carry. Do not hide it. Bring it to Christ with simple faith.',
+          prayer: 'Jesus, I come to you with my burdens. Give me rest, direction, and a heart renewed by your grace. In your name. Amen.',
+          kid: 'Jesus cares for tired people. You can talk to Him when you feel sad, worried, or weak.'
+        }
+      },
+      {
+        tag: 'evangelio',
+        es: {
+          ref: 'Juan 14:6',
+          source: 'RVR1909 · Texto bíblico de dominio público',
+          verse: 'Jesús le dice: Yo soy el camino, y la verdad, y la vida: nadie viene al Padre, sino por mí.',
+          reflection: 'La fe cristiana no comienza con una idea abstracta, sino con una Persona. Cristo es camino para el perdido, verdad para el confundido y vida para el cansado.',
+          application: 'Comparte hoy una frase sencilla de esperanza: Cristo sigue llamando, perdonando y guiando a los que vienen a Él.',
+          prayer: 'Señor Jesús, afirmo mi fe en ti como camino, verdad y vida. Ayúdame a vivir y compartir tu evangelio con amor. En tu nombre. Amén.',
+          kid: 'Jesús nos muestra el camino a Dios. Él dice la verdad y nos da vida nueva.'
+        },
+        en: {
+          ref: 'John 14:6',
+          source: 'KJV · Public domain Bible text',
+          verse: 'Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me.',
+          reflection: 'Christian faith does not begin with an abstract idea, but with a Person. Christ is the way for the lost, truth for the confused, and life for the weary.',
+          application: 'Share one simple sentence of hope today: Christ still calls, forgives, and guides those who come to Him.',
+          prayer: 'Lord Jesus, I affirm my faith in you as the way, the truth, and the life. Help me live and share your gospel with love. In your name. Amen.',
+          kid: 'Jesus shows us the way to God. He tells the truth and gives us new life.'
+        }
+      }
+    ];
+
+    let language = 'es';
+    let current = 0;
+    let filtered = [...devotionals];
+    const completed = new Set(JSON.parse(localStorage.getItem('renebookCompleted') || '[]'));
+
+    const $ = (id) => document.getElementById(id);
+    const els = {
+      reference: $('reference'), source: $('source'), counter: $('counter'), verseText: $('verseText'),
+      reflectionText: $('reflectionText'), applicationText: $('applicationText'), prayerText: $('prayerText'),
+      reflectionTitle: $('reflectionTitle'), applicationTitle: $('applicationTitle'), prayerTitle: $('prayerTitle'),
+      progressText: $('progressText'), progressCount: $('progressCount'), progressBar: $('progressBar'),
+      searchBox: $('searchBox'), kidsGrid: $('kidsGrid'), toast: $('toast')
+    };
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add('show');
+      setTimeout(() => els.toast.classList.remove('show'), 1800);
+    }
+
+    function updateLabels() {
+      const es = language === 'es';
+      els.reflectionTitle.textContent = es ? 'Reflexión' : 'Reflection';
+      els.applicationTitle.textContent = es ? 'Aplicación' : 'Application';
+      els.prayerTitle.textContent = es ? 'Oración' : 'Prayer';
+      els.progressText.textContent = es ? 'Progreso espiritual' : 'Spiritual progress';
+      $('spanishBtn').classList.toggle('active', es);
+      $('englishBtn').classList.toggle('active', !es);
+      $('completeBtn').textContent = es ? 'Marcar leído' : 'Mark as read';
+      $('copyBtn').textContent = es ? 'Copiar devocional' : 'Copy devotional';
+      $('prevBtn').textContent = es ? '← Anterior' : '← Previous';
+      $('nextBtn').textContent = es ? 'Siguiente →' : 'Next →';
+      els.searchBox.placeholder = es ? 'Buscar: sabiduría, descanso, camino...' : 'Search: wisdom, rest, path...';
+    }
+
+    function render() {
+      if (filtered.length === 0) {
+        els.reference.textContent = language === 'es' ? 'Sin resultados' : 'No results';
+        els.source.textContent = '';
+        els.counter.textContent = '0 de 0';
+        els.verseText.textContent = language === 'es' ? 'Prueba otra palabra de búsqueda.' : 'Try another search word.';
+        els.reflectionText.textContent = '';
+        els.applicationText.textContent = '';
+        els.prayerText.textContent = '';
+        return;
+      }
+      current = Math.max(0, Math.min(current, filtered.length - 1));
+      const originalIndex = devotionals.indexOf(filtered[current]);
+      const item = filtered[current][language];
+      els.reference.textContent = item.ref;
+      els.source.textContent = item.source;
+      els.counter.textContent = `${current + 1} de ${filtered.length}`;
+      els.verseText.textContent = item.verse;
+      els.reflectionText.textContent = item.reflection;
+      els.applicationText.textContent = item.application;
+      els.prayerText.textContent = item.prayer;
+      $('completeBtn').disabled = completed.has(originalIndex);
+      $('completeBtn').style.opacity = completed.has(originalIndex) ? '.68' : '1';
+      updateLabels();
+      updateProgress();
+      renderKids();
+    }
+
+    function updateProgress() {
+      const total = devotionals.length;
+      const count = completed.size;
+      els.progressCount.textContent = `${count}/${total}`;
+      els.progressBar.style.width = `${(count / total) * 100}%`;
+    }
+
+    function renderKids() {
+      els.kidsGrid.innerHTML = devotionals.map((item, index) => {
+        const data = item[language];
+        const done = completed.has(index) ? '✅' : '⭐';
+        const title = language === 'es' ? 'Para niños' : 'For kids';
+        return `
+          <article class="kid-card">
+            <span class="emoji">${done}</span>
+            <h3>${data.ref}</h3>
+            <p><strong>${title}:</strong> ${data.kid}</p>
+            <button class="btn btn-secondary" type="button" onclick="goToDevotional(${index})">${language === 'es' ? 'Leer este verso' : 'Read this verse'}</button>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function goToDevotional(index) {
+      filtered = [...devotionals];
+      current = index;
+      document.querySelectorAll('.chip').forEach(btn => btn.classList.toggle('active', btn.dataset.filter === 'all'));
+      els.searchBox.value = '';
+      render();
+      document.getElementById('devocionales').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function applySearch() {
+      const term = els.searchBox.value.trim().toLowerCase();
+      const activeFilter = document.querySelector('.chip.active')?.dataset.filter || 'all';
+      filtered = devotionals.filter(item => {
+        const data = item[language];
+        const matchesFilter = activeFilter === 'all' || item.tag === activeFilter;
+        const text = `${data.ref} ${data.verse} ${data.reflection} ${data.application} ${data.prayer} ${data.kid}`.toLowerCase();
+        return matchesFilter && (!term || text.includes(term));
+      });
+      current = 0;
+      render();
+    }
+
+    document.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applySearch();
+      });
+    });
+
+    els.searchBox.addEventListener('input', applySearch);
+    $('spanishBtn').addEventListener('click', () => { language = 'es'; applySearch(); });
+    $('englishBtn').addEventListener('click', () => { language = 'en'; applySearch(); });
+    $('prevBtn').addEventListener('click', () => { if (filtered.length) { current = (current - 1 + filtered.length) % filtered.length; render(); } });
+    $('nextBtn').addEventListener('click', () => { if (filtered.length) { current = (current + 1) % filtered.length; render(); } });
+    $('completeBtn').addEventListener('click', () => {
+      if (!filtered.length) return;
+      const originalIndex = devotionals.indexOf(filtered[current]);
+      completed.add(originalIndex);
+      localStorage.setItem('renebookCompleted', JSON.stringify([...completed]));
+      render();
+      showToast(language === 'es' ? 'Devocional marcado como leído.' : 'Devotional marked as read.');
+    });
+    $('copyBtn').addEventListener('click', async () => {
+      if (!filtered.length) return;
+      const data = filtered[current][language];
+      const text = `${data.ref}\n${data.verse}\n\n${language === 'es' ? 'Reflexión' : 'Reflection'}: ${data.reflection}\n\n${language === 'es' ? 'Aplicación' : 'Application'}: ${data.application}\n\n${language === 'es' ? 'Oración' : 'Prayer'}: ${data.prayer}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(language === 'es' ? 'Devocional copiado.' : 'Devotional copied.');
+      } catch (error) {
+        showToast(language === 'es' ? 'No se pudo copiar automáticamente.' : 'Could not copy automatically.');
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
