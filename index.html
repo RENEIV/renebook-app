@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Renebook Plataforma | Biblia, Proverbios y Devocionales</title>
   <meta name="description" content="Renebook Plataforma conecta Biblia, Proverbios, devocionales breves y formación espiritual digital en español e inglés." />
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#07111f">
   <style>
     :root {
       --bg: #07111f;
@@ -189,6 +191,10 @@
     <a href="app-bible.html">App Biblia</a>
     <a href="proyecto.html">Proyecto</a>
     <a href="vision.html">Visión</a>
+    <select id="language">
+  <option value="es">Español (RVR1909)</option>
+  <option value="en">English (ASV)</option>
+</select>
   </nav>
 </header>
 
@@ -264,7 +270,15 @@
   </main>
 
   <footer class="shell">
-    Renebook.org · Textos bíblicos base: RVR1909 y KJV · Plataforma bíblica digital.
+   Renebook.org · Textos bíblicos base: RVR1909 (ES) y ASV (EN)
   </footer>
+  <script>
+    const lang = localStorage.getItem("lang") || "es";
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+  }
+</script>
+  
 </body>
 </html>
+
