@@ -51,7 +51,16 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
+      flex-wrap: wrap;
     }
+    .nav a {
+  white-space: nowrap;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-weight: 600;
+}
     .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
     .logo {
       width: 42px; height: 42px; border-radius: 14px;
@@ -148,6 +157,21 @@
       .links a { padding: 9px 11px; }
       blockquote { font-size: 20px; }
     }
+    @media (max-width: 760px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav {
+    justify-content: flex-start;
+  }
+
+  .nav a {
+    flex: 1;
+    text-align: center;
+  }
+}
   </style>
 </head>
 <body>
@@ -162,7 +186,7 @@
 
   <nav class="nav">
     <a href="index.html">Inicio</a>
-    <a href="app-biblia.html">App Biblia</a>
+    <a href="app-bible.html">App Biblia</a>
     <a href="proyecto.html">Proyecto</a>
     <a href="vision.html">Visión</a>
   </nav>
@@ -206,19 +230,19 @@
           <span class="icon">📱</span>
           <h3>App Biblia interactiva</h3>
           <p>Versos, devocionales, selector de idioma, botón para copiar, progreso local y sección especial para niños.</p>
-          <a href="/app-biblia.html">Abrir App Biblia →</a>
+          <a href="app-bible.html">Abrir App Biblia →</a>
         </article>
         <article class="card">
           <span class="icon">🧭</span>
           <h3>Proyecto digital</h3>
           <p>Explica el propósito, las funciones y la arquitectura espiritual de Renebook como plataforma de acceso bíblico.</p>
-          <a href="/proyecto.html">Ver proyecto →</a>
+          <a href="proyecto.html">Ver proyecto →</a>
         </article>
         <article class="card">
           <span class="icon">🌎</span>
           <h3>Visión formativa</h3>
           <p>Presenta una visión pastoral, misional y educativa para llevar sabiduría bíblica a hogares y nuevas generaciones.</p>
-          <a href="/vision.html">Ver visión →</a>
+          <a href="vision.html">Ver visión →</a>
         </article>
       </div>
     </section>
