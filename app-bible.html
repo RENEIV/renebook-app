@@ -477,8 +477,33 @@
         showToast(language === 'es' ? 'No se pudo copiar automáticamente.' : 'Could not copy automatically.');
       }
     });
+    const lang = localStorage.getItem("lang") || "es";
 
-    render();
+    const verses = {
+      es: {
+        title: "Proverbios 3:5",
+        text: "Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.",
+        version: "RVR1909"
+      },
+      en: {
+        title: "Proverbs 3:5",
+        text: "Trust in Jehovah with all thy heart, and lean not upon thine own understanding.",
+        version: "ASV"
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const data = verses[lang] || verses.es;
+
+  const title = document.getElementById("verse-title");
+  const text = document.getElementById("verse-text");
+  const version = document.getElementById("verse-version");
+
+  if (title) title.textContent = data.title;
+  if (text) text.textContent = data.text;
+  if (version) version.textContent = data.version;
+});
+
   </script>
 </body>
 </html>
