@@ -153,7 +153,7 @@
             <button class="chip" data-filter="evangelio">Evangelio</button>
           </div>
           <div class="quick" aria-label="Resumen">
-            <div class="mini-card"><b>Versiones:</b> RVR1909 en español y KJV en inglés.</div>
+           <div class="mini-card"><b>Versiones:</b> RVR1909 en español y WEB en inglés.</div>
             <div class="mini-card"><b>Enfoque:</b> verso, reflexión, aplicación, oración y niños.</div>
             <div class="mini-card"><b>Privacidad:</b> el progreso se guarda solamente en este navegador.</div>
           </div>
@@ -223,119 +223,101 @@
   </main>
 
   <footer class="shell">
-    Renebook.org · App Biblia · RVR1909 / KJV · Devocionales originales para formación espiritual.
+Renebook.org · App Biblia · RVR1909 / WEB · Devocionales originales para formación espiritual.
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
 
   <script>
     const devotionals = [
-      {
-        tag: 'sabiduria',
-        es: {
-          ref: 'Proverbios 1:7',
-          source: 'RVR1909 · Texto bíblico de dominio público',
-          verse: 'El principio de la sabiduría es el temor de Jehová: Los insensatos desprecian la sabiduría y la enseñanza.',
-          reflection: 'La sabiduría bíblica no es solamente acumular información, sino aprender a vivir delante de Dios con reverencia, humildad y obediencia.',
-          application: 'Antes de tomar decisiones hoy, ora, escucha la Palabra y pregunta: ¿esto honra a Dios y edifica a mi familia?',
-          prayer: 'Señor, guía mi corazón hacia tu sabiduría. Enséñame a caminar con humildad, claridad y obediencia. En el nombre de Jesús. Amén.',
-          kid: 'Sabiduría es escuchar a Dios antes de actuar. Un niño sabio aprende, obedece y trata bien a otros.'
-        },
-        en: {
-          ref: 'Proverbs 1:7',
-          source: 'KJV · Public domain Bible text',
-          verse: 'The fear of the LORD is the beginning of knowledge: but fools despise wisdom and instruction.',
-          reflection: 'Biblical wisdom is not only information. It is learning to live before God with reverence, humility, and obedience.',
-          application: 'Before making decisions today, pray, listen to Scripture, and ask: does this honor God and build up my family?',
-          prayer: 'Lord, guide my heart toward your wisdom. Teach me to walk with humility, clarity, and obedience. In Jesus’ name. Amen.',
-          kid: 'Wisdom means listening to God before acting. A wise child learns, obeys, and treats others well.'
-        }
-      },
-      {
-        tag: 'guia',
-        es: {
-          ref: 'Proverbios 3:5-6',
-          source: 'RVR1909 · Texto bíblico de dominio público',
-          verse: 'Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia. Reconócelo en todos tus caminos, Y él enderezará tus veredas.',
-          reflection: 'Confiar en Dios es descansar el corazón en su carácter. Él no siempre muestra todo el mapa, pero sí dirige el próximo paso.',
-          application: 'Entrega a Dios una decisión concreta. Escríbela, ora por ella y busca consejo bíblico antes de apresurarte.',
-          prayer: 'Padre, no quiero apoyarme solo en mi prudencia. Reconozco tu señorío en mis caminos y recibo tu dirección. En el nombre de Jesús. Amén.',
-          kid: 'Cuando no sabes qué hacer, puedes orar. Dios ayuda a sus hijos a escoger el buen camino.'
-        },
-        en: {
-          ref: 'Proverbs 3:5-6',
-          source: 'KJV · Public domain Bible text',
-          verse: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.',
-          reflection: 'Trusting God means resting the heart in his character. He may not show the whole map, but he guides the next faithful step.',
-          application: 'Give God one specific decision. Write it down, pray over it, and seek biblical counsel before rushing.',
-          prayer: 'Father, I do not want to lean only on my understanding. I acknowledge your lordship in my ways and receive your direction. In Jesus’ name. Amen.',
-          kid: 'When you do not know what to do, you can pray. God helps his children choose the good path.'
-        }
-      },
-      {
-        tag: 'guia',
-        es: {
-          ref: 'Salmo 119:105',
-          source: 'RVR1909 · Texto bíblico de dominio público',
-          verse: 'Lámpara es á mis pies tu palabra, Y lumbrera á mi camino.',
-          reflection: 'La Palabra no fue dada para decorar la vida, sino para alumbrarla. En tiempos confusos, Dios ofrece claridad suficiente para obedecer.',
-          application: 'Lee un versículo despacio y pregúntate: ¿qué debo creer, corregir o practicar hoy?',
-          prayer: 'Señor, alumbra mi mente y mis pasos con tu Palabra. Dame un corazón enseñable y firme. En el nombre de Jesús. Amén.',
-          kid: 'La Biblia es como una luz. Nos ayuda a caminar sin tropezar en la oscuridad.'
-        },
-        en: {
-          ref: 'Psalm 119:105',
-          source: 'KJV · Public domain Bible text',
-          verse: 'Thy word is a lamp unto my feet, and a light unto my path.',
-          reflection: 'The Word was not given to decorate life, but to illuminate it. In confusing times, God gives enough light to obey.',
-          application: 'Read one verse slowly and ask: what should I believe, correct, or practice today?',
-          prayer: 'Lord, shine your Word over my mind and my steps. Give me a teachable and steady heart. In Jesus’ name. Amen.',
-          kid: 'The Bible is like a light. It helps us walk without stumbling in the dark.'
-        }
-      },
-      {
-        tag: 'descanso',
-        es: {
-          ref: 'Mateo 11:28',
-          source: 'RVR1909 · Texto bíblico de dominio público',
-          verse: 'Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.',
-          reflection: 'Cristo no llama solamente a los fuertes; llama a los cansados. Su descanso no niega la carga, pero la pone bajo su gracia.',
-          application: 'Nombra delante de Dios la carga que llevas. No la escondas. Preséntala a Cristo con fe sencilla.',
-          prayer: 'Jesús, vengo a ti con mis cargas. Dame descanso, dirección y un corazón renovado por tu gracia. En tu nombre. Amén.',
-          kid: 'Jesús cuida a los cansados. Puedes hablar con Él cuando estás triste, preocupado o sin fuerzas.'
-        },
-        en: {
-          ref: 'Matthew 11:28',
-          source: 'KJV · Public domain Bible text',
-          verse: 'Come unto me, all ye that labour and are heavy laden, and I will give you rest.',
-          reflection: 'Christ does not call only the strong; he calls the weary. His rest does not deny the burden, but brings it under his grace.',
-          application: 'Name before God the burden you carry. Do not hide it. Bring it to Christ with simple faith.',
-          prayer: 'Jesus, I come to you with my burdens. Give me rest, direction, and a heart renewed by your grace. In your name. Amen.',
-          kid: 'Jesus cares for tired people. You can talk to Him when you feel sad, worried, or weak.'
-        }
-      },
-      {
-        tag: 'evangelio',
-        es: {
-          ref: 'Juan 14:6',
-          source: 'RVR1909 · Texto bíblico de dominio público',
-          verse: 'Jesús le dice: Yo soy el camino, y la verdad, y la vida: nadie viene al Padre, sino por mí.',
-          reflection: 'La fe cristiana no comienza con una idea abstracta, sino con una Persona. Cristo es camino para el perdido, verdad para el confundido y vida para el cansado.',
-          application: 'Comparte hoy una frase sencilla de esperanza: Cristo sigue llamando, perdonando y guiando a los que vienen a Él.',
-          prayer: 'Señor Jesús, afirmo mi fe en ti como camino, verdad y vida. Ayúdame a vivir y compartir tu evangelio con amor. En tu nombre. Amén.',
-          kid: 'Jesús nos muestra el camino a Dios. Él dice la verdad y nos da vida nueva.'
-        },
-        en: {
-          ref: 'John 14:6',
-          source: 'KJV · Public domain Bible text',
-          verse: 'Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me.',
-          reflection: 'Christian faith does not begin with an abstract idea, but with a Person. Christ is the way for the lost, truth for the confused, and life for the weary.',
-          application: 'Share one simple sentence of hope today: Christ still calls, forgives, and guides those who come to Him.',
-          prayer: 'Lord Jesus, I affirm my faith in you as the way, the truth, and the life. Help me live and share your gospel with love. In your name. Amen.',
-          kid: 'Jesus shows us the way to God. He tells the truth and gives us new life.'
-        }
-      }
-    ];
+  {
+    tag: 'sabiduria',
+    es: {
+      ref: 'Proverbios 1:7',
+      source: 'RVR1909 · Texto bíblico de dominio público',
+      verse: 'El principio de la sabiduría es el temor de Jehová; los insensatos desprecian la sabiduría y la enseñanza.',
+      reflection: 'La sabiduría bíblica no es solamente información, sino una relación reverente con Dios.',
+      application: 'Antes de tomar decisiones hoy, ora y busca dirección en Dios.',
+      prayer: 'Señor, guía mi corazón hacia tu sabiduría. Enséñame a honrarte en todo.',
+      kid: 'La sabiduría empieza cuando respetamos a Dios y escuchamos su voz.'
+    },
+    en: {
+      ref: 'Proverbs 1:7',
+      source: 'WEB · Public domain Bible text',
+      verse: 'The fear of Yahweh is the beginning of knowledge; but the foolish despise wisdom and instruction.',
+      reflection: 'Biblical wisdom is not only knowledge, but a reverent relationship with God.',
+      application: 'Before making decisions today, pray and seek God’s direction.',
+      prayer: 'Lord, guide my heart toward your wisdom. Teach me to honor you in everything.',
+      kid: 'Wisdom begins when we respect God and listen to Him.'
+    }
+  },
+
+  {
+    tag: 'guia',
+    es: {
+      ref: 'Proverbios 3:5-6',
+      source: 'RVR1909 · Texto bíblico de dominio público',
+      verse: 'Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia. Reconócelo en todos tus caminos, y él enderezará tus veredas.',
+      reflection: 'Confiar en Dios implica rendir nuestra lógica a su dirección perfecta.',
+      application: 'Entrega hoy una decisión específica a Dios.',
+      prayer: 'Padre, no quiero apoyarme solo en mi entendimiento. Guíame.',
+      kid: 'Confía en Dios, Él sabe cuál es el mejor camino.'
+    },
+    en: {
+      ref: 'Proverbs 3:5-6',
+      source: 'WEB · Public domain Bible text',
+      verse: 'Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.',
+      reflection: 'Trusting God means surrendering our logic to His perfect guidance.',
+      application: 'Give God one specific decision today.',
+      prayer: 'Father, I do not want to rely only on my understanding. Lead me.',
+      kid: 'Trust God. He knows the best way.'
+    }
+  },
+
+  {
+    tag: 'descanso',
+    es: {
+      ref: 'Mateo 11:28',
+      source: 'RVR1909 · Texto bíblico de dominio público',
+      verse: 'Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.',
+      reflection: 'Cristo invita a los cansados, no a los perfectos.',
+      application: 'Trae hoy tu carga a Jesús en oración.',
+      prayer: 'Jesús, vengo a ti con mis cargas. Dame descanso.',
+      kid: 'Jesús cuida a los que están cansados.'
+    },
+    en: {
+      ref: 'Matthew 11:28',
+      source: 'WEB · Public domain Bible text',
+      verse: 'Come to me, all you who labor and are heavily burdened, and I will give you rest.',
+      reflection: 'Christ invites the weary, not the perfect.',
+      application: 'Bring your burdens to Jesus today.',
+      prayer: 'Jesus, I come to you with my burdens. Give me rest.',
+      kid: 'Jesus takes care of tired people.'
+    }
+  },
+
+  {
+    tag: 'evangelio',
+    es: {
+      ref: 'Juan 14:6',
+      source: 'RVR1909 · Texto bíblico de dominio público',
+      verse: 'Yo soy el camino, y la verdad, y la vida; nadie viene al Padre sino por mí.',
+      reflection: 'Jesús no solo muestra el camino, Él es el camino.',
+      application: 'Afirma hoy tu fe en Cristo.',
+      prayer: 'Señor Jesús, afirmo mi fe en ti como el único camino.',
+      kid: 'Jesús es el camino para llegar a Dios.'
+    },
+    en: {
+      ref: 'John 14:6',
+      source: 'WEB · Public domain Bible text',
+      verse: 'Jesus said to him, "I am the way, the truth, and the life. No one comes to the Father, except through me."',
+      reflection: 'Jesus is not just a guide, He is the way.',
+      application: 'Affirm your faith in Christ today.',
+      prayer: 'Lord Jesus, I affirm my faith in you as the only way.',
+      kid: 'Jesus is the way to God.'
+    }
+  }
+];
 
     let language = 'es';
     let current = 0;
