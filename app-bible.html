@@ -508,6 +508,46 @@ if (selector) {
   });
 }
 
-  </script>
+function renderProverbsReader() {
+  const lang = localStorage.getItem("lang") || "es";
+  const data = window.PROVERBS ? (window.PROVERBS[lang] || window.PROVERBS.es) : null;
+
+  const chapterSelect = document.getElementById("chapterSelect");
+  const chapterTitle = document.getElementById("chapterTitle");
+  const versesList = document.getElementById("versesList");
+
+  if (!chapterSelect || !chapterTitle || !versesList || !data) return;
+
+  chapterSelect.innerHTML = data.chapters
+    .map(ch => `<option value="${ch.chapter}">Capítulo ${ch.chapter}</option>`)
+    .join("");
+
+  function showChapter(chapterNumber) {
+    const chapter = data.chapters.find(ch => String(ch.chapter) === String(chapterNumber));
+    if (!chapter) return;
+
+    chapterTitle.textContent = `${data.book} ${chapter.chapter} · ${data.version}`;
+
+    versesList.innerHTML = chapter.verses
+      .map(v => `
+        <div class="verse-row">
+          <span class="verse-num">${v.number}</span>
+          <span>${v.text}</span>
+        </div>
+      `)
+      .join("");
+  }
+
+  chapterSelect.addEventListener("change", () => {
+    showChapter(chapterSelect.value);
+  });
+
+  showChapter(data.chapters[0].chapter);
+}
+
+document.addEventListener("DOMContentLoaded", renderProverbsReader);
+
+</script>
+  
 </body>
 </html>
