@@ -632,6 +632,39 @@ document.addEventListener("DOMContentLoaded", function () {
   fillChapterSelect();
   renderChapter();
 });
-</script>  
+<script src="/data/proverbs.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+
+  if (!data || !data.es || !data.es.chapters) {
+    console.error("No se encontró PROVERBS en /data/proverbs.js");
+    return;
+  }
+
+  const chapters = data.es.chapters;
+  const select = document.querySelector("select");
+
+  if (!select) {
+    console.error("No se encontró el selector de capítulos.");
+    return;
+  }
+
+  select.innerHTML = "";
+
+  chapters.forEach(function (chapter) {
+    const option = document.createElement("option");
+    option.value = chapter.chapter;
+    option.textContent = "Capítulo " + chapter.chapter;
+    select.appendChild(option);
+  });
+
+  if (typeof renderChapter === "function") {
+    renderChapter();
+  }
+});
+</script>
+
 </body>
 </html>
