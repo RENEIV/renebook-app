@@ -17,6 +17,48 @@ h2 {
   font-size: 24px;
   font-weight: 700;
 }
+/* ===== READER PRO ===== */
+
+.reader-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 18px 0;
+}
+
+.reader-controls select {
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.reader-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 18px 0;
+  color: var(--cyan);
+}
+
+.verses-list {
+  display: grid;
+  gap: 12px;
+}
+
+.verse-row {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+}
+
+.verse-num {
+  color: var(--gold);
+  font-weight: 900;
+  margin-right: 8px;
+}
 
 .card {
   background: linear-gradient(145deg, #0f1f3d, #07111f);
