@@ -1,5 +1,7 @@
 window.PROVERBS = {
-  es: { version: "RVR1909", book: "Proverbios", chapters: [ {
+  es: { version: "RVR1909", 
+  book: "Proverbios", chapters: [ 
+    {
   chapter: 1,
   verses: [
     { number: 1, text: "Los proverbios de Salomón, hijo de David, rey de Israel;" },
@@ -12,13 +14,11 @@ window.PROVERBS = {
     { number: 8, text: "Oye, hijo mío, la doctrina de tu padre, y no desprecies la dirección de tu madre;" },
     { number: 9, text: "Porque adorno de gracia serán á tu cabeza, y collares á tu cuello." },
     { number: 10, text: "Hijo mío, si los pecadores te quisieren engañar, no consientas." }
-     ]
-   }
   ]
-}
+},
     
   en: { 
-  version: "WEB" 
+  version: "WEB", 
   book: "Proverbs", 
   chapters: [ 
     {
@@ -38,4 +38,4 @@ window.PROVERBS = {
   }
  ]
 }     
-
+};
