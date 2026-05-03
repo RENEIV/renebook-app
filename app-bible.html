@@ -545,9 +545,93 @@ function renderProverbsReader() {
   showChapter(data.chapters[0].chapter);
 }
 
-document.addEventListener("DOMContentLoaded", renderProverbsReader);
-
 </script>
-  
+<script src="/data/proverbs.js?v=20260503"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const chapterSelect =
+    document.getElementById("chapterSelect") ||
+    document.getElementById("chapter-select") ||
+    document.getElementById("chapter") ||
+    document.querySelector("select");
+
+  const contentBox =
+    document.getElementById("proverbiosContent") ||
+    document.getElementById("bibleContent") ||
+    document.getElementById("readerContent") ||
+    document.querySelector(".reader-content");
+
+  if (!chapterSelect) {
+    console.error("No se encontró el selector de capítulos.");
+    return;
+  }
+
+  if (!window.PROVERBS) {
+    console.error("No se cargó window.PROVERBS desde /data/proverbs.js");
+    chapterSelect.innerHTML = '<option>No Options</option>';
+    return;
+  }
+
+  let currentLang = "es";
+
+  function getChapters() {
+    return window.PROVERBS[currentLang]?.chapters || [];
+  }
+
+  function fillChapterSelect() {
+    const chapters = getChapters();
+
+    chapterSelect.innerHTML = "";
+
+    if (!chapters.length) {
+      chapterSelect.innerHTML = '<option>No Options</option>';
+      return;
+    }
+
+    chapters.forEach(function (chapter) {
+      const option = document.createElement("option");
+      option.value = chapter.chapter;
+      option.textContent = chapter.chapter;
+      chapterSelect.appendChild(option);
+    });
+  }
+
+  function renderChapter() {
+    if (!contentBox) return;
+
+    const chapterNumber = Number(chapterSelect.value);
+    const chapterData = getChapters().find(
+      chapter => Number(chapter.chapter) === chapterNumber
+    );
+
+    if (!chapterData) {
+      contentBox.innerHTML = "<p>No se encontró este capítulo.</p>";
+      return;
+    }
+
+    const version = window.PROVERBS[currentLang].version;
+    const book = window.PROVERBS[currentLang].book;
+
+    contentBox.innerHTML = `
+      <div class="chapter-card">
+        <h2>${book} ${chapterData.chapter}</h2>
+        <p><strong>${version}</strong></p>
+        ${chapterData.verses.map(verse => `
+          <div class="verse-card">
+            <strong>${chapterData.chapter}:${verse.number}</strong>
+            <p>${verse.text}</p>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  chapterSelect.addEventListener("change", renderChapter);
+
+  fillChapterSelect();
+  renderChapter();
+});
+</script>  
 </body>
 </html>
