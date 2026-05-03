@@ -34,8 +34,5 @@ window.PROVERBS = {
     { number: 8, text: "My son, listen to your father’s instruction, and don’t forsake your mother’s teaching:" },
     { number: 9, text: "For they will be a garland to grace your head, and chains around your neck." },
     { number: 10, text: "My son, if sinners entice you, don’t consent." }
-   ]
-  }
- ]
-}     
+   ]     
 };
