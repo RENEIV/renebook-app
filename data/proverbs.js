@@ -1,4 +1,4 @@
-const PROVERBS = {
+window.PROVERBS = {
   es: {
     version: "RVR1909",
     book: "Proverbios",
