@@ -1,124 +1,286 @@
-/* =========================================================
-   RENEBOOK - DATA / PROVERBS
-   Ruta pública esperada:
+/* ==========================================================
+   RENEBOOK — DATA / PROVERBS
+   Español: Reina-Valera 1909 via GetBible "valera"
+   English: World English Bible via GetBible "web"
+
+   Archivo público esperado:
    https://renebook.org/data/proverbs.js
-   ========================================================= */
 
-window.PROVERBS = {
-  es: {
-    version: "RVR1909",
-    book: "Proverbios",
-    chapters: [
-      {
-        number: 1,
-        chapter: 1,
-        title: "Proverbios 1",
-        verses: [
-          {
-            number: 1,
-            verse: 1,
-            text: "Los proverbios de Salomón, hijo de David, rey de Israel."
-          },
-          {
-            number: 2,
-            verse: 2,
-            text: "Para entender sabiduría y doctrina; para conocer razones prudentes."
-          },
-          {
-            number: 3,
-            verse: 3,
-            text: "Para recibir el consejo de prudencia, justicia, juicio y equidad."
-          },
-          {
-            number: 4,
-            verse: 4,
-            text: "Para dar sagacidad a los simples, y a los jóvenes inteligencia y cordura."
-          },
-          {
-            number: 5,
-            verse: 5,
-            text: "Oirá el sabio, y aumentará el saber; y el entendido adquirirá consejo."
-          },
-          {
-            number: 6,
-            verse: 6,
-            text: "Para entender proverbio y declaración; palabras de sabios, y sus dichos oscuros."
-          },
-          {
-            number: 7,
-            verse: 7,
-            text: "El principio de la sabiduría es el temor de Jehová: los insensatos desprecian la sabiduría y la enseñanza."
-          }
-        ],
-        devotional: {
-          title: "El principio de la sabiduría",
-          reflection: "La sabiduría bíblica no comienza con información, sino con reverencia. El temor de Jehová ordena el corazón, la mente y las decisiones.",
-          application: "Antes de decidir, estudiar o hablar, pide a Dios un corazón enseñable.",
-          prayer: "Señor, dame sabiduría verdadera y un corazón humilde para obedecer tu Palabra. En el nombre de Jesús. Amén."
-        }
-      },
-      {
-        number: 2,
-        chapter: 2,
-        title: "Proverbios 2",
-        verses: [
-          {
-            number: 1,
-            verse: 1,
-            text: "Hijo mío, si tomares mis palabras, y mis mandamientos guardares dentro de ti."
-          },
-          {
-            number: 2,
-            verse: 2,
-            text: "Haciendo estar atento tu oído a la sabiduría; si inclinares tu corazón a la prudencia."
-          },
-          {
-            number: 3,
-            verse: 3,
-            text: "Si clamares a la inteligencia, y a la prudencia dieres tu voz."
-          }
-        ],
-        devotional: {
-          title: "Buscar sabiduría con intención",
-          reflection: "La sabiduría no se recibe de manera pasiva. Proverbios enseña a escuchar, guardar, inclinar el corazón y clamar a Dios.",
-          application: "Haz de la Palabra una búsqueda diaria, no solo una lectura rápida.",
-          prayer: "Señor, inclina mi corazón a tu sabiduría y guarda mis pasos en tu verdad. En el nombre de Jesús. Amén."
-        }
-      },
-      {
-        number: 3,
-        chapter: 3,
-        title: "Proverbios 3",
-        verses: [
-          {
-            number: 1,
-            verse: 1,
-            text: "Hijo mío, no te olvides de mi ley; y tu corazón guarde mis mandamientos."
-          },
-          {
-            number: 2,
-            verse: 2,
-            text: "Porque largura de días, y años de vida y paz te aumentarán."
-          },
-          {
-            number: 3,
-            verse: 3,
-            text: "Misericordia y verdad no te desamparen; átalas a tu cuello, escríbelas en la tabla de tu corazón."
-          }
-        ],
-        devotional: {
-          title: "Guardar la Palabra en el corazón",
-          reflection: "Dios no solo quiere que recordemos su Palabra, sino que la llevemos escrita en el corazón.",
-          application: "Practica hoy misericordia y verdad en una conversación concreta.",
-          prayer: "Señor, escribe tu verdad en mi corazón y ayúdame a caminar con misericordia. En el nombre de Jesús. Amén."
-        }
+   IMPORTANTE:
+   Este archivo carga Proverbios 1–31 completo en ES/EN,
+   normaliza la estructura para la app, y guarda caché local.
+========================================================== */
+
+(function () {
+  "use strict";
+
+  const BOOK_NUMBER = 20; // Proverbs / Proverbios
+  const TOTAL_CHAPTERS = 31;
+  const CACHE_KEY = "renebook_proverbs_bilingual_v20260504b";
+
+  const SOURCES = {
+    es: {
+      api: "valera",
+      version: "RVR1909",
+      book: "Proverbios",
+      titlePrefix: "Proverbios"
+    },
+    en: {
+      api: "web",
+      version: "WEB",
+      book: "Proverbs",
+      titlePrefix: "Proverbs"
+    }
+  };
+
+  const EMPTY_DATA = {
+    es: {
+      version: "RVR1909",
+      book: "Proverbios",
+      chapters: []
+    },
+    en: {
+      version: "WEB",
+      book: "Proverbs",
+      chapters: []
+    }
+  };
+
+  function readCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+
+      const parsed = JSON.parse(raw);
+
+      if (
+        parsed &&
+        parsed.es &&
+        parsed.en &&
+        Array.isArray(parsed.es.chapters) &&
+        Array.isArray(parsed.en.chapters) &&
+        parsed.es.chapters.length === TOTAL_CHAPTERS &&
+        parsed.en.chapters.length === TOTAL_CHAPTERS
+      ) {
+        return parsed;
       }
-    ]
+
+      return null;
+    } catch (error) {
+      console.warn("Renebook: no se pudo leer caché de Proverbios.", error);
+      return null;
+    }
   }
-};
 
-/* Compatibilidad por si la app busca otro nombre */
-window.proverbs = window.PROVERBS;
-window.PROVERBIOS = window.PROVERBS;
+  function saveCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    } catch (error) {
+      console.warn("Renebook: no se pudo guardar caché de Proverbios.", error);
+    }
+  }
 
-console.log("✅ Renebook Proverbs data loaded:", window.PROVERBS);
+  function cleanText(text) {
+    return String(text || "")
+      .replace(/<[^>]*>/g, "")
+      .replace(/\{[GH]\d+\}/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function normalizeChapter(payload, langKey, fallbackChapterNumber) {
+    const source = SOURCES[langKey];
+    const rawVerses = Array.isArray(payload?.verses) ? payload.verses : [];
+
+    const chapterNumber = Number(
+      payload?.chapter ||
+      rawVerses[0]?.chapter ||
+      fallbackChapterNumber
+    );
+
+    return {
+      number: chapterNumber,
+      chapter: chapterNumber,
+      title: `${source.titlePrefix} ${chapterNumber}`,
+      verses: rawVerses.map(function (verse) {
+        const verseNumber = Number(verse.verse || verse.number);
+
+        return {
+          number: verseNumber,
+          verse: verseNumber,
+          text: cleanText(verse.text)
+        };
+      })
+    };
+  }
+
+  function normalizeBook(payload, langKey) {
+    if (!payload) return null;
+
+    let rawChapters = [];
+
+    if (Array.isArray(payload.chapters)) {
+      rawChapters = payload.chapters;
+    } else if (payload.chapters && typeof payload.chapters === "object") {
+      rawChapters = Object.values(payload.chapters);
+    } else if (Array.isArray(payload.verses)) {
+      const grouped = {};
+
+      payload.verses.forEach(function (verse) {
+        const chapterNumber = Number(verse.chapter);
+        if (!grouped[chapterNumber]) {
+          grouped[chapterNumber] = {
+            chapter: chapterNumber,
+            verses: []
+          };
+        }
+        grouped[chapterNumber].verses.push(verse);
+      });
+
+      rawChapters = Object.values(grouped);
+    }
+
+    if (!rawChapters.length) return null;
+
+    const chapters = rawChapters
+      .map(function (chapterPayload, index) {
+        return normalizeChapter(chapterPayload, langKey, index + 1);
+      })
+      .filter(function (chapter) {
+        return chapter.chapter >= 1 && chapter.chapter <= TOTAL_CHAPTERS;
+      })
+      .sort(function (a, b) {
+        return a.chapter - b.chapter;
+      });
+
+    if (chapters.length !== TOTAL_CHAPTERS) return null;
+
+    return chapters;
+  }
+
+  async function fetchJSON(url) {
+    const response = await fetch(url, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} — ${url}`);
+    }
+
+    return response.json();
+  }
+
+  async function loadBookBySingleRequest(langKey) {
+    const source = SOURCES[langKey];
+    const url = `https://api.getbible.net/v2/${source.api}/${BOOK_NUMBER}.json`;
+    const payload = await fetchJSON(url);
+    const chapters = normalizeBook(payload, langKey);
+
+    if (!chapters) {
+      throw new Error(`Formato inesperado al cargar libro completo: ${source.api}`);
+    }
+
+    return {
+      version: source.version,
+      book: source.book,
+      chapters
+    };
+  }
+
+  async function loadBookByChapters(langKey) {
+    const source = SOURCES[langKey];
+    const chapters = [];
+
+    for (let chapter = 1; chapter <= TOTAL_CHAPTERS; chapter += 1) {
+      const url = `https://api.getbible.net/v2/${source.api}/${BOOK_NUMBER}/${chapter}.json`;
+      const payload = await fetchJSON(url);
+      chapters.push(normalizeChapter(payload, langKey, chapter));
+    }
+
+    return {
+      version: source.version,
+      book: source.book,
+      chapters
+    };
+  }
+
+  async function loadLanguage(langKey) {
+    try {
+      return await loadBookBySingleRequest(langKey);
+    } catch (bookError) {
+      console.warn(
+        `Renebook: no se pudo cargar ${langKey} por libro completo. Intentando capítulo por capítulo.`,
+        bookError
+      );
+
+      return loadBookByChapters(langKey);
+    }
+  }
+
+  function publishData(data) {
+    window.PROVERBS = data;
+
+    // Alias de compatibilidad por si otros archivos usan nombres anteriores.
+    window.proverbs = data;
+    window.PROVERBIOS = data;
+
+    window.dispatchEvent(
+      new CustomEvent("renebook:proverbs-ready", {
+        detail: data
+      })
+    );
+
+    setTimeout(function () {
+      if (typeof window.renderProverbsReader === "function") {
+        window.renderProverbsReader();
+      }
+    }, 0);
+  }
+
+  async function loadProverbs() {
+    try {
+      const result = await Promise.all([
+        loadLanguage("es"),
+        loadLanguage("en")
+      ]);
+
+      const data = {
+        es: result[0],
+        en: result[1]
+      };
+
+      saveCache(data);
+      publishData(data);
+
+      console.log("Renebook: Proverbios bilingüe cargado correctamente.", data);
+      return data;
+    } catch (error) {
+      console.error("Renebook: error cargando Proverbios bilingüe.", error);
+
+      window.RENEBOOK_PROVERBS_ERROR = error;
+
+      window.dispatchEvent(
+        new CustomEvent("renebook:proverbs-error", {
+          detail: error
+        })
+      );
+
+      return window.PROVERBS;
+    }
+  }
+
+  // 1) Publicar primero caché si existe, para que la app abra rápido.
+  const cached = readCache();
+
+  if (cached) {
+    publishData(cached);
+  } else {
+    publishData(EMPTY_DATA);
+  }
+
+  // 2) Luego cargar datos frescos desde GetBible.
+  window.RENEBOOK_LOAD_PROVERBS = loadProverbs;
+  window.RENEBOOK_PROVERBS_READY = loadProverbs();
+})();
+
