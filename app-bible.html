@@ -1150,5 +1150,224 @@ document.addEventListener("DOMContentLoaded", function () {
   }, true);
 })();
 </script>
+  <style>
+  .renebook-bible-search {
+    margin: 22px 0;
+    padding: 18px;
+    border: 1px solid rgba(125, 180, 255, 0.35);
+    border-radius: 22px;
+    background: rgba(10, 28, 50, 0.82);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+  }
+
+  .renebook-bible-search label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 800;
+    color: #f4f8ff;
+  }
+
+  .renebook-bible-search-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .renebook-bible-search input {
+    flex: 1;
+    min-width: 240px;
+    padding: 13px 15px;
+    border-radius: 14px;
+    border: 1px solid rgba(160, 190, 230, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 1rem;
+  }
+
+  .renebook-bible-search button {
+    padding: 13px 18px;
+    border-radius: 14px;
+    border: 0;
+    background: #86c9ff;
+    color: #07111f;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .renebook-bible-search small {
+    display: block;
+    margin-top: 10px;
+    color: #9fb6d3;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const SEARCH_MAP = [
+    { terms: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"], c: 1, v: 7, lang: "es" },
+    { terms: ["familia", "hijo", "hijos", "padre", "madre", "hogar", "casa"], c: 1, v: 8, lang: "es" },
+    { terms: ["confianza", "confiar", "corazon", "corazón"], c: 3, v: 5, lang: "es" },
+    { terms: ["oracion", "oración", "guia", "guía", "direccion", "dirección"], c: 3, v: 6, lang: "es" },
+    { terms: ["paz", "descanso", "reposo", "seguridad"], c: 3, v: 24, lang: "es" },
+    { terms: ["mujer virtuosa", "mujer", "esposa"], c: 31, v: 10, lang: "es" },
+    { terms: ["trabajo", "diligencia", "pereza", "hormiga"], c: 6, v: 6, lang: "es" },
+    { terms: ["amistad", "amigo", "amigos"], c: 27, v: 17, lang: "es" },
+    { terms: ["lengua", "palabras", "hablar", "respuesta"], c: 15, v: 1, lang: "es" },
+
+    { terms: ["wisdom", "knowledge", "understanding"], c: 1, v: 7, lang: "en" },
+    { terms: ["family", "son", "father", "mother", "home"], c: 1, v: 8, lang: "en" },
+    { terms: ["trust", "heart"], c: 3, v: 5, lang: "en" },
+    { terms: ["prayer", "guide", "direction"], c: 3, v: 6, lang: "en" },
+    { terms: ["peace", "rest", "security"], c: 3, v: 24, lang: "en" },
+    { terms: ["virtuous woman", "woman", "wife"], c: 31, v: 10, lang: "en" },
+    { terms: ["work", "diligence", "lazy", "ant"], c: 6, v: 6, lang: "en" },
+    { terms: ["friend", "friendship"], c: 27, v: 17, lang: "en" },
+    { terms: ["words", "tongue", "speak", "answer"], c: 15, v: 1, lang: "en" }
+  ];
+
+  function normalize(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function findReference(value) {
+    const q = normalize(value);
+
+    if (!q) return null;
+
+    const ref = q.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/);
+
+    if (ref) {
+      const chapter = Number(ref[1]);
+      const verse = ref[2] ? Number(ref[2]) : 1;
+
+      if (chapter >= 1 && chapter <= 31) {
+        return {
+          c: chapter,
+          v: verse,
+          lang: q.includes("proverbs") ? "en" : "es"
+        };
+      }
+    }
+
+    return SEARCH_MAP.find(function (item) {
+      return item.terms.some(function (term) {
+        return q.includes(normalize(term));
+      });
+    }) || null;
+  }
+
+  function goToReference(ref) {
+    localStorage.setItem("renebook_reader_language", ref.lang);
+    localStorage.setItem("renebook_reader_chapter", String(ref.c));
+
+    const select = document.getElementById("chapterSelect") || document.querySelector("select");
+
+    if (select) {
+      select.value = String(ref.c);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    setTimeout(function () {
+      const title = document.getElementById("chapterTitle");
+      const versesList = document.getElementById("versesList");
+
+      if (!versesList) {
+        if (title) title.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const verses = Array.from(versesList.querySelectorAll(".reader-verse, p"));
+
+      const target = verses.find(function (verse) {
+        const numberNode = verse.querySelector(".verse-number");
+        if (numberNode && Number(numberNode.textContent.trim()) === ref.v) return true;
+
+        const match = verse.textContent.trim().match(/^(\d+)/);
+        return match && Number(match[1]) === ref.v;
+      });
+
+      if (target) {
+        target.style.outline = "3px solid rgba(125, 220, 255, 0.95)";
+        target.style.background = "rgba(125, 220, 255, 0.14)";
+        target.style.borderRadius = "14px";
+        target.style.padding = "8px 10px";
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (title) {
+        title.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 350);
+  }
+
+  function runSearch() {
+    const input = document.getElementById("renebookBibleSearchInput");
+    const status = document.getElementById("renebookBibleSearchStatus");
+
+    if (!input) return;
+
+    const ref = findReference(input.value);
+
+    if (!ref) {
+      if (status) status.textContent = "No encontré esa palabra todavía. Prueba: sabiduría, familia, paz, oración o proverbios 31:10.";
+      return;
+    }
+
+    if (status) {
+      status.textContent = "Abriendo Proverbios " + ref.c + ":" + ref.v + "...";
+    }
+
+    goToReference(ref);
+  }
+
+  function installBibleSearch() {
+    if (document.getElementById("renebookBibleSearchBox")) return;
+
+    const box = document.createElement("section");
+    box.id = "renebookBibleSearchBox";
+    box.className = "renebook-bible-search";
+    box.innerHTML = `
+      <label for="renebookBibleSearchInput">Buscar en Proverbios</label>
+      <div class="renebook-bible-search-row">
+        <input id="renebookBibleSearchInput" type="search" placeholder="sabiduría, familia, paz, oración, mujer virtuosa, proverbios 31:10">
+        <button id="renebookBibleSearchButton" type="button">Buscar</button>
+      </div>
+      <small id="renebookBibleSearchStatus">Buscador bíblico activo. Puedes usar Enter.</small>
+    `;
+
+    const chapterSelect = document.getElementById("chapterSelect") || document.querySelector("select");
+    const anchor = chapterSelect
+      ? (chapterSelect.closest(".reader-controls") || chapterSelect.parentElement)
+      : document.querySelector("h1");
+
+    if (anchor) {
+      anchor.insertAdjacentElement("afterend", box);
+    } else {
+      document.body.insertAdjacentElement("afterbegin", box);
+    }
+
+    document.getElementById("renebookBibleSearchButton").addEventListener("click", runSearch);
+
+    document.getElementById("renebookBibleSearchInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        runSearch();
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", installBibleSearch);
+  window.addEventListener("load", installBibleSearch);
+  setTimeout(installBibleSearch, 800);
+})();
+</script>
 </body>
 </html>
