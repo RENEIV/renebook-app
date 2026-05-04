@@ -933,6 +933,88 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("renebook:proverbs-ready", renderProverbsReader);
 })();
 </script>
-  
+<script>
+(function () {
+  "use strict";
+
+  function parseBibleReference(value) {
+    const text = String(value || "").trim().toLowerCase();
+
+    const match = text.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/i);
+
+    if (!match) return null;
+
+    const chapter = Number(match[1]);
+    const verse = match[2] ? Number(match[2]) : null;
+
+    if (chapter < 1 || chapter > 31) return null;
+
+    return {
+      chapter,
+      verse,
+      lang: text.includes("proverbs") ? "en" : "es"
+    };
+  }
+
+  function goToBibleReference(ref) {
+    localStorage.setItem("renebook_reader_language", ref.lang);
+    localStorage.setItem("renebook_reader_chapter", String(ref.chapter));
+
+    const chapterSelect = document.getElementById("chapterSelect") || document.querySelector("select");
+
+    if (chapterSelect) {
+      chapterSelect.value = String(ref.chapter);
+    }
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    setTimeout(function () {
+      const title = document.getElementById("chapterTitle");
+      const versesList = document.getElementById("versesList");
+
+      if (!ref.verse || !versesList) {
+        if (title) title.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const verses = Array.from(versesList.querySelectorAll(".reader-verse, p"));
+
+      const targetVerse = verses.find(function (item) {
+        const numberNode = item.querySelector(".verse-number");
+        if (numberNode && Number(numberNode.textContent.trim()) === ref.verse) return true;
+
+        const firstNumber = item.textContent.trim().match(/^(\d+)/);
+        return firstNumber && Number(firstNumber[1]) === ref.verse;
+      });
+
+      if (targetVerse) {
+        targetVerse.style.outline = "2px solid rgba(125, 200, 255, 0.95)";
+        targetVerse.style.borderRadius = "14px";
+        targetVerse.style.padding = "8px 10px";
+        targetVerse.style.background = "rgba(125, 200, 255, 0.10)";
+        targetVerse.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (title) {
+        title.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 180);
+  }
+
+  document.addEventListener("keydown", function (event) {
+    const target = event.target;
+
+    if (!target || target.tagName !== "INPUT") return;
+    if (event.key !== "Enter") return;
+
+    const ref = parseBibleReference(target.value);
+
+    if (!ref) return;
+
+    event.preventDefault();
+    goToBibleReference(ref);
+  });
+})();
+</script>  
 </body>
 </html>
