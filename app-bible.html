@@ -635,12 +635,304 @@ document.addEventListener("DOMContentLoaded", function () {
 <script src="/data/proverbs.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  if (typeof renderProverbsReader === "function") {
-    renderProverbsReader();
+<style>
+  .reader-language-toggle {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 22px;
+    flex-wrap: wrap;
   }
-});
-</script>
 
+  .reader-lang-btn {
+    border: 1px solid rgba(125, 180, 255, 0.45);
+    background: rgba(15, 38, 65, 0.75);
+    color: #f4f8ff;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .reader-lang-btn.active {
+    background: #ffffff;
+    color: #07111f;
+    border-color: #ffffff;
+  }
+
+  .reader-verse {
+    margin: 14px 0;
+    line-height: 1.65;
+  }
+
+  .verse-number {
+    font-weight: 800;
+    margin-right: 8px;
+  }
+
+  .chapter-devotional {
+    margin-top: 34px;
+    padding: 22px;
+    border-radius: 22px;
+    border: 1px solid rgba(125, 180, 255, 0.28);
+    background: rgba(9, 25, 45, 0.72);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  }
+
+  .chapter-devotional h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+  }
+
+  .chapter-devotional p {
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const STORAGE_LANG = "renebook_reader_language";
+  const STORAGE_CHAPTER = "renebook_reader_chapter";
+
+  const DEVOTIONALS = {
+    es: {
+      1: ["La sabiduría comienza con reverencia", "Proverbios 1 nos llama a escuchar la instrucción y rechazar la voz que seduce al mal. Hoy, el primer paso de la sabiduría es rendir el corazón a Dios antes de tomar decisiones."],
+      2: ["Busca sabiduría como tesoro", "La sabiduría no llega por accidente; se busca con hambre espiritual. Cuando Dios guía la mente, también protege el camino."],
+      3: ["Confianza que ordena la vida", "Este capítulo nos recuerda que confiar en Dios no es pasividad, sino dirección. La fe madura aprende a depender del Señor en cada paso."],
+      4: ["Guarda tu corazón", "La vida espiritual se cuida desde adentro. Un corazón dirigido por Dios produce decisiones más limpias, palabras más sanas y caminos más firmes."],
+      5: ["Fidelidad que protege", "La sabiduría también cuida los afectos. Dios llama a vivir con pureza, lealtad y dominio propio en un mundo lleno de distracciones."],
+      6: ["Diligencia y responsabilidad", "Proverbios 6 confronta la pereza, la mentira y el desorden. La gracia de Dios también nos forma para vivir con disciplina y honestidad."],
+      7: ["Discernir antes de caer", "La tentación muchas veces se presenta con palabras suaves. La sabiduría aprende a reconocer el peligro antes de entrar en él."],
+      8: ["La sabiduría levanta su voz", "Dios no esconde su verdad; la sabiduría llama públicamente. El corazón sabio aprende a escuchar antes de reaccionar."],
+      9: ["Dos invitaciones, dos caminos", "Este capítulo presenta la mesa de la sabiduría y la voz de la necedad. Cada día elegimos qué invitación vamos a aceptar."],
+      10: ["El fruto del justo", "La sabiduría se nota en la vida diaria: palabras, trabajo, justicia y relaciones. La fe verdadera produce fruto visible."],
+      11: ["Integridad delante de Dios", "La integridad pesa más que la apariencia. Dios honra el camino recto, aun cuando nadie más lo vea."],
+      12: ["Palabras que edifican", "La lengua puede herir o sanar. El sabio aprende a hablar con verdad, paciencia y propósito."],
+      13: ["Disciplina que da vida", "La corrección no destruye al sabio; lo forma. Dios usa la instrucción para madurar nuestro carácter."],
+      14: ["Temor de Dios y prudencia", "El temor del Señor produce una vida más clara. La prudencia no es miedo; es caminar con ojos abiertos delante de Dios."],
+      15: ["Respuesta suave, corazón sabio", "La paz muchas veces empieza con una palabra humilde. Dios puede usar nuestra respuesta para apagar fuego y abrir reconciliación."],
+      16: ["Planes bajo la soberanía de Dios", "Podemos planear, pero el Señor afirma el camino. La sabiduría entrega los proyectos a Dios sin abandonar la responsabilidad."],
+      17: ["Paz en casa y carácter probado", "No todo tesoro es material. Una casa con paz, verdad y amor vale más que abundancia sin comunión."],
+      18: ["El nombre del Señor es refugio", "Cuando el corazón se siente vulnerable, Dios sigue siendo torre fuerte. La sabiduría corre a Él antes de correr al orgullo."],
+      19: ["Consejo, paciencia y propósito", "Dios forma el carácter con tiempo. La sabiduría aprende a recibir consejo y a caminar con paciencia."],
+      20: ["Justicia en lo cotidiano", "La vida sabia se demuestra en decisiones pequeñas: honestidad, dominio propio, trabajo limpio y trato justo."],
+      21: ["Dios pesa el corazón", "Las apariencias pueden impresionar, pero Dios mira más profundo. La sabiduría busca un corazón recto antes que una imagen religiosa."],
+      22: ["Un buen nombre", "La reputación piadosa se construye con fidelidad. Dios llama a vivir de tal manera que la vida apunte a su gloria."],
+      23: ["Dominio propio y enfoque", "No todo lo que atrae conviene. La sabiduría enseña a decir no para poder decir sí a lo que edifica."],
+      24: ["No envidies el camino malo", "El éxito sin Dios es frágil. La sabiduría mira más allá del momento y escoge el camino que permanece."],
+      25: ["Palabra dicha a tiempo", "Una palabra sabia puede abrir puertas y sanar relaciones. Dios nos llama a hablar con oportunidad, humildad y gracia."],
+      26: ["Discernimiento ante la necedad", "No toda discusión merece la misma respuesta. La sabiduría distingue cuándo hablar, cuándo callar y cómo actuar."],
+      27: ["Amistad que afila", "Dios usa relaciones sanas para formar nuestro carácter. Un amigo fiel corrige con amor y fortalece en el camino."],
+      28: ["Confesión y restauración", "El que encubre su pecado se desgasta, pero el que confiesa halla misericordia. La gracia abre camino a una vida nueva."],
+      29: ["Liderazgo con justicia", "La autoridad sin justicia daña, pero el liderazgo sabio protege y sirve. Dios honra al que gobierna con verdad."],
+      30: ["Humildad y dependencia", "Agur nos enseña a reconocer límites. La sabiduría comienza cuando dejamos de pretender saberlo todo y dependemos de Dios."],
+      31: ["Carácter fiel y vida fructífera", "Este capítulo celebra la sabiduría encarnada en una vida diligente, generosa y temerosa de Dios. La verdadera belleza nace del carácter."],
+    },
+    en: {
+      1: ["Wisdom begins with reverence", "Proverbs 1 calls us to receive instruction and reject the voice that pulls us toward evil. Today, wisdom begins by surrendering the heart to God before making decisions."],
+      2: ["Seek wisdom like treasure", "Wisdom does not arrive by accident; it is pursued with spiritual hunger. When God guides the mind, he also guards the path."],
+      3: ["Trust that orders life", "This chapter reminds us that trusting God is not passivity but direction. Mature faith learns to depend on the Lord in every step."],
+      4: ["Guard your heart", "Spiritual life is protected from the inside. A heart directed by God produces cleaner decisions, healthier words, and steadier paths."],
+      5: ["Faithfulness that protects", "Wisdom also guards our affections. God calls us to purity, loyalty, and self-control in a distracted world."],
+      6: ["Diligence and responsibility", "Proverbs 6 confronts laziness, lying, and disorder. God’s grace also forms us to live with discipline and honesty."],
+      7: ["Discern before falling", "Temptation often appears with smooth words. Wisdom learns to recognize danger before walking into it."],
+      8: ["Wisdom raises her voice", "God does not hide his truth; wisdom calls openly. A wise heart learns to listen before reacting."],
+      9: ["Two invitations, two paths", "This chapter presents the table of wisdom and the voice of folly. Every day we choose which invitation we will accept."],
+      10: ["The fruit of the righteous", "Wisdom is visible in daily life: words, work, justice, and relationships. True faith produces visible fruit."],
+      11: ["Integrity before God", "Integrity weighs more than appearance. God honors the upright path, even when no one else sees it."],
+      12: ["Words that build", "The tongue can wound or heal. The wise learn to speak with truth, patience, and purpose."],
+      13: ["Discipline that gives life", "Correction does not destroy the wise; it forms them. God uses instruction to mature our character."],
+      14: ["Fear of God and prudence", "The fear of the Lord produces a clearer life. Prudence is not fearfulness; it is walking with open eyes before God."],
+      15: ["A gentle answer, a wise heart", "Peace often begins with a humble word. God can use our response to cool anger and open reconciliation."],
+      16: ["Plans under God’s sovereignty", "We may plan, but the Lord establishes the way. Wisdom gives projects to God without abandoning responsibility."],
+      17: ["Peace at home and tested character", "Not every treasure is material. A home with peace, truth, and love is worth more than abundance without fellowship."],
+      18: ["The Lord’s name is refuge", "When the heart feels vulnerable, God remains a strong tower. Wisdom runs to him before running to pride."],
+      19: ["Counsel, patience, and purpose", "God forms character over time. Wisdom learns to receive counsel and walk with patience."],
+      20: ["Justice in ordinary life", "A wise life is shown in small decisions: honesty, self-control, clean work, and fair treatment."],
+      21: ["God weighs the heart", "Appearances can impress people, but God sees deeper. Wisdom seeks a right heart before a religious image."],
+      22: ["A good name", "A godly reputation is built through faithfulness. God calls us to live so that our lives point to his glory."],
+      23: ["Self-control and focus", "Not everything attractive is beneficial. Wisdom teaches us to say no so we can say yes to what builds up."],
+      24: ["Do not envy the evil path", "Success without God is fragile. Wisdom looks beyond the moment and chooses the way that lasts."],
+      25: ["A word spoken in season", "A wise word can open doors and heal relationships. God calls us to speak with timing, humility, and grace."],
+      26: ["Discernment before folly", "Not every argument deserves the same answer. Wisdom knows when to speak, when to be silent, and how to act."],
+      27: ["Friendship that sharpens", "God uses healthy relationships to shape our character. A faithful friend corrects with love and strengthens the journey."],
+      28: ["Confession and restoration", "The one who hides sin grows weary, but the one who confesses finds mercy. Grace opens the way to new life."],
+      29: ["Leadership with justice", "Authority without justice harms, but wise leadership protects and serves. God honors the one who leads with truth."],
+      30: ["Humility and dependence", "Agur teaches us to recognize our limits. Wisdom begins when we stop pretending to know everything and depend on God."],
+      31: ["Faithful character and fruitful life", "This chapter celebrates wisdom embodied in a diligent, generous, God-fearing life. True beauty grows from character."],
+    }
+  };
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function getLanguage() {
+    return localStorage.getItem(STORAGE_LANG) || "es";
+  }
+
+  function setLanguage(lang) {
+    localStorage.setItem(STORAGE_LANG, lang);
+  }
+
+  function getBible(lang) {
+    const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+    if (!data) return null;
+
+    const bible = data[lang] || data.es || data.en || data;
+    if (!bible || !Array.isArray(bible.chapters)) return null;
+
+    return bible;
+  }
+
+  function ensureLayout() {
+    const chapterSelect =
+      document.getElementById("chapterSelect") ||
+      document.querySelector("select");
+
+    if (!chapterSelect) return null;
+
+    let languageToggle = document.getElementById("readerLanguageToggle");
+
+    if (!languageToggle) {
+      languageToggle = document.createElement("div");
+      languageToggle.id = "readerLanguageToggle";
+      languageToggle.className = "reader-language-toggle";
+      languageToggle.innerHTML = `
+        <button type="button" class="reader-lang-btn" data-lang="es">Español</button>
+        <button type="button" class="reader-lang-btn" data-lang="en">English</button>
+      `;
+
+      const controlArea = chapterSelect.closest(".reader-controls") || chapterSelect.parentElement;
+      controlArea.insertAdjacentElement("afterend", languageToggle);
+    }
+
+    let chapterTitle = document.getElementById("chapterTitle");
+
+    if (!chapterTitle) {
+      chapterTitle = document.createElement("h2");
+      chapterTitle.id = "chapterTitle";
+      languageToggle.insertAdjacentElement("afterend", chapterTitle);
+    }
+
+    let versesList = document.getElementById("versesList");
+
+    if (!versesList) {
+      versesList = document.createElement("div");
+      versesList.id = "versesList";
+      chapterTitle.insertAdjacentElement("afterend", versesList);
+    }
+
+    let devotional = document.getElementById("chapterDevotional");
+
+    if (!devotional) {
+      devotional = document.createElement("section");
+      devotional.id = "chapterDevotional";
+      devotional.className = "chapter-devotional";
+      versesList.insertAdjacentElement("afterend", devotional);
+    }
+
+    return {
+      chapterSelect,
+      languageToggle,
+      chapterTitle,
+      versesList,
+      devotional
+    };
+  }
+
+  function renderProverbsReader() {
+    const layout = ensureLayout();
+    if (!layout) return;
+
+    const lang = getLanguage();
+    const bible = getBible(lang);
+
+    layout.languageToggle.querySelectorAll(".reader-lang-btn").forEach(function (button) {
+      button.classList.toggle("active", button.dataset.lang === lang);
+
+      button.onclick = function () {
+        setLanguage(button.dataset.lang);
+        renderProverbsReader();
+      };
+    });
+
+    if (!bible || !bible.chapters.length) {
+      layout.versesList.innerHTML = lang === "es"
+        ? "<p>Cargando Proverbios...</p>"
+        : "<p>Loading Proverbs...</p>";
+      return;
+    }
+
+    const savedChapter = Number(localStorage.getItem(STORAGE_CHAPTER) || 1);
+    const currentValue = Number(layout.chapterSelect.value || savedChapter || 1);
+    const chapterExists = bible.chapters.some(function (chapter) {
+      return Number(chapter.chapter || chapter.number) === currentValue;
+    });
+
+    const selectedChapterNumber = chapterExists ? currentValue : 1;
+
+    layout.chapterSelect.innerHTML = bible.chapters.map(function (chapter) {
+      const chapterNumber = Number(chapter.chapter || chapter.number);
+      const label = lang === "es"
+        ? `Capítulo ${chapterNumber}`
+        : `Chapter ${chapterNumber}`;
+
+      return `<option value="${chapterNumber}">${label}</option>`;
+    }).join("");
+
+    layout.chapterSelect.value = String(selectedChapterNumber);
+
+    layout.chapterSelect.onchange = function () {
+      localStorage.setItem(STORAGE_CHAPTER, layout.chapterSelect.value);
+      renderProverbsReader();
+    };
+
+    const selectedChapter = bible.chapters.find(function (chapter) {
+      return Number(chapter.chapter || chapter.number) === selectedChapterNumber;
+    }) || bible.chapters[0];
+
+    const mainTitle = document.querySelector("h1");
+    if (mainTitle) {
+      mainTitle.textContent = bible.book || (lang === "es" ? "Proverbios" : "Proverbs");
+    }
+
+    layout.chapterTitle.textContent = `${bible.book} ${selectedChapterNumber} · ${bible.version}`;
+
+    layout.versesList.innerHTML = selectedChapter.verses.map(function (verse) {
+      const number = verse.verse || verse.number;
+      const text = escapeHTML(verse.text);
+
+      return `
+        <p class="reader-verse">
+          <span class="verse-number">${number}</span>${text}
+        </p>
+      `;
+    }).join("");
+
+    const devotional = DEVOTIONALS[lang][selectedChapterNumber];
+
+    layout.devotional.innerHTML = `
+      <h3>${lang === "es" ? "Devocional corto" : "Short devotional"}</h3>
+      <p><strong>${escapeHTML(devotional[0])}</strong></p>
+      <p>${escapeHTML(devotional[1])}</p>
+    `;
+  }
+
+  window.renderProverbsReader = renderProverbsReader;
+
+  document.addEventListener("DOMContentLoaded", renderProverbsReader);
+  window.addEventListener("renebook:proverbs-ready", renderProverbsReader);
+})();
+</script>
+  
 </body>
 </html>
