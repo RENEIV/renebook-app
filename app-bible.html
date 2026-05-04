@@ -1369,5 +1369,536 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(installBibleSearch, 800);
 })();
 </script>
+  <style>
+  .rb-verse-highlight {
+    outline: 3px solid rgba(125, 220, 255, 0.98) !important;
+    background: rgba(125, 220, 255, 0.16) !important;
+    border-radius: 14px !important;
+    padding: 8px 10px !important;
+    box-shadow: 0 0 0 6px rgba(125, 220, 255, 0.08), 0 18px 35px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .renebook-keyword-devotional {
+    margin: 20px 0 28px;
+    padding: 20px;
+    border-radius: 24px;
+    border: 1px solid rgba(125, 180, 255, 0.34);
+    background: rgba(9, 28, 52, 0.86);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    color: #f4f8ff;
+  }
+
+  .renebook-keyword-devotional h3 {
+    margin: 0 0 8px;
+    font-size: 1.28rem;
+    line-height: 1.25;
+  }
+
+  .renebook-keyword-devotional .rb-ref {
+    color: #7ce8ff;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .renebook-keyword-devotional .rb-verse-preview {
+    margin: 12px 0 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.07);
+    line-height: 1.55;
+  }
+
+  .rb-kd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .rb-kd-box {
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .rb-kd-box strong {
+    display: block;
+    color: #ffd96a;
+    margin-bottom: 7px;
+  }
+
+  .rb-keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .rb-keyword-chips button {
+    border: 1px solid rgba(125, 180, 255, 0.35);
+    background: rgba(255, 255, 255, 0.07);
+    color: #f4f8ff;
+    border-radius: 999px;
+    padding: 8px 11px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .rb-keyword-chips button:hover {
+    background: rgba(125, 220, 255, 0.16);
+  }
+
+  @media (max-width: 760px) {
+    .renebook-bible-search {
+      margin: 18px 0;
+      padding: 15px;
+    }
+
+    .renebook-bible-search-row {
+      flex-direction: column;
+    }
+
+    .renebook-bible-search input,
+    .renebook-bible-search button {
+      width: 100%;
+      min-width: 0;
+      font-size: 1rem;
+    }
+
+    .renebook-keyword-devotional {
+      padding: 16px;
+      border-radius: 20px;
+    }
+
+    .rb-kd-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #versesList p,
+    .reader-verse {
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const TOPICS = [
+    {
+      terms: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"],
+      c: 1,
+      v: 7,
+      lang: "es",
+      title: "Sabiduría que comienza con reverencia",
+      reflection: "La sabiduría bíblica no es solo información; comienza con una relación reverente con Dios.",
+      application: "Antes de decidir hoy, ora y pregunta: ¿esto honra al Señor?",
+      prayer: "Señor, guía mi corazón hacia tu sabiduría y enséñame a honrarte en todo."
+    },
+    {
+      terms: ["familia", "hijo", "hijos", "padre", "madre", "hogar", "casa"],
+      c: 1,
+      v: 8,
+      lang: "es",
+      title: "La familia como escuela de sabiduría",
+      reflection: "Dios usa la instrucción del hogar para formar carácter, obediencia y discernimiento.",
+      application: "Escucha con humildad el consejo sabio y fortalece tu hogar con palabras de gracia.",
+      prayer: "Señor, bendice mi familia y ayúdanos a caminar en tu instrucción."
+    },
+    {
+      terms: ["confianza", "confiar", "corazon", "corazón"],
+      c: 3,
+      v: 5,
+      lang: "es",
+      title: "Confianza que descansa en Dios",
+      reflection: "Confiar en Dios significa rendir el control del corazón y depender de su dirección.",
+      application: "Entrega hoy una preocupación específica al Señor y camina con obediencia.",
+      prayer: "Padre, ayúdame a confiar en ti con todo mi corazón."
+    },
+    {
+      terms: ["oracion", "oración", "guia", "guía", "direccion", "dirección"],
+      c: 3,
+      v: 6,
+      lang: "es",
+      title: "Reconocer a Dios en el camino",
+      reflection: "La oración nos enseña a depender de Dios no solo en crisis, sino en cada decisión.",
+      application: "Antes de avanzar, reconoce al Señor en tus planes y pídele dirección.",
+      prayer: "Señor, endereza mis veredas y guíame con tu verdad."
+    },
+    {
+      terms: ["paz", "descanso", "reposo", "seguridad", "dormir"],
+      c: 3,
+      v: 24,
+      lang: "es",
+      title: "Paz para descansar",
+      reflection: "La sabiduría de Dios produce seguridad interior aun cuando las circunstancias no son perfectas.",
+      application: "Descansa sabiendo que Dios cuida tu vida y tu casa.",
+      prayer: "Señor, dame paz para descansar bajo tu cuidado."
+    },
+    {
+      terms: ["mujer virtuosa", "mujer", "esposa", "lemuel"],
+      c: 31,
+      v: 10,
+      lang: "es",
+      title: "Carácter de gran valor",
+      reflection: "Proverbios 31 celebra una vida sabia, diligente, generosa y temerosa de Dios.",
+      application: "Valora el carácter más que la apariencia y cultiva fidelidad en lo cotidiano.",
+      prayer: "Señor, forma en mí un carácter fiel, sabio y fructífero."
+    },
+    {
+      terms: ["trabajo", "diligencia", "pereza", "hormiga", "responsabilidad"],
+      c: 6,
+      v: 6,
+      lang: "es",
+      title: "Diligencia que honra a Dios",
+      reflection: "La sabiduría también se muestra en la disciplina, el trabajo honesto y la responsabilidad.",
+      application: "Haz hoy una tarea pendiente con excelencia y gratitud.",
+      prayer: "Señor, dame diligencia y responsabilidad para servirte bien."
+    },
+    {
+      terms: ["amistad", "amigo", "amigos", "hierro"],
+      c: 27,
+      v: 17,
+      lang: "es",
+      title: "Amistades que afilan el carácter",
+      reflection: "Dios usa amistades sanas para corregirnos, animarnos y fortalecernos.",
+      application: "Busca una conversación honesta con alguien que te acerque a Dios.",
+      prayer: "Señor, dame amistades sabias y ayúdame a ser un amigo fiel."
+    },
+    {
+      terms: ["lengua", "palabras", "hablar", "respuesta"],
+      c: 15,
+      v: 1,
+      lang: "es",
+      title: "Palabras que apagan el fuego",
+      reflection: "Una respuesta suave puede abrir una puerta que la dureza habría cerrado.",
+      application: "Hoy responde con mansedumbre, especialmente cuando sientas tensión.",
+      prayer: "Señor, guarda mi lengua y llena mis palabras de gracia."
+    },
+
+    {
+      terms: ["wisdom", "knowledge", "understanding", "prudence"],
+      c: 1,
+      v: 7,
+      lang: "en",
+      title: "Wisdom begins with reverence",
+      reflection: "Biblical wisdom is more than information; it begins with reverence before God.",
+      application: "Before deciding today, ask: does this honor the Lord?",
+      prayer: "Lord, guide my heart toward your wisdom and teach me to honor you."
+    },
+    {
+      terms: ["family", "son", "father", "mother", "home", "house"],
+      c: 1,
+      v: 8,
+      lang: "en",
+      title: "Family as a school of wisdom",
+      reflection: "God uses instruction in the home to form character, obedience, and discernment.",
+      application: "Receive wise counsel with humility and strengthen your home with grace.",
+      prayer: "Lord, bless my family and help us walk in your instruction."
+    },
+    {
+      terms: ["trust", "heart"],
+      c: 3,
+      v: 5,
+      lang: "en",
+      title: "Trust that rests in God",
+      reflection: "Trusting God means surrendering the control of the heart and depending on his direction.",
+      application: "Give one specific concern to the Lord today and walk in obedience.",
+      prayer: "Father, help me trust you with all my heart."
+    },
+    {
+      terms: ["prayer", "guide", "direction"],
+      c: 3,
+      v: 6,
+      lang: "en",
+      title: "Acknowledge God in the way",
+      reflection: "Prayer teaches us to depend on God not only in crisis but in every decision.",
+      application: "Before moving forward, acknowledge the Lord in your plans.",
+      prayer: "Lord, make my paths straight and guide me in your truth."
+    },
+    {
+      terms: ["peace", "rest", "security", "sleep"],
+      c: 3,
+      v: 24,
+      lang: "en",
+      title: "Peace for rest",
+      reflection: "God’s wisdom gives inner security even when circumstances are not perfect.",
+      application: "Rest knowing that God cares for your life and your home.",
+      prayer: "Lord, give me peace to rest under your care."
+    }
+  ];
+
+  function normalize(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function getBible(lang) {
+    const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+    if (!data) return null;
+    return data[lang] || data.es || data.en || null;
+  }
+
+  function getVerseText(lang, chapterNumber, verseNumber) {
+    const bible = getBible(lang);
+    if (!bible || !Array.isArray(bible.chapters)) return "";
+
+    const chapter = bible.chapters.find(function (item) {
+      return Number(item.chapter || item.number) === Number(chapterNumber);
+    });
+
+    if (!chapter || !Array.isArray(chapter.verses)) return "";
+
+    const verse = chapter.verses.find(function (item) {
+      return Number(item.verse || item.number) === Number(verseNumber);
+    });
+
+    return verse ? verse.text : "";
+  }
+
+  function findTopic(value) {
+    const query = normalize(value);
+    if (!query) return null;
+
+    const bibleRef = query.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/);
+
+    if (bibleRef) {
+      const chapter = Number(bibleRef[1]);
+      const verse = bibleRef[2] ? Number(bibleRef[2]) : 1;
+
+      if (chapter >= 1 && chapter <= 31) {
+        return {
+          terms: [],
+          c: chapter,
+          v: verse,
+          lang: query.includes("proverbs") ? "en" : "es",
+          title: query.includes("proverbs") ? "Bible reference found" : "Referencia bíblica encontrada",
+          reflection: query.includes("proverbs")
+            ? "This verse invites you to pause, read carefully, and listen for God’s wisdom."
+            : "Este versículo te invita a detenerte, leer con atención y escuchar la sabiduría de Dios.",
+          application: query.includes("proverbs")
+            ? "Read the verse slowly and write one concrete step of obedience."
+            : "Lee el versículo lentamente y escribe un paso concreto de obediencia.",
+          prayer: query.includes("proverbs")
+            ? "Lord, help me receive your Word with faith and obedience."
+            : "Señor, ayúdame a recibir tu Palabra con fe y obediencia."
+        };
+      }
+    }
+
+    return TOPICS.find(function (topic) {
+      return topic.terms.some(function (term) {
+        return query.includes(normalize(term));
+      });
+    }) || null;
+  }
+
+  function tagVerses(chapterNumber) {
+    const versesList = document.getElementById("versesList");
+    if (!versesList) return null;
+
+    const candidates = Array.from(versesList.querySelectorAll(".reader-verse, p, div, li"));
+
+    candidates.forEach(function (item) {
+      const numberNode = item.querySelector(".verse-number");
+      const text = item.textContent.trim();
+      const match = text.match(/^(\d{1,3})\s+/);
+      const verseNumber = numberNode
+        ? Number(numberNode.textContent.trim())
+        : match
+          ? Number(match[1])
+          : null;
+
+      if (verseNumber) {
+        item.dataset.rbChapter = String(chapterNumber);
+        item.dataset.rbVerse = String(verseNumber);
+        item.id = "rb-verse-" + chapterNumber + "-" + verseNumber;
+      }
+    });
+
+    return versesList;
+  }
+
+  function highlightVerse(chapterNumber, verseNumber) {
+    document.querySelectorAll(".rb-verse-highlight").forEach(function (item) {
+      item.classList.remove("rb-verse-highlight");
+    });
+
+    const versesList = tagVerses(chapterNumber);
+    if (!versesList) return;
+
+    const target =
+      document.getElementById("rb-verse-" + chapterNumber + "-" + verseNumber) ||
+      versesList.querySelector('[data-rb-chapter="' + chapterNumber + '"][data-rb-verse="' + verseNumber + '"]');
+
+    if (target) {
+      target.classList.add("rb-verse-highlight");
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  function renderKeywordDevotional(topic) {
+    let card = document.getElementById("renebookKeywordDevotional");
+
+    if (!card) {
+      card = document.createElement("section");
+      card.id = "renebookKeywordDevotional";
+      card.className = "renebook-keyword-devotional";
+
+      const searchBox = document.getElementById("renebookBibleSearchBox");
+      const versesList = document.getElementById("versesList");
+
+      if (searchBox) {
+        searchBox.insertAdjacentElement("afterend", card);
+      } else if (versesList) {
+        versesList.insertAdjacentElement("afterend", card);
+      } else {
+        document.body.insertAdjacentElement("beforeend", card);
+      }
+    }
+
+    const verseText = getVerseText(topic.lang, topic.c, topic.v);
+    const referenceLabel = topic.lang === "en"
+      ? "Proverbs " + topic.c + ":" + topic.v
+      : "Proverbios " + topic.c + ":" + topic.v;
+
+    card.innerHTML = `
+      <div class="rb-ref">${referenceLabel}</div>
+      <h3>${escapeHTML(topic.title)}</h3>
+      <div class="rb-verse-preview">
+        <strong>${referenceLabel}</strong><br>
+        ${escapeHTML(verseText || "Versículo cargado en el lector bíblico.")}
+      </div>
+
+      <div class="rb-kd-grid">
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Reflection" : "Reflexión"}</strong>
+          ${escapeHTML(topic.reflection)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Application" : "Aplicación"}</strong>
+          ${escapeHTML(topic.application)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Prayer" : "Oración"}</strong>
+          ${escapeHTML(topic.prayer)}
+        </div>
+      </div>
+
+      <div class="rb-keyword-chips">
+        <button type="button" data-rb-search="sabiduría">Sabiduría</button>
+        <button type="button" data-rb-search="familia">Familia</button>
+        <button type="button" data-rb-search="confianza">Confianza</button>
+        <button type="button" data-rb-search="oración">Oración</button>
+        <button type="button" data-rb-search="paz">Paz</button>
+        <button type="button" data-rb-search="mujer virtuosa">Mujer virtuosa</button>
+        <button type="button" data-rb-search="wisdom">Wisdom</button>
+        <button type="button" data-rb-search="family">Family</button>
+        <button type="button" data-rb-search="trust">Trust</button>
+      </div>
+    `;
+
+    card.querySelectorAll("[data-rb-search]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        routeSearch(button.dataset.rbSearch);
+      });
+    });
+  }
+
+  function routeSearch(value) {
+    const topic = typeof value === "string" ? findTopic(value) : value;
+    const status = document.getElementById("renebookBibleSearchStatus");
+
+    if (!topic) {
+      if (status) {
+        status.textContent = "No encontré esa palabra todavía. Prueba: sabiduría, familia, oración, paz, mujer virtuosa o proverbios 31:10.";
+      }
+      return false;
+    }
+
+    localStorage.setItem("renebook_reader_language", topic.lang);
+    localStorage.setItem("renebook_reader_chapter", String(topic.c));
+
+    const select = document.getElementById("chapterSelect") || document.querySelector("select");
+
+    if (select) {
+      select.value = String(topic.c);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    if (status) {
+      status.textContent = topic.lang === "en"
+        ? "Opening Proverbs " + topic.c + ":" + topic.v + "..."
+        : "Abriendo Proverbios " + topic.c + ":" + topic.v + "...";
+    }
+
+    setTimeout(function () {
+      highlightVerse(topic.c, topic.v);
+      renderKeywordDevotional(topic);
+    }, 450);
+
+    return true;
+  }
+
+  function connectSearchBox() {
+    const input = document.getElementById("renebookBibleSearchInput");
+    const button = document.getElementById("renebookBibleSearchButton");
+
+    if (input) {
+      input.placeholder = "sabiduría, familia, oración, paz, mujer virtuosa, proverbios 31:10";
+
+      input.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        routeSearch(input.value);
+      }, true);
+    }
+
+    if (button && input) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        routeSearch(input.value);
+      }, true);
+    }
+
+    const initialTopic = findTopic("sabiduría");
+    if (initialTopic) {
+      renderKeywordDevotional(initialTopic);
+    }
+  }
+
+  window.renebookRouteSearch = routeSearch;
+
+  document.addEventListener("DOMContentLoaded", connectSearchBox);
+  window.addEventListener("load", connectSearchBox);
+  window.addEventListener("renebook:proverbs-ready", connectSearchBox);
+
+  setTimeout(connectSearchBox, 800);
+})();
+</script>
 </body>
 </html>
