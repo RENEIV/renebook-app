@@ -1022,23 +1022,31 @@ document.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   const KEYWORD_MAP = [
-    { words: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"], chapter: 1, verse: 7, lang: "es" },
-    { words: ["temor", "temor de jehova", "temor de jehová", "reverencia"], chapter: 1, verse: 7, lang: "es" },
-    { words: ["confianza", "confiar", "corazon", "corazón", "direccion", "dirección"], chapter: 3, verse: 5, lang: "es" },
-    { words: ["familia", "hijo", "padre", "madre", "instruccion", "instrucción"], chapter: 1, verse: 8, lang: "es" },
-    { words: ["mujer", "mujer virtuosa", "esposa", "madre", "proverbios 31"], chapter: 31, verse: 10, lang: "es" },
-    { words: ["lengua", "palabras", "hablar", "respuesta", "suave"], chapter: 15, verse: 1, lang: "es" },
-    { words: ["paz", "descanso", "seguridad", "reposo"], chapter: 3, verse: 24, lang: "es" },
-    { words: ["oracion", "oración", "guia", "guía", "dios"], chapter: 3, verse: 6, lang: "es" },
+    { words: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento", "doctrina"], chapter: 1, verse: 7, lang: "es" },
+    { words: ["temor", "temor de jehova", "temor de jehová", "reverencia", "honrar a dios"], chapter: 1, verse: 7, lang: "es" },
+    { words: ["confianza", "confiar", "corazon", "corazón", "direccion", "dirección", "camino"], chapter: 3, verse: 5, lang: "es" },
+    { words: ["familia", "hijo", "hijos", "padre", "madre", "instruccion", "instrucción", "hogar", "casa"], chapter: 1, verse: 8, lang: "es" },
+    { words: ["mujer", "mujer virtuosa", "esposa", "madre", "lemuel"], chapter: 31, verse: 10, lang: "es" },
+    { words: ["lengua", "palabras", "hablar", "respuesta", "respuesta suave", "consejo"], chapter: 15, verse: 1, lang: "es" },
+    { words: ["paz", "descanso", "seguridad", "reposo", "dormir"], chapter: 3, verse: 24, lang: "es" },
+    { words: ["oracion", "oración", "guia", "guía", "dios", "jehova", "jehová"], chapter: 3, verse: 6, lang: "es" },
+    { words: ["amistad", "amigo", "amigos", "compañero"], chapter: 27, verse: 17, lang: "es" },
+    { words: ["trabajo", "diligencia", "pereza", "responsabilidad"], chapter: 6, verse: 6, lang: "es" },
+    { words: ["justicia", "pobre", "necesitado", "derecho"], chapter: 31, verse: 9, lang: "es" },
+    { words: ["liderazgo", "rey", "gobierno", "autoridad"], chapter: 29, verse: 2, lang: "es" },
 
     { words: ["wisdom", "knowledge", "understanding", "prudence"], chapter: 1, verse: 7, lang: "en" },
-    { words: ["fear", "fear of yahweh", "reverence"], chapter: 1, verse: 7, lang: "en" },
-    { words: ["trust", "heart", "direction", "path"], chapter: 3, verse: 5, lang: "en" },
-    { words: ["family", "son", "father", "mother", "instruction"], chapter: 1, verse: 8, lang: "en" },
-    { words: ["woman", "virtuous woman", "wife", "proverbs 31"], chapter: 31, verse: 10, lang: "en" },
-    { words: ["words", "tongue", "speak", "gentle answer"], chapter: 15, verse: 1, lang: "en" },
-    { words: ["peace", "rest", "security"], chapter: 3, verse: 24, lang: "en" },
-    { words: ["prayer", "guide", "god"], chapter: 3, verse: 6, lang: "en" }
+    { words: ["fear", "fear of yahweh", "reverence", "honor god"], chapter: 1, verse: 7, lang: "en" },
+    { words: ["trust", "heart", "direction", "path", "way"], chapter: 3, verse: 5, lang: "en" },
+    { words: ["family", "son", "children", "father", "mother", "home", "house", "instruction"], chapter: 1, verse: 8, lang: "en" },
+    { words: ["woman", "virtuous woman", "wife", "mother", "lemuel"], chapter: 31, verse: 10, lang: "en" },
+    { words: ["words", "tongue", "speak", "gentle answer", "counsel"], chapter: 15, verse: 1, lang: "en" },
+    { words: ["peace", "rest", "security", "sleep"], chapter: 3, verse: 24, lang: "en" },
+    { words: ["prayer", "guide", "god", "yahweh"], chapter: 3, verse: 6, lang: "en" },
+    { words: ["friendship", "friend", "friends"], chapter: 27, verse: 17, lang: "en" },
+    { words: ["work", "diligence", "lazy", "responsibility"], chapter: 6, verse: 6, lang: "en" },
+    { words: ["justice", "poor", "needy", "right"], chapter: 31, verse: 9, lang: "en" },
+    { words: ["leadership", "king", "government", "authority"], chapter: 29, verse: 2, lang: "en" }
   ];
 
   function normalize(value) {
@@ -1051,7 +1059,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function findKeywordReference(value) {
     const query = normalize(value);
-
     if (!query) return null;
 
     return KEYWORD_MAP.find(function (item) {
@@ -1098,27 +1105,35 @@ document.addEventListener("DOMContentLoaded", function () {
         target.style.outline = "2px solid rgba(125, 200, 255, 0.95)";
         target.style.borderRadius = "14px";
         target.style.padding = "8px 10px";
-        target.style.background = "rgba(125, 200, 255, 0.10)";
+        target.style.background = "rgba(125, 200, 255, 0.12)";
         target.scrollIntoView({ behavior: "smooth", block: "center" });
       } else if (title) {
         title.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }, 200);
+    }, 250);
   }
 
-  document.addEventListener("keydown", function (event) {
+  function handleSearch(event) {
     const target = event.target;
 
     if (!target || target.tagName !== "INPUT") return;
-    if (event.key !== "Enter") return;
 
     const ref = findKeywordReference(target.value);
-
     if (!ref) return;
 
+    if (event.type === "keydown" && event.key !== "Enter") return;
+
     event.preventDefault();
+    event.stopPropagation();
+
     openKeywordReference(ref);
-  });
+  }
+
+  document.addEventListener("keydown", handleSearch, true);
+
+  document.addEventListener("change", function (event) {
+    handleSearch(event);
+  }, true);
 })();
 </script> 
 </body>
