@@ -174,7 +174,7 @@
         <section class="reader" id="devocionales" aria-live="polite">
           <div class="reader-top">
             <div class="search">
-              <input id="searchBox" type="search" placeholder="Buscar: sabiduría, descanso, camino..." aria-label="Buscar devocionales" />
+              <input id="searchBox" type="search"placeholder="Buscar: sabiduría, fe, familia, oración, temor, paz, mujer virtuosa, proverbios 31:1" aria-label="Buscar devocionales" />
             </div>
             <div class="toolbar">
               <button class="tool-btn active" id="spanishBtn" type="button">Español</button>
@@ -1015,6 +1015,109 @@ document.addEventListener("DOMContentLoaded", function () {
     goToBibleReference(ref);
   });
 })();
-</script>  
+</script> <script>
+(function () {
+  "use strict";
+
+  const KEYWORD_MAP = [
+    { words: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"], chapter: 1, verse: 7, lang: "es" },
+    { words: ["temor", "temor de jehova", "temor de jehová", "reverencia"], chapter: 1, verse: 7, lang: "es" },
+    { words: ["confianza", "confiar", "corazon", "corazón", "direccion", "dirección"], chapter: 3, verse: 5, lang: "es" },
+    { words: ["familia", "hijo", "padre", "madre", "instruccion", "instrucción"], chapter: 1, verse: 8, lang: "es" },
+    { words: ["mujer", "mujer virtuosa", "esposa", "madre", "proverbios 31"], chapter: 31, verse: 10, lang: "es" },
+    { words: ["lengua", "palabras", "hablar", "respuesta", "suave"], chapter: 15, verse: 1, lang: "es" },
+    { words: ["paz", "descanso", "seguridad", "reposo"], chapter: 3, verse: 24, lang: "es" },
+    { words: ["oracion", "oración", "guia", "guía", "dios"], chapter: 3, verse: 6, lang: "es" },
+
+    { words: ["wisdom", "knowledge", "understanding", "prudence"], chapter: 1, verse: 7, lang: "en" },
+    { words: ["fear", "fear of yahweh", "reverence"], chapter: 1, verse: 7, lang: "en" },
+    { words: ["trust", "heart", "direction", "path"], chapter: 3, verse: 5, lang: "en" },
+    { words: ["family", "son", "father", "mother", "instruction"], chapter: 1, verse: 8, lang: "en" },
+    { words: ["woman", "virtuous woman", "wife", "proverbs 31"], chapter: 31, verse: 10, lang: "en" },
+    { words: ["words", "tongue", "speak", "gentle answer"], chapter: 15, verse: 1, lang: "en" },
+    { words: ["peace", "rest", "security"], chapter: 3, verse: 24, lang: "en" },
+    { words: ["prayer", "guide", "god"], chapter: 3, verse: 6, lang: "en" }
+  ];
+
+  function normalize(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function findKeywordReference(value) {
+    const query = normalize(value);
+
+    if (!query) return null;
+
+    return KEYWORD_MAP.find(function (item) {
+      return item.words.some(function (word) {
+        return query.includes(normalize(word));
+      });
+    });
+  }
+
+  function openKeywordReference(ref) {
+    localStorage.setItem("renebook_reader_language", ref.lang);
+    localStorage.setItem("renebook_reader_chapter", String(ref.chapter));
+
+    const chapterSelect = document.getElementById("chapterSelect") || document.querySelector("select");
+
+    if (chapterSelect) {
+      chapterSelect.value = String(ref.chapter);
+    }
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    setTimeout(function () {
+      const versesList = document.getElementById("versesList");
+      const title = document.getElementById("chapterTitle");
+
+      if (!versesList) {
+        if (title) title.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const verses = Array.from(versesList.querySelectorAll(".reader-verse, p"));
+
+      const target = verses.find(function (verse) {
+        const numberNode = verse.querySelector(".verse-number");
+        if (numberNode && Number(numberNode.textContent.trim()) === ref.verse) return true;
+
+        const match = verse.textContent.trim().match(/^(\d+)/);
+        return match && Number(match[1]) === ref.verse;
+      });
+
+      if (target) {
+        target.style.outline = "2px solid rgba(125, 200, 255, 0.95)";
+        target.style.borderRadius = "14px";
+        target.style.padding = "8px 10px";
+        target.style.background = "rgba(125, 200, 255, 0.10)";
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (title) {
+        title.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 200);
+  }
+
+  document.addEventListener("keydown", function (event) {
+    const target = event.target;
+
+    if (!target || target.tagName !== "INPUT") return;
+    if (event.key !== "Enter") return;
+
+    const ref = findKeywordReference(target.value);
+
+    if (!ref) return;
+
+    event.preventDefault();
+    openKeywordReference(ref);
+  });
+})();
+</script> 
 </body>
 </html>
