@@ -1004,52 +1004,37 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("keydown", function (event) {
     const target = event.target;
 
-    if (!target || target.tagName !== "INPUT") return;
-    if (event.key !== "Enter") return;
 
-    const ref = parseBibleReference(target.value);
-
-    if (!ref) return;
-
-    event.preventDefault();
-    goToBibleReference(ref);
-  });
-})();
-</script> 
-  
+ <script> 
 <script>
 (function () {
   "use strict";
 
-  const KEYWORD_MAP = [
-    { words: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento", "doctrina"], chapter: 1, verse: 7, lang: "es" },
-    { words: ["temor", "temor de jehova", "temor de jehová", "reverencia", "honrar a dios"], chapter: 1, verse: 7, lang: "es" },
-    { words: ["confianza", "confiar", "corazon", "corazón", "direccion", "dirección", "camino"], chapter: 3, verse: 5, lang: "es" },
-    { words: ["familia", "hijo", "hijos", "padre", "madre", "instruccion", "instrucción", "hogar", "casa"], chapter: 1, verse: 8, lang: "es" },
-    { words: ["mujer", "mujer virtuosa", "esposa", "madre", "lemuel"], chapter: 31, verse: 10, lang: "es" },
-    { words: ["lengua", "palabras", "hablar", "respuesta", "respuesta suave", "consejo"], chapter: 15, verse: 1, lang: "es" },
-    { words: ["paz", "descanso", "seguridad", "reposo", "dormir"], chapter: 3, verse: 24, lang: "es" },
-    { words: ["oracion", "oración", "guia", "guía", "dios", "jehova", "jehová"], chapter: 3, verse: 6, lang: "es" },
-    { words: ["amistad", "amigo", "amigos", "compañero"], chapter: 27, verse: 17, lang: "es" },
-    { words: ["trabajo", "diligencia", "pereza", "responsabilidad"], chapter: 6, verse: 6, lang: "es" },
-    { words: ["justicia", "pobre", "necesitado", "derecho"], chapter: 31, verse: 9, lang: "es" },
-    { words: ["liderazgo", "rey", "gobierno", "autoridad"], chapter: 29, verse: 2, lang: "es" },
+  const MAP = [
+    { terms: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"], c: 1, v: 7, lang: "es" },
+    { terms: ["familia", "hijos", "hijo", "padre", "madre", "hogar", "casa", "instruccion", "instrucción"], c: 1, v: 8, lang: "es" },
+    { terms: ["confianza", "confiar", "corazon", "corazón", "camino", "direccion", "dirección"], c: 3, v: 5, lang: "es" },
+    { terms: ["oracion", "oración", "guia", "guía", "reconocelo", "reconócelo"], c: 3, v: 6, lang: "es" },
+    { terms: ["paz", "descanso", "reposo", "seguridad", "dormir"], c: 3, v: 24, lang: "es" },
+    { terms: ["mujer virtuosa", "mujer", "esposa", "lemuel"], c: 31, v: 10, lang: "es" },
+    { terms: ["amistad", "amigo", "amigos", "hierro"], c: 27, v: 17, lang: "es" },
+    { terms: ["trabajo", "diligencia", "pereza", "hormiga"], c: 6, v: 6, lang: "es" },
+    { terms: ["lengua", "palabras", "respuesta", "hablar"], c: 15, v: 1, lang: "es" },
+    { terms: ["justicia", "pobre", "necesitado", "derecho"], c: 31, v: 9, lang: "es" },
 
-    { words: ["wisdom", "knowledge", "understanding", "prudence"], chapter: 1, verse: 7, lang: "en" },
-    { words: ["fear", "fear of yahweh", "reverence", "honor god"], chapter: 1, verse: 7, lang: "en" },
-    { words: ["trust", "heart", "direction", "path", "way"], chapter: 3, verse: 5, lang: "en" },
-    { words: ["family", "son", "children", "father", "mother", "home", "house", "instruction"], chapter: 1, verse: 8, lang: "en" },
-    { words: ["woman", "virtuous woman", "wife", "mother", "lemuel"], chapter: 31, verse: 10, lang: "en" },
-    { words: ["words", "tongue", "speak", "gentle answer", "counsel"], chapter: 15, verse: 1, lang: "en" },
-    { words: ["peace", "rest", "security", "sleep"], chapter: 3, verse: 24, lang: "en" },
-    { words: ["prayer", "guide", "god", "yahweh"], chapter: 3, verse: 6, lang: "en" },
-    { words: ["friendship", "friend", "friends"], chapter: 27, verse: 17, lang: "en" },
-    { words: ["work", "diligence", "lazy", "responsibility"], chapter: 6, verse: 6, lang: "en" },
-    { words: ["justice", "poor", "needy", "right"], chapter: 31, verse: 9, lang: "en" },
-    { words: ["leadership", "king", "government", "authority"], chapter: 29, verse: 2, lang: "en" }
+    { terms: ["wisdom", "prudence", "knowledge", "understanding"], c: 1, v: 7, lang: "en" },
+    { terms: ["family", "son", "father", "mother", "home", "house", "instruction"], c: 1, v: 8, lang: "en" },
+    { terms: ["trust", "heart", "path", "direction", "way"], c: 3, v: 5, lang: "en" },
+    { terms: ["prayer", "guide", "god"], c: 3, v: 6, lang: "en" },
+    { terms: ["peace", "rest", "security", "sleep"], c: 3, v: 24, lang: "en" },
+    { terms: ["virtuous woman", "woman", "wife", "lemuel"], c: 31, v: 10, lang: "en" },
+    { terms: ["friend", "friendship", "iron"], c: 27, v: 17, lang: "en" },
+    { terms: ["work", "diligence", "lazy", "ant"], c: 6, v: 6, lang: "en" },
+    { terms: ["tongue", "words", "answer", "speak"], c: 15, v: 1, lang: "en" },
+    { terms: ["justice", "poor", "needy", "right"], c: 31, v: 9, lang: "en" }
   ];
 
-  function normalize(value) {
+  function clean(value) {
     return String(value || "")
       .toLowerCase()
       .normalize("NFD")
@@ -1057,25 +1042,40 @@ document.addEventListener("DOMContentLoaded", function () {
       .trim();
   }
 
-  function findKeywordReference(value) {
-    const query = normalize(value);
-    if (!query) return null;
+  function findReference(value) {
+    const q = clean(value);
+    if (!q) return null;
 
-    return KEYWORD_MAP.find(function (item) {
-      return item.words.some(function (word) {
-        return query.includes(normalize(word));
+    const ref = q.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/);
+
+    if (ref) {
+      const chapter = Number(ref[1]);
+      const verse = ref[2] ? Number(ref[2]) : 1;
+
+      if (chapter >= 1 && chapter <= 31) {
+        return {
+          c: chapter,
+          v: verse,
+          lang: q.includes("proverbs") ? "en" : "es"
+        };
+      }
+    }
+
+    return MAP.find(function (item) {
+      return item.terms.some(function (term) {
+        return q.includes(clean(term));
       });
-    });
+    }) || null;
   }
 
-  function openKeywordReference(ref) {
+  function goToReference(ref) {
     localStorage.setItem("renebook_reader_language", ref.lang);
-    localStorage.setItem("renebook_reader_chapter", String(ref.chapter));
+    localStorage.setItem("renebook_reader_chapter", String(ref.c));
 
     const chapterSelect = document.getElementById("chapterSelect") || document.querySelector("select");
 
     if (chapterSelect) {
-      chapterSelect.value = String(ref.chapter);
+      chapterSelect.value = String(ref.c);
     }
 
     if (typeof window.renderProverbsReader === "function") {
@@ -1084,10 +1084,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(function () {
       const versesList = document.getElementById("versesList");
-      const title = document.getElementById("chapterTitle");
+      const chapterTitle = document.getElementById("chapterTitle");
 
       if (!versesList) {
-        if (title) title.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (chapterTitle) chapterTitle.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
 
@@ -1095,30 +1095,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const target = verses.find(function (verse) {
         const numberNode = verse.querySelector(".verse-number");
-        if (numberNode && Number(numberNode.textContent.trim()) === ref.verse) return true;
+        if (numberNode && Number(numberNode.textContent.trim()) === ref.v) return true;
 
         const match = verse.textContent.trim().match(/^(\d+)/);
-        return match && Number(match[1]) === ref.verse;
+        return match && Number(match[1]) === ref.v;
       });
 
       if (target) {
-        target.style.outline = "2px solid rgba(125, 200, 255, 0.95)";
+        target.style.outline = "3px solid rgba(120, 210, 255, 0.95)";
         target.style.borderRadius = "14px";
         target.style.padding = "8px 10px";
-        target.style.background = "rgba(125, 200, 255, 0.12)";
+        target.style.background = "rgba(120, 210, 255, 0.14)";
         target.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else if (title) {
-        title.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (chapterTitle) {
+        chapterTitle.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 250);
   }
 
   function handleSearch(event) {
-    const target = event.target;
+    const input = event.target;
 
-    if (!target || target.tagName !== "INPUT") return;
+    if (!input || input.tagName !== "INPUT") return;
 
-    const ref = findKeywordReference(target.value);
+    const ref = findReference(input.value);
     if (!ref) return;
 
     if (event.type === "keydown" && event.key !== "Enter") return;
@@ -1126,13 +1126,28 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     event.stopPropagation();
 
-    openKeywordReference(ref);
+    goToReference(ref);
   }
 
   document.addEventListener("keydown", handleSearch, true);
 
-  document.addEventListener("change", function (event) {
-    handleSearch(event);
+  document.addEventListener("change", handleSearch, true);
+
+  let typingTimer = null;
+
+  document.addEventListener("input", function (event) {
+    const input = event.target;
+
+    if (!input || input.tagName !== "INPUT") return;
+
+    clearTimeout(typingTimer);
+
+    typingTimer = setTimeout(function () {
+      const ref = findReference(input.value);
+      if (ref) {
+        goToReference(ref);
+      }
+    }, 700);
   }, true);
 })();
 </script> 
