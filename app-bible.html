@@ -1000,41 +1000,49 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }, 180);
   }
-
-  document.addEventListener("keydown", function (event) {
-    const target = event.target;
-
-
- <script> 
-<script>
+  </script>   
+ 
+ <script>
 (function () {
   "use strict";
 
-  const MAP = [
-    { terms: ["sabiduria", "sabiduría", "prudencia", "inteligencia", "conocimiento"], c: 1, v: 7, lang: "es" },
-    { terms: ["familia", "hijos", "hijo", "padre", "madre", "hogar", "casa", "instruccion", "instrucción"], c: 1, v: 8, lang: "es" },
-    { terms: ["confianza", "confiar", "corazon", "corazón", "camino", "direccion", "dirección"], c: 3, v: 5, lang: "es" },
-    { terms: ["oracion", "oración", "guia", "guía", "reconocelo", "reconócelo"], c: 3, v: 6, lang: "es" },
-    { terms: ["paz", "descanso", "reposo", "seguridad", "dormir"], c: 3, v: 24, lang: "es" },
-    { terms: ["mujer virtuosa", "mujer", "esposa", "lemuel"], c: 31, v: 10, lang: "es" },
-    { terms: ["amistad", "amigo", "amigos", "hierro"], c: 27, v: 17, lang: "es" },
-    { terms: ["trabajo", "diligencia", "pereza", "hormiga"], c: 6, v: 6, lang: "es" },
-    { terms: ["lengua", "palabras", "respuesta", "hablar"], c: 15, v: 1, lang: "es" },
-    { terms: ["justicia", "pobre", "necesitado", "derecho"], c: 31, v: 9, lang: "es" },
+  const RENEMAP = {
+    "sabiduria": { c: 1, v: 7, lang: "es" },
+    "sabiduría": { c: 1, v: 7, lang: "es" },
+    "familia": { c: 1, v: 8, lang: "es" },
+    "hogar": { c: 1, v: 8, lang: "es" },
+    "hijo": { c: 1, v: 8, lang: "es" },
+    "madre": { c: 1, v: 8, lang: "es" },
+    "padre": { c: 1, v: 8, lang: "es" },
+    "confianza": { c: 3, v: 5, lang: "es" },
+    "confiar": { c: 3, v: 5, lang: "es" },
+    "oracion": { c: 3, v: 6, lang: "es" },
+    "oración": { c: 3, v: 6, lang: "es" },
+    "paz": { c: 3, v: 24, lang: "es" },
+    "descanso": { c: 3, v: 24, lang: "es" },
+    "mujer": { c: 31, v: 10, lang: "es" },
+    "mujer virtuosa": { c: 31, v: 10, lang: "es" },
+    "trabajo": { c: 6, v: 6, lang: "es" },
+    "pereza": { c: 6, v: 6, lang: "es" },
+    "amistad": { c: 27, v: 17, lang: "es" },
+    "amigo": { c: 27, v: 17, lang: "es" },
+    "lengua": { c: 15, v: 1, lang: "es" },
+    "palabras": { c: 15, v: 1, lang: "es" },
 
-    { terms: ["wisdom", "prudence", "knowledge", "understanding"], c: 1, v: 7, lang: "en" },
-    { terms: ["family", "son", "father", "mother", "home", "house", "instruction"], c: 1, v: 8, lang: "en" },
-    { terms: ["trust", "heart", "path", "direction", "way"], c: 3, v: 5, lang: "en" },
-    { terms: ["prayer", "guide", "god"], c: 3, v: 6, lang: "en" },
-    { terms: ["peace", "rest", "security", "sleep"], c: 3, v: 24, lang: "en" },
-    { terms: ["virtuous woman", "woman", "wife", "lemuel"], c: 31, v: 10, lang: "en" },
-    { terms: ["friend", "friendship", "iron"], c: 27, v: 17, lang: "en" },
-    { terms: ["work", "diligence", "lazy", "ant"], c: 6, v: 6, lang: "en" },
-    { terms: ["tongue", "words", "answer", "speak"], c: 15, v: 1, lang: "en" },
-    { terms: ["justice", "poor", "needy", "right"], c: 31, v: 9, lang: "en" }
-  ];
+    "wisdom": { c: 1, v: 7, lang: "en" },
+    "family": { c: 1, v: 8, lang: "en" },
+    "trust": { c: 3, v: 5, lang: "en" },
+    "prayer": { c: 3, v: 6, lang: "en" },
+    "peace": { c: 3, v: 24, lang: "en" },
+    "rest": { c: 3, v: 24, lang: "en" },
+    "woman": { c: 31, v: 10, lang: "en" },
+    "virtuous woman": { c: 31, v: 10, lang: "en" },
+    "work": { c: 6, v: 6, lang: "en" },
+    "friend": { c: 27, v: 17, lang: "en" },
+    "words": { c: 15, v: 1, lang: "en" }
+  };
 
-  function clean(value) {
+  function cleanText(value) {
     return String(value || "")
       .toLowerCase()
       .normalize("NFD")
@@ -1042,15 +1050,14 @@ document.addEventListener("DOMContentLoaded", function () {
       .trim();
   }
 
-  function findReference(value) {
-    const q = clean(value);
-    if (!q) return null;
+  function detectReference(value) {
+    const q = cleanText(value);
 
-    const ref = q.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/);
+    const bibleRef = q.match(/(?:proverbios|proverbs|prov)\s*\.?\s*(\d{1,2})(?:\s*[:.]\s*(\d{1,2}))?/);
 
-    if (ref) {
-      const chapter = Number(ref[1]);
-      const verse = ref[2] ? Number(ref[2]) : 1;
+    if (bibleRef) {
+      const chapter = Number(bibleRef[1]);
+      const verse = bibleRef[2] ? Number(bibleRef[2]) : 1;
 
       if (chapter >= 1 && chapter <= 31) {
         return {
@@ -1061,21 +1068,24 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    return MAP.find(function (item) {
-      return item.terms.some(function (term) {
-        return q.includes(clean(term));
-      });
-    }) || null;
+    for (const key in RENEMAP) {
+      if (q.includes(cleanText(key))) {
+        return RENEMAP[key];
+      }
+    }
+
+    return null;
   }
 
   function goToReference(ref) {
     localStorage.setItem("renebook_reader_language", ref.lang);
     localStorage.setItem("renebook_reader_chapter", String(ref.c));
 
-    const chapterSelect = document.getElementById("chapterSelect") || document.querySelector("select");
+    const select = document.getElementById("chapterSelect") || document.querySelector("select");
 
-    if (chapterSelect) {
-      chapterSelect.value = String(ref.c);
+    if (select) {
+      select.value = String(ref.c);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
     }
 
     if (typeof window.renderProverbsReader === "function") {
@@ -1083,15 +1093,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setTimeout(function () {
-      const versesList = document.getElementById("versesList");
-      const chapterTitle = document.getElementById("chapterTitle");
-
-      if (!versesList) {
-        if (chapterTitle) chapterTitle.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-
-      const verses = Array.from(versesList.querySelectorAll(".reader-verse, p"));
+      const title = document.getElementById("chapterTitle");
+      const verses = Array.from(document.querySelectorAll(".reader-verse, #versesList p"));
 
       const target = verses.find(function (verse) {
         const numberNode = verse.querySelector(".verse-number");
@@ -1102,54 +1105,50 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (target) {
-        target.style.outline = "3px solid rgba(120, 210, 255, 0.95)";
+        target.style.outline = "3px solid rgba(125, 220, 255, 0.95)";
+        target.style.background = "rgba(125, 220, 255, 0.14)";
         target.style.borderRadius = "14px";
         target.style.padding = "8px 10px";
-        target.style.background = "rgba(120, 210, 255, 0.14)";
         target.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else if (chapterTitle) {
-        chapterTitle.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (title) {
+        title.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }, 250);
+    }, 300);
   }
 
-  function handleSearch(event) {
-    const input = event.target;
-
-    if (!input || input.tagName !== "INPUT") return;
-
-    const ref = findReference(input.value);
+  function processInput(input, event) {
+    const ref = detectReference(input.value);
     if (!ref) return;
 
-    if (event.type === "keydown" && event.key !== "Enter") return;
-
-    event.preventDefault();
-    event.stopPropagation();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
     goToReference(ref);
   }
 
-  document.addEventListener("keydown", handleSearch, true);
+  document.addEventListener("keydown", function (event) {
+    const input = event.target;
 
-  document.addEventListener("change", handleSearch, true);
+    if (!input || input.tagName !== "INPUT") return;
+    if (event.key !== "Enter") return;
 
-  let typingTimer = null;
+    processInput(input, event);
+  }, true);
 
   document.addEventListener("input", function (event) {
     const input = event.target;
 
     if (!input || input.tagName !== "INPUT") return;
 
-    clearTimeout(typingTimer);
+    clearTimeout(window.renebookSearchTimer);
 
-    typingTimer = setTimeout(function () {
-      const ref = findReference(input.value);
-      if (ref) {
-        goToReference(ref);
-      }
-    }, 700);
+    window.renebookSearchTimer = setTimeout(function () {
+      processInput(input, event);
+    }, 900);
   }, true);
 })();
-</script> 
+</script>
 </body>
 </html>
