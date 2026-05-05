@@ -278,7 +278,361 @@
       navigator.serviceWorker.register("service-worker.js");
   }
 </script>
-  
+ <style>
+  /* ===== RENEBOOK HOME INTERACTIVE POLISH ===== */
+
+  .rb-home-panel,
+  .rb-kids-guide {
+    margin: 34px auto;
+    padding: 28px;
+    max-width: 1180px;
+    border-radius: 28px;
+    border: 1px solid rgba(125, 180, 255, 0.28);
+    background: rgba(9, 28, 52, 0.82);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+    color: #f4f8ff;
+  }
+
+  .rb-home-panel h2,
+  .rb-kids-guide h2 {
+    margin: 0 0 12px;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    line-height: 1.05;
+  }
+
+  .rb-home-panel p,
+  .rb-kids-guide p {
+    color: #b9c8dc;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  .rb-home-grid,
+  .rb-kids-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .rb-home-box,
+  .rb-kids-box {
+    padding: 20px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .rb-home-box strong,
+  .rb-kids-box strong {
+    display: block;
+    color: #ffd96a;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+
+  .rb-home-action {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 18px;
+    border-radius: 999px;
+    background: #86c9ff;
+    color: #07111f;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .rb-clickable-home-card {
+    cursor: pointer !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .rb-clickable-home-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(125, 220, 255, 0.8) !important;
+    background: rgba(125, 220, 255, 0.10) !important;
+  }
+
+  .rb-kids-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .rb-kids-chip-row button {
+    border: 1px solid rgba(125, 180, 255, 0.38);
+    background: rgba(255, 255, 255, 0.07);
+    color: #f4f8ff;
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .rb-kids-chip-row button:hover {
+    background: rgba(125, 220, 255, 0.15);
+  }
+
+  @media (max-width: 820px) {
+    .rb-home-panel,
+    .rb-kids-guide {
+      margin: 24px 16px;
+      padding: 20px;
+      border-radius: 22px;
+    }
+
+    .rb-home-grid,
+    .rb-kids-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .rb-home-action {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const HOME_STEPS = {
+    leer: {
+      title: "01 · Leer",
+      intro: "El primer paso es leer Proverbios con calma, no solo como información, sino como dirección espiritual para el día.",
+      boxes: [
+        ["Meta", "Leer un capítulo o un pasaje corto con atención."],
+        ["Práctica", "Subraya una palabra clave: sabiduría, temor, camino, corazón o consejo."],
+        ["Siguiente paso", "Ir al lector bíblico y comenzar con Proverbios 1."]
+      ],
+      action: "Abrir lector bíblico",
+      href: "app-bible.html"
+    },
+    meditar: {
+      title: "02 · Meditar",
+      intro: "Meditar es detenerse para escuchar lo que el texto enseña sobre Dios, el corazón y la vida diaria.",
+      boxes: [
+        ["Pregunta", "¿Qué revela este proverbio sobre la sabiduría de Dios?"],
+        ["Reflexión", "Conecta el versículo con una decisión real de tu día."],
+        ["Siguiente paso", "Escribe una frase corta que puedas recordar."]
+      ],
+      action: "Buscar un tema",
+      href: "app-bible.html"
+    },
+    aplicar: {
+      title: "03 · Aplicar",
+      intro: "La sabiduría madura cuando pasa de la lectura a la obediencia concreta.",
+      boxes: [
+        ["Decisión", "Escoge una acción simple y medible para hoy."],
+        ["Ejemplo", "Responder con mansedumbre, pedir consejo, orar antes de decidir."],
+        ["Siguiente paso", "Practica el proverbio antes de terminar el día."]
+      ],
+      action: "Ver devocionales",
+      href: "app-bible.html"
+    },
+    compartir: {
+      title: "04 · Compartir",
+      intro: "La Palabra también se comparte con familia, amigos, niños, nuevos creyentes y redes sociales.",
+      boxes: [
+        ["Familia", "Comparte un versículo en casa."],
+        ["Redes", "Publica una frase breve con una aplicación sencilla."],
+        ["Iglesia", "Usa el proverbio para discipulado o seguimiento."]
+      ],
+      action: "Abrir app bíblica",
+      href: "app-bible.html"
+    },
+    crecer: {
+      title: "05 · Crecer",
+      intro: "El objetivo no es solo leer más, sino formar carácter, obediencia y madurez espiritual.",
+      boxes: [
+        ["Carácter", "Identifica un área que Dios está formando."],
+        ["Disciplina", "Regresa mañana al siguiente proverbio."],
+        ["Fruto", "Busca vivir la sabiduría en relaciones, trabajo y servicio."]
+      ],
+      action: "Continuar lectura",
+      href: "app-bible.html"
+    }
+  };
+
+  const KIDS_TOPICS = {
+    obediencia: {
+      title: "Obediencia con amor",
+      verse: "Proverbios 1:8",
+      bigIdea: "Dios usa a papá, mamá y los maestros para enseñarnos sabiduría.",
+      question: "¿Qué consejo bueno debo escuchar hoy?",
+      activity: "Dibuja una casa y escribe dentro una palabra sabia que escuchaste.",
+      prayer: "Señor, ayúdame a escuchar y obedecer con alegría."
+    },
+    sabiduria: {
+      title: "Sabiduría para escoger bien",
+      verse: "Proverbios 1:7",
+      bigIdea: "Ser sabio empieza cuando honramos a Dios.",
+      question: "¿Qué decisión puedo tomar hoy para agradar a Dios?",
+      activity: "Haz dos caminos en una hoja: uno sabio y uno necio. Dibuja una buena decisión.",
+      prayer: "Señor, dame sabiduría para escoger lo bueno."
+    },
+    palabras: {
+      title: "Palabras que ayudan",
+      verse: "Proverbios 15:1",
+      bigIdea: "Las palabras suaves pueden traer paz.",
+      question: "¿A quién puedo hablarle con amor hoy?",
+      activity: "Escribe tres palabras que animen: gracias, perdón, te quiero.",
+      prayer: "Señor, cuida mis palabras y mi corazón."
+    },
+    amistad: {
+      title: "Amigos que ayudan a crecer",
+      verse: "Proverbios 27:17",
+      bigIdea: "Un buen amigo nos ayuda a ser mejores.",
+      question: "¿Cómo puedo ser un buen amigo esta semana?",
+      activity: "Haz una tarjeta para un amigo con una frase de ánimo.",
+      prayer: "Señor, ayúdame a ser un amigo fiel y amable."
+    }
+  };
+
+  function createHomePanel(stepKey) {
+    const step = HOME_STEPS[stepKey];
+    if (!step) return;
+
+    let panel = document.getElementById("rbHomeInteractivePanel");
+
+    if (!panel) {
+      panel = document.createElement("section");
+      panel.id = "rbHomeInteractivePanel";
+      panel.className = "rb-home-panel";
+
+      const hero = document.querySelector("main section") || document.querySelector("section") || document.body;
+      hero.insertAdjacentElement("afterend", panel);
+    }
+
+    panel.innerHTML = `
+      <h2>${step.title}</h2>
+      <p>${step.intro}</p>
+      <div class="rb-home-grid">
+        ${step.boxes.map(function (box) {
+          return `
+            <div class="rb-home-box">
+              <strong>${box[0]}</strong>
+              <span>${box[1]}</span>
+            </div>
+          `;
+        }).join("")}
+      </div>
+      <a class="rb-home-action" href="${step.href}">${step.action} →</a>
+    `;
+
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function connectHomeCards() {
+    const allCards = Array.from(document.querySelectorAll("div, article, section"));
+
+    allCards.forEach(function (item) {
+      const text = (item.textContent || "").toLowerCase().replace(/\s+/g, " ").trim();
+
+      let key = null;
+
+      if (text.includes("01") && text.includes("leer")) key = "leer";
+      if (text.includes("02") && text.includes("meditar")) key = "meditar";
+      if (text.includes("03") && text.includes("aplicar")) key = "aplicar";
+      if (text.includes("04") && text.includes("compartir")) key = "compartir";
+      if (text.includes("05") && text.includes("crecer")) key = "crecer";
+
+      if (!key) return;
+
+      item.classList.add("rb-clickable-home-card");
+      item.setAttribute("role", "button");
+      item.setAttribute("tabindex", "0");
+
+      item.addEventListener("click", function () {
+        createHomePanel(key);
+      });
+
+      item.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          createHomePanel(key);
+        }
+      });
+    });
+  }
+
+  function renderKidsGuide(topicKey) {
+    const topic = KIDS_TOPICS[topicKey] || KIDS_TOPICS.sabiduria;
+
+    let guide = document.getElementById("rbKidsGuide");
+
+    if (!guide) {
+      guide = document.createElement("section");
+      guide.id = "rbKidsGuide";
+      guide.className = "rb-kids-guide";
+
+      const candidates = Array.from(document.querySelectorAll("section, div"));
+      const kidsSection = candidates.find(function (item) {
+        const text = item.textContent || "";
+        return text.includes("Proverbios para niños") || text.includes("niños");
+      });
+
+      if (kidsSection) {
+        kidsSection.insertAdjacentElement("afterend", guide);
+      } else {
+        document.body.insertAdjacentElement("beforeend", guide);
+      }
+    }
+
+    guide.innerHTML = `
+      <h2>Guía para niños · ${topic.title}</h2>
+      <p><strong>${topic.verse}</strong> — ${topic.bigIdea}</p>
+
+      <div class="rb-kids-grid">
+        <div class="rb-kids-box">
+          <strong>Explicación sencilla</strong>
+          ${topic.bigIdea}
+        </div>
+        <div class="rb-kids-box">
+          <strong>Pregunta familiar</strong>
+          ${topic.question}
+        </div>
+        <div class="rb-kids-box">
+          <strong>Actividad</strong>
+          ${topic.activity}
+        </div>
+        <div class="rb-kids-box">
+          <strong>Oración</strong>
+          ${topic.prayer}
+        </div>
+      </div>
+
+      <div class="rb-kids-chip-row">
+        <button type="button" data-kids-topic="sabiduria">Sabiduría</button>
+        <button type="button" data-kids-topic="obediencia">Obediencia</button>
+        <button type="button" data-kids-topic="palabras">Palabras</button>
+        <button type="button" data-kids-topic="amistad">Amistad</button>
+      </div>
+    `;
+
+    guide.querySelectorAll("[data-kids-topic]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        renderKidsGuide(button.dataset.kidsTopic);
+      });
+    });
+  }
+
+  function initHomeEnhancements() {
+    connectHomeCards();
+    renderKidsGuide("sabiduria");
+  }
+
+  document.addEventListener("DOMContentLoaded", initHomeEnhancements);
+  window.addEventListener("load", initHomeEnhancements);
+  setTimeout(initHomeEnhancements, 800);
+})();
+</script> 
 </body>
 </html>
 
