@@ -1960,5 +1960,523 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(hideOldDevotionalCard, 800);
 })();
 </script>
+  <style>
+  /* ===== RENEBOOK MOBILE POLISH ===== */
+
+  @media (max-width: 900px) {
+    body {
+      overflow-x: hidden;
+    }
+
+    main,
+    .container,
+    .app-container,
+    .reader-container,
+    .content,
+    .layout {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      box-sizing: border-box !important;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 12vw, 4.5rem) !important;
+      line-height: 0.95 !important;
+      letter-spacing: -0.04em !important;
+      margin-bottom: 18px !important;
+    }
+
+    #chapterTitle {
+      font-size: 1.45rem !important;
+      line-height: 1.35 !important;
+      margin-top: 18px !important;
+    }
+
+    #versesList {
+      max-width: 100% !important;
+    }
+
+    #versesList p,
+    .reader-verse {
+      font-size: 1.05rem !important;
+      line-height: 1.75 !important;
+      margin: 12px 0 !important;
+    }
+
+    .verse-number {
+      font-size: 1.05rem !important;
+      margin-right: 8px !important;
+    }
+
+    .renebook-bible-search,
+    .renebook-keyword-devotional,
+    #renebookKeywordDevotional {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    .renebook-bible-search-row {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+
+    .renebook-bible-search input,
+    .renebook-bible-search button {
+      width: 100% !important;
+      min-width: 0 !important;
+      font-size: 1rem !important;
+      min-height: 48px !important;
+    }
+
+    .reader-language-toggle {
+      display: flex !important;
+      gap: 10px !important;
+      flex-wrap: wrap !important;
+      margin: 14px 0 20px !important;
+    }
+
+    .reader-lang-btn {
+      flex: 1 1 130px !important;
+      min-height: 44px !important;
+      text-align: center !important;
+    }
+
+    .rb-kd-grid {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+
+    .rb-keyword-chips {
+      display: flex !important;
+      gap: 8px !important;
+      overflow-x: auto !important;
+      flex-wrap: nowrap !important;
+      padding-bottom: 8px !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .rb-keyword-chips button {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+    }
+
+    .rb-verse-highlight {
+      scroll-margin-top: 90px !important;
+    }
+  }
+
+  @media (max-width: 520px) {
+    #versesList p,
+    .reader-verse {
+      font-size: 1rem !important;
+      line-height: 1.72 !important;
+    }
+
+    .renebook-keyword-devotional h3,
+    #renebookKeywordDevotional h3 {
+      font-size: 1.18rem !important;
+    }
+
+    .rb-kd-box {
+      padding: 13px !important;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const MORE_TOPICS = [
+    {
+      terms: ["liderazgo", "lider", "líder", "autoridad", "rey", "gobierno"],
+      c: 29,
+      v: 2,
+      lang: "es",
+      title: "Liderazgo que bendice al pueblo",
+      reflection: "El liderazgo sabio no busca dominar, sino servir con justicia, verdad y temor de Dios.",
+      application: "Evalúa hoy una decisión de liderazgo y pregúntate si edifica a otros.",
+      prayer: "Señor, dame humildad y justicia para liderar con sabiduría."
+    },
+    {
+      terms: ["justicia", "pobre", "necesitado", "derecho", "defender"],
+      c: 31,
+      v: 9,
+      lang: "es",
+      title: "Justicia para el necesitado",
+      reflection: "La sabiduría bíblica no es indiferente al dolor; abre la boca por el que necesita defensa.",
+      application: "Busca una forma concreta de servir o animar a alguien vulnerable.",
+      prayer: "Señor, hazme sensible a la necesidad y justo en mis acciones."
+    },
+    {
+      terms: ["dinero", "riqueza", "finanzas", "generosidad", "honra"],
+      c: 3,
+      v: 9,
+      lang: "es",
+      title: "Honrar a Dios con los recursos",
+      reflection: "Los recursos también revelan el corazón. La sabiduría aprende a honrar a Dios con lo recibido.",
+      application: "Administra hoy tus recursos con gratitud, orden y generosidad.",
+      prayer: "Señor, enséñame a honrarte con todo lo que tengo."
+    },
+    {
+      terms: ["disciplina", "correccion", "corrección", "aprendizaje", "enseñanza"],
+      c: 12,
+      v: 1,
+      lang: "es",
+      title: "Disciplina que forma carácter",
+      reflection: "La corrección no destruye al sabio; lo madura. Dios usa la instrucción para formar carácter.",
+      application: "Recibe hoy una corrección útil sin orgullo ni resistencia.",
+      prayer: "Señor, dame un corazón enseñable y humilde."
+    },
+    {
+      terms: ["humildad", "orgullo", "soberbia"],
+      c: 16,
+      v: 18,
+      lang: "es",
+      title: "Humildad antes que caída",
+      reflection: "El orgullo ciega, pero la humildad nos mantiene dependientes de Dios.",
+      application: "Entrega al Señor un área donde necesitas dejar de controlar todo.",
+      prayer: "Señor, líbrame del orgullo y forma humildad en mí."
+    },
+    {
+      terms: ["planes", "proyectos", "futuro", "decision", "decisión"],
+      c: 16,
+      v: 3,
+      lang: "es",
+      title: "Planes rendidos al Señor",
+      reflection: "La sabiduría no cancela la planificación; la somete a la soberanía de Dios.",
+      application: "Presenta hoy tus planes al Señor antes de ejecutarlos.",
+      prayer: "Señor, afirma mis pensamientos conforme a tu voluntad."
+    },
+    {
+      terms: ["evangelio", "vida", "camino", "rectitud", "justo"],
+      c: 4,
+      v: 18,
+      lang: "es",
+      title: "El camino del justo",
+      reflection: "La vida guiada por Dios crece como luz progresiva, con dirección y esperanza.",
+      application: "Da hoy un paso pequeño pero obediente hacia lo que Dios te está mostrando.",
+      prayer: "Señor, ilumina mi camino y fortalece mi obediencia."
+    },
+    {
+      terms: ["ansiedad", "temor", "miedo", "preocupacion", "preocupación"],
+      c: 3,
+      v: 25,
+      lang: "es",
+      title: "No temas de repente",
+      reflection: "La sabiduría recuerda que Dios sostiene al creyente aun frente a lo inesperado.",
+      application: "Nombra tu temor delante de Dios y descansa en su cuidado.",
+      prayer: "Señor, guarda mi corazón del temor y afirma mi confianza en ti."
+    },
+    {
+      terms: ["pureza", "tentacion", "tentación", "fidelidad", "matrimonio"],
+      c: 5,
+      v: 21,
+      lang: "es",
+      title: "Fidelidad delante de Dios",
+      reflection: "Dios mira nuestros caminos y nos llama a vivir con pureza, fidelidad y dominio propio.",
+      application: "Pon límites sabios donde sabes que necesitas protección espiritual.",
+      prayer: "Señor, guarda mis afectos y dirige mis pasos en santidad."
+    },
+    {
+      terms: ["niños", "ninos", "jovenes", "jóvenes", "educacion", "educación"],
+      c: 22,
+      v: 6,
+      lang: "es",
+      title: "Formar una generación sabia",
+      reflection: "La instrucción temprana siembra dirección espiritual para el futuro.",
+      application: "Anima hoy a un niño o joven con una palabra bíblica y afirmadora.",
+      prayer: "Señor, ayúdame a formar generaciones que caminen en tu verdad."
+    },
+
+    {
+      terms: ["leadership", "leader", "authority", "king", "government"],
+      c: 29,
+      v: 2,
+      lang: "en",
+      title: "Leadership that blesses people",
+      reflection: "Wise leadership does not seek domination, but service with justice, truth, and reverence for God.",
+      application: "Review one leadership decision and ask whether it builds others up.",
+      prayer: "Lord, give me humility and justice to lead with wisdom."
+    },
+    {
+      terms: ["justice", "poor", "needy", "defend", "right"],
+      c: 31,
+      v: 9,
+      lang: "en",
+      title: "Justice for the needy",
+      reflection: "Biblical wisdom is not indifferent to pain; it speaks for those who need defense.",
+      application: "Find one concrete way to serve or encourage someone vulnerable.",
+      prayer: "Lord, make me sensitive to need and just in my actions."
+    },
+    {
+      terms: ["money", "wealth", "finances", "generosity", "honor"],
+      c: 3,
+      v: 9,
+      lang: "en",
+      title: "Honor God with resources",
+      reflection: "Resources reveal the heart. Wisdom learns to honor God with what has been received.",
+      application: "Manage your resources today with gratitude, order, and generosity.",
+      prayer: "Lord, teach me to honor you with all I have."
+    },
+    {
+      terms: ["discipline", "correction", "learning", "instruction"],
+      c: 12,
+      v: 1,
+      lang: "en",
+      title: "Discipline that forms character",
+      reflection: "Correction does not destroy the wise; it matures them. God uses instruction to form character.",
+      application: "Receive useful correction today without pride or resistance.",
+      prayer: "Lord, give me a teachable and humble heart."
+    },
+    {
+      terms: ["humility", "pride", "arrogance"],
+      c: 16,
+      v: 18,
+      lang: "en",
+      title: "Humility before the fall",
+      reflection: "Pride blinds, but humility keeps us dependent on God.",
+      application: "Surrender one area where you need to stop controlling everything.",
+      prayer: "Lord, free me from pride and form humility in me."
+    },
+    {
+      terms: ["plans", "projects", "future", "decision"],
+      c: 16,
+      v: 3,
+      lang: "en",
+      title: "Plans surrendered to the Lord",
+      reflection: "Wisdom does not cancel planning; it submits planning to God’s sovereignty.",
+      application: "Present your plans to the Lord before you execute them.",
+      prayer: "Lord, establish my thoughts according to your will."
+    }
+  ];
+
+  function normalize(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function getBible(lang) {
+    const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+    if (!data) return null;
+    return data[lang] || data.es || data.en || null;
+  }
+
+  function getVerseText(lang, chapterNumber, verseNumber) {
+    const bible = getBible(lang);
+    if (!bible || !Array.isArray(bible.chapters)) return "";
+
+    const chapter = bible.chapters.find(function (item) {
+      return Number(item.chapter || item.number) === Number(chapterNumber);
+    });
+
+    if (!chapter || !Array.isArray(chapter.verses)) return "";
+
+    const verse = chapter.verses.find(function (item) {
+      return Number(item.verse || item.number) === Number(verseNumber);
+    });
+
+    return verse ? verse.text : "";
+  }
+
+  function findMoreTopic(value) {
+    const query = normalize(value);
+    if (!query) return null;
+
+    return MORE_TOPICS.find(function (topic) {
+      return topic.terms.some(function (term) {
+        return query.includes(normalize(term));
+      });
+    }) || null;
+  }
+
+  function tagAndHighlight(chapterNumber, verseNumber) {
+    document.querySelectorAll(".rb-verse-highlight").forEach(function (item) {
+      item.classList.remove("rb-verse-highlight");
+    });
+
+    const versesList = document.getElementById("versesList");
+    if (!versesList) return;
+
+    const verses = Array.from(versesList.querySelectorAll(".reader-verse, p, div, li"));
+
+    verses.forEach(function (item) {
+      const numberNode = item.querySelector(".verse-number");
+      const text = item.textContent.trim();
+      const match = text.match(/^(\d{1,3})\s+/);
+      const number = numberNode ? Number(numberNode.textContent.trim()) : match ? Number(match[1]) : null;
+
+      if (number) {
+        item.dataset.rbVerse = String(number);
+      }
+    });
+
+    const target = verses.find(function (item) {
+      return Number(item.dataset.rbVerse) === Number(verseNumber);
+    });
+
+    if (target) {
+      target.classList.add("rb-verse-highlight");
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  function renderMoreDevotional(topic) {
+    let card = document.getElementById("renebookKeywordDevotional");
+
+    if (!card) {
+      card = document.createElement("section");
+      card.id = "renebookKeywordDevotional";
+      card.className = "renebook-keyword-devotional";
+
+      const searchBox = document.getElementById("renebookBibleSearchBox");
+      const versesList = document.getElementById("versesList");
+
+      if (searchBox) {
+        searchBox.insertAdjacentElement("afterend", card);
+      } else if (versesList) {
+        versesList.insertAdjacentElement("afterend", card);
+      } else {
+        document.body.insertAdjacentElement("beforeend", card);
+      }
+    }
+
+    const referenceLabel = topic.lang === "en"
+      ? "Proverbs " + topic.c + ":" + topic.v
+      : "Proverbios " + topic.c + ":" + topic.v;
+
+    const verseText = getVerseText(topic.lang, topic.c, topic.v);
+
+    card.innerHTML = `
+      <div class="rb-ref">${referenceLabel}</div>
+      <h3>${escapeHTML(topic.title)}</h3>
+      <div class="rb-verse-preview">
+        <strong>${referenceLabel}</strong><br>
+        ${escapeHTML(verseText || "Versículo cargado en el lector bíblico.")}
+      </div>
+
+      <div class="rb-kd-grid">
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Reflection" : "Reflexión"}</strong>
+          ${escapeHTML(topic.reflection)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Application" : "Aplicación"}</strong>
+          ${escapeHTML(topic.application)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${topic.lang === "en" ? "Prayer" : "Oración"}</strong>
+          ${escapeHTML(topic.prayer)}
+        </div>
+      </div>
+
+      <div class="rb-keyword-chips">
+        <button type="button" data-more-search="liderazgo">Liderazgo</button>
+        <button type="button" data-more-search="justicia">Justicia</button>
+        <button type="button" data-more-search="dinero">Finanzas</button>
+        <button type="button" data-more-search="disciplina">Disciplina</button>
+        <button type="button" data-more-search="humildad">Humildad</button>
+        <button type="button" data-more-search="planes">Planes</button>
+        <button type="button" data-more-search="ansiedad">Ansiedad</button>
+        <button type="button" data-more-search="pureza">Pureza</button>
+        <button type="button" data-more-search="niños">Niños</button>
+        <button type="button" data-more-search="leadership">Leadership</button>
+        <button type="button" data-more-search="justice">Justice</button>
+        <button type="button" data-more-search="humility">Humility</button>
+      </div>
+    `;
+
+    card.querySelectorAll("[data-more-search]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        routeMoreTopic(button.dataset.moreSearch);
+      });
+    });
+  }
+
+  function routeMoreTopic(value) {
+    const topic = findMoreTopic(value);
+    const status = document.getElementById("renebookBibleSearchStatus");
+
+    if (!topic) return false;
+
+    localStorage.setItem("renebook_reader_language", topic.lang);
+    localStorage.setItem("renebook_reader_chapter", String(topic.c));
+
+    const select = document.getElementById("chapterSelect") || document.querySelector("select");
+
+    if (select) {
+      select.value = String(topic.c);
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    if (status) {
+      status.textContent = topic.lang === "en"
+        ? "Opening Proverbs " + topic.c + ":" + topic.v + "..."
+        : "Abriendo Proverbios " + topic.c + ":" + topic.v + "...";
+    }
+
+    setTimeout(function () {
+      tagAndHighlight(topic.c, topic.v);
+      renderMoreDevotional(topic);
+    }, 500);
+
+    return true;
+  }
+
+  function connectMoreSearch() {
+    const input = document.getElementById("renebookBibleSearchInput");
+    const button = document.getElementById("renebookBibleSearchButton");
+
+    if (input) {
+      input.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+
+        if (findMoreTopic(input.value)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          routeMoreTopic(input.value);
+        }
+      }, true);
+    }
+
+    if (button && input) {
+      button.addEventListener("click", function (event) {
+        if (findMoreTopic(input.value)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          routeMoreTopic(input.value);
+        }
+      }, true);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", connectMoreSearch);
+  window.addEventListener("load", connectMoreSearch);
+  window.addEventListener("renebook:proverbs-ready", connectMoreSearch);
+  setTimeout(connectMoreSearch, 900);
+})();
+</script>
 </body>
 </html>
