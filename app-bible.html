@@ -1900,5 +1900,65 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(connectSearchBox, 800);
 })();
 </script>
+  <style>
+  .rb-hide-old-devotional {
+    display: none !important;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  function hideOldDevotionalCard() {
+    const inputs = Array.from(document.querySelectorAll("input"));
+
+    inputs.forEach(function (input) {
+      if (input.id === "renebookBibleSearchInput") return;
+
+      const placeholder = String(input.getAttribute("placeholder") || "").toLowerCase();
+      const possibleOldSearch =
+        placeholder.includes("sabidur") ||
+        placeholder.includes("descanso") ||
+        placeholder.includes("buscar");
+
+      if (!possibleOldSearch) return;
+
+      let card = input.closest("section, article, .card, .devotional-card, .daily-card, .panel");
+
+      if (!card) {
+        card = input.parentElement;
+        for (let i = 0; i < 4 && card && card.parentElement; i += 1) {
+          const text = card.textContent || "";
+          if (
+            text.includes("Reflexión") &&
+            text.includes("Aplicación") &&
+            (text.includes("Marcar leído") || text.includes("Copiar devocional"))
+          ) {
+            break;
+          }
+          card = card.parentElement;
+        }
+      }
+
+      if (!card) return;
+
+      const text = card.textContent || "";
+
+      if (
+        text.includes("Reflexión") &&
+        text.includes("Aplicación") &&
+        (text.includes("Marcar leído") || text.includes("Copiar devocional"))
+      ) {
+        card.classList.add("rb-hide-old-devotional");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", hideOldDevotionalCard);
+  window.addEventListener("load", hideOldDevotionalCard);
+  setTimeout(hideOldDevotionalCard, 800);
+})();
+</script>
 </body>
 </html>
