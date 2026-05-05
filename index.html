@@ -633,6 +633,243 @@
   setTimeout(initHomeEnhancements, 800);
 })();
 </script> 
+  <style>
+  /* =====================================================
+     RENEBOOK HYBRID COLOR SYSTEM
+     Premium bíblico + familiar + sección niños más viva
+  ===================================================== */
+
+  :root {
+    --rb-bg-deep: #061425;
+    --rb-bg-panel: #0d2440;
+    --rb-bg-card: rgba(255, 255, 255, 0.065);
+
+    --rb-text-main: #f5f9ff;
+    --rb-text-soft: #b8c7da;
+
+    --rb-blue: #4da3ff;
+    --rb-sky: #86c9ff;
+    --rb-cyan: #4fd1c5;
+    --rb-gold: #f2c96b;
+    --rb-mint: #7ed6a7;
+    --rb-coral: #ff9e8a;
+    --rb-lavender: #b9a7ff;
+
+    --rb-border-soft: rgba(135, 190, 255, 0.28);
+    --rb-glow-blue: 0 0 0 1px rgba(77, 163, 255, 0.20),
+                    0 22px 55px rgba(0, 0, 0, 0.34);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 12% 8%, rgba(77, 163, 255, 0.11), transparent 28%),
+      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.10), transparent 26%),
+      linear-gradient(180deg, #061425 0%, #07182c 55%, #05111f 100%) !important;
+    color: var(--rb-text-main) !important;
+  }
+
+  /* Navegación superior */
+  nav a,
+  header a,
+  .nav a {
+    transition: all 0.2s ease !important;
+  }
+
+  nav a:hover,
+  header a:hover,
+  .nav a:hover {
+    color: var(--rb-sky) !important;
+    border-color: rgba(134, 201, 255, 0.65) !important;
+  }
+
+  /* Hero general */
+  h1, h2 {
+    letter-spacing: -0.035em;
+  }
+
+  section {
+    scroll-margin-top: 90px;
+  }
+
+  /* Tarjetas principales */
+  .rb-home-panel,
+  .rb-kids-guide {
+    background:
+      linear-gradient(145deg, rgba(16, 40, 71, 0.92), rgba(7, 24, 44, 0.94)) !important;
+    border: 1px solid var(--rb-border-soft) !important;
+    box-shadow: var(--rb-glow-blue) !important;
+  }
+
+  .rb-home-panel h2,
+  .rb-kids-guide h2 {
+    color: var(--rb-text-main) !important;
+  }
+
+  .rb-home-panel p,
+  .rb-kids-guide p {
+    color: var(--rb-text-soft) !important;
+  }
+
+  .rb-home-box,
+  .rb-kids-box {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.13) !important;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  .rb-home-box strong,
+  .rb-kids-box strong {
+    color: var(--rb-gold) !important;
+  }
+
+  /* Tarjetas 01 Leer, 02 Meditar, etc. */
+  .rb-clickable-home-card {
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .rb-clickable-home-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(77, 163, 255, 0.12), rgba(79, 209, 197, 0.06));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .rb-clickable-home-card:hover::before {
+    opacity: 1;
+  }
+
+  .rb-clickable-home-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: rgba(134, 201, 255, 0.78) !important;
+    box-shadow: 0 20px 46px rgba(0, 0, 0, 0.32) !important;
+  }
+
+  /* Botón principal */
+  .rb-home-action {
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-cyan)) !important;
+    color: #061425 !important;
+    box-shadow: 0 14px 30px rgba(77, 163, 255, 0.28) !important;
+  }
+
+  .rb-home-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px rgba(77, 163, 255, 0.36) !important;
+  }
+
+  /* Sección niños: más color, sin perder orden */
+  .rb-kids-guide {
+    background:
+      radial-gradient(circle at 18% 10%, rgba(255, 217, 106, 0.15), transparent 26%),
+      radial-gradient(circle at 86% 15%, rgba(126, 214, 167, 0.15), transparent 25%),
+      linear-gradient(145deg, rgba(13, 36, 64, 0.96), rgba(7, 24, 44, 0.96)) !important;
+  }
+
+  .rb-kids-guide h2::before {
+    content: "✨ ";
+  }
+
+  .rb-kids-grid .rb-kids-box:nth-child(1) {
+    border-color: rgba(77, 163, 255, 0.45) !important;
+  }
+
+  .rb-kids-grid .rb-kids-box:nth-child(2) {
+    border-color: rgba(126, 214, 167, 0.45) !important;
+  }
+
+  .rb-kids-grid .rb-kids-box:nth-child(3) {
+    border-color: rgba(255, 217, 106, 0.48) !important;
+  }
+
+  .rb-kids-grid .rb-kids-box:nth-child(4) {
+    border-color: rgba(255, 158, 138, 0.45) !important;
+  }
+
+  .rb-kids-chip-row button {
+    color: #07111f !important;
+    border: 0 !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  .rb-kids-chip-row button:nth-child(1) {
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-blue)) !important;
+  }
+
+  .rb-kids-chip-row button:nth-child(2) {
+    background: linear-gradient(135deg, var(--rb-mint), var(--rb-cyan)) !important;
+  }
+
+  .rb-kids-chip-row button:nth-child(3) {
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a) !important;
+  }
+
+  .rb-kids-chip-row button:nth-child(4) {
+    background: linear-gradient(135deg, var(--rb-coral), var(--rb-lavender)) !important;
+  }
+
+  .rb-kids-chip-row button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
+  /* Footer / notas */
+  footer,
+  .footer {
+    color: var(--rb-text-soft) !important;
+  }
+
+  /* Mobile polish */
+  @media (max-width: 820px) {
+    body {
+      overflow-x: hidden !important;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 11vw, 4.4rem) !important;
+      line-height: 0.98 !important;
+    }
+
+    .rb-home-panel,
+    .rb-kids-guide {
+      margin: 24px 14px !important;
+      padding: 20px !important;
+      border-radius: 24px !important;
+    }
+
+    .rb-home-box,
+    .rb-kids-box {
+      padding: 18px !important;
+      border-radius: 20px !important;
+    }
+
+    .rb-kids-chip-row {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 10px !important;
+    }
+
+    .rb-kids-chip-row button {
+      width: 100% !important;
+      min-height: 46px !important;
+      font-size: 0.95rem !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .rb-kids-chip-row {
+      grid-template-columns: 1fr !important;
+    }
+
+    .rb-home-panel,
+    .rb-kids-guide {
+      padding: 18px !important;
+    }
+  }
+</style>
 </body>
 </html>
 
