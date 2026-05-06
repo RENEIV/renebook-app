@@ -4632,5 +4632,153 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("renebook:proverbs-ready", applyLanguageToBibleReader);
 })();
 </script>
+  <script>
+(function () {
+  "use strict";
+
+  const LANG_KEY = "renebook_reader_language";
+  const LANG_SELECTED_KEY = "renebook_language_selected";
+
+  function setRenebookLanguage(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem(LANG_SELECTED_KEY, "true");
+
+    updateLanguageButtons(safeLang);
+    updateLanguageSelects(safeLang);
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    window.dispatchEvent(
+      new CustomEvent("renebook:language-change", {
+        detail: { lang: safeLang }
+      })
+    );
+
+    setTimeout(function () {
+      if (typeof window.renderProverbsReader === "function") {
+        window.renderProverbsReader();
+      }
+    }, 150);
+  }
+
+  function updateLanguageButtons(lang) {
+    document.querySelectorAll("[data-rb-lang-choice]").forEach(function (button) {
+      button.classList.toggle("is-active", button.dataset.rbLangChoice === lang);
+    });
+
+    document.querySelectorAll(".reader-lang-btn").forEach(function (button) {
+      const value = button.dataset.lang || button.dataset.rbLangChoice || "";
+      const text = button.textContent.toLowerCase();
+
+      const isSpanish = value === "es" || text.includes("español");
+      const isEnglish = value === "en" || text.includes("english");
+
+      button.classList.toggle(
+        "active",
+        (lang === "es" && isSpanish) || (lang === "en" && isEnglish)
+      );
+    });
+  }
+
+  function updateLanguageSelects(lang) {
+    document.querySelectorAll("select").forEach(function (select) {
+      const options = Array.from(select.options || []);
+      const hasLanguageOptions = options.some(function (option) {
+        const text = option.textContent.toLowerCase();
+        return text.includes("español") || text.includes("english") || text.includes("rvr") || text.includes("web");
+      });
+
+      if (!hasLanguageOptions) return;
+
+      const targetOption = options.find(function (option) {
+        const text = option.textContent.toLowerCase();
+        const value = String(option.value || "").toLowerCase();
+
+        if (lang === "es") {
+          return value === "es" || value.includes("rvr") || text.includes("español") || text.includes("rvr");
+        }
+
+        return value === "en" || value.includes("web") || text.includes("english") || text.includes("web");
+      });
+
+      if (targetOption) {
+        select.value = targetOption.value;
+      }
+    });
+  }
+
+  function detectLanguageFromElement(element) {
+    const value = String(
+      element.dataset.rbLangChoice ||
+      element.dataset.lang ||
+      element.value ||
+      element.textContent ||
+      ""
+    ).toLowerCase();
+
+    if (value.includes("english") || value === "en" || value.includes("web")) return "en";
+    if (value.includes("español") || value.includes("espanol") || value === "es" || value.includes("rvr")) return "es";
+
+    return null;
+  }
+
+  function connectLanguageControls() {
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      if (button.dataset.rbLangConnected === "true") return;
+
+      button.dataset.rbLangConnected = "true";
+
+      button.addEventListener("click", function (event) {
+        const lang = detectLanguageFromElement(button);
+
+        if (!lang) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        setRenebookLanguage(lang);
+      }, true);
+    });
+
+    document.querySelectorAll("select").forEach(function (select) {
+      if (select.dataset.rbLangSelectConnected === "true") return;
+
+      const options = Array.from(select.options || []);
+      const hasLanguageOptions = options.some(function (option) {
+        const text = option.textContent.toLowerCase();
+        return text.includes("español") || text.includes("english") || text.includes("rvr") || text.includes("web");
+      });
+
+      if (!hasLanguageOptions) return;
+
+      select.dataset.rbLangSelectConnected = "true";
+
+      select.addEventListener("change", function () {
+        const lang = detectLanguageFromElement(select);
+
+        if (lang) {
+          setRenebookLanguage(lang);
+        }
+      }, true);
+    });
+
+    const currentLang = localStorage.getItem(LANG_KEY) || "es";
+    updateLanguageButtons(currentLang);
+    updateLanguageSelects(currentLang);
+  }
+
+  document.addEventListener("DOMContentLoaded", connectLanguageControls);
+  window.addEventListener("load", connectLanguageControls);
+  window.addEventListener("renebook:proverbs-ready", connectLanguageControls);
+  window.addEventListener("renebook:language-change", connectLanguageControls);
+
+  setTimeout(connectLanguageControls, 500);
+  setTimeout(connectLanguageControls, 1200);
+})();
+</script>
 </body>
 </html>
