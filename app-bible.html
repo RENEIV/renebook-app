@@ -5877,5 +5877,382 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(translateBibleUI, 1500);
 })();
 </script>
+  <style>
+  .rb-i18n-fade {
+    transition: opacity 0.18s ease;
+  }
+
+  .rb-i18n-fade.is-changing {
+    opacity: 0.55;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const LANG_KEY = "renebook_reader_language";
+  const SELECTED_KEY = "renebook_language_selected";
+
+  const DICTIONARY = {
+    es: {
+      navHome: "Inicio",
+      navBible: "App Biblia",
+      navProject: "Proyecto",
+      navVision: "Visión",
+      navOpenBible: "Abrir Biblia",
+      brandSubtitle: "Biblia interactiva bilingüe",
+
+      homeEyebrow: "✨ Plataforma bíblica digital en español e inglés",
+      homeTitle: "Una experiencia moderna para leer, meditar y compartir la Palabra.",
+      homeLead: "Renebook une Biblia, Proverbios, devocionales breves y tecnología accesible para familias, nuevos lectores y comunidades de fe.",
+      homePrimary: "Probar App Biblia",
+      homeSecondary: "Leer visión",
+      homeExplore: "Explora Renebook",
+      homeExploreText: "Tres entradas sencillas: lectura bíblica, visión del proyecto y formación espiritual.",
+      homeBibleCardTitle: "App Biblia interactiva",
+      homeBibleCardText: "Versos, devocionales, selector de idioma, botón para copiar y progreso local.",
+      homeBibleCardAction: "Abrir App Biblia →",
+      homeProjectCardTitle: "Proyecto digital",
+      homeProjectCardText: "Explica el propósito, las funciones y la arquitectura espiritual de Renebook.",
+      homeVisionCardTitle: "Visión pastoral",
+      homeVisionCardText: "Presenta la dirección espiritual, familiar y misionera de la plataforma.",
+      homeKidsTitle: "Una sección sencilla para enseñar sabiduría con ternura.",
+      homeKidsText: "Estas tarjetas ayudan a explicar los principios de Proverbios en lenguaje claro, familiar y visual.",
+      footerText: "Renebook.org · App Biblia · RVR1909 / WEB · Devocionales originales para formación espiritual.",
+
+      appEyebrow: "📖 Lectura bíblica guiada",
+      appTitle: "Proverbios",
+      appLead: "Selecciona un tema, cambia de idioma, copia el devocional y marca tu avance. La experiencia está pensada para celular, familias y nuevos lectores.",
+      appVersions: "Versiones: RVR1909 en español y WEB en inglés.",
+      appFocus: "Enfoque: verso, reflexión, aplicación, oración y niños.",
+      appPrivacy: "Privacidad: el progreso se guarda solamente en este navegador.",
+      searchLabel: "Buscar en Proverbios",
+      searchButton: "Buscar",
+      searchPlaceholder: "sabiduría, familia, oración, paz, liderazgo, Proverbios 31:10",
+
+      projectEyebrow: "🧭 Proyecto Renebook",
+      projectTitle: "Una plataforma bíblica interactiva para lectura, formación y discipulado.",
+      projectLead: "Renebook organiza lectura bíblica, devocionales, búsqueda por temas y recursos familiares en una experiencia clara y accesible.",
+      projectPrimary: "Abrir App Biblia",
+      projectSecondary: "Ver visión",
+
+      visionEyebrow: "🌎 Visión de Renebook",
+      visionTitle: "Una plataforma para sembrar sabiduría bíblica en la vida diaria.",
+      visionLead: "Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar personas y familias hacia una fe más práctica, madura y misional.",
+      visionPrimary: "Entrar a la experiencia",
+      visionSecondary: "Ver arquitectura"
+    },
+
+    en: {
+      navHome: "Home",
+      navBible: "Bible App",
+      navProject: "Project",
+      navVision: "Vision",
+      navOpenBible: "Open Bible",
+      brandSubtitle: "Bilingual interactive Bible",
+
+      homeEyebrow: "✨ Digital Bible platform in Spanish and English",
+      homeTitle: "A modern experience to read, reflect, and share the Word.",
+      homeLead: "Renebook brings together the Bible, Proverbs, short devotionals, and accessible technology for families, new readers, and faith communities.",
+      homePrimary: "Try Bible App",
+      homeSecondary: "Read vision",
+      homeExplore: "Explore Renebook",
+      homeExploreText: "Three simple entrances: Bible reading, project vision, and spiritual formation.",
+      homeBibleCardTitle: "Interactive Bible App",
+      homeBibleCardText: "Verses, devotionals, language selector, copy button, and local progress.",
+      homeBibleCardAction: "Open Bible App →",
+      homeProjectCardTitle: "Digital project",
+      homeProjectCardText: "Explains the purpose, functions, and spiritual architecture of Renebook.",
+      homeVisionCardTitle: "Pastoral vision",
+      homeVisionCardText: "Presents the spiritual, family, and missional direction of the platform.",
+      homeKidsTitle: "A simple section to teach wisdom with warmth.",
+      homeKidsText: "These cards help explain the principles of Proverbs in clear, family-friendly, visual language.",
+      footerText: "Renebook.org · Bible App · RVR1909 / WEB · Original devotionals for spiritual formation.",
+
+      appEyebrow: "📖 Guided Bible reading",
+      appTitle: "Proverbs",
+      appLead: "Choose a topic, switch language, copy the devotional, and mark your progress. The experience is designed for mobile, families, and new readers.",
+      appVersions: "Versions: RVR1909 in Spanish and WEB in English.",
+      appFocus: "Focus: verse, reflection, application, prayer, and children.",
+      appPrivacy: "Privacy: progress is saved only in this browser.",
+      searchLabel: "Search Proverbs",
+      searchButton: "Search",
+      searchPlaceholder: "wisdom, family, prayer, peace, leadership, Proverbs 31:10",
+
+      projectEyebrow: "🧭 Renebook Project",
+      projectTitle: "An interactive Bible platform for reading, formation, and discipleship.",
+      projectLead: "Renebook organizes Bible reading, devotionals, topic search, and family resources in a clear and accessible experience.",
+      projectPrimary: "Open Bible App",
+      projectSecondary: "View vision",
+
+      visionEyebrow: "🌎 Renebook Vision",
+      visionTitle: "A platform to plant biblical wisdom in daily life.",
+      visionLead: "Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith.",
+      visionPrimary: "Enter the experience",
+      visionSecondary: "View architecture"
+    }
+  };
+
+  function clean(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = clean(params.get("lang"));
+
+    if (lang === "en" || lang === "english" || lang === "web") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
+
+    return null;
+  }
+
+  function getLang() {
+    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
+  }
+
+  function setLang(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem(SELECTED_KEY, "true");
+    document.documentElement.lang = safeLang;
+
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", safeLang);
+      window.history.replaceState({}, "", url.toString());
+    } catch (error) {}
+
+    return safeLang;
+  }
+
+  function textIncludes(node, value) {
+    return node && (node.textContent || "").trim().includes(value);
+  }
+
+  function setText(selector, text) {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = text;
+  }
+
+  function setHrefLanguage() {
+    const lang = getLang();
+
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (
+        href.includes("app-bible.html") ||
+        href === "/app-bible.html" ||
+        href === "app-bible.html"
+      ) {
+        link.setAttribute("href", "/app-bible.html?lang=" + lang);
+      }
+    });
+  }
+
+  function translateNav(t) {
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+      const txt = clean(link.textContent);
+
+      if ((href === "/" || href.includes("index")) && (txt.includes("inicio") || txt.includes("home"))) {
+        link.textContent = t.navHome;
+      }
+
+      if (href.includes("app-bible")) {
+        if (txt.includes("abrir") || txt.includes("open")) {
+          link.textContent = t.navOpenBible;
+        } else {
+          link.textContent = t.navBible;
+        }
+      }
+
+      if (href.includes("proyecto") || txt === "project" || txt === "proyecto") {
+        link.textContent = t.navProject;
+      }
+
+      if (href.includes("vision") || href.includes("visión") || txt === "vision" || txt === "visión") {
+        link.textContent = t.navVision;
+      }
+    });
+
+    const brandSubtitles = Array.from(document.querySelectorAll("span, p, small")).filter(function (node) {
+      const text = clean(node.textContent);
+      return text.includes("biblia interactiva") || text.includes("interactive bible") || text.includes("visión pastoral");
+    });
+
+    if (brandSubtitles[0]) {
+      brandSubtitles[0].textContent = t.brandSubtitle;
+    }
+  }
+
+  function translateHome(t) {
+    document.querySelectorAll(".eyebrow, .lead, h1, h2, h3, p, a").forEach(function (node) {
+      const text = (node.textContent || "").trim();
+
+      if (text.includes("Plataforma bíblica digital")) node.textContent = t.homeEyebrow;
+      if (text.includes("Una experiencia moderna para leer")) node.textContent = t.homeTitle;
+      if (text.includes("Renebook une Biblia")) node.textContent = t.homeLead;
+      if (text.includes("Probar App Biblia")) node.textContent = t.homePrimary;
+      if (text.includes("Leer visión")) node.textContent = t.homeSecondary;
+      if (text.includes("Explora Renebook")) node.textContent = t.homeExplore;
+      if (text.includes("Tres entradas sencillas")) node.textContent = t.homeExploreText;
+      if (text.includes("App Biblia interactiva")) node.textContent = t.homeBibleCardTitle;
+      if (text.includes("Versos, devocionales")) node.textContent = t.homeBibleCardText;
+      if (text.includes("Abrir App Biblia")) node.textContent = t.homeBibleCardAction;
+      if (text.includes("Proyecto digital")) node.textContent = t.homeProjectCardTitle;
+      if (text.includes("Explica el propósito")) node.textContent = t.homeProjectCardText;
+      if (text.includes("Visión pastoral")) node.textContent = t.homeVisionCardTitle;
+      if (text.includes("Presenta la dirección espiritual")) node.textContent = t.homeVisionCardText;
+      if (text.includes("Una sección sencilla")) node.textContent = t.homeKidsTitle;
+      if (text.includes("Estas tarjetas ayudan")) node.textContent = t.homeKidsText;
+      if (text.includes("Renebook.org · App Biblia")) node.textContent = t.footerText;
+    });
+  }
+
+  function translateApp(t) {
+    document.querySelectorAll(".eyebrow, .lead, h1, h2, h3, p, span, strong, label, button").forEach(function (node) {
+      const text = (node.textContent || "").trim();
+
+      if (text.includes("Lectura bíblica guiada")) node.textContent = t.appEyebrow;
+      if (text === "Proverbios" || text === "Proverbs") node.textContent = t.appTitle;
+      if (text.includes("Selecciona un tema")) node.textContent = t.appLead;
+      if (text.includes("Versiones:")) node.textContent = t.appVersions;
+      if (text.includes("Enfoque:")) node.textContent = t.appFocus;
+      if (text.includes("Privacidad:")) node.textContent = t.appPrivacy;
+      if (text.includes("Buscar en Proverbios") || text.includes("Search Proverbs")) node.textContent = t.searchLabel;
+      if (text === "Buscar" || text === "Search") node.textContent = t.searchButton;
+    });
+
+    const searchInput = document.getElementById("renebookBibleSearchInput");
+    if (searchInput) {
+      searchInput.placeholder = t.searchPlaceholder;
+    }
+  }
+
+  function translateProject(t) {
+    document.querySelectorAll(".eyebrow, .lead, h1, h2, h3, p, a").forEach(function (node) {
+      const text = (node.textContent || "").trim();
+
+      if (text.includes("Proyecto Renebook")) node.textContent = t.projectEyebrow;
+      if (text.includes("Una plataforma bíblica interactiva")) node.textContent = t.projectTitle;
+      if (text.includes("Renebook organiza lectura bíblica")) node.textContent = t.projectLead;
+      if (text.includes("Abrir App Biblia")) node.textContent = t.projectPrimary;
+      if (text.includes("Ver visión")) node.textContent = t.projectSecondary;
+    });
+  }
+
+  function translateVision(t) {
+    document.querySelectorAll(".eyebrow, .lead, h1, h2, h3, p, a, blockquote").forEach(function (node) {
+      const text = (node.textContent || "").trim();
+
+      if (text.includes("Visión de Renebook")) node.textContent = t.visionEyebrow;
+      if (text.includes("Una plataforma para sembrar")) node.textContent = t.visionTitle;
+      if (text.includes("Renebook existe para hacer")) node.textContent = t.visionLead;
+      if (text.includes("Entrar a la experiencia")) node.textContent = t.visionPrimary;
+      if (text.includes("Ver arquitectura")) node.textContent = t.visionSecondary;
+    });
+  }
+
+  function updateLanguageButtons(lang) {
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      const value = clean(
+        button.dataset.rbLangChoice ||
+        button.dataset.lang ||
+        button.value ||
+        button.textContent
+      );
+
+      const isEn = value === "en" || value.includes("english") || value.includes("web");
+      const isEs = value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr");
+
+      button.classList.toggle("is-active", (lang === "en" && isEn) || (lang === "es" && isEs));
+      button.classList.toggle("active", (lang === "en" && isEn) || (lang === "es" && isEs));
+    });
+  }
+
+  function connectLanguageClicks() {
+    document.addEventListener("click", function (event) {
+      const control = event.target.closest("[data-rb-lang-choice], .reader-lang-btn");
+
+      if (!control) return;
+
+      const value = clean(
+        control.dataset.rbLangChoice ||
+        control.dataset.lang ||
+        control.value ||
+        control.textContent
+      );
+
+      let lang = null;
+
+      if (value === "en" || value.includes("english") || value.includes("web")) lang = "en";
+      if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) lang = "es";
+
+      if (!lang) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      setLang(lang);
+      translatePage();
+      window.dispatchEvent(new CustomEvent("renebook:language-change", { detail: { lang: lang } }));
+    }, true);
+  }
+
+  let connected = false;
+
+  function translatePage() {
+    const lang = setLang(getLang());
+    const t = DICTIONARY[lang];
+
+    document.body.classList.add("rb-i18n-fade");
+    document.body.classList.add("is-changing");
+
+    translateNav(t);
+    translateHome(t);
+    translateApp(t);
+    translateProject(t);
+    translateVision(t);
+    setHrefLanguage();
+    updateLanguageButtons(lang);
+
+    setTimeout(function () {
+      document.body.classList.remove("is-changing");
+    }, 120);
+  }
+
+  function initGlobalTranslation() {
+    if (!connected) {
+      connectLanguageClicks();
+      connected = true;
+    }
+
+    translatePage();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGlobalTranslation);
+  } else {
+    initGlobalTranslation();
+  }
+
+  window.addEventListener("load", initGlobalTranslation);
+  window.addEventListener("renebook:language-change", function () {
+    setTimeout(translatePage, 100);
+    setTimeout(translatePage, 450);
+  });
+
+  setTimeout(initGlobalTranslation, 700);
+  setTimeout(initGlobalTranslation, 1600);
+})();
+</script>
 </body>
 </html>
