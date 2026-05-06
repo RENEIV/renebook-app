@@ -4780,5 +4780,307 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(connectLanguageControls, 1200);
 })();
 </script>
+  <script>
+(function () {
+  "use strict";
+
+  /*
+    RENEBOOK PLAN A — LIVE LANGUAGE SWITCH
+    Cambia Español / English sin recargar la página.
+    Conecta:
+    - Botones flotantes Español / English
+    - Botones reader-lang-btn
+    - Selectores Español RVR1909 / English WEB
+    - renderProverbsReader()
+  */
+
+  const LANG_KEY = "renebook_reader_language";
+  const SELECTED_KEY = "renebook_language_selected";
+
+  function normalizeText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = normalizeText(params.get("lang"));
+
+    if (lang === "en" || lang === "english" || lang === "web") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
+
+    return null;
+  }
+
+  function getStoredLang() {
+    return localStorage.getItem(LANG_KEY) || "es";
+  }
+
+  function saveLang(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem(SELECTED_KEY, "true");
+    document.documentElement.lang = safeLang;
+
+    return safeLang;
+  }
+
+  function detectLangFromElement(element) {
+    if (!element) return null;
+
+    const value = normalizeText(
+      element.dataset.rbLangChoice ||
+      element.dataset.lang ||
+      element.value ||
+      element.textContent ||
+      ""
+    );
+
+    if (
+      value === "en" ||
+      value.includes("english") ||
+      value.includes("web") ||
+      value.includes("ingles")
+    ) {
+      return "en";
+    }
+
+    if (
+      value === "es" ||
+      value.includes("espanol") ||
+      value.includes("español") ||
+      value.includes("rvr") ||
+      value.includes("reina")
+    ) {
+      return "es";
+    }
+
+    return null;
+  }
+
+  function hasLanguageOptions(select) {
+    if (!select || select.tagName !== "SELECT") return false;
+
+    return Array.from(select.options || []).some(function (option) {
+      const text = normalizeText(option.textContent);
+      const value = normalizeText(option.value);
+
+      return (
+        value === "en" ||
+        value === "es" ||
+        text.includes("english") ||
+        text.includes("espanol") ||
+        text.includes("español") ||
+        text.includes("web") ||
+        text.includes("rvr") ||
+        value.includes("web") ||
+        value.includes("rvr")
+      );
+    });
+  }
+
+  function updateUrlLangWithoutReload(lang) {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", lang);
+      window.history.replaceState({}, "", url.toString());
+    } catch (error) {
+      console.warn("Renebook: no se pudo actualizar lang en URL.", error);
+    }
+  }
+
+  function updateLanguageButtons(lang) {
+    document.querySelectorAll("[data-rb-lang-choice]").forEach(function (button) {
+      const buttonLang = detectLangFromElement(button);
+      button.classList.toggle("is-active", buttonLang === lang);
+    });
+
+    document.querySelectorAll(".reader-lang-btn").forEach(function (button) {
+      const buttonLang = detectLangFromElement(button);
+      button.classList.toggle("active", buttonLang === lang);
+      button.classList.toggle("is-active", buttonLang === lang);
+    });
+  }
+
+  function updateLanguageSelects(lang) {
+    document.querySelectorAll("select").forEach(function (select) {
+      if (!hasLanguageOptions(select)) return;
+
+      const options = Array.from(select.options || []);
+
+      const target = options.find(function (option) {
+        const text = normalizeText(option.textContent);
+        const value = normalizeText(option.value);
+
+        if (lang === "en") {
+          return (
+            value === "en" ||
+            value.includes("web") ||
+            text.includes("english") ||
+            text.includes("web")
+          );
+        }
+
+        return (
+          value === "es" ||
+          value.includes("rvr") ||
+          text.includes("espanol") ||
+          text.includes("español") ||
+          text.includes("rvr") ||
+          text.includes("reina")
+        );
+      });
+
+      if (target) {
+        select.value = target.value;
+      }
+    });
+  }
+
+  function updateLanguageLabels(lang) {
+    document.querySelectorAll("[data-rb-lang-label]").forEach(function (label) {
+      label.textContent = lang === "en"
+        ? "English selected · WEB"
+        : "Español seleccionado · RVR1909";
+    });
+  }
+
+  function updateBibleLinks(lang) {
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (
+        href.includes("app-bible.html") ||
+        href === "/app-bible.html" ||
+        href === "app-bible.html"
+      ) {
+        link.setAttribute("href", "/app-bible.html?lang=" + lang);
+      }
+    });
+  }
+
+  function renderReaderLive(lang) {
+    /*
+      El render original ya lee localStorage:
+      renebook_reader_language.
+      Por eso primero guardamos idioma, luego llamamos render.
+    */
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    setTimeout(function () {
+      if (typeof window.renderProverbsReader === "function") {
+        window.renderProverbsReader();
+      }
+
+      updateLanguageButtons(lang);
+      updateLanguageSelects(lang);
+      updateLanguageLabels(lang);
+      updateBibleLinks(lang);
+    }, 120);
+
+    setTimeout(function () {
+      if (typeof window.renderProverbsReader === "function") {
+        window.renderProverbsReader();
+      }
+
+      updateLanguageButtons(lang);
+      updateLanguageSelects(lang);
+      updateLanguageLabels(lang);
+      updateBibleLinks(lang);
+    }, 450);
+  }
+
+  function setLanguageLive(lang) {
+    const safeLang = saveLang(lang);
+
+    updateUrlLangWithoutReload(safeLang);
+    updateLanguageButtons(safeLang);
+    updateLanguageSelects(safeLang);
+    updateLanguageLabels(safeLang);
+    updateBibleLinks(safeLang);
+
+    renderReaderLive(safeLang);
+
+    window.dispatchEvent(
+      new CustomEvent("renebook:language-change", {
+        detail: { lang: safeLang }
+      })
+    );
+
+    return safeLang;
+  }
+
+  function applyInitialLanguage() {
+    const urlLang = getUrlLang();
+    const lang = saveLang(urlLang || getStoredLang());
+
+    updateLanguageButtons(lang);
+    updateLanguageSelects(lang);
+    updateLanguageLabels(lang);
+    updateBibleLinks(lang);
+    renderReaderLive(lang);
+  }
+
+  /*
+    Captura clicks en cualquier botón de idioma.
+    Esto incluye:
+    - Español / English flotante
+    - Botones del lector
+    - Tarjetas de idioma si existen
+  */
+  document.addEventListener("click", function (event) {
+    const control = event.target.closest(
+      "[data-rb-lang-choice], [data-rb-lang-card], .reader-lang-btn"
+    );
+
+    if (!control) return;
+
+    const lang = detectLangFromElement(control);
+
+    if (!lang) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    setLanguageLive(lang);
+  }, true);
+
+  /*
+    Captura cambios en selector de versión, por ejemplo:
+    Español RVR1909 / English WEB.
+  */
+  document.addEventListener("change", function (event) {
+    const select = event.target;
+
+    if (!select || select.tagName !== "SELECT") return;
+    if (!hasLanguageOptions(select)) return;
+
+    const lang = detectLangFromElement(select);
+
+    if (!lang) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    setLanguageLive(lang);
+  }, true);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyInitialLanguage);
+  } else {
+    applyInitialLanguage();
+  }
+
+  window.addEventListener("load", applyInitialLanguage);
+  window.addEventListener("renebook:proverbs-ready", applyInitialLanguage);
+})();
+</script>
 </body>
 </html>
