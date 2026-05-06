@@ -172,5 +172,437 @@
   <footer class="shell">
     Renebook.org · Visión bíblica, pastoral, familiar y digital.
   </footer>
+  <style>
+  /* ===== RENEBOOK GLOBAL LANGUAGE WIDGET + BIG CARD TRANSLATION ===== */
+
+  .rb-language-widget {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 10000;
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(134, 201, 255, 0.35);
+    background: rgba(6, 20, 37, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  }
+
+  .rb-language-widget button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 900;
+    cursor: pointer;
+    color: #f5f9ff;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+  }
+
+  .rb-language-widget button:hover {
+    transform: translateY(-2px);
+    background: rgba(134, 201, 255, 0.16);
+  }
+
+  .rb-language-widget button.is-active {
+    color: #061425;
+    background: linear-gradient(135deg, #f2c96b, #ffe49a);
+    box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
+  }
+
+  @media (max-width: 760px) {
+    .rb-language-widget {
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      justify-content: center;
+    }
+
+    .rb-language-widget button {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const LANG_KEY = "renebook_reader_language";
+  const SELECTED_KEY = "renebook_language_selected";
+
+  const COPY = {
+    inicio: {
+      es: {
+        brand: "Biblia • Sabiduría • Formación",
+        navHome: "Inicio",
+        navApp: "App Biblia",
+        navProject: "Proyecto",
+        navVision: "Visión",
+        navOpen: "Abrir Biblia",
+        eyebrow: "✨ Plataforma bíblica digital en español e inglés",
+        title: "Una experiencia moderna para leer, meditar y compartir la Palabra.",
+        lead: "Renebook une Biblia, Proverbios, devocionales breves y tecnología accesible para familias, nuevos lectores y comunidades de fe.",
+        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)",
+        primary: "Probar App Biblia",
+        secondary: "Leer visión",
+        exploreTitle: "Explora Renebook",
+        exploreText: "Tres entradas sencillas: lectura bíblica, visión del proyecto y formación espiritual.",
+        kidsTitle: "Una sección sencilla para enseñar sabiduría con ternura.",
+        kidsText: "Estas tarjetas ayudan a explicar los principios de Proverbios en lenguaje claro, familiar y visual."
+      },
+      en: {
+        brand: "Bible • Wisdom • Formation",
+        navHome: "Home",
+        navApp: "Bible App",
+        navProject: "Project",
+        navVision: "Vision",
+        navOpen: "Open Bible",
+        eyebrow: "✨ Digital Bible platform in Spanish and English",
+        title: "A modern experience to read, reflect, and share the Word.",
+        lead: "Renebook brings together the Bible, Proverbs, short devotionals, and accessible technology for families, new readers, and faith communities.",
+        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105 (WEB)",
+        primary: "Try Bible App",
+        secondary: "Read vision",
+        exploreTitle: "Explore Renebook",
+        exploreText: "Three simple entrances: Bible reading, project vision, and spiritual formation.",
+        kidsTitle: "A simple section to teach wisdom with warmth.",
+        kidsText: "These cards help explain the principles of Proverbs in clear, family-friendly, visual language."
+      }
+    },
+
+    proyecto: {
+      es: {
+        brand: "Proyecto digital bíblico",
+        navHome: "Inicio",
+        navApp: "App Biblia",
+        navProject: "Proyecto",
+        navVision: "Visión",
+        navOpen: "Abrir Biblia",
+        eyebrow: "🧭 Proyecto de acceso bíblico digital",
+        title: "Renebook ayuda a entrar, leer y permanecer en la Palabra.",
+        lead: "La versión anterior ya comunicaba acceso bíblico claro, práctico y accesible. Esta actualización fortalece la experiencia: más navegación, mejor jerarquía visual, bilingüismo, devocionales breves y una ruta más interactiva para el usuario.",
+        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105, RVR1909",
+        primary: "App Biblia",
+        secondary: "Visión",
+        nextTitle: "Preparado para la siguiente fase"
+      },
+      en: {
+        brand: "Digital Bible project",
+        navHome: "Home",
+        navApp: "Bible App",
+        navProject: "Project",
+        navVision: "Vision",
+        navOpen: "Open Bible",
+        eyebrow: "🧭 Digital Bible access project",
+        title: "Renebook helps people enter, read, and remain in the Word.",
+        lead: "The previous version already communicated clear, practical, and accessible Bible access. This update strengthens the experience with better navigation, stronger visual hierarchy, bilingual support, short devotionals, and a more interactive path for the user.",
+        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB",
+        primary: "Bible App",
+        secondary: "Vision",
+        nextTitle: "Prepared for the next phase"
+      }
+    },
+
+    vision: {
+      es: {
+        brand: "Visión pastoral y digital",
+        navHome: "Inicio",
+        navApp: "App Biblia",
+        navProject: "Proyecto",
+        navVision: "Visión",
+        navOpen: "Abrir Biblia",
+        eyebrow: "🌎 Visión de Renebook",
+        title: "Una plataforma para sembrar sabiduría bíblica en la vida diaria.",
+        lead: "Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar personas y familias hacia una fe más práctica, madura y misional.",
+        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)",
+        primary: "Entrar a la experiencia",
+        secondary: "Ver arquitectura"
+      },
+      en: {
+        brand: "Pastoral and digital vision",
+        navHome: "Home",
+        navApp: "Bible App",
+        navProject: "Project",
+        navVision: "Vision",
+        navOpen: "Open Bible",
+        eyebrow: "🌎 Renebook Vision",
+        title: "A platform to plant biblical wisdom in daily life.",
+        lead: "Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith.",
+        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105 (WEB)",
+        primary: "Enter the experience",
+        secondary: "View architecture"
+      }
+    }
+  };
+
+  function clean(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function getPage() {
+    const path = window.location.pathname.toLowerCase();
+
+    if (path.includes("app-bible")) return "app";
+    if (path.includes("proyecto")) return "proyecto";
+    if (path.includes("vision") || path.includes("visión")) return "vision";
+
+    return "inicio";
+  }
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = clean(params.get("lang"));
+
+    if (lang === "en" || lang === "english" || lang === "web") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
+
+    return null;
+  }
+
+  function getLang() {
+    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
+  }
+
+  function setLang(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem(SELECTED_KEY, "true");
+    document.documentElement.lang = safeLang;
+
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", safeLang);
+      window.history.replaceState({}, "", url.toString());
+    } catch (error) {}
+
+    return safeLang;
+  }
+
+  function installWidget() {
+    let widget = document.querySelector("#rbLanguageWidget, .rb-language-widget");
+
+    if (widget) {
+      if (!widget.id) widget.id = "rbLanguageWidget";
+      return;
+    }
+
+    document.body.insertAdjacentHTML("beforeend", `
+      <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
+        <button type="button" data-rb-lang-choice="es">Español</button>
+        <button type="button" data-rb-lang-choice="en">English</button>
+      </div>
+    `);
+  }
+
+  function setText(node, text) {
+    if (node && text) node.textContent = text;
+  }
+
+  function findHero() {
+    return (
+      document.querySelector("main .hero-main") ||
+      document.querySelector("main .panel.hero-main") ||
+      document.querySelector("main section .panel") ||
+      document.querySelector("main .panel") ||
+      document.querySelector("main section") ||
+      document.querySelector("main")
+    );
+  }
+
+  function translateNav(t, lang) {
+    document.querySelectorAll("nav a, header a, .rb-nav-links a").forEach(function (link) {
+      if (link.classList.contains("rb-brand") || link.closest(".rb-brand")) return;
+
+      const href = link.getAttribute("href") || "";
+      const text = clean(link.textContent);
+
+      if (href === "/" || href.includes("index")) {
+        if (text.includes("inicio") || text.includes("home")) link.textContent = t.navHome;
+      }
+
+      if (href.includes("app-bible")) {
+        if (text.includes("abrir") || text.includes("open")) {
+          link.textContent = t.navOpen;
+        } else {
+          link.textContent = t.navApp;
+        }
+      }
+
+      if (href.includes("proyecto")) link.textContent = t.navProject;
+      if (href.includes("vision")) link.textContent = t.navVision;
+    });
+
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (href.includes("app-bible.html")) link.setAttribute("href", "/app-bible.html?lang=" + lang);
+      if (href.includes("proyecto.html")) link.setAttribute("href", "/proyecto.html?lang=" + lang);
+      if (href.includes("vision.html")) link.setAttribute("href", "/vision.html?lang=" + lang);
+      if (href === "/" || href.includes("index.html")) link.setAttribute("href", "/?lang=" + lang);
+    });
+  }
+
+  function translateBrand(t) {
+    const possible = Array.from(document.querySelectorAll("header p, header span, .brand p, .brand span, .rb-brand span span"));
+
+    const subtitle = possible.find(function (node) {
+      const text = clean(node.textContent);
+      return (
+        text.includes("biblia") ||
+        text.includes("bible") ||
+        text.includes("proyecto") ||
+        text.includes("project") ||
+        text.includes("vision") ||
+        text.includes("visión")
+      );
+    });
+
+    if (subtitle && !clean(subtitle.textContent).includes("renebook")) {
+      subtitle.textContent = t.brand;
+    }
+  }
+
+  function translateHero(t) {
+    const hero = findHero();
+    if (!hero) return;
+
+    setText(hero.querySelector(".eyebrow"), t.eyebrow);
+    setText(hero.querySelector("h1"), t.title);
+    setText(hero.querySelector(".lead"), t.lead);
+    setText(hero.querySelector("blockquote"), t.quote);
+
+    const actions = hero.querySelectorAll(".actions a, .hero-actions a, a.btn");
+
+    if (actions[0]) setText(actions[0], t.primary);
+    if (actions[1]) setText(actions[1], t.secondary);
+  }
+
+  function translateHomeExtra(t) {
+    const page = getPage();
+    if (page !== "inicio") return;
+
+    document.querySelectorAll("h2, h3, p").forEach(function (node) {
+      const text = clean(node.textContent);
+
+      if (text.includes("explora renebook") || text.includes("explore renebook")) node.textContent = t.exploreTitle;
+      if (text.includes("tres entradas sencillas") || text.includes("three simple entrances")) node.textContent = t.exploreText;
+      if (text.includes("una sección sencilla") || text.includes("a simple section")) node.textContent = t.kidsTitle;
+      if (text.includes("estas tarjetas ayudan") || text.includes("these cards help")) node.textContent = t.kidsText;
+    });
+  }
+
+  function translateProjectExtra(t) {
+    const page = getPage();
+    if (page !== "proyecto") return;
+
+    document.querySelectorAll("h2, h3, p, li").forEach(function (node) {
+      const text = clean(node.textContent);
+
+      if (text.includes("preparado para la siguiente fase") || text.includes("prepared for the next phase")) {
+        node.textContent = t.nextTitle;
+      }
+    });
+  }
+
+  function updateButtons(lang) {
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      const value = clean(
+        button.dataset.rbLangChoice ||
+        button.dataset.lang ||
+        button.value ||
+        button.textContent
+      );
+
+      const isEn = value === "en" || value.includes("english") || value.includes("web");
+      const isEs = value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr");
+
+      button.classList.toggle("is-active", (lang === "en" && isEn) || (lang === "es" && isEs));
+      button.classList.toggle("active", (lang === "en" && isEn) || (lang === "es" && isEs));
+    });
+  }
+
+  function translatePage() {
+    const page = getPage();
+
+    if (page === "app") return;
+
+    const lang = setLang(getLang());
+    const t = COPY[page][lang];
+
+    translateNav(t, lang);
+    translateBrand(t);
+    translateHero(t);
+    translateHomeExtra(t);
+    translateProjectExtra(t);
+    updateButtons(lang);
+  }
+
+  function connectClicks() {
+    if (window.__rbBigCardsLanguageConnected) return;
+    window.__rbBigCardsLanguageConnected = true;
+
+    document.addEventListener("click", function (event) {
+      const control = event.target.closest("[data-rb-lang-choice], .reader-lang-btn");
+
+      if (!control) return;
+
+      const value = clean(
+        control.dataset.rbLangChoice ||
+        control.dataset.lang ||
+        control.value ||
+        control.textContent
+      );
+
+      let lang = null;
+
+      if (value === "en" || value.includes("english") || value.includes("web")) lang = "en";
+      if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) lang = "es";
+
+      if (!lang) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      setLang(lang);
+      translatePage();
+
+      window.dispatchEvent(new CustomEvent("renebook:language-change", { detail: { lang: lang } }));
+    }, true);
+  }
+
+  function init() {
+    if (getPage() === "app") return;
+
+    installWidget();
+    connectClicks();
+    translatePage();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  window.addEventListener("load", init);
+  window.addEventListener("renebook:language-change", function () {
+    setTimeout(translatePage, 100);
+    setTimeout(translatePage, 450);
+  });
+
+  setTimeout(init, 700);
+  setTimeout(init, 1600);
+  setTimeout(init, 2600);
+})();
+</script>
 </body>
 </html>
