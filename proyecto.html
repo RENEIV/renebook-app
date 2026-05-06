@@ -1231,5 +1231,292 @@
   setTimeout(init, 2800);
 })();
 </script>
+  <style>
+  /* ===== RENEBOOK DAILY VERSE FLOATING CARD ===== */
+
+  .rb-daily-verse {
+    position: fixed;
+    right: 18px;
+    bottom: 96px;
+    z-index: 9998;
+    width: min(420px, calc(100vw - 32px));
+    border-radius: 26px;
+    border: 1px solid rgba(134, 201, 255, 0.38);
+    background:
+      radial-gradient(circle at 12% 10%, rgba(242, 201, 107, 0.16), transparent 28%),
+      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.13), transparent 28%),
+      linear-gradient(145deg, rgba(16, 40, 71, 0.97), rgba(7, 24, 44, 0.98));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+    color: #f5f9ff;
+    padding: 20px;
+    transform: translateY(24px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+
+  .rb-daily-verse.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .rb-daily-verse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(242, 201, 107, 0.16);
+    color: #f2c96b;
+    font-weight: 950;
+    font-size: 0.86rem;
+    margin-bottom: 12px;
+  }
+
+  .rb-daily-verse h3 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  .rb-daily-verse-ref {
+    color: #72f0ea;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  .rb-daily-verse-text {
+    color: #dbe8f8;
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+
+  .rb-daily-verse-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .rb-daily-verse-actions a,
+  .rb-daily-verse-actions button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 13px;
+    font-weight: 950;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .rb-daily-verse-primary {
+    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
+    color: #061425;
+  }
+
+  .rb-daily-verse-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f9ff;
+    border: 1px solid rgba(134, 201, 255, 0.26) !important;
+  }
+
+  .rb-daily-verse-actions a:hover,
+  .rb-daily-verse-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
+  .rb-daily-verse-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f9ff;
+    cursor: pointer;
+    font-weight: 900;
+  }
+
+  @media (max-width: 760px) {
+    .rb-daily-verse {
+      left: 14px;
+      right: 14px;
+      bottom: 92px;
+      width: auto;
+      padding: 18px;
+    }
+
+    .rb-daily-verse-actions {
+      flex-direction: column;
+    }
+
+    .rb-daily-verse-actions a,
+    .rb-daily-verse-actions button {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const LANG_KEY = "renebook_reader_language";
+  const DAILY_VERSE_KEY = "renebook_daily_verse_last_seen";
+  const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+  const DAILY_VERSES = [
+    {
+      chapter: 3,
+      verse: 5,
+      esRef: "Proverbios 3:5",
+      enRef: "Proverbs 3:5",
+      esText: "Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.",
+      enText: "Trust in Yahweh with all your heart, and don’t lean on your own understanding."
+    },
+    {
+      chapter: 3,
+      verse: 6,
+      esRef: "Proverbios 3:6",
+      enRef: "Proverbs 3:6",
+      esText: "Reconócelo en todos tus caminos, y él enderezará tus veredas.",
+      enText: "In all your ways acknowledge him, and he will make your paths straight."
+    },
+    {
+      chapter: 1,
+      verse: 7,
+      esRef: "Proverbios 1:7",
+      enRef: "Proverbs 1:7",
+      esText: "El principio de la sabiduría es el temor de Jehová.",
+      enText: "The fear of Yahweh is the beginning of knowledge."
+    },
+    {
+      chapter: 15,
+      verse: 1,
+      esRef: "Proverbios 15:1",
+      enRef: "Proverbs 15:1",
+      esText: "La blanda respuesta quita la ira; mas la palabra áspera hace subir el furor.",
+      enText: "A gentle answer turns away wrath, but a harsh word stirs up anger."
+    },
+    {
+      chapter: 16,
+      verse: 3,
+      esRef: "Proverbios 16:3",
+      enRef: "Proverbs 16:3",
+      esText: "Encomienda á Jehová tus obras, y tus pensamientos serán afirmados.",
+      enText: "Commit your deeds to Yahweh, and your plans shall succeed."
+    },
+    {
+      chapter: 17,
+      verse: 22,
+      esRef: "Proverbios 17:22",
+      enRef: "Proverbs 17:22",
+      esText: "El corazón alegre constituye buen remedio.",
+      enText: "A cheerful heart makes good medicine."
+    },
+    {
+      chapter: 4,
+      verse: 23,
+      esRef: "Proverbios 4:23",
+      enRef: "Proverbs 4:23",
+      esText: "Sobre toda cosa guardada guarda tu corazón; porque de él mana la vida.",
+      enText: "Keep your heart with all diligence, for out of it is the wellspring of life."
+    }
+  ];
+
+  function clean(value) {
+    return String(value || "").toLowerCase().trim();
+  }
+
+  function getLang() {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = clean(params.get("lang"));
+
+    if (urlLang === "en" || urlLang === "english" || urlLang === "web") return "en";
+    if (urlLang === "es" || urlLang === "spanish" || urlLang === "rvr") return "es";
+
+    return localStorage.getItem(LANG_KEY) === "en" ? "en" : "es";
+  }
+
+  function shouldShowDailyVerse() {
+    const lastSeen = Number(localStorage.getItem(DAILY_VERSE_KEY) || 0);
+    return Date.now() - lastSeen >= TWENTY_FOUR_HOURS;
+  }
+
+  function getDailyVerse() {
+    const start = new Date(new Date().getFullYear(), 0, 0);
+    const diff = new Date() - start;
+    const day = Math.floor(diff / 86400000);
+
+    return DAILY_VERSES[day % DAILY_VERSES.length];
+  }
+
+  function renderDailyVerse() {
+    if (!shouldShowDailyVerse()) return;
+    if (document.getElementById("rbDailyVerse")) return;
+
+    const lang = getLang();
+    const verse = getDailyVerse();
+
+    const title = lang === "en" ? "Verse for today" : "Verso para hoy";
+    const badge = lang === "en" ? "✦ Daily wisdom" : "✦ Sabiduría diaria";
+    const ref = lang === "en" ? verse.enRef : verse.esRef;
+    const text = lang === "en" ? verse.enText : verse.esText;
+    const readButton = lang === "en" ? "Read chapter" : "Leer capítulo";
+    const closeButton = lang === "en" ? "Close for today" : "Cerrar por hoy";
+
+    const url = "/app-bible.html?lang=" + lang + "#proverbs-" + verse.chapter;
+
+    document.body.insertAdjacentHTML("beforeend", `
+      <aside id="rbDailyVerse" class="rb-daily-verse" aria-live="polite">
+        <button type="button" class="rb-daily-verse-close" aria-label="Close">×</button>
+        <div class="rb-daily-verse-badge">${badge}</div>
+        <h3>${title}</h3>
+        <div class="rb-daily-verse-ref">${ref}</div>
+        <p class="rb-daily-verse-text">${text}</p>
+        <div class="rb-daily-verse-actions">
+          <a class="rb-daily-verse-primary" href="${url}">${readButton}</a>
+          <button type="button" class="rb-daily-verse-secondary">${closeButton}</button>
+        </div>
+      </aside>
+    `);
+
+    const card = document.getElementById("rbDailyVerse");
+    const closeButtons = card.querySelectorAll("button");
+
+    function closeForToday() {
+      localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
+      card.classList.remove("is-visible");
+
+      setTimeout(function () {
+        card.remove();
+      }, 260);
+    }
+
+    closeButtons.forEach(function (button) {
+      button.addEventListener("click", closeForToday);
+    });
+
+    setTimeout(function () {
+      card.classList.add("is-visible");
+      localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
+    }, 900);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", renderDailyVerse);
+  } else {
+    renderDailyVerse();
+  }
+
+  window.addEventListener("load", renderDailyVerse);
+})();
+</script>
 </body>
 </html>
