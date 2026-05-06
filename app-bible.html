@@ -5082,5 +5082,379 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("renebook:proverbs-ready", applyInitialLanguage);
 })();
 </script>
+  <script>
+(function () {
+  "use strict";
+
+  /*
+    RENEBOOK LANGUAGE FINAL BRIDGE
+    Fuerza el lector bíblico a cambiar entre:
+    Español = RVR1909
+    English = WEB
+  */
+
+  const LANG_KEY = "renebook_reader_language";
+  const CHAPTER_KEY = "renebook_reader_chapter";
+
+  function clean(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = clean(params.get("lang"));
+
+    if (lang === "en" || lang === "english" || lang === "web") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
+
+    return null;
+  }
+
+  function getCurrentLang() {
+    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
+  }
+
+  function saveLang(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem("renebook_language_selected", "true");
+    document.documentElement.lang = safeLang;
+
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", safeLang);
+      window.history.replaceState({}, "", url.toString());
+    } catch (error) {
+      console.warn("Renebook: URL lang no actualizada.", error);
+    }
+
+    return safeLang;
+  }
+
+  function getBibleData(lang) {
+    const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+
+    if (!data) return null;
+
+    if (lang === "en" && data.en) return data.en;
+    if (lang === "es" && data.es) return data.es;
+
+    return data.es || data.en || null;
+  }
+
+  function getChapterNumber() {
+    const select = document.getElementById("chapterSelect");
+    const selected = select ? Number(select.value) : 0;
+    const saved = Number(localStorage.getItem(CHAPTER_KEY) || 1);
+
+    const chapter = selected || saved || 1;
+
+    if (chapter >= 1 && chapter <= 31) return chapter;
+
+    return 1;
+  }
+
+  function setChapterNumber(chapter) {
+    const safeChapter = Number(chapter);
+
+    if (safeChapter >= 1 && safeChapter <= 31) {
+      localStorage.setItem(CHAPTER_KEY, String(safeChapter));
+    }
+  }
+
+  function updateLangControls(lang) {
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      const value = clean(
+        button.dataset.rbLangChoice ||
+        button.dataset.lang ||
+        button.value ||
+        button.textContent
+      );
+
+      const isEnglish =
+        value === "en" ||
+        value.includes("english") ||
+        value.includes("web");
+
+      const isSpanish =
+        value === "es" ||
+        value.includes("espanol") ||
+        value.includes("español") ||
+        value.includes("rvr");
+
+      const active =
+        (lang === "en" && isEnglish) ||
+        (lang === "es" && isSpanish);
+
+      button.classList.toggle("active", active);
+      button.classList.toggle("is-active", active);
+    });
+
+    document.querySelectorAll("[data-rb-lang-label]").forEach(function (label) {
+      label.textContent = lang === "en"
+        ? "English selected · WEB"
+        : "Español seleccionado · RVR1909";
+    });
+  }
+
+  function updateOldVersionSelect(lang) {
+    document.querySelectorAll("select").forEach(function (select) {
+      if (select.id === "chapterSelect") return;
+
+      const options = Array.from(select.options || []);
+
+      const hasBibleVersions = options.some(function (option) {
+        const text = clean(option.textContent);
+        const value = clean(option.value);
+
+        return (
+          text.includes("rvr") ||
+          text.includes("web") ||
+          text.includes("english") ||
+          text.includes("espanol") ||
+          text.includes("español") ||
+          value.includes("rvr") ||
+          value.includes("web") ||
+          value === "es" ||
+          value === "en"
+        );
+      });
+
+      if (!hasBibleVersions) return;
+
+      const target = options.find(function (option) {
+        const text = clean(option.textContent);
+        const value = clean(option.value);
+
+        if (lang === "en") {
+          return (
+            value === "en" ||
+            value.includes("web") ||
+            text.includes("english") ||
+            text.includes("web")
+          );
+        }
+
+        return (
+          value === "es" ||
+          value.includes("rvr") ||
+          text.includes("espanol") ||
+          text.includes("español") ||
+          text.includes("rvr")
+        );
+      });
+
+      if (target) {
+        select.value = target.value;
+      }
+    });
+  }
+
+  function renderBibleReaderForced() {
+    const lang = saveLang(getCurrentLang());
+    const bible = getBibleData(lang);
+
+    const chapterSelect = document.getElementById("chapterSelect");
+    const chapterTitle = document.getElementById("chapterTitle");
+    const versesList = document.getElementById("versesList");
+    const pageTitle = document.querySelector("h1");
+
+    if (!bible || !Array.isArray(bible.chapters)) {
+      console.warn("Renebook: No se encontró data bíblica para", lang, window.PROVERBS);
+      return;
+    }
+
+    if (!chapterSelect || !versesList) {
+      console.warn("Renebook: No se encontró chapterSelect o versesList.");
+      return;
+    }
+
+    const chapterNumber = getChapterNumber();
+    setChapterNumber(chapterNumber);
+
+    chapterSelect.innerHTML = bible.chapters.map(function (chapter) {
+      const number = Number(chapter.chapter || chapter.number);
+      const label = lang === "en" ? "Chapter " + number : "Capítulo " + number;
+
+      return '<option value="' + number + '">' + label + '</option>';
+    }).join("");
+
+    chapterSelect.value = String(chapterNumber);
+
+    const chapter =
+      bible.chapters.find(function (item) {
+        return Number(item.chapter || item.number) === chapterNumber;
+      }) || bible.chapters[0];
+
+    const version = bible.version || (lang === "en" ? "WEB" : "RVR1909");
+    const book = lang === "en" ? "Proverbs" : "Proverbios";
+
+    if (pageTitle) {
+      pageTitle.textContent = book;
+    }
+
+    if (chapterTitle) {
+      chapterTitle.textContent = book + " " + chapterNumber + " · " + version;
+    }
+
+    versesList.innerHTML = (chapter.verses || []).map(function (verse) {
+      const number = Number(verse.verse || verse.number);
+      const text = escapeHTML(verse.text || "");
+
+      return (
+        '<p class="reader-verse" data-rb-chapter="' + chapterNumber + '" data-rb-verse="' + number + '">' +
+          '<span class="verse-number">' + number + '</span> ' +
+          text +
+        '</p>'
+      );
+    }).join("");
+
+    updateLangControls(lang);
+    updateOldVersionSelect(lang);
+
+    window.dispatchEvent(
+      new CustomEvent("renebook:reader-rendered", {
+        detail: {
+          lang: lang,
+          chapter: chapterNumber,
+          version: version
+        }
+      })
+    );
+  }
+
+  function connectReaderControls() {
+    const chapterSelect = document.getElementById("chapterSelect");
+
+    if (chapterSelect && chapterSelect.dataset.rbForcedChapterConnected !== "true") {
+      chapterSelect.dataset.rbForcedChapterConnected = "true";
+
+      chapterSelect.addEventListener("change", function () {
+        setChapterNumber(chapterSelect.value);
+        renderBibleReaderForced();
+      });
+    }
+
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      if (button.dataset.rbForcedLangConnected === "true") return;
+
+      button.dataset.rbForcedLangConnected = "true";
+
+      button.addEventListener("click", function (event) {
+        const value = clean(
+          button.dataset.rbLangChoice ||
+          button.dataset.lang ||
+          button.value ||
+          button.textContent
+        );
+
+        let lang = null;
+
+        if (value === "en" || value.includes("english") || value.includes("web")) {
+          lang = "en";
+        }
+
+        if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) {
+          lang = "es";
+        }
+
+        if (!lang) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        saveLang(lang);
+        renderBibleReaderForced();
+      }, true);
+    });
+
+    document.querySelectorAll("select").forEach(function (select) {
+      if (select.id === "chapterSelect") return;
+      if (select.dataset.rbForcedVersionConnected === "true") return;
+
+      const options = Array.from(select.options || []);
+
+      const hasBibleVersions = options.some(function (option) {
+        const text = clean(option.textContent);
+        const value = clean(option.value);
+
+        return (
+          text.includes("rvr") ||
+          text.includes("web") ||
+          text.includes("english") ||
+          text.includes("espanol") ||
+          text.includes("español") ||
+          value.includes("rvr") ||
+          value.includes("web") ||
+          value === "es" ||
+          value === "en"
+        );
+      });
+
+      if (!hasBibleVersions) return;
+
+      select.dataset.rbForcedVersionConnected = "true";
+
+      select.addEventListener("change", function () {
+        const selected = select.options[select.selectedIndex];
+        const value = clean((selected && selected.value) || select.value);
+        const text = clean((selected && selected.textContent) || "");
+
+        const lang =
+          value === "en" ||
+          value.includes("web") ||
+          text.includes("english") ||
+          text.includes("web")
+            ? "en"
+            : "es";
+
+        saveLang(lang);
+        renderBibleReaderForced();
+      }, true);
+    });
+  }
+
+  function initForcedLanguageReader() {
+    saveLang(getCurrentLang());
+
+    /*
+      Punto clave:
+      Sobrescribimos renderProverbsReader para que cualquier bloque viejo
+      que intente llamar al render use este nuevo render bilingüe.
+    */
+    window.renderProverbsReader = renderBibleReaderForced;
+
+    connectReaderControls();
+    renderBibleReaderForced();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initForcedLanguageReader);
+  } else {
+    initForcedLanguageReader();
+  }
+
+  window.addEventListener("load", initForcedLanguageReader);
+  window.addEventListener("renebook:proverbs-ready", initForcedLanguageReader);
+  window.addEventListener("renebook:language-change", initForcedLanguageReader);
+
+  setTimeout(initForcedLanguageReader, 500);
+  setTimeout(initForcedLanguageReader, 1400);
+})();
+</script>
 </body>
 </html>
