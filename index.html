@@ -870,6 +870,590 @@
     }
   }
 </style>
+  <style>
+  /* =====================================================
+     RENEBOOK KIDS MINI ROUTE — ULTIMATE FAMILY DESIGN
+     Convierte “Proverbios para niños” en ruta interactiva
+  ===================================================== */
+
+  .rb-kids-route {
+    max-width: 1180px;
+    margin: 38px auto;
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(135, 190, 255, 0.32);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(242, 201, 107, 0.16), transparent 28%),
+      radial-gradient(circle at 90% 12%, rgba(126, 214, 167, 0.16), transparent 28%),
+      radial-gradient(circle at 50% 100%, rgba(185, 167, 255, 0.10), transparent 30%),
+      linear-gradient(145deg, rgba(16, 40, 71, 0.96), rgba(7, 24, 44, 0.97));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    color: #f5f9ff;
+  }
+
+  .rb-kids-route-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(242, 201, 107, 0.16);
+    color: #f2c96b;
+    font-weight: 900;
+    margin-bottom: 14px;
+  }
+
+  .rb-kids-route h2 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4.6vw, 3.8rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+
+  .rb-kids-route-intro {
+    max-width: 850px;
+    color: #b8c7da;
+    line-height: 1.7;
+    font-size: 1.08rem;
+    margin-bottom: 22px;
+  }
+
+  .rb-kids-route-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin: 18px 0 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rb-kids-route-tabs button {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 999px;
+    padding: 11px 15px;
+    font-weight: 900;
+    color: #061425;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.23);
+    transition: all 0.2s ease;
+  }
+
+  .rb-kids-route-tabs button:nth-child(4n + 1) {
+    background: linear-gradient(135deg, #86c9ff, #4da3ff);
+  }
+
+  .rb-kids-route-tabs button:nth-child(4n + 2) {
+    background: linear-gradient(135deg, #7ed6a7, #4fd1c5);
+  }
+
+  .rb-kids-route-tabs button:nth-child(4n + 3) {
+    background: linear-gradient(135deg, #f2c96b, #ffe49a);
+  }
+
+  .rb-kids-route-tabs button:nth-child(4n + 4) {
+    background: linear-gradient(135deg, #ff9e8a, #b9a7ff);
+  }
+
+  .rb-kids-route-tabs button:hover,
+  .rb-kids-route-tabs button.is-active {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    outline: 3px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .rb-kids-route-main {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .rb-kids-lesson-card,
+  .rb-kids-family-card {
+    padding: 22px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.04));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.23);
+  }
+
+  .rb-kids-reference {
+    display: inline-flex;
+    color: #061425;
+    background: linear-gradient(135deg, #f2c96b, #ffe49a);
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 950;
+    margin-bottom: 12px;
+  }
+
+  .rb-kids-lesson-card h3 {
+    margin: 0 0 12px;
+    font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+    line-height: 1.1;
+  }
+
+  .rb-kids-big-idea {
+    color: #f5f9ff;
+    font-size: 1.16rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .rb-kids-grid-mini {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .rb-kids-mini-box {
+    padding: 15px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.055);
+    color: #dbe8f8;
+    line-height: 1.55;
+  }
+
+  .rb-kids-mini-box strong {
+    display: block;
+    color: #f2c96b;
+    margin-bottom: 7px;
+  }
+
+  .rb-kids-family-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.45rem;
+  }
+
+  .rb-kids-family-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .rb-kids-family-step:last-child {
+    border-bottom: 0;
+  }
+
+  .rb-kids-step-number {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: #061425;
+    font-weight: 950;
+    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
+  }
+
+  .rb-kids-family-step strong {
+    display: block;
+    color: #f5f9ff;
+    margin-bottom: 4px;
+  }
+
+  .rb-kids-family-step span {
+    color: #b8c7da;
+    line-height: 1.5;
+  }
+
+  .rb-kids-route-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+
+  .rb-kids-route-actions a,
+  .rb-kids-route-actions button {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 950;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .rb-kids-primary-action {
+    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
+    color: #061425;
+    box-shadow: 0 14px 30px rgba(77, 163, 255, 0.28);
+  }
+
+  .rb-kids-secondary-action {
+    background: rgba(255, 255, 255, 0.075);
+    color: #f5f9ff;
+    border: 1px solid rgba(134, 201, 255, 0.34) !important;
+  }
+
+  .rb-kids-route-actions a:hover,
+  .rb-kids-route-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
+  .rb-kids-progress {
+    margin-top: 22px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .rb-kids-progress-bar {
+    height: 100%;
+    width: 12.5%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #86c9ff, #4fd1c5, #f2c96b);
+    transition: width 0.25s ease;
+  }
+
+  .rb-kids-progress-label {
+    margin-top: 8px;
+    color: #b8c7da;
+    font-size: 0.94rem;
+  }
+
+  @media (max-width: 880px) {
+    .rb-kids-route {
+      margin: 28px 14px;
+      padding: 20px;
+      border-radius: 24px;
+    }
+
+    .rb-kids-route-main {
+      grid-template-columns: 1fr;
+    }
+
+    .rb-kids-grid-mini {
+      grid-template-columns: 1fr;
+    }
+
+    .rb-kids-route-actions {
+      flex-direction: column;
+    }
+
+    .rb-kids-route-actions a,
+    .rb-kids-route-actions button {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const KIDS_ROUTE = [
+    {
+      key: "sabiduria",
+      label: "Sabiduría",
+      emoji: "💡",
+      reference: "Proverbios 1:7",
+      chapter: 1,
+      verse: 7,
+      title: "La sabiduría empieza honrando a Dios",
+      bigIdea: "Ser sabio no significa saberlo todo. Ser sabio empieza cuando amamos, escuchamos y honramos a Dios.",
+      explain: "Dios quiere enseñar a los niños a escoger lo bueno con un corazón humilde.",
+      question: "¿Qué decisión puedo tomar hoy para agradar a Dios?",
+      activity: "Dibuja una lámpara y escribe dentro una decisión sabia.",
+      prayer: "Señor, dame sabiduría para escoger lo bueno."
+    },
+    {
+      key: "obediencia",
+      label: "Obediencia",
+      emoji: "🏡",
+      reference: "Proverbios 1:8",
+      chapter: 1,
+      verse: 8,
+      title: "Escuchar con un corazón alegre",
+      bigIdea: "Dios usa a papá, mamá, maestros y líderes sabios para enseñarnos el buen camino.",
+      explain: "La obediencia no es solo hacer caso; es aprender a confiar en la instrucción que Dios permite en casa.",
+      question: "¿Qué consejo bueno debo escuchar esta semana?",
+      activity: "Haz una tarjeta para tu familia con la frase: “Gracias por enseñarme”.",
+      prayer: "Señor, ayúdame a escuchar y obedecer con alegría."
+    },
+    {
+      key: "palabras",
+      label: "Palabras",
+      emoji: "💬",
+      reference: "Proverbios 15:1",
+      chapter: 15,
+      verse: 1,
+      title: "Palabras suaves que traen paz",
+      bigIdea: "Las palabras pueden herir o ayudar. Dios quiere que usemos palabras que traigan paz.",
+      explain: "Una respuesta amable puede cambiar el ambiente de una casa, una escuela o una amistad.",
+      question: "¿A quién puedo hablarle con más amor hoy?",
+      activity: "Escribe tres palabras que animen: gracias, perdón y te quiero.",
+      prayer: "Señor, cuida mis palabras y llena mi boca de amor."
+    },
+    {
+      key: "amistad",
+      label: "Amistad",
+      emoji: "🤝",
+      reference: "Proverbios 27:17",
+      chapter: 27,
+      verse: 17,
+      title: "Amigos que ayudan a crecer",
+      bigIdea: "Un buen amigo nos ayuda a ser mejores, no a alejarnos de Dios.",
+      explain: "La amistad sabia anima, corrige con amor y acompaña en lo bueno.",
+      question: "¿Cómo puedo ser un mejor amigo esta semana?",
+      activity: "Haz una tarjeta con una frase de ánimo para un amigo.",
+      prayer: "Señor, ayúdame a ser un amigo fiel, amable y sabio."
+    },
+    {
+      key: "familia",
+      label: "Familia",
+      emoji: "👨‍👩‍👧",
+      reference: "Proverbios 3:5",
+      chapter: 3,
+      verse: 5,
+      title: "Una familia que confía en Dios",
+      bigIdea: "Cuando una familia confía en Dios, aprende a orar, escuchar y caminar unida.",
+      explain: "Dios cuida el corazón de la familia cuando todos aprenden a depender de Él.",
+      question: "¿Qué puede orar mi familia junta esta semana?",
+      activity: "Dibuja a tu familia y escribe: “Confiamos en Dios”.",
+      prayer: "Señor, bendice mi familia y enséñanos a confiar en ti."
+    },
+    {
+      key: "oracion",
+      label: "Oración",
+      emoji: "🙏",
+      reference: "Proverbios 3:6",
+      chapter: 3,
+      verse: 6,
+      title: "Hablar con Dios en el camino",
+      bigIdea: "Orar es reconocer a Dios en nuestras decisiones, alegrías y preocupaciones.",
+      explain: "Dios escucha a los niños. Podemos hablar con Él en todo momento.",
+      question: "¿Qué quiero contarle a Dios hoy?",
+      activity: "Escribe una oración corta en una hoja y decórala.",
+      prayer: "Señor, gracias porque escuchas mi voz y guías mi camino."
+    },
+    {
+      key: "decisiones",
+      label: "Decisiones",
+      emoji: "🧭",
+      reference: "Proverbios 4:23",
+      chapter: 4,
+      verse: 23,
+      title: "Cuidar el corazón para escoger bien",
+      bigIdea: "Las decisiones salen del corazón. Por eso Dios quiere ayudarnos a cuidarlo.",
+      explain: "Lo que vemos, escuchamos y pensamos puede ayudarnos o dañarnos.",
+      question: "¿Qué debo cuidar mejor: mis palabras, mis ojos o mis pensamientos?",
+      activity: "Dibuja un corazón y escribe dentro tres cosas buenas que quieres guardar.",
+      prayer: "Señor, guarda mi corazón y ayúdame a escoger bien."
+    },
+    {
+      key: "gratitud",
+      label: "Gratitud",
+      emoji: "🌱",
+      reference: "Proverbios 17:22",
+      chapter: 17,
+      verse: 22,
+      title: "Un corazón alegre y agradecido",
+      bigIdea: "La gratitud ayuda al corazón a recordar el cuidado de Dios.",
+      explain: "Aunque no todo sea fácil, siempre podemos mirar las bondades de Dios.",
+      question: "¿Por qué puedo dar gracias hoy?",
+      activity: "Escribe tres razones para agradecer y compártelas con tu familia.",
+      prayer: "Señor, llena mi corazón de gratitud y alegría."
+    }
+  ];
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function findKidsSectionAnchor() {
+    const candidates = Array.from(document.querySelectorAll("section, div, main"));
+    return candidates.find(function (item) {
+      const text = item.textContent || "";
+      return text.includes("Proverbios para niños") || text.includes("niños");
+    });
+  }
+
+  function openKidsBible(topic) {
+    try {
+      localStorage.setItem("renebook_reader_language", "es");
+      localStorage.setItem("renebook_reader_chapter", String(topic.chapter));
+    } catch (error) {
+      console.warn("Renebook Kids: no se pudo guardar la ruta bíblica.", error);
+    }
+
+    window.location.href = "/app-bible.html";
+  }
+
+  function renderKidsRoute(topicKey) {
+    const topicIndex = Math.max(
+      0,
+      KIDS_ROUTE.findIndex(function (item) {
+        return item.key === topicKey;
+      })
+    );
+
+    const topic = KIDS_ROUTE[topicIndex] || KIDS_ROUTE[0];
+
+    let route = document.getElementById("rbKidsMiniRoute");
+
+    if (!route) {
+      route = document.createElement("section");
+      route.id = "rbKidsMiniRoute";
+      route.className = "rb-kids-route";
+
+      const existingGuide = document.getElementById("rbKidsGuide");
+      const anchor = existingGuide || findKidsSectionAnchor();
+
+      if (anchor) {
+        anchor.insertAdjacentElement("afterend", route);
+      } else {
+        document.body.insertAdjacentElement("beforeend", route);
+      }
+    }
+
+    const progressPercent = ((topicIndex + 1) / KIDS_ROUTE.length) * 100;
+
+    route.innerHTML = `
+      <div class="rb-kids-route-badge">👧👦 Mini-ruta familiar</div>
+      <h2>Proverbios para niños</h2>
+      <p class="rb-kids-route-intro">
+        Una ruta sencilla para enseñar sabiduría bíblica con ternura, claridad y actividades familiares.
+      </p>
+
+      <div class="rb-kids-route-tabs">
+        ${KIDS_ROUTE.map(function (item) {
+          return `
+            <button type="button" class="${item.key === topic.key ? "is-active" : ""}" data-kids-route="${item.key}">
+              ${item.emoji} ${item.label}
+            </button>
+          `;
+        }).join("")}
+      </div>
+
+      <div class="rb-kids-route-main">
+        <article class="rb-kids-lesson-card">
+          <div class="rb-kids-reference">${escapeHTML(topic.reference)}</div>
+          <h3>${escapeHTML(topic.title)}</h3>
+          <p class="rb-kids-big-idea">${escapeHTML(topic.bigIdea)}</p>
+
+          <div class="rb-kids-grid-mini">
+            <div class="rb-kids-mini-box">
+              <strong>Explicación sencilla</strong>
+              ${escapeHTML(topic.explain)}
+            </div>
+            <div class="rb-kids-mini-box">
+              <strong>Pregunta familiar</strong>
+              ${escapeHTML(topic.question)}
+            </div>
+            <div class="rb-kids-mini-box">
+              <strong>Actividad</strong>
+              ${escapeHTML(topic.activity)}
+            </div>
+            <div class="rb-kids-mini-box">
+              <strong>Oración</strong>
+              ${escapeHTML(topic.prayer)}
+            </div>
+          </div>
+
+          <div class="rb-kids-route-actions">
+            <button type="button" class="rb-kids-primary-action" id="rbKidsOpenBible">
+              Abrir este pasaje en la App Biblia →
+            </button>
+            <button type="button" class="rb-kids-secondary-action" id="rbKidsNextTopic">
+              Siguiente tema
+            </button>
+          </div>
+        </article>
+
+        <aside class="rb-kids-family-card">
+          <h3>Guía rápida para padres y maestros</h3>
+
+          <div class="rb-kids-family-step">
+            <div class="rb-kids-step-number">1</div>
+            <div>
+              <strong>Leer</strong>
+              <span>Lee el versículo con voz clara y pausada.</span>
+            </div>
+          </div>
+
+          <div class="rb-kids-family-step">
+            <div class="rb-kids-step-number">2</div>
+            <div>
+              <strong>Explicar</strong>
+              <span>Usa palabras sencillas y conecta el proverbio con la vida diaria.</span>
+            </div>
+          </div>
+
+          <div class="rb-kids-family-step">
+            <div class="rb-kids-step-number">3</div>
+            <div>
+              <strong>Preguntar</strong>
+              <span>Permite que el niño responda con ejemplos de casa, escuela o amigos.</span>
+            </div>
+          </div>
+
+          <div class="rb-kids-family-step">
+            <div class="rb-kids-step-number">4</div>
+            <div>
+              <strong>Orar</strong>
+              <span>Cierra con una oración breve, cálida y centrada en Dios.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="rb-kids-progress">
+        <div class="rb-kids-progress-bar" style="width: ${progressPercent}%"></div>
+      </div>
+      <div class="rb-kids-progress-label">
+        Tema ${topicIndex + 1} de ${KIDS_ROUTE.length}: ${escapeHTML(topic.label)}
+      </div>
+    `;
+
+    route.querySelectorAll("[data-kids-route]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        renderKidsRoute(button.dataset.kidsRoute);
+      });
+    });
+
+    const bibleButton = document.getElementById("rbKidsOpenBible");
+    if (bibleButton) {
+      bibleButton.addEventListener("click", function () {
+        openKidsBible(topic);
+      });
+    }
+
+    const nextButton = document.getElementById("rbKidsNextTopic");
+    if (nextButton) {
+      nextButton.addEventListener("click", function () {
+        const nextTopic = KIDS_ROUTE[(topicIndex + 1) % KIDS_ROUTE.length];
+        renderKidsRoute(nextTopic.key);
+      });
+    }
+  }
+
+  function initKidsMiniRoute() {
+    renderKidsRoute("sabiduria");
+  }
+
+  document.addEventListener("DOMContentLoaded", initKidsMiniRoute);
+  window.addEventListener("load", initKidsMiniRoute);
+  setTimeout(initKidsMiniRoute, 900);
+})();
+</script>
 </body>
 </html>
 
