@@ -6254,5 +6254,360 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(initGlobalTranslation, 1600);
 })();
 </script>
+  <style>
+  .rb-language-widget {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 10000;
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(134, 201, 255, 0.35);
+    background: rgba(6, 20, 37, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  }
+
+  .rb-language-widget button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 900;
+    cursor: pointer;
+    color: #f5f9ff;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+  }
+
+  .rb-language-widget button:hover {
+    transform: translateY(-2px);
+    background: rgba(134, 201, 255, 0.16);
+  }
+
+  .rb-language-widget button.is-active,
+  .rb-language-widget button.active {
+    color: #061425;
+    background: linear-gradient(135deg, #f2c96b, #ffe49a);
+    box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
+  }
+
+  @media (max-width: 760px) {
+    .rb-language-widget {
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      justify-content: center;
+    }
+
+    .rb-language-widget button {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const LANG_KEY = "renebook_reader_language";
+  const SELECTED_KEY = "renebook_language_selected";
+
+  const PAIRS = [
+    ["Inicio", "Home"],
+    ["App Biblia", "Bible App"],
+    ["Abrir Biblia", "Open Bible"],
+    ["Proyecto", "Project"],
+    ["Visión", "Vision"],
+    ["Biblia interactiva bilingüe", "Bilingual interactive Bible"],
+    ["Biblia • Sabiduría • Formación", "Bible • Wisdom • Formation"],
+    ["Proyecto digital bíblico", "Digital Bible project"],
+    ["Visión pastoral y digital", "Pastoral and digital vision"],
+
+    ["✨ Plataforma bíblica digital en español e inglés", "✨ Bible platform in Spanish and English"],
+    ["Una experiencia moderna para leer, meditar y compartir la Palabra.", "A modern experience to read, reflect, and share the Word."],
+    ["Renebook une Biblia, Proverbios, devocionales breves y tecnología accesible para familias, nuevos lectores y comunidades de fe.", "Renebook brings together the Bible, Proverbs, short devotionals, and accessible technology for families, new readers, and faith communities."],
+    ["Probar App Biblia", "Try Bible App"],
+    ["Leer visión", "Read vision"],
+    ["VERSO DESTACADO", "FEATURED VERSE"],
+    ["Verso destacado", "Featured verse"],
+    ["Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia.", "Trust in Yahweh with all your heart, and don’t lean on your own understanding."],
+    ["Proverbios 3:5 · RVR1909", "Proverbs 3:5 · WEB"],
+    ["La sabiduría bíblica no comienza con más ruido, sino con confianza reverente. Hoy puedes caminar con dirección, descanso y obediencia.", "Biblical wisdom does not begin with more noise, but with reverent trust. Today you can walk with direction, rest, and obedience."],
+    ["Ver devocionales", "View devotionals"],
+    ["Idiomas base", "Base languages"],
+    ["Devocionales iniciales", "Initial devotionals"],
+    ["Diseño móvil", "Mobile design"],
+
+    ["✨ Guía para niños · Sabiduría para escoger bien", "✨ Kids guide · Wisdom for choosing well"],
+    ["Guía para niños · Sabiduría para escoger bien", "Kids guide · Wisdom for choosing well"],
+    ["Proverbios 1:7 — Ser sabio empieza cuando honramos a Dios.", "Proverbs 1:7 — Wisdom begins when we honor God."],
+    ["Explicación sencilla", "Simple explanation"],
+    ["Pregunta familiar", "Family question"],
+    ["Actividad", "Activity"],
+    ["Oración", "Prayer"],
+    ["Ser sabio empieza cuando honramos a Dios.", "Wisdom begins when we honor God."],
+    ["¿Qué decisión puedo tomar hoy para agradar a Dios?", "What decision can I make today to please God?"],
+    ["Haz dos caminos en una hoja: uno sabio y uno necio. Dibuja una buena decisión.", "Draw two paths on a sheet: one wise and one foolish. Draw a good decision."],
+    ["Señor, dame sabiduría para escoger lo bueno.", "Lord, give me wisdom to choose what is good."],
+    ["Sabiduría", "Wisdom"],
+    ["Obediencia", "Obedience"],
+    ["Palabras", "Words"],
+    ["Amistad", "Friendship"],
+    ["Familia", "Family"],
+    ["Decisiones", "Decisions"],
+    ["Gratitud", "Gratitude"],
+    ["Proverbios para niños", "Proverbs for children"],
+    ["Una ruta sencilla para enseñar sabiduría bíblica con ternura, claridad y actividades familiares.", "A simple path for teaching biblical wisdom with warmth, clarity, and family activities."],
+    ["Guía rápida para padres y maestros", "Quick guide for parents and teachers"],
+    ["Leer", "Read"],
+    ["Explicar", "Explain"],
+    ["Preguntar", "Ask"],
+    ["Orar", "Pray"],
+    ["Lee el versículo con voz clara y pausada.", "Read the verse with a clear and calm voice."],
+    ["Usa palabras sencillas y conecta el proverbio con la vida diaria.", "Use simple words and connect the proverb with daily life."],
+    ["Permite que el niño responda con ejemplos de casa, escuela o amigos.", "Let the child respond with examples from home, school, or friends."],
+    ["Cierra con una oración breve, cálida y centrada en Dios.", "Close with a brief, warm, God-centered prayer."],
+
+    ["🧭 Proyecto de acceso bíblico digital", "🧭 Digital Bible access project"],
+    ["Renebook ayuda a entrar, leer y permanecer en la Palabra.", "Renebook helps people enter, read, and remain in the Word."],
+    ["La versión anterior ya comunicaba acceso bíblico claro, práctico y accesible. Esta actualización fortalece la experiencia: más navegación, mejor jerarquía visual, bilingüismo, devocionales breves y una ruta más interactiva para el usuario.", "The previous version already communicated clear, practical, and accessible Bible access. This update strengthens the experience with better navigation, stronger visual hierarchy, bilingual support, short devotionals, and a more interactive path for the user."],
+    ["“Lámpara es á mis pies tu palabra, Y lumbrera á mi camino.” — Salmo 119:105, RVR1909", "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB"],
+    ["“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105, RVR1909", "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB"],
+    ["Cuatro convicciones", "Four convictions"],
+    ["Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente.", "These convictions help keep the project biblically and pastorally focused as it grows technically."],
+    ["La Palabra al centro", "The Word at the center"],
+    ["Cada función debe servir a la lectura, meditación, obediencia y proclamación de la Escritura.", "Every feature should serve the reading, meditation, obedience, and proclamation of Scripture."],
+    ["Familias discipuladas", "Discipled families"],
+    ["La plataforma debe servir a padres, niños, jóvenes y nuevos creyentes que necesitan lenguaje claro.", "The platform should serve parents, children, youth, and new believers who need clear language."],
+    ["Niños con propósito", "Children with purpose"],
+    ["Proverbios puede enseñarse con ternura, imágenes simples y aplicaciones de obediencia cotidiana.", "Proverbs can be taught with warmth, simple images, and everyday obedience applications."],
+    ["Del primer clic al crecimiento espiritual.", "From the first click to spiritual growth."],
+    ["La experiencia debe guiar al usuario paso a paso. Cada pantalla debe responder: ¿qué leo?, ¿qué significa?, ¿cómo obedezco?, ¿cómo lo comparto?", "The experience should guide the user step by step. Each screen should answer: what do I read, what does it mean, how do I obey, and how do I share it?"],
+    ["Acceso", "Access"],
+    ["Lectura", "Reading"],
+    ["Reflexión", "Reflection"],
+    ["Aplicación", "Application"],
+    ["Testimonio", "Witness"],
+    ["Visión con mentalidad de datos", "Vision with a data mindset"],
+    ["Más adelante, Renebook puede medir qué secciones ayudan más: lectura diaria, devocionales, niños, idioma, capítulos y rutas de seguimiento.", "Later, Renebook can measure which sections help most: daily reading, devotionals, children, language, chapters, and follow-up paths."],
+    ["Prioridades para la siguiente fase", "Priorities for the next phase"],
+    ["Agregar más versos de Proverbios.", "Add more Proverbs verses."],
+    ["Crear historias bíblicas para niños.", "Create Bible stories for children."],
+    ["Preparar un plan de 7, 21 o 31 días.", "Prepare a 7, 21, or 31 day plan."],
+    ["Añadir botones para compartir en redes sociales.", "Add buttons for sharing on social media."],
+    ["Conectar analítica cuando el sitio esté estable en Netlify.", "Connect analytics when the site is stable on Netlify."],
+
+    ["🌎 Visión de Renebook", "🌎 Renebook Vision"],
+    ["Una plataforma para sembrar sabiduría bíblica en la vida diaria.", "A platform to plant biblical wisdom in daily life."],
+    ["Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar personas y familias hacia una fe más práctica, madura y misional.", "Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith."],
+    ["Entrar a la experiencia", "Enter the experience"],
+    ["Ver arquitectura", "View architecture"],
+
+    ["✦ Renebook Platform", "✦ Renebook Platform"],
+    ["Sigue leyendo Proverbios con propósito", "Keep reading Proverbs with purpose"],
+    ["Busca por tema, cambia entre Español e English, resalta versículos y usa los devocionales conectados.", "Search by topic, switch between Spanish and English, highlight verses, and use the connected devotionals."],
+    ["Renebook.org · App Biblia · RVR1909 / WEB · Devocionales originales para formación espiritual.", "Renebook.org · Bible App · RVR1909 / WEB · Original devotionals for spiritual formation."]
+  ];
+
+  function clean(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = clean(params.get("lang"));
+
+    if (lang === "en" || lang === "english" || lang === "web") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
+
+    return null;
+  }
+
+  function getLang() {
+    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
+  }
+
+  function setLang(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANG_KEY, safeLang);
+    localStorage.setItem(SELECTED_KEY, "true");
+    document.documentElement.lang = safeLang;
+
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", safeLang);
+      window.history.replaceState({}, "", url.toString());
+    } catch (error) {}
+
+    return safeLang;
+  }
+
+  function installWidget() {
+    if (document.getElementById("rbLanguageWidget") || document.querySelector(".rb-language-widget")) return;
+
+    document.body.insertAdjacentHTML("beforeend", `
+      <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
+        <button type="button" data-rb-lang-choice="es">Español</button>
+        <button type="button" data-rb-lang-choice="en">English</button>
+      </div>
+    `);
+  }
+
+  function shouldSkipTextNode(node) {
+    const parent = node.parentElement;
+    if (!parent) return true;
+
+    return Boolean(
+      parent.closest("script, style, noscript") ||
+      parent.closest("#versesList") ||
+      parent.closest(".reader-verse") ||
+      parent.closest("#chapterTitle") ||
+      parent.closest("#renebookKeywordDevotional") ||
+      parent.closest(".renebook-keyword-devotional")
+    );
+  }
+
+  function replaceTextNodes(lang) {
+    const pairs = PAIRS
+      .map(function (pair) {
+        return lang === "en"
+          ? { from: pair[0], to: pair[1] }
+          : { from: pair[1], to: pair[0] };
+      })
+      .sort(function (a, b) {
+        return b.from.length - a.from.length;
+      });
+
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (node) {
+          if (shouldSkipTextNode(node)) return NodeFilter.FILTER_REJECT;
+          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    const nodes = [];
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    nodes.forEach(function (node) {
+      let value = node.nodeValue;
+
+      pairs.forEach(function (pair) {
+        if (value.includes(pair.from)) {
+          value = value.split(pair.from).join(pair.to);
+        }
+      });
+
+      node.nodeValue = value;
+    });
+  }
+
+  function updateLinks(lang) {
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (href.includes("app-bible.html")) link.setAttribute("href", "/app-bible.html?lang=" + lang);
+      if (href.includes("proyecto.html")) link.setAttribute("href", "/proyecto.html?lang=" + lang);
+      if (href.includes("vision.html")) link.setAttribute("href", "/vision.html?lang=" + lang);
+      if (href === "/" || href.includes("index.html")) link.setAttribute("href", "/?lang=" + lang);
+    });
+  }
+
+  function updateButtons(lang) {
+    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
+      const value = clean(
+        button.dataset.rbLangChoice ||
+        button.dataset.lang ||
+        button.value ||
+        button.textContent
+      );
+
+      const isEn = value === "en" || value.includes("english") || value.includes("web");
+      const isEs = value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr");
+
+      button.classList.toggle("is-active", (lang === "en" && isEn) || (lang === "es" && isEs));
+      button.classList.toggle("active", (lang === "en" && isEn) || (lang === "es" && isEs));
+    });
+  }
+
+  function translatePage() {
+    const lang = setLang(getLang());
+
+    installWidget();
+    replaceTextNodes(lang);
+    updateLinks(lang);
+    updateButtons(lang);
+  }
+
+  function connectClicks() {
+    if (window.__rbFullPageTranslatorConnected) return;
+    window.__rbFullPageTranslatorConnected = true;
+
+    document.addEventListener("click", function (event) {
+      const control = event.target.closest("[data-rb-lang-choice], .reader-lang-btn");
+
+      if (!control) return;
+
+      const value = clean(
+        control.dataset.rbLangChoice ||
+        control.dataset.lang ||
+        control.value ||
+        control.textContent
+      );
+
+      let lang = null;
+
+      if (value === "en" || value.includes("english") || value.includes("web")) lang = "en";
+      if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) lang = "es";
+
+      if (!lang) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      setLang(lang);
+      translatePage();
+
+      window.dispatchEvent(new CustomEvent("renebook:language-change", { detail: { lang: lang } }));
+    }, true);
+  }
+
+  function init() {
+    installWidget();
+    connectClicks();
+    translatePage();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  window.addEventListener("load", init);
+  window.addEventListener("renebook:language-change", function () {
+    setTimeout(translatePage, 100);
+    setTimeout(translatePage, 450);
+  });
+
+  setTimeout(init, 700);
+  setTimeout(init, 1600);
+  setTimeout(init, 2800);
+})();
+</script>
 </body>
 </html>
