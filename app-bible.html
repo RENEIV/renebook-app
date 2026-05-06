@@ -5456,5 +5456,426 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(initForcedLanguageReader, 1400);
 })();
 </script>
+  <script>
+(function () {
+  "use strict";
+
+  /*
+    RENEBOOK UI TRANSLATION BRIDGE
+    Traduce tarjetas, chips, buscador y textos visibles
+    cuando la Biblia cambia entre Español / English.
+  */
+
+  const LANG_KEY = "renebook_reader_language";
+
+  const TOPIC_BY_REF = {
+    "1:7": {
+      es: {
+        title: "Sabiduría que comienza con reverencia",
+        reflection: "La sabiduría bíblica no es solamente información, sino una relación reverente con Dios.",
+        application: "Antes de decidir hoy, ora y pregunta: ¿esto honra al Señor?",
+        prayer: "Señor, guía mi corazón hacia tu sabiduría y enséñame a honrarte en todo."
+      },
+      en: {
+        title: "Wisdom begins with reverence",
+        reflection: "Biblical wisdom is not merely information, but a reverent relationship with God.",
+        application: "Before making a decision today, pray and ask: does this honor the Lord?",
+        prayer: "Lord, guide my heart toward your wisdom and teach me to honor you in all things."
+      }
+    },
+
+    "1:8": {
+      es: {
+        title: "La familia como escuela de sabiduría",
+        reflection: "Dios usa la instrucción del hogar para formar carácter, obediencia y discernimiento.",
+        application: "Escucha con humildad el consejo sabio y fortalece tu hogar con palabras de gracia.",
+        prayer: "Señor, bendice mi familia y ayúdanos a caminar en tu instrucción."
+      },
+      en: {
+        title: "Family as a school of wisdom",
+        reflection: "God uses instruction in the home to form character, obedience, and discernment.",
+        application: "Receive wise counsel with humility and strengthen your home with words of grace.",
+        prayer: "Lord, bless my family and help us walk in your instruction."
+      }
+    },
+
+    "3:5": {
+      es: {
+        title: "Confianza que descansa en Dios",
+        reflection: "Confiar en Dios significa rendir el control del corazón y depender de su dirección.",
+        application: "Entrega hoy una preocupación específica al Señor y camina con obediencia.",
+        prayer: "Padre, ayúdame a confiar en ti con todo mi corazón."
+      },
+      en: {
+        title: "Trust that rests in God",
+        reflection: "Trusting God means surrendering control of the heart and depending on his direction.",
+        application: "Give one specific concern to the Lord today and walk in obedience.",
+        prayer: "Father, help me trust you with all my heart."
+      }
+    },
+
+    "3:6": {
+      es: {
+        title: "Reconocer a Dios en el camino",
+        reflection: "La oración nos enseña a depender de Dios no solo en crisis, sino en cada decisión.",
+        application: "Antes de avanzar, reconoce al Señor en tus planes y pídele dirección.",
+        prayer: "Señor, endereza mis veredas y guíame con tu verdad."
+      },
+      en: {
+        title: "Recognizing God on the way",
+        reflection: "Prayer teaches us to depend on God not only in crisis, but in every decision.",
+        application: "Before moving forward, acknowledge the Lord in your plans and ask for direction.",
+        prayer: "Lord, make my paths straight and guide me in your truth."
+      }
+    },
+
+    "3:24": {
+      es: {
+        title: "Paz para descansar",
+        reflection: "La sabiduría de Dios produce seguridad interior aun cuando las circunstancias no son perfectas.",
+        application: "Descansa sabiendo que Dios cuida tu vida y tu casa.",
+        prayer: "Señor, dame paz para descansar bajo tu cuidado."
+      },
+      en: {
+        title: "Peace for rest",
+        reflection: "God’s wisdom gives inner security even when circumstances are not perfect.",
+        application: "Rest knowing that God cares for your life and your home.",
+        prayer: "Lord, give me peace to rest under your care."
+      }
+    },
+
+    "31:10": {
+      es: {
+        title: "Carácter de gran valor",
+        reflection: "Proverbios 31 celebra una vida sabia, diligente, generosa y temerosa de Dios.",
+        application: "Valora el carácter más que la apariencia y cultiva fidelidad en lo cotidiano.",
+        prayer: "Señor, forma en mí un carácter fiel, sabio y fructífero."
+      },
+      en: {
+        title: "Character of great value",
+        reflection: "Proverbs 31 honors a wise, diligent, generous, and God-fearing life.",
+        application: "Value character above appearance and cultivate faithfulness in daily life.",
+        prayer: "Lord, form in me a faithful, wise, and fruitful character."
+      }
+    },
+
+    "15:1": {
+      es: {
+        title: "Palabras que apagan el fuego",
+        reflection: "Una respuesta suave puede abrir una puerta que la dureza habría cerrado.",
+        application: "Hoy responde con mansedumbre, especialmente cuando sientas tensión.",
+        prayer: "Señor, guarda mi lengua y llena mis palabras de gracia."
+      },
+      en: {
+        title: "Words that calm the fire",
+        reflection: "A gentle answer can open a door that harshness would have closed.",
+        application: "Today, respond with gentleness, especially when you feel tension.",
+        prayer: "Lord, guard my tongue and fill my words with grace."
+      }
+    },
+
+    "27:17": {
+      es: {
+        title: "Amistades que afilan el carácter",
+        reflection: "Dios usa amistades sanas para corregirnos, animarnos y fortalecernos.",
+        application: "Busca una conversación honesta con alguien que te acerque a Dios.",
+        prayer: "Señor, dame amistades sabias y ayúdame a ser un amigo fiel."
+      },
+      en: {
+        title: "Friendships that sharpen character",
+        reflection: "God uses healthy friendships to correct, encourage, and strengthen us.",
+        application: "Seek an honest conversation with someone who draws you closer to God.",
+        prayer: "Lord, give me wise friendships and help me be a faithful friend."
+      }
+    },
+
+    "29:2": {
+      es: {
+        title: "Liderazgo que bendice al pueblo",
+        reflection: "El liderazgo sabio no busca dominar, sino servir con justicia, verdad y temor de Dios.",
+        application: "Evalúa hoy una decisión de liderazgo y pregúntate si edifica a otros.",
+        prayer: "Señor, dame humildad y justicia para liderar con sabiduría."
+      },
+      en: {
+        title: "Leadership that blesses people",
+        reflection: "Wise leadership does not seek domination, but service with justice, truth, and reverence before God.",
+        application: "Review one leadership decision today and ask whether it builds others up.",
+        prayer: "Lord, give me humility and justice to lead with wisdom."
+      }
+    },
+
+    "31:9": {
+      es: {
+        title: "Justicia para el necesitado",
+        reflection: "La sabiduría bíblica no es indiferente al dolor; abre la boca por el que necesita defensa.",
+        application: "Busca una forma concreta de servir o animar a alguien vulnerable.",
+        prayer: "Señor, hazme sensible a la necesidad y justo en mis acciones."
+      },
+      en: {
+        title: "Justice for the needy",
+        reflection: "Biblical wisdom is not indifferent to pain; it speaks for those who need defense.",
+        application: "Find one concrete way to serve or encourage someone vulnerable.",
+        prayer: "Lord, make me sensitive to need and just in my actions."
+      }
+    }
+  };
+
+  const CHIP_SETS = {
+    es: [
+      ["sabiduría", "Sabiduría"],
+      ["familia", "Familia"],
+      ["confianza", "Confianza"],
+      ["oración", "Oración"],
+      ["paz", "Paz"],
+      ["mujer virtuosa", "Mujer virtuosa"],
+      ["liderazgo", "Liderazgo"],
+      ["justicia", "Justicia"],
+      ["humildad", "Humildad"]
+    ],
+    en: [
+      ["wisdom", "Wisdom"],
+      ["family", "Family"],
+      ["trust", "Trust"],
+      ["prayer", "Prayer"],
+      ["peace", "Peace"],
+      ["virtuous woman", "Virtuous woman"],
+      ["leadership", "Leadership"],
+      ["justice", "Justice"],
+      ["humility", "Humility"]
+    ]
+  };
+
+  function escapeHTML(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function getLang() {
+    return localStorage.getItem(LANG_KEY) === "en" ? "en" : "es";
+  }
+
+  function getBibleData(lang) {
+    const data = window.PROVERBS || window.proverbs || window.PROVERBIOS;
+    if (!data) return null;
+    return lang === "en" ? data.en : data.es;
+  }
+
+  function getVerseText(lang, chapterNumber, verseNumber) {
+    const bible = getBibleData(lang);
+    if (!bible || !Array.isArray(bible.chapters)) return "";
+
+    const chapter = bible.chapters.find(function (item) {
+      return Number(item.chapter || item.number) === Number(chapterNumber);
+    });
+
+    if (!chapter || !Array.isArray(chapter.verses)) return "";
+
+    const verse = chapter.verses.find(function (item) {
+      return Number(item.verse || item.number) === Number(verseNumber);
+    });
+
+    return verse ? verse.text : "";
+  }
+
+  function getCurrentReferenceFromCard() {
+    const refNode = document.querySelector("#renebookKeywordDevotional .rb-ref, .renebook-keyword-devotional .rb-ref");
+    if (!refNode) return null;
+
+    const text = refNode.textContent || "";
+    const match = text.match(/(\d{1,2})\s*:\s*(\d{1,2})/);
+
+    if (!match) return null;
+
+    return {
+      chapter: Number(match[1]),
+      verse: Number(match[2]),
+      key: Number(match[1]) + ":" + Number(match[2])
+    };
+  }
+
+  function translateSearchBox(lang) {
+    const label = document.querySelector(".renebook-bible-search label");
+    const input = document.getElementById("renebookBibleSearchInput");
+    const status = document.getElementById("renebookBibleSearchStatus");
+    const button = document.getElementById("renebookBibleSearchButton");
+
+    if (label) {
+      label.textContent = lang === "en" ? "Search Proverbs" : "Buscar en Proverbios";
+    }
+
+    if (input) {
+      input.placeholder = lang === "en"
+        ? "wisdom, family, prayer, peace, leadership, Proverbs 31:10"
+        : "sabiduría, familia, oración, paz, liderazgo, Proverbios 31:10";
+    }
+
+    if (button) {
+      button.textContent = lang === "en" ? "Search" : "Buscar";
+    }
+
+    if (status) {
+      const current = status.textContent || "";
+
+      if (
+        current.includes("No encontré") ||
+        current.includes("No encontr") ||
+        current.includes("No found") ||
+        current.includes("Try")
+      ) {
+        status.textContent = lang === "en"
+          ? "Try: wisdom, family, prayer, peace, leadership, or Proverbs 31:10."
+          : "Prueba: sabiduría, familia, oración, paz, liderazgo o Proverbios 31:10.";
+      }
+    }
+  }
+
+  function translateDevotionalCard(lang) {
+    const card = document.getElementById("renebookKeywordDevotional") || document.querySelector(".renebook-keyword-devotional");
+    if (!card) return;
+
+    const ref = getCurrentReferenceFromCard();
+    if (!ref) return;
+
+    const topic = TOPIC_BY_REF[ref.key] && TOPIC_BY_REF[ref.key][lang];
+
+    if (!topic) return;
+
+    const book = lang === "en" ? "Proverbs" : "Proverbios";
+    const referenceLabel = book + " " + ref.chapter + ":" + ref.verse;
+    const verseText = getVerseText(lang, ref.chapter, ref.verse);
+
+    const refNode = card.querySelector(".rb-ref");
+    const titleNode = card.querySelector("h3");
+    const preview = card.querySelector(".rb-verse-preview");
+    const grid = card.querySelector(".rb-kd-grid");
+    const chips = card.querySelector(".rb-keyword-chips");
+
+    if (refNode) {
+      refNode.textContent = referenceLabel;
+    }
+
+    if (titleNode) {
+      titleNode.textContent = topic.title;
+    }
+
+    if (preview) {
+      preview.innerHTML = `
+        <strong>${escapeHTML(referenceLabel)}</strong><br>
+        ${escapeHTML(verseText || "")}
+      `;
+    }
+
+    if (grid) {
+      grid.innerHTML = `
+        <div class="rb-kd-box">
+          <strong>${lang === "en" ? "Reflection" : "Reflexión"}</strong>
+          ${escapeHTML(topic.reflection)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${lang === "en" ? "Application" : "Aplicación"}</strong>
+          ${escapeHTML(topic.application)}
+        </div>
+        <div class="rb-kd-box">
+          <strong>${lang === "en" ? "Prayer" : "Oración"}</strong>
+          ${escapeHTML(topic.prayer)}
+        </div>
+      `;
+    }
+
+    if (chips) {
+      chips.innerHTML = CHIP_SETS[lang].map(function (chip) {
+        return '<button type="button" data-rb-search="' + escapeHTML(chip[0]) + '">' + escapeHTML(chip[1]) + '</button>';
+      }).join("");
+
+      chips.querySelectorAll("[data-rb-search]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const input = document.getElementById("renebookBibleSearchInput");
+
+          if (input) {
+            input.value = button.dataset.rbSearch;
+          }
+
+          if (typeof window.renebookRouteSearch === "function") {
+            window.renebookRouteSearch(button.dataset.rbSearch);
+          } else {
+            const searchButton = document.getElementById("renebookBibleSearchButton");
+            if (searchButton) searchButton.click();
+          }
+        });
+      });
+    }
+  }
+
+  function translateStaticText(lang) {
+    const brandSubtitle = document.querySelector(".rb-brand span span");
+
+    if (brandSubtitle) {
+      brandSubtitle.textContent = lang === "en"
+        ? "Bilingual interactive Bible"
+        : "Biblia interactiva bilingüe";
+    }
+
+    document.querySelectorAll(".rb-nav-links a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (href === "/" || href.includes("index")) {
+        link.textContent = lang === "en" ? "Home" : "Inicio";
+      }
+
+      if (href.includes("app-bible")) {
+        if (link.classList.contains("rb-nav-cta")) {
+          link.textContent = lang === "en" ? "Open Bible" : "Abrir Biblia";
+        } else {
+          link.textContent = lang === "en" ? "Bible App" : "App Biblia";
+        }
+      }
+
+      if (href.includes("proyecto")) {
+        link.textContent = lang === "en" ? "Project" : "Proyecto";
+      }
+
+      if (href.includes("vision")) {
+        link.textContent = lang === "en" ? "Vision" : "Visión";
+      }
+    });
+
+    document.querySelectorAll("[data-rb-lang-label]").forEach(function (label) {
+      label.textContent = lang === "en"
+        ? "English selected · WEB"
+        : "Español seleccionado · RVR1909";
+    });
+  }
+
+  function translateBibleUI() {
+    const lang = getLang();
+
+    translateSearchBox(lang);
+    translateDevotionalCard(lang);
+    translateStaticText(lang);
+  }
+
+  document.addEventListener("DOMContentLoaded", translateBibleUI);
+  window.addEventListener("load", translateBibleUI);
+  window.addEventListener("renebook:reader-rendered", translateBibleUI);
+  window.addEventListener("renebook:language-change", function () {
+    setTimeout(translateBibleUI, 100);
+    setTimeout(translateBibleUI, 400);
+  });
+
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-rb-lang-choice], .reader-lang-btn")) {
+      setTimeout(translateBibleUI, 150);
+      setTimeout(translateBibleUI, 500);
+    }
+  }, true);
+
+  setTimeout(translateBibleUI, 700);
+  setTimeout(translateBibleUI, 1500);
+})();
+</script>
 </body>
 </html>
