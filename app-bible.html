@@ -4215,5 +4215,422 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("load", initUnifiedExperience);
 })();
 </script>
+  <style>
+  /* =====================================================
+     RENEBOOK GLOBAL LANGUAGE GATE — ULTIMATE DESIGN
+     Español / English desde Inicio conectado a App Biblia
+  ===================================================== */
+
+  .rb-language-widget {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 10000;
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(134, 201, 255, 0.35);
+    background: rgba(6, 20, 37, 0.86);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+  }
+
+  .rb-language-widget button {
+    border: 0;
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-weight: 900;
+    cursor: pointer;
+    color: #f5f9ff;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+  }
+
+  .rb-language-widget button:hover {
+    transform: translateY(-2px);
+    background: rgba(134, 201, 255, 0.16);
+  }
+
+  .rb-language-widget button.is-active {
+    color: #061425;
+    background: linear-gradient(135deg, #f2c96b, #ffe49a);
+    box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
+  }
+
+  .rb-language-gate {
+    max-width: 1180px;
+    margin: 28px auto;
+    padding: 26px;
+    border-radius: 30px;
+    border: 1px solid rgba(134, 201, 255, 0.34);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(242, 201, 107, 0.16), transparent 28%),
+      radial-gradient(circle at 88% 12%, rgba(79, 209, 197, 0.14), transparent 28%),
+      linear-gradient(145deg, rgba(16, 40, 71, 0.96), rgba(7, 24, 44, 0.97));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    color: #f5f9ff;
+  }
+
+  .rb-language-gate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(242, 201, 107, 0.16);
+    color: #f2c96b;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .rb-language-gate h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+  }
+
+  .rb-language-gate p {
+    color: #b8c7da;
+    line-height: 1.65;
+    margin: 0 0 18px;
+    max-width: 820px;
+  }
+
+  .rb-language-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .rb-language-card {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 24px;
+    padding: 20px;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.04));
+    color: #f5f9ff;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.23);
+    transition: all 0.2s ease;
+  }
+
+  .rb-language-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(134, 201, 255, 0.72);
+    background:
+      linear-gradient(145deg, rgba(134, 201, 255, 0.13), rgba(255, 255, 255, 0.045));
+  }
+
+  .rb-language-card.is-active {
+    border-color: rgba(242, 201, 107, 0.85);
+    box-shadow:
+      0 0 0 4px rgba(242, 201, 107, 0.10),
+      0 18px 42px rgba(0, 0, 0, 0.28);
+  }
+
+  .rb-language-card strong {
+    display: block;
+    color: #f2c96b;
+    font-size: 1.2rem;
+    margin-bottom: 7px;
+  }
+
+  .rb-language-card span {
+    display: block;
+    color: #b8c7da;
+    line-height: 1.55;
+  }
+
+  .rb-language-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .rb-language-actions a,
+  .rb-language-actions button {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 950;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .rb-language-primary {
+    color: #061425;
+    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
+    box-shadow: 0 14px 30px rgba(77, 163, 255, 0.28);
+  }
+
+  .rb-language-secondary {
+    color: #f5f9ff;
+    background: rgba(255, 255, 255, 0.075);
+    border: 1px solid rgba(134, 201, 255, 0.34) !important;
+  }
+
+  .rb-language-actions a:hover,
+  .rb-language-actions button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
+  @media (max-width: 760px) {
+    .rb-language-gate {
+      margin: 22px 14px;
+      padding: 20px;
+      border-radius: 24px;
+    }
+
+    .rb-language-options {
+      grid-template-columns: 1fr;
+    }
+
+    .rb-language-actions {
+      flex-direction: column;
+    }
+
+    .rb-language-actions a,
+    .rb-language-actions button {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .rb-language-widget {
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      justify-content: center;
+    }
+
+    .rb-language-widget button {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const LANGUAGE_KEY = "renebook_reader_language";
+  const LANGUAGE_SELECTED_KEY = "renebook_language_selected";
+
+  function getUrlLang() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = String(params.get("lang") || "").toLowerCase();
+
+    if (lang === "en" || lang === "english") return "en";
+    if (lang === "es" || lang === "spanish" || lang === "español") return "es";
+
+    return null;
+  }
+
+  function getCurrentLanguage() {
+    const urlLang = getUrlLang();
+
+    if (urlLang) {
+      localStorage.setItem(LANGUAGE_KEY, urlLang);
+      localStorage.setItem(LANGUAGE_SELECTED_KEY, "true");
+      return urlLang;
+    }
+
+    return localStorage.getItem(LANGUAGE_KEY) || "es";
+  }
+
+  function setLanguage(lang) {
+    const safeLang = lang === "en" ? "en" : "es";
+
+    localStorage.setItem(LANGUAGE_KEY, safeLang);
+    localStorage.setItem(LANGUAGE_SELECTED_KEY, "true");
+
+    updateLanguageUI();
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+
+    window.dispatchEvent(
+      new CustomEvent("renebook:language-change", {
+        detail: { lang: safeLang }
+      })
+    );
+
+    return safeLang;
+  }
+
+  function appBibleUrl() {
+    const lang = getCurrentLanguage();
+    return "/app-bible.html?lang=" + encodeURIComponent(lang);
+  }
+
+  function updateBibleLinks() {
+    const lang = getCurrentLanguage();
+
+    document.querySelectorAll("a").forEach(function (link) {
+      const href = link.getAttribute("href") || "";
+
+      if (
+        href.includes("app-bible.html") ||
+        href === "/app-bible.html" ||
+        href === "app-bible.html"
+      ) {
+        link.setAttribute("href", "/app-bible.html?lang=" + lang);
+      }
+    });
+  }
+
+  function updateLanguageUI() {
+    const lang = getCurrentLanguage();
+
+    document.querySelectorAll("[data-rb-lang-choice]").forEach(function (item) {
+      item.classList.toggle("is-active", item.dataset.rbLangChoice === lang);
+    });
+
+    document.querySelectorAll("[data-rb-lang-label]").forEach(function (item) {
+      item.textContent = lang === "en" ? "English selected · WEB" : "Español seleccionado · RVR1909";
+    });
+
+    updateBibleLinks();
+  }
+
+  function installLanguageWidget() {
+    if (document.getElementById("rbLanguageWidget")) return;
+
+    document.body.insertAdjacentHTML("beforeend", `
+      <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
+        <button type="button" data-rb-lang-choice="es">Español</button>
+        <button type="button" data-rb-lang-choice="en">English</button>
+      </div>
+    `);
+
+    document.querySelectorAll("#rbLanguageWidget [data-rb-lang-choice]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        setLanguage(button.dataset.rbLangChoice);
+      });
+    });
+  }
+
+  function installFirstVisitLanguageGate() {
+    if (document.getElementById("rbLanguageGate")) return;
+
+    const alreadySelected = localStorage.getItem(LANGUAGE_SELECTED_KEY) === "true";
+    const currentPath = window.location.pathname.toLowerCase();
+
+    // Si ya eligió idioma, no mostramos la tarjeta grande.
+    if (alreadySelected) return;
+
+    const gate = document.createElement("section");
+    gate.id = "rbLanguageGate";
+    gate.className = "rb-language-gate";
+
+    gate.innerHTML = `
+      <div class="rb-language-gate-badge">🌐 Primera visita · First visit</div>
+      <h2>Elige cómo quieres iniciar Renebook</h2>
+      <p>
+        Puedes leer Proverbios en español con RVR1909 o en inglés con WEB. Esta selección se guardará en este navegador y podrás cambiarla después.
+      </p>
+
+      <div class="rb-language-options">
+        <button type="button" class="rb-language-card" data-rb-lang-card="es">
+          <strong>Español · RVR1909</strong>
+          <span>Lectura bíblica, devocionales y búsqueda por temas en español.</span>
+        </button>
+
+        <button type="button" class="rb-language-card" data-rb-lang-card="en">
+          <strong>English · WEB</strong>
+          <span>Bible reading, topic search, and devotional guidance in English.</span>
+        </button>
+      </div>
+
+      <div class="rb-language-actions">
+        <a id="rbOpenBibleByLanguage" class="rb-language-primary" href="/app-bible.html?lang=es">
+          Abrir App Biblia →
+        </a>
+        <button id="rbCloseLanguageGate" class="rb-language-secondary" type="button">
+          Continuar en esta página
+        </button>
+      </div>
+
+      <p style="margin-top: 14px;">
+        <strong data-rb-lang-label>Español seleccionado · RVR1909</strong>
+      </p>
+    `;
+
+    const nav = document.getElementById("rbUnifiedNav") || document.querySelector("nav");
+    const main = document.querySelector("main");
+
+    if (nav && nav.parentElement) {
+      nav.insertAdjacentElement("afterend", gate);
+    } else if (main) {
+      main.insertAdjacentElement("afterbegin", gate);
+    } else {
+      document.body.insertAdjacentElement("afterbegin", gate);
+    }
+
+    gate.querySelectorAll("[data-rb-lang-card]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        const lang = setLanguage(card.dataset.rbLangCard);
+        const openBible = document.getElementById("rbOpenBibleByLanguage");
+
+        if (openBible) {
+          openBible.setAttribute("href", "/app-bible.html?lang=" + lang);
+          openBible.textContent = lang === "en" ? "Open Bible App →" : "Abrir App Biblia →";
+        }
+      });
+    });
+
+    const closeButton = document.getElementById("rbCloseLanguageGate");
+
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        localStorage.setItem(LANGUAGE_SELECTED_KEY, "true");
+        gate.remove();
+      });
+    }
+
+    updateLanguageUI();
+
+    // En app-bible no estorbamos demasiado: si está directo en lector, lo dejamos arriba y no modal.
+    if (currentPath.includes("app-bible")) {
+      gate.style.marginTop = "18px";
+    }
+  }
+
+  function applyLanguageToBibleReader() {
+    const lang = getCurrentLanguage();
+
+    localStorage.setItem(LANGUAGE_KEY, lang);
+
+    if (typeof window.renderProverbsReader === "function") {
+      window.renderProverbsReader();
+    }
+  }
+
+  function initLanguageSystem() {
+    installLanguageWidget();
+    installFirstVisitLanguageGate();
+    updateLanguageUI();
+    applyLanguageToBibleReader();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLanguageSystem);
+  } else {
+    initLanguageSystem();
+  }
+
+  window.addEventListener("load", initLanguageSystem);
+  window.addEventListener("renebook:proverbs-ready", applyLanguageToBibleReader);
+})();
+</script>
 </body>
 </html>
