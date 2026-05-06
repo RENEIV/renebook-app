@@ -3638,5 +3638,582 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 </style>
+  <style>
+  /* =====================================================
+     RENEBOOK ULTIMATE UNIFIED EXPERIENCE
+     Navegación + colores + botones + footer + CTA global
+     Aplicar en: index.html, app-bible.html, proyecto.html, vision.html
+  ===================================================== */
+
+  :root {
+    --rb-bg-deep: #061425;
+    --rb-bg-panel: #0d2440;
+    --rb-bg-card: rgba(255, 255, 255, 0.065);
+
+    --rb-text-main: #f5f9ff;
+    --rb-text-soft: #b8c7da;
+
+    --rb-blue: #4da3ff;
+    --rb-sky: #86c9ff;
+    --rb-cyan: #4fd1c5;
+    --rb-gold: #f2c96b;
+    --rb-mint: #7ed6a7;
+    --rb-coral: #ff9e8a;
+    --rb-lavender: #b9a7ff;
+
+    --rb-border: rgba(135, 190, 255, 0.30);
+    --rb-border-strong: rgba(134, 201, 255, 0.58);
+    --rb-shadow: 0 22px 55px rgba(0, 0, 0, 0.34);
+  }
+
+  body.rb-unified-experience {
+    background:
+      radial-gradient(circle at 10% 6%, rgba(77, 163, 255, 0.12), transparent 28%),
+      radial-gradient(circle at 90% 14%, rgba(79, 209, 197, 0.10), transparent 26%),
+      radial-gradient(circle at 50% 94%, rgba(242, 201, 107, 0.06), transparent 30%),
+      linear-gradient(180deg, #061425 0%, #07182c 58%, #05111f 100%) !important;
+    color: var(--rb-text-main) !important;
+    overflow-x: hidden !important;
+  }
+
+  .rb-legacy-nav-hidden {
+    display: none !important;
+  }
+
+  /* ===== Unified navigation ===== */
+
+  .rb-unified-nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: rgba(6, 20, 37, 0.82);
+    border-bottom: 1px solid rgba(135, 190, 255, 0.18);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.26);
+  }
+
+  .rb-nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .rb-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--rb-text-main);
+    text-decoration: none;
+    min-width: 210px;
+  }
+
+  .rb-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a);
+    color: #061425;
+    box-shadow: 0 12px 28px rgba(242, 201, 107, 0.24);
+    font-size: 1.25rem;
+  }
+
+  .rb-brand strong {
+    display: block;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+
+  .rb-brand span:last-child {
+    display: block;
+    color: var(--rb-text-soft);
+    font-size: 0.78rem;
+    margin-top: 1px;
+  }
+
+  .rb-nav-toggle {
+    display: none;
+    border: 1px solid rgba(134, 201, 255, 0.35);
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--rb-text-main);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .rb-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .rb-nav-links a {
+    color: var(--rb-text-soft);
+    text-decoration: none;
+    padding: 10px 13px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 800;
+    font-size: 0.94rem;
+    transition: all 0.2s ease;
+  }
+
+  .rb-nav-links a:hover {
+    color: var(--rb-text-main);
+    border-color: rgba(134, 201, 255, 0.45);
+    background: rgba(134, 201, 255, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .rb-nav-links a.is-active {
+    color: #061425;
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-cyan));
+    box-shadow: 0 12px 28px rgba(77, 163, 255, 0.24);
+  }
+
+  .rb-nav-links a.rb-nav-cta {
+    color: #061425;
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a);
+    box-shadow: 0 12px 28px rgba(242, 201, 107, 0.20);
+  }
+
+  /* ===== Global visual consistency ===== */
+
+  body.rb-unified-experience h1,
+  body.rb-unified-experience h2,
+  body.rb-unified-experience h3 {
+    letter-spacing: -0.035em;
+  }
+
+  body.rb-unified-experience h1 {
+    color: var(--rb-text-main) !important;
+    text-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
+  }
+
+  body.rb-unified-experience h2 {
+    color: var(--rb-text-main) !important;
+  }
+
+  body.rb-unified-experience p {
+    color: inherit;
+  }
+
+  body.rb-unified-experience main {
+    width: 100%;
+  }
+
+  body.rb-unified-experience main > section {
+    scroll-margin-top: 96px;
+  }
+
+  body.rb-unified-experience a,
+  body.rb-unified-experience button {
+    transition: all 0.2s ease;
+  }
+
+  body.rb-unified-experience button:hover,
+  body.rb-unified-experience a:hover {
+    filter: brightness(1.04);
+  }
+
+  /* ===== Unified CTA strip ===== */
+
+  .rb-unified-cta {
+    max-width: 1180px;
+    margin: 34px auto;
+    padding: 24px;
+    border-radius: 28px;
+    border: 1px solid var(--rb-border);
+    background:
+      radial-gradient(circle at 12% 10%, rgba(242, 201, 107, 0.13), transparent 26%),
+      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.13), transparent 26%),
+      linear-gradient(145deg, rgba(16, 40, 71, 0.94), rgba(7, 24, 44, 0.96));
+    box-shadow: var(--rb-shadow);
+    color: var(--rb-text-main);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .rb-unified-cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: rgba(242, 201, 107, 0.14);
+    color: var(--rb-gold);
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  .rb-unified-cta h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.45rem, 3vw, 2.25rem);
+    line-height: 1.08;
+  }
+
+  .rb-unified-cta p {
+    margin: 0;
+    color: var(--rb-text-soft);
+    line-height: 1.65;
+  }
+
+  .rb-unified-cta-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .rb-unified-cta-actions a {
+    text-decoration: none;
+    font-weight: 900;
+    border-radius: 999px;
+    padding: 12px 16px;
+  }
+
+  .rb-cta-primary {
+    color: #061425;
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-cyan));
+    box-shadow: 0 14px 30px rgba(77, 163, 255, 0.28);
+  }
+
+  .rb-cta-secondary {
+    color: var(--rb-text-main);
+    border: 1px solid rgba(134, 201, 255, 0.38);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .rb-cta-primary:hover,
+  .rb-cta-secondary:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ===== Unified footer ===== */
+
+  .rb-unified-footer {
+    margin-top: 46px !important;
+    padding: 30px 18px !important;
+    border-top: 1px solid rgba(135, 190, 255, 0.18) !important;
+    background: rgba(4, 14, 26, 0.56) !important;
+    color: var(--rb-text-soft) !important;
+  }
+
+  .rb-footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 22px;
+    align-items: center;
+  }
+
+  .rb-footer-brand {
+    color: var(--rb-text-main);
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  .rb-footer-text {
+    color: var(--rb-text-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .rb-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .rb-footer-links a {
+    color: var(--rb-text-soft);
+    text-decoration: none;
+    border: 1px solid rgba(134, 201, 255, 0.20);
+    padding: 8px 11px;
+    border-radius: 999px;
+  }
+
+  .rb-footer-links a:hover {
+    color: var(--rb-text-main);
+    border-color: rgba(134, 201, 255, 0.58);
+    background: rgba(134, 201, 255, 0.08);
+  }
+
+  /* ===== Mobile ===== */
+
+  @media (max-width: 820px) {
+    .rb-nav-inner {
+      padding: 10px 14px;
+      flex-wrap: wrap;
+    }
+
+    .rb-brand {
+      min-width: 0;
+    }
+
+    .rb-brand span:last-child {
+      display: none;
+    }
+
+    .rb-nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
+
+    .rb-nav-links {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      padding-top: 8px;
+    }
+
+    .rb-nav-links.is-open {
+      display: flex;
+    }
+
+    .rb-nav-links a {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 12px 14px;
+    }
+
+    .rb-unified-cta {
+      margin: 24px 14px;
+      padding: 20px;
+      border-radius: 24px;
+      grid-template-columns: 1fr;
+    }
+
+    .rb-unified-cta-actions {
+      justify-content: stretch;
+      flex-direction: column;
+    }
+
+    .rb-unified-cta-actions a {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .rb-footer-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .rb-footer-links {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  function getCurrentPage() {
+    const path = window.location.pathname.toLowerCase();
+
+    if (path.includes("app-bible")) return "app";
+    if (path.includes("proyecto")) return "proyecto";
+    if (path.includes("vision") || path.includes("visión")) return "vision";
+
+    return "inicio";
+  }
+
+  function hideLegacyNavs() {
+    document.querySelectorAll("nav").forEach(function (nav) {
+      if (nav.classList.contains("rb-unified-nav")) return;
+
+      const text = (nav.textContent || "").toLowerCase();
+
+      if (
+        text.includes("inicio") ||
+        text.includes("app") ||
+        text.includes("biblia") ||
+        text.includes("proyecto") ||
+        text.includes("visión") ||
+        text.includes("vision")
+      ) {
+        nav.classList.add("rb-legacy-nav-hidden");
+      }
+    });
+  }
+
+  function installUnifiedNav() {
+    if (document.getElementById("rbUnifiedNav")) return;
+
+    document.body.classList.add("rb-unified-experience");
+
+    hideLegacyNavs();
+
+    document.body.insertAdjacentHTML("afterbegin", `
+      <nav id="rbUnifiedNav" class="rb-unified-nav" aria-label="Renebook navigation">
+        <div class="rb-nav-inner">
+          <a class="rb-brand" href="/">
+            <span class="rb-brand-mark">📖</span>
+            <span>
+              <strong>Renebook</strong>
+              <span>Biblia interactiva bilingüe</span>
+            </span>
+          </a>
+
+          <button id="rbNavToggle" class="rb-nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+            Menú
+          </button>
+
+          <div id="rbNavLinks" class="rb-nav-links">
+            <a href="/" data-page="inicio">Inicio</a>
+            <a href="/app-bible.html" data-page="app">App Biblia</a>
+            <a href="/proyecto.html" data-page="proyecto">Proyecto</a>
+            <a href="/vision.html" data-page="vision">Visión</a>
+            <a class="rb-nav-cta" href="/app-bible.html">Abrir Biblia</a>
+          </div>
+        </div>
+      </nav>
+    `);
+
+    const currentPage = getCurrentPage();
+
+    document.querySelectorAll("#rbUnifiedNav [data-page]").forEach(function (link) {
+      if (link.dataset.page === currentPage) {
+        link.classList.add("is-active");
+      }
+    });
+
+    const toggle = document.getElementById("rbNavToggle");
+    const links = document.getElementById("rbNavLinks");
+
+    if (toggle && links) {
+      toggle.addEventListener("click", function () {
+        const isOpen = links.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+  }
+
+  function installUnifiedCTA() {
+    if (document.getElementById("rbUnifiedBottomCta")) return;
+
+    const currentPage = getCurrentPage();
+
+    let title = "Continúa explorando Renebook";
+    let text = "Lectura bíblica, búsqueda por temas, devocionales conectados y guía familiar para crecer en sabiduría.";
+    let primary = "Abrir App Biblia";
+    let primaryHref = "/app-bible.html";
+    let secondary = "Ver Proyecto";
+    let secondaryHref = "/proyecto.html";
+
+    if (currentPage === "app") {
+      title = "Sigue leyendo Proverbios con propósito";
+      text = "Busca por tema, cambia entre Español e English, resalta versículos y usa los devocionales conectados.";
+      primary = "Volver al inicio";
+      primaryHref = "/";
+      secondary = "Ver Visión";
+      secondaryHref = "/vision.html";
+    }
+
+    if (currentPage === "proyecto") {
+      title = "Del proyecto a la lectura bíblica";
+      text = "Renebook conecta contenido bíblico, experiencia familiar y recursos devocionales para el discipulado diario.";
+      primary = "Abrir App Biblia";
+      primaryHref = "/app-bible.html";
+      secondary = "Ver Visión";
+      secondaryHref = "/vision.html";
+    }
+
+    if (currentPage === "vision") {
+      title = "Una visión bíblica, familiar y digital";
+      text = "La plataforma busca servir a lectores bilingües, familias, niños y comunidades de fe con una experiencia clara.";
+      primary = "Abrir App Biblia";
+      primaryHref = "/app-bible.html";
+      secondary = "Ver Proyecto";
+      secondaryHref = "/proyecto.html";
+    }
+
+    const cta = `
+      <section id="rbUnifiedBottomCta" class="rb-unified-cta">
+        <div>
+          <div class="rb-unified-cta-badge">✦ Renebook Platform</div>
+          <h2>${title}</h2>
+          <p>${text}</p>
+        </div>
+        <div class="rb-unified-cta-actions">
+          <a class="rb-cta-primary" href="${primaryHref}">${primary}</a>
+          <a class="rb-cta-secondary" href="${secondaryHref}">${secondary}</a>
+        </div>
+      </section>
+    `;
+
+    const main = document.querySelector("main");
+
+    if (main) {
+      main.insertAdjacentHTML("beforeend", cta);
+    } else {
+      document.body.insertAdjacentHTML("beforeend", cta);
+    }
+  }
+
+  function installUnifiedFooter() {
+    const existingFooter = document.querySelector("footer");
+
+    if (existingFooter) {
+      existingFooter.classList.add("rb-unified-footer");
+      return;
+    }
+
+    document.body.insertAdjacentHTML("beforeend", `
+      <footer id="rbUnifiedFooter" class="rb-unified-footer">
+        <div class="rb-footer-inner">
+          <div>
+            <div class="rb-footer-brand">Renebook · Biblia interactiva</div>
+            <p class="rb-footer-text">
+              Lectura bíblica, devocionales, búsqueda por temas y guía familiar para crecer en sabiduría.
+            </p>
+          </div>
+
+          <div class="rb-footer-links">
+            <a href="/">Inicio</a>
+            <a href="/app-bible.html">App Biblia</a>
+            <a href="/proyecto.html">Proyecto</a>
+            <a href="/vision.html">Visión</a>
+          </div>
+        </div>
+      </footer>
+    `);
+  }
+
+  function initUnifiedExperience() {
+    installUnifiedNav();
+    installUnifiedCTA();
+    installUnifiedFooter();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initUnifiedExperience);
+  } else {
+    initUnifiedExperience();
+  }
+
+  window.addEventListener("load", initUnifiedExperience);
+})();
+</script>
 </body>
 </html>
