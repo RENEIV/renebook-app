@@ -1232,27 +1232,28 @@
 })();
 </script>
   <style>
-  /* ===== RENEBOOK DAILY VERSE FLOATING CARD ===== */
+ <style>
+  /* ===== RENEBOOK DAILY VERSE · COMPACT PREMIUM BILINGUAL ===== */
 
   .rb-daily-verse {
     position: fixed;
     right: 18px;
-    bottom: 96px;
+    bottom: 92px;
     z-index: 9998;
-    width: min(420px, calc(100vw - 32px));
-    border-radius: 26px;
-    border: 1px solid rgba(134, 201, 255, 0.38);
+    width: min(390px, calc(100vw - 32px));
+    border-radius: 24px;
+    border: 1px solid rgba(134, 201, 255, 0.36);
     background:
-      radial-gradient(circle at 12% 10%, rgba(242, 201, 107, 0.16), transparent 28%),
-      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.13), transparent 28%),
+      radial-gradient(circle at 12% 10%, rgba(242, 201, 107, 0.14), transparent 28%),
+      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.12), transparent 28%),
       linear-gradient(145deg, rgba(16, 40, 71, 0.97), rgba(7, 24, 44, 0.98));
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.42);
     color: #f5f9ff;
-    padding: 20px;
-    transform: translateY(24px);
+    padding: 16px;
+    transform: translateY(20px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.28s ease, transform 0.28s ease;
+    transition: opacity 0.26s ease, transform 0.26s ease;
   }
 
   .rb-daily-verse.is-visible {
@@ -1261,78 +1262,12 @@
     pointer-events: auto;
   }
 
-  .rb-daily-verse-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 11px;
-    border-radius: 999px;
-    background: rgba(242, 201, 107, 0.16);
-    color: #f2c96b;
-    font-weight: 950;
-    font-size: 0.86rem;
-    margin-bottom: 12px;
-  }
-
-  .rb-daily-verse h3 {
-    margin: 0 0 10px;
-    font-size: 1.35rem;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-  }
-
-  .rb-daily-verse-ref {
-    color: #72f0ea;
-    font-weight: 900;
-    margin-bottom: 10px;
-  }
-
-  .rb-daily-verse-text {
-    color: #dbe8f8;
-    line-height: 1.6;
-    margin: 0 0 14px;
-  }
-
-  .rb-daily-verse-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .rb-daily-verse-actions a,
-  .rb-daily-verse-actions button {
-    border: 0;
-    border-radius: 999px;
-    padding: 10px 13px;
-    font-weight: 950;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .rb-daily-verse-primary {
-    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
-    color: #061425;
-  }
-
-  .rb-daily-verse-secondary {
-    background: rgba(255, 255, 255, 0.08);
-    color: #f5f9ff;
-    border: 1px solid rgba(134, 201, 255, 0.26) !important;
-  }
-
-  .rb-daily-verse-actions a:hover,
-  .rb-daily-verse-actions button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.05);
-  }
-
   .rb-daily-verse-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 34px;
-    height: 34px;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.08);
@@ -1341,24 +1276,113 @@
     font-weight: 900;
   }
 
+  .rb-daily-verse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(242, 201, 107, 0.16);
+    color: #f2c96b;
+    font-weight: 950;
+    font-size: 0.78rem;
+    margin-bottom: 9px;
+    max-width: calc(100% - 36px);
+  }
+
+  .rb-daily-verse h3 {
+    margin: 0 34px 8px 0;
+    font-size: 1.08rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .rb-daily-verse-ref {
+    color: #72f0ea;
+    font-weight: 900;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+  }
+
+  .rb-daily-verse-lines {
+    display: grid;
+    gap: 8px;
+  }
+
+  .rb-daily-verse-line {
+    padding: 10px 11px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(134, 201, 255, 0.12);
+  }
+
+  .rb-daily-verse-lang {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #f2c96b;
+    font-weight: 950;
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+  }
+
+  .rb-daily-verse-text {
+    color: #dbe8f8;
+    line-height: 1.45;
+    margin: 0;
+    font-size: 0.94rem;
+  }
+
+  .rb-daily-verse-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 11px;
+  }
+
+  .rb-daily-verse-actions a {
+    border: 0;
+    border-radius: 999px;
+    padding: 9px 10px;
+    font-weight: 950;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+  }
+
+  .rb-daily-verse-primary {
+    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
+    color: #061425;
+  }
+
+  .rb-daily-verse-secondary {
+    background: linear-gradient(135deg, #f2c96b, #f7e08d);
+    color: #061425;
+  }
+
+  .rb-daily-verse-actions a:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
   @media (max-width: 760px) {
     .rb-daily-verse {
       left: 14px;
       right: 14px;
-      bottom: 92px;
+      bottom: 86px;
       width: auto;
-      padding: 18px;
+      padding: 15px;
+      border-radius: 22px;
     }
 
-    .rb-daily-verse-actions {
-      flex-direction: column;
+    .rb-daily-verse h3 {
+      font-size: 1rem;
     }
 
-    .rb-daily-verse-actions a,
-    .rb-daily-verse-actions button {
-      width: 100%;
-      text-align: center;
-      box-sizing: border-box;
+    .rb-daily-verse-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
   }
 </style>
@@ -1367,7 +1391,6 @@
 (function () {
   "use strict";
 
-  const LANG_KEY = "renebook_reader_language";
   const DAILY_VERSE_KEY = "renebook_daily_verse_last_seen";
   const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
@@ -1430,21 +1453,13 @@
     }
   ];
 
-  function clean(value) {
-    return String(value || "").toLowerCase().trim();
-  }
-
-  function getLang() {
-    const params = new URLSearchParams(window.location.search);
-    const urlLang = clean(params.get("lang"));
-
-    if (urlLang === "en" || urlLang === "english" || urlLang === "web") return "en";
-    if (urlLang === "es" || urlLang === "spanish" || urlLang === "rvr") return "es";
-
-    return localStorage.getItem(LANG_KEY) === "en" ? "en" : "es";
-  }
-
   function shouldShowDailyVerse() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("daily") === "test") {
+      return true;
+    }
+
     const lastSeen = Number(localStorage.getItem(DAILY_VERSE_KEY) || 0);
     return Date.now() - lastSeen >= TWENTY_FOUR_HOURS;
   }
@@ -1461,34 +1476,39 @@
     if (!shouldShowDailyVerse()) return;
     if (document.getElementById("rbDailyVerse")) return;
 
-    const lang = getLang();
     const verse = getDailyVerse();
-
-    const title = lang === "en" ? "Verse for today" : "Verso para hoy";
-    const badge = lang === "en" ? "✦ Daily wisdom" : "✦ Sabiduría diaria";
-    const ref = lang === "en" ? verse.enRef : verse.esRef;
-    const text = lang === "en" ? verse.enText : verse.esText;
-    const readButton = lang === "en" ? "Read chapter" : "Leer capítulo";
-    const closeButton = lang === "en" ? "Close for today" : "Cerrar por hoy";
-
-    const url = "/app-bible.html?lang=" + lang + "#proverbs-" + verse.chapter;
+    const esUrl = "/app-bible.html?lang=es#proverbs-" + verse.chapter;
+    const enUrl = "/app-bible.html?lang=en#proverbs-" + verse.chapter;
 
     document.body.insertAdjacentHTML("beforeend", `
       <aside id="rbDailyVerse" class="rb-daily-verse" aria-live="polite">
         <button type="button" class="rb-daily-verse-close" aria-label="Close">×</button>
-        <div class="rb-daily-verse-badge">${badge}</div>
-        <h3>${title}</h3>
-        <div class="rb-daily-verse-ref">${ref}</div>
-        <p class="rb-daily-verse-text">${text}</p>
+
+        <div class="rb-daily-verse-badge">✦ Daily wisdom · Sabiduría diaria</div>
+        <h3>Verso para hoy · Verse for today</h3>
+        <div class="rb-daily-verse-ref">${verse.esRef} · ${verse.enRef}</div>
+
+        <div class="rb-daily-verse-lines">
+          <div class="rb-daily-verse-line">
+            <div class="rb-daily-verse-lang">ESPAÑOL</div>
+            <p class="rb-daily-verse-text">${verse.esText}</p>
+          </div>
+
+          <div class="rb-daily-verse-line">
+            <div class="rb-daily-verse-lang">ENGLISH</div>
+            <p class="rb-daily-verse-text">${verse.enText}</p>
+          </div>
+        </div>
+
         <div class="rb-daily-verse-actions">
-          <a class="rb-daily-verse-primary" href="${url}">${readButton}</a>
-          <button type="button" class="rb-daily-verse-secondary">${closeButton}</button>
+          <a class="rb-daily-verse-primary" href="${esUrl}">Leer</a>
+          <a class="rb-daily-verse-secondary" href="${enUrl}">Read</a>
         </div>
       </aside>
     `);
 
     const card = document.getElementById("rbDailyVerse");
-    const closeButtons = card.querySelectorAll("button");
+    const closeX = card.querySelector(".rb-daily-verse-close");
 
     function closeForToday() {
       localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
@@ -1499,14 +1519,12 @@
       }, 260);
     }
 
-    closeButtons.forEach(function (button) {
-      button.addEventListener("click", closeForToday);
-    });
+    closeX.addEventListener("click", closeForToday);
 
     setTimeout(function () {
       card.classList.add("is-visible");
       localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
-    }, 900);
+    }, 800);
   }
 
   if (document.readyState === "loading") {
