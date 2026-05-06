@@ -1536,5 +1536,63 @@
   window.addEventListener("load", renderDailyVerse);
 })();
 </script>
+  <style>
+  /* ===== HIDE OLD LEGACY LANGUAGE / VERSION SELECTOR ===== */
+
+  select#language,
+  select[name="language"],
+  select[name="version"],
+  .legacy-language-select,
+  .old-language-select {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  function hideOldLanguageSelectors() {
+    document.querySelectorAll("select").forEach(function (select) {
+      if (select.id === "chapterSelect") return;
+
+      const optionsText = Array.from(select.options || [])
+        .map(function (option) {
+          return (option.textContent || "") + " " + (option.value || "");
+        })
+        .join(" ")
+        .toLowerCase();
+
+      const looksLikeOldBibleVersionSelector =
+        optionsText.includes("rvr") ||
+        optionsText.includes("web") ||
+        optionsText.includes("español") ||
+        optionsText.includes("espanol") ||
+        optionsText.includes("english");
+
+      if (looksLikeOldBibleVersionSelector) {
+        select.style.display = "none";
+        select.style.visibility = "hidden";
+        select.style.opacity = "0";
+        select.style.pointerEvents = "none";
+        select.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hideOldLanguageSelectors);
+  } else {
+    hideOldLanguageSelectors();
+  }
+
+  window.addEventListener("load", hideOldLanguageSelectors);
+  setTimeout(hideOldLanguageSelectors, 700);
+  setTimeout(hideOldLanguageSelectors, 1600);
+})();
+</script>
 </body>
 </html>
