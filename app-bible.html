@@ -3113,5 +3113,530 @@ document.addEventListener("DOMContentLoaded", function () {
   window.renebookExtraSearch = rbRouteExtra;
 })();
 </script>
+  <style>
+  /* =====================================================
+     RENEBOOK APP BIBLE — HYBRID PREMIUM FAMILY DESIGN
+     Visual update only: no cambia funciones
+  ===================================================== */
+
+  :root {
+    --rb-bg-deep: #061425;
+    --rb-bg-panel: #0d2440;
+    --rb-bg-panel-2: #102847;
+    --rb-text-main: #f5f9ff;
+    --rb-text-soft: #b8c7da;
+
+    --rb-blue: #4da3ff;
+    --rb-sky: #86c9ff;
+    --rb-cyan: #4fd1c5;
+    --rb-gold: #f2c96b;
+    --rb-mint: #7ed6a7;
+    --rb-coral: #ff9e8a;
+    --rb-lavender: #b9a7ff;
+
+    --rb-border: rgba(135, 190, 255, 0.30);
+    --rb-border-strong: rgba(134, 201, 255, 0.58);
+    --rb-shadow: 0 22px 55px rgba(0, 0, 0, 0.34);
+    --rb-glow: 0 0 0 1px rgba(77, 163, 255, 0.22),
+               0 22px 55px rgba(0, 0, 0, 0.34);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 10% 6%, rgba(77, 163, 255, 0.12), transparent 28%),
+      radial-gradient(circle at 90% 14%, rgba(79, 209, 197, 0.10), transparent 26%),
+      radial-gradient(circle at 50% 94%, rgba(242, 201, 107, 0.06), transparent 30%),
+      linear-gradient(180deg, #061425 0%, #07182c 58%, #05111f 100%) !important;
+    color: var(--rb-text-main) !important;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.035em;
+  }
+
+  h1 {
+    color: var(--rb-text-main) !important;
+    text-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Navigation */
+  nav a,
+  header a,
+  .nav a {
+    transition: all 0.2s ease !important;
+  }
+
+  nav a:hover,
+  header a:hover,
+  .nav a:hover {
+    color: var(--rb-sky) !important;
+    border-color: rgba(134, 201, 255, 0.65) !important;
+  }
+
+  /* Main reader containers */
+  main,
+  .container,
+  .app-container,
+  .reader-container,
+  .content,
+  .layout {
+    box-sizing: border-box !important;
+  }
+
+  .reader-controls,
+  .renebook-bible-search,
+  .reader-language-toggle,
+  #renebookKeywordDevotional,
+  .renebook-keyword-devotional,
+  .chapter-devotional {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Bible search box */
+  .renebook-bible-search {
+    background:
+      linear-gradient(145deg, rgba(16, 40, 71, 0.94), rgba(7, 24, 44, 0.96)) !important;
+    border: 1px solid var(--rb-border) !important;
+    border-radius: 26px !important;
+    box-shadow: var(--rb-glow) !important;
+  }
+
+  .renebook-bible-search label {
+    color: var(--rb-text-main) !important;
+    font-size: 1.05rem !important;
+    letter-spacing: -0.015em;
+  }
+
+  .renebook-bible-search input {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(170, 205, 255, 0.32) !important;
+    color: var(--rb-text-main) !important;
+    border-radius: 16px !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .renebook-bible-search input::placeholder {
+    color: rgba(220, 233, 249, 0.62) !important;
+  }
+
+  .renebook-bible-search input:focus {
+    border-color: var(--rb-sky) !important;
+    box-shadow: 0 0 0 4px rgba(134, 201, 255, 0.14) !important;
+    background: rgba(255, 255, 255, 0.11) !important;
+  }
+
+  .renebook-bible-search button,
+  #renebookBibleSearchButton {
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-cyan)) !important;
+    color: #061425 !important;
+    font-weight: 900 !important;
+    border-radius: 16px !important;
+    border: 0 !important;
+    box-shadow: 0 14px 30px rgba(77, 163, 255, 0.28) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .renebook-bible-search button:hover,
+  #renebookBibleSearchButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px rgba(77, 163, 255, 0.36) !important;
+    filter: brightness(1.04);
+  }
+
+  #renebookBibleSearchStatus {
+    color: var(--rb-text-soft) !important;
+  }
+
+  /* Chapter controls */
+  .reader-controls {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 22px !important;
+    padding: 14px !important;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  #chapterSelect,
+  .reader-controls select {
+    background: rgba(255, 255, 255, 0.09) !important;
+    color: var(--rb-text-main) !important;
+    border: 1px solid rgba(170, 205, 255, 0.35) !important;
+    border-radius: 14px !important;
+    padding: 12px 14px !important;
+    font-weight: 800 !important;
+    outline: none !important;
+  }
+
+  #chapterSelect:focus,
+  .reader-controls select:focus {
+    border-color: var(--rb-cyan) !important;
+    box-shadow: 0 0 0 4px rgba(79, 209, 197, 0.13) !important;
+  }
+
+  /* Language buttons */
+  .reader-language-toggle {
+    margin: 18px 0 22px !important;
+  }
+
+  .reader-lang-btn {
+    background: rgba(255, 255, 255, 0.075) !important;
+    color: var(--rb-text-main) !important;
+    border: 1px solid rgba(134, 201, 255, 0.38) !important;
+    border-radius: 999px !important;
+    min-height: 44px !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .reader-lang-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(125, 220, 255, 0.13) !important;
+    border-color: rgba(134, 201, 255, 0.72) !important;
+  }
+
+  .reader-lang-btn.active {
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a) !important;
+    color: #061425 !important;
+    border-color: transparent !important;
+    box-shadow: 0 12px 26px rgba(242, 201, 107, 0.22) !important;
+  }
+
+  /* Chapter title */
+  #chapterTitle {
+    color: var(--rb-text-main) !important;
+    padding: 18px 0 10px !important;
+    border-bottom: 1px solid rgba(135, 190, 255, 0.18) !important;
+  }
+
+  #chapterTitle::before {
+    content: "📖 ";
+  }
+
+  /* Verses */
+  #versesList {
+    background:
+      linear-gradient(145deg, rgba(16, 40, 71, 0.62), rgba(7, 24, 44, 0.64)) !important;
+    border: 1px solid rgba(135, 190, 255, 0.18) !important;
+    border-radius: 26px !important;
+    padding: 18px 20px !important;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  #versesList p,
+  .reader-verse {
+    color: rgba(245, 249, 255, 0.94) !important;
+    line-height: 1.76 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  #versesList p:hover,
+  .reader-verse:hover {
+    background: rgba(255, 255, 255, 0.045) !important;
+    border-radius: 12px !important;
+  }
+
+  .verse-number {
+    color: var(--rb-gold) !important;
+    font-weight: 900 !important;
+  }
+
+  /* Highlighted verse */
+  .rb-verse-highlight {
+    outline: 3px solid rgba(134, 201, 255, 0.98) !important;
+    background:
+      linear-gradient(135deg, rgba(77, 163, 255, 0.20), rgba(79, 209, 197, 0.14)) !important;
+    border-radius: 16px !important;
+    padding: 10px 12px !important;
+    box-shadow:
+      0 0 0 7px rgba(125, 220, 255, 0.08),
+      0 18px 38px rgba(0, 0, 0, 0.28) !important;
+    scroll-margin-top: 100px !important;
+  }
+
+  .rb-verse-highlight .verse-number {
+    color: #ffe49a !important;
+  }
+
+  /* Connected devotional card */
+  #renebookKeywordDevotional,
+  .renebook-keyword-devotional {
+    background:
+      radial-gradient(circle at 14% 8%, rgba(242, 201, 107, 0.12), transparent 26%),
+      radial-gradient(circle at 88% 12%, rgba(79, 209, 197, 0.12), transparent 26%),
+      linear-gradient(145deg, rgba(16, 40, 71, 0.96), rgba(7, 24, 44, 0.97)) !important;
+    border: 1px solid var(--rb-border-strong) !important;
+    border-radius: 28px !important;
+    box-shadow: var(--rb-shadow) !important;
+  }
+
+  #renebookKeywordDevotional .rb-ref,
+  .renebook-keyword-devotional .rb-ref {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #061425 !important;
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a) !important;
+    padding: 8px 12px !important;
+    border-radius: 999px !important;
+    font-weight: 950 !important;
+    margin-bottom: 14px !important;
+  }
+
+  #renebookKeywordDevotional .rb-ref::before,
+  .renebook-keyword-devotional .rb-ref::before {
+    content: "✦";
+  }
+
+  #renebookKeywordDevotional h3,
+  .renebook-keyword-devotional h3 {
+    color: var(--rb-text-main) !important;
+    font-size: clamp(1.35rem, 3.5vw, 2rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .rb-verse-preview {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.045)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 20px !important;
+    color: rgba(245, 249, 255, 0.94) !important;
+  }
+
+  .rb-verse-preview strong {
+    color: var(--rb-gold) !important;
+  }
+
+  .rb-kd-box {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.13) !important;
+    border-radius: 20px !important;
+    color: rgba(245, 249, 255, 0.92) !important;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16) !important;
+  }
+
+  .rb-kd-box:nth-child(1) {
+    border-color: rgba(77, 163, 255, 0.42) !important;
+  }
+
+  .rb-kd-box:nth-child(2) {
+    border-color: rgba(126, 214, 167, 0.42) !important;
+  }
+
+  .rb-kd-box:nth-child(3) {
+    border-color: rgba(255, 158, 138, 0.42) !important;
+  }
+
+  .rb-kd-box strong {
+    color: var(--rb-gold) !important;
+  }
+
+  /* Keyword chips */
+  .rb-keyword-chips {
+    gap: 10px !important;
+  }
+
+  .rb-keyword-chips button {
+    color: #07111f !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    font-weight: 900 !important;
+    min-height: 40px !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .rb-keyword-chips button:nth-child(4n + 1) {
+    background: linear-gradient(135deg, var(--rb-sky), var(--rb-blue)) !important;
+  }
+
+  .rb-keyword-chips button:nth-child(4n + 2) {
+    background: linear-gradient(135deg, var(--rb-mint), var(--rb-cyan)) !important;
+  }
+
+  .rb-keyword-chips button:nth-child(4n + 3) {
+    background: linear-gradient(135deg, var(--rb-gold), #ffe49a) !important;
+  }
+
+  .rb-keyword-chips button:nth-child(4n + 4) {
+    background: linear-gradient(135deg, var(--rb-coral), var(--rb-lavender)) !important;
+  }
+
+  .rb-keyword-chips button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+
+  /* Short chapter devotional */
+  .chapter-devotional {
+    background:
+      linear-gradient(145deg, rgba(13, 36, 64, 0.92), rgba(7, 24, 44, 0.94)) !important;
+    border: 1px solid rgba(135, 190, 255, 0.26) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24) !important;
+  }
+
+  .chapter-devotional h3 {
+    color: var(--rb-gold) !important;
+  }
+
+  .chapter-devotional p {
+    color: rgba(245, 249, 255, 0.90) !important;
+  }
+
+  /* Mobile polish */
+  @media (max-width: 900px) {
+    body {
+      overflow-x: hidden !important;
+    }
+
+    main,
+    .container,
+    .app-container,
+    .reader-container,
+    .content,
+    .layout {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+      box-sizing: border-box !important;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 12vw, 4.5rem) !important;
+      line-height: 0.96 !important;
+      margin-bottom: 18px !important;
+    }
+
+    .reader-controls,
+    .renebook-bible-search,
+    #versesList,
+    #renebookKeywordDevotional,
+    .renebook-keyword-devotional,
+    .chapter-devotional {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    .renebook-bible-search {
+      padding: 16px !important;
+      border-radius: 22px !important;
+    }
+
+    .renebook-bible-search-row {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+
+    .renebook-bible-search input,
+    .renebook-bible-search button,
+    #renebookBibleSearchButton {
+      width: 100% !important;
+      min-width: 0 !important;
+      min-height: 50px !important;
+      font-size: 1rem !important;
+    }
+
+    .reader-controls {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      padding: 14px !important;
+    }
+
+    #chapterSelect,
+    .reader-controls select {
+      width: 100% !important;
+      min-height: 48px !important;
+    }
+
+    .reader-language-toggle {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 10px !important;
+    }
+
+    .reader-lang-btn {
+      width: 100% !important;
+      min-height: 46px !important;
+    }
+
+    #chapterTitle {
+      font-size: 1.38rem !important;
+      line-height: 1.32 !important;
+    }
+
+    #versesList {
+      padding: 16px !important;
+      border-radius: 22px !important;
+    }
+
+    #versesList p,
+    .reader-verse {
+      font-size: 1.04rem !important;
+      line-height: 1.74 !important;
+      margin: 12px 0 !important;
+    }
+
+    .rb-kd-grid {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+
+    .rb-keyword-chips {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      padding-bottom: 8px !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .rb-keyword-chips button {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+    }
+  }
+
+  @media (max-width: 520px) {
+    main,
+    .container,
+    .app-container,
+    .reader-container,
+    .content,
+    .layout {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 13vw, 3.4rem) !important;
+    }
+
+    #versesList p,
+    .reader-verse {
+      font-size: 1rem !important;
+      line-height: 1.72 !important;
+    }
+
+    #renebookKeywordDevotional,
+    .renebook-keyword-devotional {
+      padding: 16px !important;
+      border-radius: 22px !important;
+    }
+
+    .rb-verse-preview,
+    .rb-kd-box {
+      padding: 13px !important;
+    }
+  }
+</style>
 </body>
 </html>
