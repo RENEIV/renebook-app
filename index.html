@@ -3115,6 +3115,149 @@
   });
 })();
 </script>
+  <script>
+/* ===== RENebook translation patch: homepage + cards ===== */
+(function () {
+  const translations = {
+    es: {
+      "Bilingual interactive Bible": "Biblia interactiva bilingüe",
+      "God’s Word for your day": "La Palabra de Dios para tu día",
+      "God's Word for your day": "La Palabra de Dios para tu día",
+      "Read, reflect, and grow through a clear, modern, and spiritual Bible experience in Spanish and English.": "Lee, reflexiona y crece con una experiencia bíblica clara, moderna y espiritual en español e inglés.",
+      "Enter the Bible": "Entrar a la Biblia",
+      "Today’s Verse": "Versículo de hoy",
+      "Today's Verse": "Versículo de hoy",
+      "Save as app": "Guardar como app",
+      "What do you need today?": "¿Qué necesitas hoy?",
+      "Peace": "Paz",
+      "Wisdom": "Sabiduría",
+      "Direction": "Dirección",
+      "Hope": "Esperanza",
+
+      "Interactive Bible App": "Bible App interactiva",
+      "Verses, devotionals, language selector, copy button, local progress, and a special children’s section.": "Versos, devocionales, selector de idioma, botón para copiar, progreso local y sección especial para niños.",
+      "Open Bible App →": "Abrir Bible App →",
+
+      "Digital project": "Proyecto digital",
+      "Explains the purpose, features, and spiritual architecture of Renebook as a Bible access platform.": "Explica el propósito, las funciones y la arquitectura espiritual de Renebook como plataforma de acceso bíblico.",
+      "View project →": "Ver proyecto →",
+
+      "Formative vision": "Visión formativa",
+      "Presents a pastoral, missional, and educational vision to bring biblical wisdom to homes and new generations.": "Presenta una visión pastoral, misional y educativa para llevar sabiduría bíblica a hogares y nuevas generaciones.",
+      "View vision →": "Ver visión →",
+
+      "Suggested spiritual path": "Ruta espiritual sugerida",
+      "From daily reading to practical discipleship.": "De la lectura diaria al discipulado práctico.",
+
+      "Family mini-path": "Mini-ruta familiar",
+      "Proverbs for children": "Proverbios para niños",
+      "A simple path for teaching biblical wisdom with warmth, clarity, and family activities.": "Un camino sencillo para enseñar sabiduría bíblica con ternura, claridad y actividades familiares.",
+      "Gratitude": "Gratitud"
+    },
+
+    en: {
+      "Biblia interactiva bilingüe": "Bilingual interactive Bible",
+      "La Palabra de Dios para tu día": "God’s Word for your day",
+      "Lee, reflexiona y crece con una experiencia bíblica clara, moderna y espiritual en español e inglés.": "Read, reflect, and grow through a clear, modern, and spiritual Bible experience in Spanish and English.",
+      "Entrar a la Biblia": "Enter the Bible",
+      "Versículo de hoy": "Today’s Verse",
+      "Guardar como app": "Save as app",
+      "¿Qué necesitas hoy?": "What do you need today?",
+      "Paz": "Peace",
+      "Sabiduría": "Wisdom",
+      "Dirección": "Direction",
+      "Esperanza": "Hope",
+
+      "Bible App interactiva": "Interactive Bible App",
+      "Versos, devocionales, selector de idioma, botón para copiar, progreso local y sección especial para niños.": "Verses, devotionals, language selector, copy button, local progress, and a special children’s section.",
+      "Abrir Bible App →": "Open Bible App →",
+
+      "Proyecto digital": "Digital project",
+      "Explica el propósito, las funciones y la arquitectura espiritual de Renebook como plataforma de acceso bíblico.": "Explains the purpose, features, and spiritual architecture of Renebook as a Bible access platform.",
+      "Ver proyecto →": "View project →",
+
+      "Visión formativa": "Formative vision",
+      "Presenta una visión pastoral, misional y educativa para llevar sabiduría bíblica a hogares y nuevas generaciones.": "Presents a pastoral, missional, and educational vision to bring biblical wisdom to homes and new generations.",
+      "Ver visión →": "View vision →",
+
+      "Ruta espiritual sugerida": "Suggested spiritual path",
+      "De la lectura diaria al discipulado práctico.": "From daily reading to practical discipleship.",
+
+      "Mini-ruta familiar": "Family mini-path",
+      "Proverbios para niños": "Proverbs for children",
+      "Un camino sencillo para enseñar sabiduría bíblica con ternura, claridad y actividades familiares.": "A simple path for teaching biblical wisdom with warmth, clarity, and family activities.",
+      "Gratitud": "Gratitude",
+      "Gratitudeeeee": "Gratitude"
+    }
+  };
+
+  function translateTextNode(node, lang) {
+    let text = node.nodeValue;
+    const map = translations[lang];
+
+    Object.keys(map).forEach(function (key) {
+      if (text.includes(key)) {
+        text = text.replaceAll(key, map[key]);
+      }
+    });
+
+    node.nodeValue = text;
+  }
+
+  function translatePage(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem("renebookLang", lang);
+
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (node) {
+          const parent = node.parentElement;
+          if (!parent) return NodeFilter.FILTER_REJECT;
+          if (["SCRIPT", "STYLE", "SELECT", "OPTION"].includes(parent.tagName)) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    const nodes = [];
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    nodes.forEach(function (node) {
+      translateTextNode(node, lang);
+    });
+  }
+
+  window.renebookTranslatePage = translatePage;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const saved = localStorage.getItem("renebookLang") || "es";
+    translatePage(saved);
+
+    document.addEventListener("click", function (event) {
+      const text = (event.target.textContent || "").toLowerCase();
+
+      if (text.includes("english")) {
+        setTimeout(function () {
+          translatePage("en");
+        }, 50);
+      }
+
+      if (text.includes("español") || text.includes("spanish")) {
+        setTimeout(function () {
+          translatePage("es");
+        }, 50);
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
 
