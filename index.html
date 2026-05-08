@@ -3084,51 +3084,7 @@
 })();
 </script>
   <script>
-/* ===== RENebook bilingual text engine ===== */
-(function () {
-  function setRenebookLanguage(lang) {
-    document.documentElement.lang = lang;
 
-    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
-      el.textContent = el.getAttribute("data-" + lang);
-    });
-
-    localStorage.setItem("renebookLang", lang);
-  }
-
-  window.setRenebookLanguage = setRenebookLanguage;
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const savedLang = localStorage.getItem("renebookLang") || "es";
-    setRenebookLanguage(savedLang);
-
-    document.querySelectorAll("button, a, select").forEach(function (el) {
-      el.addEventListener("click", function () {
-        const text = (el.textContent || "").toLowerCase();
-
-        if (text.includes("english") || text.includes("inglés")) {
-          setRenebookLanguage("en");
-        }
-
-        if (text.includes("español") || text.includes("spanish")) {
-          setRenebookLanguage("es");
-        }
-      });
-
-      el.addEventListener("change", function () {
-        const value = (el.value || "").toLowerCase();
-
-        if (value.includes("en") || value.includes("english")) {
-          setRenebookLanguage("en");
-        }
-
-        if (value.includes("es") || value.includes("spanish")) {
-          setRenebookLanguage("es");
-        }
-      });
-    });
-  });
-})();
 </script>
   <script>
 /* ===== RENebook translation patch: homepage + cards ===== */
@@ -3269,6 +3225,46 @@
           translatePage("es");
         }, 50);
       }
+      <script>
+/* ===== RENebook safe bilingual text engine ===== */
+(function () {
+  function setRenebookLanguage(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem("renebookLang", lang);
+
+    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
+      el.textContent = el.getAttribute("data-" + lang);
+    });
+  }
+
+  window.setRenebookLanguage = setRenebookLanguage;
+  window.renebookSetLanguage = setRenebookLanguage;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedLang = localStorage.getItem("renebookLang") || "es";
+    setRenebookLanguage(savedLang);
+
+    document.addEventListener("click", function (event) {
+      const target = event.target;
+
+      /* No permitir que el selector bíblico English (WEB) / Español (RVR1909) controle la página */
+      if (target.tagName === "SELECT" || target.tagName === "OPTION") {
+        return;
+      }
+
+      const text = (target.textContent || "").trim().toLowerCase();
+
+      if (text === "english") {
+        setRenebookLanguage("en");
+      }
+
+      if (text === "español" || text === "spanish") {
+        setRenebookLanguage("es");
+      }
+    });
+  });
+})();
+</script>
     });
   });
 })();
