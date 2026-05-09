@@ -1296,5 +1296,37 @@
 })();
 </script>
   <style>
+    <script>
+/* ===== Final bilingual patch for vision page ===== */
+(function () {
+  function applyVisionLanguage(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem("renebookLang", lang);
+
+    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
+      el.textContent = el.getAttribute("data-" + lang);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedLang = localStorage.getItem("renebookLang") || "es";
+    applyVisionLanguage(savedLang);
+
+    document.addEventListener("click", function (event) {
+      const text = (event.target.textContent || "").trim().toLowerCase();
+
+      if (text === "english") {
+        applyVisionLanguage("en");
+      }
+
+      if (text === "español" || text === "spanish") {
+        applyVisionLanguage("es");
+      }
+    });
+  });
+
+  window.applyVisionLanguage = applyVisionLanguage;
+})();
+</script>
 </body>
 </html>
