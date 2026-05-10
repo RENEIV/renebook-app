@@ -1366,5 +1366,90 @@
   });
 })();
 </script>
+    <script>
+/* ===== VISION PAGE FINAL LANGUAGE OVERRIDE ===== */
+(function () {
+  const visionText = {
+    es: {
+      improvementTitle: "Mejora continua con propósito",
+      improvementBody: "Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante.",
+      comingTitle: "Próximamente en Renebook",
+      item1: "Más lecturas de Proverbios para fortalecer la sabiduría diaria.",
+      item2: "Historias bíblicas para niños y recursos para familias.",
+      item3: "Planes de lectura de 7, 21 y 31 días.",
+      item4: "Herramientas para compartir versículos y reflexiones.",
+      item5: "Mejoras continuas para una experiencia bíblica más clara, accesible y edificante.",
+      footer: "Renebook.org · Visión bíblica, pastoral, familiar y digital."
+    },
+    en: {
+      improvementTitle: "Continuous improvement with purpose",
+      improvementBody: "Renebook is in development and under continuous improvement to offer a clearer, bilingual, accessible, and edifying Bible experience.",
+      comingTitle: "Coming soon to Renebook",
+      item1: "More Proverbs readings to strengthen daily wisdom.",
+      item2: "Bible stories for children and family resources.",
+      item3: "Reading plans for 7, 21, and 31 days.",
+      item4: "Tools to share Bible verses and reflections.",
+      item5: "Ongoing improvements for a clearer, more accessible, and edifying Bible experience.",
+      footer: "Renebook.org · Biblical, pastoral, family, and digital vision."
+    }
+  };
+
+  function forceVisionBottomLanguage(lang) {
+    const t = visionText[lang] || visionText.es;
+
+    const cards = document.querySelectorAll("article.card");
+    const bottomCards = Array.from(cards).slice(-2);
+
+    if (bottomCards[0]) {
+      const h3 = bottomCards[0].querySelector("h3");
+      const p = bottomCards[0].querySelector("p");
+
+      if (h3) h3.textContent = t.improvementTitle;
+      if (p) p.textContent = t.improvementBody;
+    }
+
+    if (bottomCards[1]) {
+      const h3 = bottomCards[1].querySelector("h3");
+      const items = bottomCards[1].querySelectorAll("li");
+
+      if (h3) h3.textContent = t.comingTitle;
+      if (items[0]) items[0].textContent = t.item1;
+      if (items[1]) items[1].textContent = t.item2;
+      if (items[2]) items[2].textContent = t.item3;
+      if (items[3]) items[3].textContent = t.item4;
+      if (items[4]) items[4].textContent = t.item5;
+    }
+
+    const footer = document.querySelector("footer p");
+    if (footer) footer.textContent = t.footer;
+
+    localStorage.setItem("renebookLang", lang);
+    document.documentElement.lang = lang;
+  }
+
+  window.forceVisionBottomLanguage = forceVisionBottomLanguage;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const saved = localStorage.getItem("renebookLang") || "es";
+    forceVisionBottomLanguage(saved);
+
+    document.addEventListener("click", function (event) {
+      const text = (event.target.textContent || "").trim().toLowerCase();
+
+      if (text === "english") {
+        setTimeout(function () {
+          forceVisionBottomLanguage("en");
+        }, 120);
+      }
+
+      if (text === "español" || text === "spanish") {
+        setTimeout(function () {
+          forceVisionBottomLanguage("es");
+        }, 120);
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
