@@ -14,14 +14,15 @@
       --soft: #89a8c8;
       --line: rgba(255,255,255,.13);
       --blue: #6db7ff;
-      --cyan: #75f0ff;
       --gold: #ffd36b;
       --green: #9ff0bf;
       --shadow: 0 28px 80px rgba(0,0,0,.44);
       --radius: 26px;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -32,47 +33,232 @@
         linear-gradient(145deg, #040913 0%, var(--bg) 48%, #0b1a31 100%);
       line-height: 1.65;
       min-height: 100vh;
+      padding-bottom: 88px;
     }
+
     a { color: inherit; text-decoration: none; }
     .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
-    .topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(16px); background: rgba(4,9,19,.74); border-bottom: 1px solid var(--line); }
-    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
-    .logo { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(145deg, var(--blue), #172d58); box-shadow: 0 0 30px rgba(109,183,255,.28); }
-    .brand small { display: block; color: var(--soft); font-weight: 600; margin-top: -3px; }
-    .links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-    .links a { padding: 10px 14px; border: 1px solid transparent; color: #dbeaff; border-radius: 999px; font-weight: 800; font-size: 14px; }
-    .links a:hover, .links a.active { border-color: var(--line); background: rgba(255,255,255,.07); color: #fff; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(4,9,19,.74);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, var(--blue), #172d58);
+      box-shadow: 0 0 30px rgba(109,183,255,.28);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--soft);
+      font-weight: 600;
+      margin-top: -3px;
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .links a {
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      color: #dbeaff;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .links a:hover,
+    .links a.active {
+      border-color: var(--line);
+      background: rgba(255,255,255,.07);
+      color: #fff;
+    }
+
     .hero { padding: 68px 0 30px; }
-    .panel { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(10,25,48,.84), rgba(13,43,82,.72)); box-shadow: var(--shadow); border-radius: var(--radius); overflow: hidden; padding: clamp(24px, 5vw, 52px); }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; color: #dff5ff; background: rgba(109,183,255,.12); border: 1px solid rgba(109,183,255,.22); font-size: 14px; font-weight: 900; }
-    h1 { font-size: clamp(36px, 6vw, 68px); line-height: 1.03; margin: 18px 0 14px; letter-spacing: -1.3px; }
-    h2 { font-size: clamp(27px, 4vw, 42px); margin: 0 0 12px; line-height: 1.1; }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(10,25,48,.84), rgba(13,43,82,.72));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+      padding: clamp(24px, 5vw, 52px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #dff5ff;
+      background: rgba(109,183,255,.12);
+      border: 1px solid rgba(109,183,255,.22);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.03;
+      margin: 18px 0 14px;
+      letter-spacing: -1.3px;
+    }
+
+    h2 {
+      font-size: clamp(27px, 4vw, 42px);
+      margin: 0 0 12px;
+      line-height: 1.1;
+    }
+
     h3 { margin: 0 0 8px; font-size: 21px; }
     p { color: var(--muted); margin: 0 0 14px; }
     .lead { font-size: clamp(18px, 2vw, 22px); color: #d9eaff; max-width: 850px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-    .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 17px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); font-weight: 900; cursor: pointer; transition: transform .18s ease; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 17px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .18s ease;
+    }
+
     .btn:hover { transform: translateY(-2px); }
     .btn-primary { color: #06111f; background: linear-gradient(135deg, #98d8ff, var(--blue)); box-shadow: 0 18px 44px rgba(109,183,255,.25); }
     .btn-secondary { color: #eff8ff; background: rgba(255,255,255,.08); }
+
     .section { padding: 34px 0; }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; min-height: 230px; box-shadow: 0 18px 45px rgba(0,0,0,.22); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      min-height: 230px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.22);
+    }
+
     .icon { font-size: 35px; display: block; margin-bottom: 10px; }
+
     .path { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 18px; }
     .path div { padding: 18px; border-radius: 18px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
     .path b { color: var(--gold); display: block; margin-bottom: 4px; }
-    blockquote { margin: 16px 0 0; padding: 18px; border-left: 4px solid var(--green); background: rgba(255,255,255,.06); border-radius: 18px; font-size: 19px; color: #fff; }
+
+    blockquote {
+      margin: 16px 0 0;
+      padding: 18px;
+      border-left: 4px solid var(--green);
+      background: rgba(255,255,255,.06);
+      border-radius: 18px;
+      font-size: 19px;
+      color: #fff;
+    }
+
     .two { display: grid; grid-template-columns: .9fr 1.1fr; gap: 16px; margin-top: 18px; }
     ul { color: var(--muted); padding-left: 20px; }
     li { margin: 8px 0; }
     footer { padding: 34px 0 46px; color: var(--soft); text-align: center; }
+
+    .rb-language-widget {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10000;
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(134, 201, 255, 0.35);
+      background: rgba(6, 20, 37, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+    }
+
+    .rb-language-widget button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      color: #f5f9ff;
+      background: rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .rb-language-widget button:hover {
+      transform: translateY(-2px);
+      background: rgba(134, 201, 255, 0.16);
+    }
+
+    .rb-language-widget button.is-active {
+      color: #061425;
+      background: linear-gradient(135deg, #f2c96b, #ffe49a);
+      box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
+    }
+
     @media (max-width: 940px) {
       .grid, .path, .two { grid-template-columns: 1fr; }
       .nav { align-items: flex-start; flex-direction: column; padding: 15px 0; }
       .links { justify-content: flex-start; }
     }
+
+    @media (max-width: 760px) {
+      .rb-language-widget {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        justify-content: center;
+      }
+
+      .rb-language-widget button { flex: 1; }
+    }
+
     @media (max-width: 560px) {
       .shell { width: min(100% - 24px, 1180px); }
       .hero { padding-top: 40px; }
@@ -85,64 +271,64 @@
     <nav class="shell nav" aria-label="Navegación principal">
       <a class="brand" href="/index.html" aria-label="Renebook Plataforma inicio">
         <span class="logo" aria-hidden="true">📖</span>
-        <span>Renebook Plataforma <small>Visión pastoral y digital</small></span>
+        <span>Renebook Plataforma <small data-es="Visión pastoral y digital" data-en="Pastoral and digital vision">Visión pastoral y digital</small></span>
       </a>
-     <div class="links">
-  <a href="/index.html">Inicio</a>
-  <a href="/app-bible.html">App Biblia</a>
-  <a href="/proyecto.html">Proyecto</a>
-  <a class="active" href="/vision.html">Visión</a>
-</div>
+      <div class="links">
+        <a href="/index.html" data-es="Inicio" data-en="Home">Inicio</a>
+        <a href="/app-bible.html" data-es="App Biblia" data-en="Bible App">App Biblia</a>
+        <a href="/proyecto.html" data-es="Proyecto" data-en="Project">Proyecto</a>
+        <a class="active" href="/vision.html" data-es="Visión" data-en="Vision">Visión</a>
+      </div>
     </nav>
   </header>
 
   <main>
     <section class="shell hero">
       <div class="panel">
-        <span class="eyebrow">🌎 Visión de Renebook</span>
-        <h1>Una plataforma para sembrar sabiduría bíblica en la vida diaria.</h1>
-        <p class="lead">Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar a personas y familias hacia una fe más práctica, madura y misional.</p>
-        <blockquote>“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)</blockquote>
+        <span class="eyebrow" data-es="🌎 Visión de Renebook" data-en="🌎 Renebook Vision">🌎 Visión de Renebook</span>
+        <h1 data-es="Una plataforma para sembrar sabiduría bíblica en la vida diaria." data-en="A platform to plant biblical wisdom in daily life.">Una plataforma para sembrar sabiduría bíblica en la vida diaria.</h1>
+        <p class="lead" data-es="Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar a personas y familias hacia una fe más práctica, madura y misional." data-en="Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith.">Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar a personas y familias hacia una fe más práctica, madura y misional.</p>
+        <blockquote data-es="“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)" data-en="“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105 (WEB)">“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)</blockquote>
         <div class="actions">
-          <a class="btn btn-primary" href="/app-bible.html">Entrar a la experiencia</a>
-          <a class="btn btn-secondary" href="/proyecto.html">Ver arquitectura</a>
+          <a class="btn btn-primary" href="/app-bible.html" data-es="Entrar a la experiencia" data-en="Enter the experience">Entrar a la experiencia</a>
+          <a class="btn btn-secondary" href="/proyecto.html" data-es="Ver arquitectura" data-en="View architecture">Ver arquitectura</a>
         </div>
       </div>
     </section>
 
     <section class="shell section">
-      <h2>Cuatro convicciones</h2>
-      <p>Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente.</p>
+      <h2 data-es="Cuatro convicciones" data-en="Four convictions">Cuatro convicciones</h2>
+      <p data-es="Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente." data-en="These convictions help keep the project biblically and pastorally focused as it grows technically.">Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente.</p>
       <div class="grid">
         <article class="card">
           <span class="icon">📖</span>
-          <h3>La Palabra al centro</h3>
-          <p>Cada función debe servir a la lectura, meditación, obediencia y proclamación de la Escritura.</p>
+          <h3 data-es="La Palabra al centro" data-en="The Word at the center">La Palabra al centro</h3>
+          <p data-es="Cada función debe servir a la lectura, meditación, obediencia y proclamación de la Escritura." data-en="Every feature should serve the reading, meditation, obedience, and proclamation of Scripture.">Cada función debe servir a la lectura, meditación, obediencia y proclamación de la Escritura.</p>
         </article>
         <article class="card">
           <span class="icon">🏡</span>
-          <h3>Familias discipuladas</h3>
-          <p>La plataforma debe ser útil para padres, niños, jóvenes y nuevos creyentes que necesitan lenguaje claro.</p>
+          <h3 data-es="Familias discipuladas" data-en="Discipled families">Familias discipuladas</h3>
+          <p data-es="La plataforma debe ser útil para padres, niños, jóvenes y nuevos creyentes que necesitan lenguaje claro." data-en="The platform should be useful for parents, children, youth, and new believers who need clear language.">La plataforma debe ser útil para padres, niños, jóvenes y nuevos creyentes que necesitan lenguaje claro.</p>
         </article>
         <article class="card">
           <span class="icon">🧒</span>
-          <h3>Niños con propósito</h3>
-          <p>Proverbios puede enseñarse con ternura, imágenes simples y aplicaciones de obediencia cotidiana.</p>
+          <h3 data-es="Niños con propósito" data-en="Children with purpose">Niños con propósito</h3>
+          <p data-es="Proverbios puede enseñarse con ternura, imágenes simples y aplicaciones de obediencia cotidiana." data-en="Proverbs can be taught with warmth, simple images, and everyday obedience applications.">Proverbios puede enseñarse con ternura, imágenes simples y aplicaciones de obediencia cotidiana.</p>
         </article>
       </div>
     </section>
 
     <section class="shell section">
       <div class="panel">
-        <span class="eyebrow">🛤️ Ruta de formación</span>
-        <h2>Del primer clic al crecimiento espiritual.</h2>
-        <p>La experiencia debe guiar al usuario paso a paso. Cada pantalla debe responder: ¿qué leo?, ¿qué significa?, ¿cómo obedezco?, ¿cómo lo comparto?</p>
+        <span class="eyebrow" data-es="🛤️ Ruta de formación" data-en="🛤️ Formation path">🛤️ Ruta de formación</span>
+        <h2 data-es="Del primer clic al crecimiento espiritual." data-en="From the first click to spiritual growth.">Del primer clic al crecimiento espiritual.</h2>
+        <p data-es="La experiencia debe guiar al usuario paso a paso. Cada pantalla debe responder: ¿qué leo?, ¿qué significa?, ¿cómo obedezco?, ¿cómo lo comparto?" data-en="The experience should guide the user step by step. Each screen should answer: what do I read, what does it mean, how do I obey, and how do I share it?">La experiencia debe guiar al usuario paso a paso. Cada pantalla debe responder: ¿qué leo?, ¿qué significa?, ¿cómo obedezco?, ¿cómo lo comparto?</p>
         <div class="path">
-          <div><b>01</b>Acceso</div>
-          <div><b>02</b>Lectura</div>
-          <div><b>03</b>Reflexión</div>
-          <div><b>04</b>Aplicación</div>
-          <div><b>05</b>Testimonio</div>
+          <div><b>01</b><span data-es="Acceso" data-en="Access">Acceso</span></div>
+          <div><b>02</b><span data-es="Lectura" data-en="Reading">Lectura</span></div>
+          <div><b>03</b><span data-es="Reflexión" data-en="Reflection">Reflexión</span></div>
+          <div><b>04</b><span data-es="Aplicación" data-en="Application">Aplicación</span></div>
+          <div><b>05</b><span data-es="Testimonio" data-en="Witness">Testimonio</span></div>
         </div>
       </div>
     </section>
@@ -150,1276 +336,93 @@
     <section class="shell section">
       <div class="two">
         <article class="card">
-  <article class="card" id="vision-development-card">
+          <span class="icon">📊</span>
+          <h3 data-es="Mejora continua con propósito" data-en="Continuous improvement with purpose">Mejora continua con propósito</h3>
+          <p data-es="Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante." data-en="Renebook is in development and under continuous improvement to offer a clearer, bilingual, accessible, and edifying Bible experience.">Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante.</p>
+        </article>
 
-  <h3 data-es="Mejora continua con propósito" data-en="Continuous improvement with purpose">
-    Mejora continua con propósito
-  </h3>
+        <article class="card">
+          <span class="icon">✅</span>
+          <h3 data-es="Próximamente en Renebook" data-en="Coming soon to Renebook">Próximamente en Renebook</h3>
+          <ul>
+            <li data-es="Más lecturas de Proverbios para fortalecer la sabiduría diaria." data-en="More Proverbs readings to strengthen daily wisdom.">Más lecturas de Proverbios para fortalecer la sabiduría diaria.</li>
+            <li data-es="Historias bíblicas para niños y recursos para familias." data-en="Bible stories for children and family resources.">Historias bíblicas para niños y recursos para familias.</li>
+            <li data-es="Planes de lectura de 7, 21 y 31 días." data-en="Reading plans for 7, 21, and 31 days.">Planes de lectura de 7, 21 y 31 días.</li>
+            <li data-es="Herramientas para compartir versículos y reflexiones." data-en="Tools to share Bible verses and reflections.">Herramientas para compartir versículos y reflexiones.</li>
+            <li data-es="Mejoras continuas para una experiencia bíblica más clara, accesible y edificante." data-en="Ongoing improvements for a clearer, more accessible, and edifying Bible experience.">Mejoras continuas para una experiencia bíblica más clara, accesible y edificante.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
 
-  <p data-es="Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante."
-     data-en="Renebook is in development and under continuous improvement to offer a clearer, bilingual, accessible, and edifying Bible experience.">
-    Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante.
-  </p>
-</article>
-
-<article class="card" id="vision-coming-card">
-  <span class="icon">✅</span>
-
-  <h3 data-es="Próximamente en Renebook" data-en="Coming soon to Renebook">
-    Próximamente en Renebook
-  </h3>
-
-  <ul>
-    <li data-es="Más lecturas de Proverbios para fortalecer la sabiduría diaria."
-        data-en="More Proverbs readings to strengthen daily wisdom.">
-      Más lecturas de Proverbios para fortalecer la sabiduría diaria.
-    </li>
-
-    <li data-es="Historias bíblicas para niños y recursos para familias."
-        data-en="Bible stories for children and family resources.">
-      Historias bíblicas para niños y recursos para familias.
-    </li>
-
-    <li data-es="Planes de lectura de 7, 21 y 31 días."
-        data-en="Reading plans for 7, 21, and 31 days.">
-      Planes de lectura de 7, 21 y 31 días.
-    </li>
-
-    <li data-es="Herramientas para compartir versículos y reflexiones."
-        data-en="Tools to share Bible verses and reflections.">
-      Herramientas para compartir versículos y reflexiones.
-    </li>
-
-    <li data-es="Mejoras continuas para una experiencia bíblica más clara, accesible y edificante."
-        data-en="Ongoing improvements for a clearer, more accessible, and edifying Bible experience.">
-      Mejoras continuas para una experiencia bíblica más clara, accesible y edificante.
-    </li>
-  </ul>
-</article>
-        
   <footer class="shell">
-   <p class="vision-lang-es">
-  Renebook.org · Visión bíblica, pastoral, familiar y digital.
-</p>
-
-<p class="vision-lang-en">
-  Renebook.org · Biblical, pastoral, family, and digital vision.
-</p>
+    <p data-es="Renebook.org · Visión bíblica, pastoral, familiar y digital." data-en="Renebook.org · Biblical, pastoral, family, and digital vision.">Renebook.org · Visión bíblica, pastoral, familiar y digital.</p>
   </footer>
-  <style>
-  /* ===== RENEBOOK GLOBAL LANGUAGE WIDGET + BIG CARD TRANSLATION ===== */
 
-  .rb-language-widget {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 10000;
-    display: flex;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(134, 201, 255, 0.35);
-    background: rgba(6, 20, 37, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
-  }
+  <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
+    <button type="button" data-lang="es">Español</button>
+    <button type="button" data-lang="en">English</button>
+  </div>
 
-  .rb-language-widget button {
-    border: 0;
-    border-radius: 999px;
-    padding: 10px 16px;
-    font-weight: 900;
-    cursor: pointer;
-    color: #f5f9ff;
-    background: rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
-  }
+  <script>
+    (function () {
+      "use strict";
 
-  .rb-language-widget button:hover {
-    transform: translateY(-2px);
-    background: rgba(134, 201, 255, 0.16);
-  }
+      const LANG_KEY = "renebook_reader_language";
 
-  .rb-language-widget button.is-active {
-    color: #061425;
-    background: linear-gradient(135deg, #f2c96b, #ffe49a);
-    box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
-  }
+      function getInitialLanguage() {
+        const params = new URLSearchParams(window.location.search);
+        const urlLang = (params.get("lang") || "").toLowerCase();
 
-  @media (max-width: 760px) {
-    .rb-language-widget {
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      justify-content: center;
-    }
+        if (urlLang === "en" || urlLang === "english" || urlLang === "web") return "en";
+        if (urlLang === "es" || urlLang === "spanish" || urlLang === "espanol" || urlLang === "rvr") return "es";
 
-    .rb-language-widget button {
-      flex: 1;
-    }
-  }
-</style>
-
-<script>
-(function () {
-  "use strict";
-
-  const LANG_KEY = "renebook_reader_language";
-  const SELECTED_KEY = "renebook_language_selected";
-
-  const COPY = {
-    inicio: {
-      es: {
-        brand: "Biblia • Sabiduría • Formación",
-        navHome: "Inicio",
-        navApp: "App Biblia",
-        navProject: "Proyecto",
-        navVision: "Visión",
-        navOpen: "Abrir Biblia",
-        eyebrow: "✨ Plataforma bíblica digital en español e inglés",
-        title: "Una experiencia moderna para leer, meditar y compartir la Palabra.",
-        lead: "Renebook une Biblia, Proverbios, devocionales breves y tecnología accesible para familias, nuevos lectores y comunidades de fe.",
-        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)",
-        primary: "Probar App Biblia",
-        secondary: "Leer visión",
-        exploreTitle: "Explora Renebook",
-        exploreText: "Tres entradas sencillas: lectura bíblica, visión del proyecto y formación espiritual.",
-        kidsTitle: "Una sección sencilla para enseñar sabiduría con ternura.",
-        kidsText: "Estas tarjetas ayudan a explicar los principios de Proverbios en lenguaje claro, familiar y visual."
-      },
-      en: {
-        brand: "Bible • Wisdom • Formation",
-        navHome: "Home",
-        navApp: "Bible App",
-        navProject: "Project",
-        navVision: "Vision",
-        navOpen: "Open Bible",
-        eyebrow: "✨ Digital Bible platform in Spanish and English",
-        title: "A modern experience to read, reflect, and share the Word.",
-        lead: "Renebook brings together the Bible, Proverbs, short devotionals, and accessible technology for families, new readers, and faith communities.",
-        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105 (WEB)",
-        primary: "Try Bible App",
-        secondary: "Read vision",
-        exploreTitle: "Explore Renebook",
-        exploreText: "Three simple entrances: Bible reading, project vision, and spiritual formation.",
-        kidsTitle: "A simple section to teach wisdom with warmth.",
-        kidsText: "These cards help explain the principles of Proverbs in clear, family-friendly, visual language."
-      }
-    },
-
-    proyecto: {
-      es: {
-        brand: "Proyecto digital bíblico",
-        navHome: "Inicio",
-        navApp: "App Biblia",
-        navProject: "Proyecto",
-        navVision: "Visión",
-        navOpen: "Abrir Biblia",
-        eyebrow: "🧭 Proyecto de acceso bíblico digital",
-        title: "Renebook ayuda a entrar, leer y permanecer en la Palabra.",
-        lead: "La versión anterior ya comunicaba acceso bíblico claro, práctico y accesible. Esta actualización fortalece la experiencia: más navegación, mejor jerarquía visual, bilingüismo, devocionales breves y una ruta más interactiva para el usuario.",
-        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105, RVR1909",
-        primary: "App Biblia",
-        secondary: "Visión",
-        nextTitle: "Preparado para la siguiente fase"
-      },
-      en: {
-        brand: "Digital Bible project",
-        navHome: "Home",
-        navApp: "Bible App",
-        navProject: "Project",
-        navVision: "Vision",
-        navOpen: "Open Bible",
-        eyebrow: "🧭 Digital Bible access project",
-        title: "Renebook helps people enter, read, and remain in the Word.",
-        lead: "The previous version already communicated clear, practical, and accessible Bible access. This update strengthens the experience with better navigation, stronger visual hierarchy, bilingual support, short devotionals, and a more interactive path for the user.",
-        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB",
-        primary: "Bible App",
-        secondary: "Vision",
-        nextTitle: "Prepared for the next phase"
-      }
-    },
-
-    vision: {
-      es: {
-        brand: "Visión pastoral y digital",
-        navHome: "Inicio",
-        navApp: "App Biblia",
-        navProject: "Proyecto",
-        navVision: "Visión",
-        navOpen: "Abrir Biblia",
-        eyebrow: "🌎 Visión de Renebook",
-        title: "Una plataforma para sembrar sabiduría bíblica en la vida diaria.",
-        lead: "Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar personas y familias hacia una fe más práctica, madura y misional.",
-        quote: "“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105 (RVR1909)",
-        primary: "Entrar a la experiencia",
-        secondary: "Ver arquitectura"
-      },
-      en: {
-        brand: "Pastoral and digital vision",
-        navHome: "Home",
-        navApp: "Bible App",
-        navProject: "Project",
-        navVision: "Vision",
-        navOpen: "Open Bible",
-        eyebrow: "🌎 Renebook Vision",
-        title: "A platform to plant biblical wisdom in daily life.",
-        lead: "Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith.",
-        quote: "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105 (WEB)",
-        primary: "Enter the experience",
-        secondary: "View architecture"
-      }
-    }
-  };
-
-  function clean(value) {
-    return String(value || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
-  }
-
-  function getPage() {
-    const path = window.location.pathname.toLowerCase();
-
-    if (path.includes("app-bible")) return "app";
-    if (path.includes("proyecto")) return "proyecto";
-    if (path.includes("vision") || path.includes("visión")) return "vision";
-
-    return "inicio";
-  }
-
-  function getUrlLang() {
-    const params = new URLSearchParams(window.location.search);
-    const lang = clean(params.get("lang"));
-
-    if (lang === "en" || lang === "english" || lang === "web") return "en";
-    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
-
-    return null;
-  }
-
-  function getLang() {
-    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
-  }
-
-  function setLang(lang) {
-    const safeLang = lang === "en" ? "en" : "es";
-
-    localStorage.setItem(LANG_KEY, safeLang);
-    localStorage.setItem(SELECTED_KEY, "true");
-    document.documentElement.lang = safeLang;
-
-    try {
-      const url = new URL(window.location.href);
-      url.searchParams.set("lang", safeLang);
-      window.history.replaceState({}, "", url.toString());
-    } catch (error) {}
-
-    return safeLang;
-  }
-
-  function installWidget() {
-    let widget = document.querySelector("#rbLanguageWidget, .rb-language-widget");
-
-    if (widget) {
-      if (!widget.id) widget.id = "rbLanguageWidget";
-      return;
-    }
-
-    document.body.insertAdjacentHTML("beforeend", `
-      <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
-        <button type="button" data-rb-lang-choice="es">Español</button>
-        <button type="button" data-rb-lang-choice="en">English</button>
-      </div>
-    `);
-  }
-
-  function setText(node, text) {
-    if (node && text) node.textContent = text;
-  }
-
-  function findHero() {
-    return (
-      document.querySelector("main .hero-main") ||
-      document.querySelector("main .panel.hero-main") ||
-      document.querySelector("main section .panel") ||
-      document.querySelector("main .panel") ||
-      document.querySelector("main section") ||
-      document.querySelector("main")
-    );
-  }
-
-  function translateNav(t, lang) {
-    document.querySelectorAll("nav a, header a, .rb-nav-links a").forEach(function (link) {
-      if (link.classList.contains("rb-brand") || link.closest(".rb-brand")) return;
-
-      const href = link.getAttribute("href") || "";
-      const text = clean(link.textContent);
-
-      if (href === "/" || href.includes("index")) {
-        if (text.includes("inicio") || text.includes("home")) link.textContent = t.navHome;
+        return localStorage.getItem(LANG_KEY) || "es";
       }
 
-      if (href.includes("app-bible")) {
-        if (text.includes("abrir") || text.includes("open")) {
-          link.textContent = t.navOpen;
-        } else {
-          link.textContent = t.navApp;
-        }
+      function updateLinks(lang) {
+        document.querySelectorAll("a[href]").forEach(function (link) {
+          const rawHref = link.getAttribute("href") || "";
+          if (rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
+
+          const base = rawHref.split("?")[0];
+
+          if (base.includes("index.html")) link.setAttribute("href", "/index.html?lang=" + lang);
+          if (base.includes("app-bible.html")) link.setAttribute("href", "/app-bible.html?lang=" + lang);
+          if (base.includes("proyecto.html")) link.setAttribute("href", "/proyecto.html?lang=" + lang);
+          if (base.includes("vision.html")) link.setAttribute("href", "/vision.html?lang=" + lang);
+        });
       }
 
-      if (href.includes("proyecto")) link.textContent = t.navProject;
-      if (href.includes("vision")) link.textContent = t.navVision;
-    });
+      function setLanguage(lang) {
+        const safeLang = lang === "en" ? "en" : "es";
 
-    document.querySelectorAll("a").forEach(function (link) {
-      const href = link.getAttribute("href") || "";
+        document.documentElement.lang = safeLang;
+        localStorage.setItem(LANG_KEY, safeLang);
 
-      if (href.includes("app-bible.html")) link.setAttribute("href", "/app-bible.html?lang=" + lang);
-      if (href.includes("proyecto.html")) link.setAttribute("href", "/proyecto.html?lang=" + lang);
-      if (href.includes("vision.html")) link.setAttribute("href", "/vision.html?lang=" + lang);
-      if (href === "/" || href.includes("index.html")) link.setAttribute("href", "/?lang=" + lang);
-    });
-  }
+        document.querySelectorAll("[data-es][data-en]").forEach(function (element) {
+          element.textContent = element.getAttribute("data-" + safeLang);
+        });
 
-  function translateBrand(t) {
-    const possible = Array.from(document.querySelectorAll("header p, header span, .brand p, .brand span, .rb-brand span span"));
+        document.querySelectorAll("#rbLanguageWidget button").forEach(function (button) {
+          button.classList.toggle("is-active", button.dataset.lang === safeLang);
+        });
 
-    const subtitle = possible.find(function (node) {
-      const text = clean(node.textContent);
-      return (
-        text.includes("biblia") ||
-        text.includes("bible") ||
-        text.includes("proyecto") ||
-        text.includes("project") ||
-        text.includes("vision") ||
-        text.includes("visión")
-      );
-    });
-
-    if (subtitle && !clean(subtitle.textContent).includes("renebook")) {
-      subtitle.textContent = t.brand;
-    }
-  }
-
-  function translateHero(t) {
-    const hero = findHero();
-    if (!hero) return;
-
-    setText(hero.querySelector(".eyebrow"), t.eyebrow);
-    setText(hero.querySelector("h1"), t.title);
-    setText(hero.querySelector(".lead"), t.lead);
-    setText(hero.querySelector("blockquote"), t.quote);
-
-    const actions = hero.querySelectorAll(".actions a, .hero-actions a, a.btn");
-
-    if (actions[0]) setText(actions[0], t.primary);
-    if (actions[1]) setText(actions[1], t.secondary);
-  }
-
-  function translateHomeExtra(t) {
-    const page = getPage();
-    if (page !== "inicio") return;
-
-    document.querySelectorAll("h2, h3, p").forEach(function (node) {
-      const text = clean(node.textContent);
-
-      if (text.includes("explora renebook") || text.includes("explore renebook")) node.textContent = t.exploreTitle;
-      if (text.includes("tres entradas sencillas") || text.includes("three simple entrances")) node.textContent = t.exploreText;
-      if (text.includes("una sección sencilla") || text.includes("a simple section")) node.textContent = t.kidsTitle;
-      if (text.includes("estas tarjetas ayudan") || text.includes("these cards help")) node.textContent = t.kidsText;
-    });
-  }
-
-  function translateProjectExtra(t) {
-    const page = getPage();
-    if (page !== "proyecto") return;
-
-    document.querySelectorAll("h2, h3, p, li").forEach(function (node) {
-      const text = clean(node.textContent);
-
-      if (text.includes("preparado para la siguiente fase") || text.includes("prepared for the next phase")) {
-        node.textContent = t.nextTitle;
+        updateLinks(safeLang);
       }
-    });
-  }
 
-  function updateButtons(lang) {
-    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
-      const value = clean(
-        button.dataset.rbLangChoice ||
-        button.dataset.lang ||
-        button.value ||
-        button.textContent
-      );
+      document.addEventListener("DOMContentLoaded", function () {
+        const initialLang = getInitialLanguage();
+        setLanguage(initialLang);
 
-      const isEn = value === "en" || value.includes("english") || value.includes("web");
-      const isEs = value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr");
-
-      button.classList.toggle("is-active", (lang === "en" && isEn) || (lang === "es" && isEs));
-      button.classList.toggle("active", (lang === "en" && isEn) || (lang === "es" && isEs));
-    });
-  }
-
-  function translatePage() {
-    const page = getPage();
-
-    if (page === "app") return;
-
-    const lang = setLang(getLang());
-    const t = COPY[page][lang];
-
-    translateNav(t, lang);
-    translateBrand(t);
-    translateHero(t);
-    translateHomeExtra(t);
-    translateProjectExtra(t);
-    updateButtons(lang);
-  }
-
-  function connectClicks() {
-    if (window.__rbBigCardsLanguageConnected) return;
-    window.__rbBigCardsLanguageConnected = true;
-
-    document.addEventListener("click", function (event) {
-      const control = event.target.closest("[data-rb-lang-choice], .reader-lang-btn");
-
-      if (!control) return;
-
-      const value = clean(
-        control.dataset.rbLangChoice ||
-        control.dataset.lang ||
-        control.value ||
-        control.textContent
-      );
-
-      let lang = null;
-
-      if (value === "en" || value.includes("english") || value.includes("web")) lang = "en";
-      if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) lang = "es";
-
-      if (!lang) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      setLang(lang);
-      translatePage();
-
-      window.dispatchEvent(new CustomEvent("renebook:language-change", { detail: { lang: lang } }));
-    }, true);
-  }
-
-  function init() {
-    if (getPage() === "app") return;
-
-    installWidget();
-    connectClicks();
-    translatePage();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-
-  window.addEventListener("load", init);
-  window.addEventListener("renebook:language-change", function () {
-    setTimeout(translatePage, 100);
-    setTimeout(translatePage, 450);
-  });
-
-  setTimeout(init, 700);
-  setTimeout(init, 1600);
-  setTimeout(init, 2600);
-})();
-</script>
-  <style>
-  .rb-language-widget {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 10000;
-    display: flex;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(134, 201, 255, 0.35);
-    background: rgba(6, 20, 37, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
-  }
-
-  .rb-language-widget button {
-    border: 0;
-    border-radius: 999px;
-    padding: 10px 16px;
-    font-weight: 900;
-    cursor: pointer;
-    color: #f5f9ff;
-    background: rgba(255, 255, 255, 0.08);
-    transition: all 0.2s ease;
-  }
-
-  .rb-language-widget button:hover {
-    transform: translateY(-2px);
-    background: rgba(134, 201, 255, 0.16);
-  }
-
-  .rb-language-widget button.is-active,
-  .rb-language-widget button.active {
-    color: #061425;
-    background: linear-gradient(135deg, #f2c96b, #ffe49a);
-    box-shadow: 0 10px 24px rgba(242, 201, 107, 0.24);
-  }
-
-  @media (max-width: 760px) {
-    .rb-language-widget {
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      justify-content: center;
-    }
-
-    .rb-language-widget button {
-      flex: 1;
-    }
-  }
-</style>
-
-<script>
-(function () {
-  "use strict";
-
-  const LANG_KEY = "renebook_reader_language";
-  const SELECTED_KEY = "renebook_language_selected";
-
-  const PAIRS = [
-    ["Inicio", "Home"],
-    ["App Biblia", "Bible App"],
-    ["Abrir Biblia", "Open Bible"],
-    ["Proyecto", "Project"],
-    ["Visión", "Vision"],
-    ["Biblia interactiva bilingüe", "Bilingual interactive Bible"],
-    ["Biblia • Sabiduría • Formación", "Bible • Wisdom • Formation"],
-    ["Proyecto digital bíblico", "Digital Bible project"],
-    ["Visión pastoral y digital", "Pastoral and digital vision"],
-
-    ["✨ Plataforma bíblica digital en español e inglés", "✨ Bible platform in Spanish and English"],
-    ["Una experiencia moderna para leer, meditar y compartir la Palabra.", "A modern experience to read, reflect, and share the Word."],
-    ["Renebook une Biblia, Proverbios, devocionales breves y tecnología accesible para familias, nuevos lectores y comunidades de fe.", "Renebook brings together the Bible, Proverbs, short devotionals, and accessible technology for families, new readers, and faith communities."],
-    ["Probar App Biblia", "Try Bible App"],
-    ["Leer visión", "Read vision"],
-    ["VERSO DESTACADO", "FEATURED VERSE"],
-    ["Verso destacado", "Featured verse"],
-    ["Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia.", "Trust in Yahweh with all your heart, and don’t lean on your own understanding."],
-    ["Proverbios 3:5 · RVR1909", "Proverbs 3:5 · WEB"],
-    ["La sabiduría bíblica no comienza con más ruido, sino con confianza reverente. Hoy puedes caminar con dirección, descanso y obediencia.", "Biblical wisdom does not begin with more noise, but with reverent trust. Today you can walk with direction, rest, and obedience."],
-    ["Ver devocionales", "View devotionals"],
-    ["Idiomas base", "Base languages"],
-    ["Devocionales iniciales", "Initial devotionals"],
-    ["Diseño móvil", "Mobile design"],
-
-    ["✨ Guía para niños · Sabiduría para escoger bien", "✨ Kids guide · Wisdom for choosing well"],
-    ["Guía para niños · Sabiduría para escoger bien", "Kids guide · Wisdom for choosing well"],
-    ["Proverbios 1:7 — Ser sabio empieza cuando honramos a Dios.", "Proverbs 1:7 — Wisdom begins when we honor God."],
-    ["Explicación sencilla", "Simple explanation"],
-    ["Pregunta familiar", "Family question"],
-    ["Actividad", "Activity"],
-    ["Oración", "Prayer"],
-    ["Ser sabio empieza cuando honramos a Dios.", "Wisdom begins when we honor God."],
-    ["¿Qué decisión puedo tomar hoy para agradar a Dios?", "What decision can I make today to please God?"],
-    ["Haz dos caminos en una hoja: uno sabio y uno necio. Dibuja una buena decisión.", "Draw two paths on a sheet: one wise and one foolish. Draw a good decision."],
-    ["Señor, dame sabiduría para escoger lo bueno.", "Lord, give me wisdom to choose what is good."],
-    ["Sabiduría", "Wisdom"],
-    ["Obediencia", "Obedience"],
-    ["Palabras", "Words"],
-    ["Amistad", "Friendship"],
-    ["Familia", "Family"],
-    ["Decisiones", "Decisions"],
-    ["Gratitud", "Gratitude"],
-    ["Proverbios para niños", "Proverbs for children"],
-    ["Una ruta sencilla para enseñar sabiduría bíblica con ternura, claridad y actividades familiares.", "A simple path for teaching biblical wisdom with warmth, clarity, and family activities."],
-    ["Guía rápida para padres y maestros", "Quick guide for parents and teachers"],
-    ["Leer", "Read"],
-    ["Explicar", "Explain"],
-    ["Preguntar", "Ask"],
-    ["Orar", "Pray"],
-    ["Lee el versículo con voz clara y pausada.", "Read the verse with a clear and calm voice."],
-    ["Usa palabras sencillas y conecta el proverbio con la vida diaria.", "Use simple words and connect the proverb with daily life."],
-    ["Permite que el niño responda con ejemplos de casa, escuela o amigos.", "Let the child respond with examples from home, school, or friends."],
-    ["Cierra con una oración breve, cálida y centrada en Dios.", "Close with a brief, warm, God-centered prayer."],
-
-    ["🧭 Proyecto de acceso bíblico digital", "🧭 Digital Bible access project"],
-    ["Renebook ayuda a entrar, leer y permanecer en la Palabra.", "Renebook helps people enter, read, and remain in the Word."],
-    ["La versión anterior ya comunicaba acceso bíblico claro, práctico y accesible. Esta actualización fortalece la experiencia: más navegación, mejor jerarquía visual, bilingüismo, devocionales breves y una ruta más interactiva para el usuario.", "The previous version already communicated clear, practical, and accessible Bible access. This update strengthens the experience with better navigation, stronger visual hierarchy, bilingual support, short devotionals, and a more interactive path for the user."],
-    ["“Lámpara es á mis pies tu palabra, Y lumbrera á mi camino.” — Salmo 119:105, RVR1909", "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB"],
-    ["“Lámpara es á mis pies tu palabra, y lumbrera á mi camino.” — Salmo 119:105, RVR1909", "“Your word is a lamp to my feet, and a light for my path.” — Psalm 119:105, WEB"],
-    ["Cuatro convicciones", "Four convictions"],
-    ["Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente.", "These convictions help keep the project biblically and pastorally focused as it grows technically."],
-    ["La Palabra al centro", "The Word at the center"],
-    ["Cada función debe servir a la lectura, meditación, obediencia y proclamación de la Escritura.", "Every feature should serve the reading, meditation, obedience, and proclamation of Scripture."],
-    ["Familias discipuladas", "Discipled families"],
-    ["La plataforma debe servir a padres, niños, jóvenes y nuevos creyentes que necesitan lenguaje claro.", "The platform should serve parents, children, youth, and new believers who need clear language."],
-    ["Niños con propósito", "Children with purpose"],
-    ["Proverbios puede enseñarse con ternura, imágenes simples y aplicaciones de obediencia cotidiana.", "Proverbs can be taught with warmth, simple images, and everyday obedience applications."],
-    ["Del primer clic al crecimiento espiritual.", "From the first click to spiritual growth."],
-    ["La experiencia debe guiar al usuario paso a paso. Cada pantalla debe responder: ¿qué leo?, ¿qué significa?, ¿cómo obedezco?, ¿cómo lo comparto?", "The experience should guide the user step by step. Each screen should answer: what do I read, what does it mean, how do I obey, and how do I share it?"],
-    ["Acceso", "Access"],
-    ["Lectura", "Reading"],
-    ["Reflexión", "Reflection"],
-    ["Aplicación", "Application"],
-    ["Testimonio", "Witness"],
-    ["Visión con mentalidad de datos", "Vision with a data mindset"],
-    ["Más adelante, Renebook puede medir qué secciones ayudan más: lectura diaria, devocionales, niños, idioma, capítulos y rutas de seguimiento.", "Later, Renebook can measure which sections help most: daily reading, devotionals, children, language, chapters, and follow-up paths."],
-    ["Prioridades para la siguiente fase", "Priorities for the next phase"],
-    ["Agregar más versos de Proverbios.", "Add more Proverbs verses."],
-    ["Crear historias bíblicas para niños.", "Create Bible stories for children."],
-    ["Preparar un plan de 7, 21 o 31 días.", "Prepare a 7, 21, or 31 day plan."],
-    ["Añadir botones para compartir en redes sociales.", "Add buttons for sharing on social media."],
-    ["Conectar analítica cuando el sitio esté estable en Netlify.", "Connect analytics when the site is stable on Netlify."],
-
-    ["🌎 Visión de Renebook", "🌎 Renebook Vision"],
-    ["Una plataforma para sembrar sabiduría bíblica en la vida diaria.", "A platform to plant biblical wisdom in daily life."],
-    ["Renebook existe para hacer que la lectura bíblica sea más clara, cercana y compartible. La meta no es solo informar, sino acompañar personas y familias hacia una fe más práctica, madura y misional.", "Renebook exists to make Bible reading clearer, closer, and easier to share. The goal is not only to inform, but to walk with people and families toward a more practical, mature, and missional faith."],
-    ["Entrar a la experiencia", "Enter the experience"],
-    ["Ver arquitectura", "View architecture"],
-
-    ["✦ Renebook Platform", "✦ Renebook Platform"],
-    ["Sigue leyendo Proverbios con propósito", "Keep reading Proverbs with purpose"],
-    ["Busca por tema, cambia entre Español e English, resalta versículos y usa los devocionales conectados.", "Search by topic, switch between Spanish and English, highlight verses, and use the connected devotionals."],
-    ["Renebook.org · App Biblia · RVR1909 / WEB · Devocionales originales para formación espiritual.", "Renebook.org · Bible App · RVR1909 / WEB · Original devotionals for spiritual formation."]
-  ];
-
-  function clean(value) {
-    return String(value || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
-  }
-
-  function getUrlLang() {
-    const params = new URLSearchParams(window.location.search);
-    const lang = clean(params.get("lang"));
-
-    if (lang === "en" || lang === "english" || lang === "web") return "en";
-    if (lang === "es" || lang === "spanish" || lang === "espanol" || lang === "rvr") return "es";
-
-    return null;
-  }
-
-  function getLang() {
-    return getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
-  }
-
-  function setLang(lang) {
-    const safeLang = lang === "en" ? "en" : "es";
-
-    localStorage.setItem(LANG_KEY, safeLang);
-    localStorage.setItem(SELECTED_KEY, "true");
-    document.documentElement.lang = safeLang;
-
-    try {
-      const url = new URL(window.location.href);
-      url.searchParams.set("lang", safeLang);
-      window.history.replaceState({}, "", url.toString());
-    } catch (error) {}
-
-    return safeLang;
-  }
-
-  function installWidget() {
-    if (document.getElementById("rbLanguageWidget") || document.querySelector(".rb-language-widget")) return;
-
-    document.body.insertAdjacentHTML("beforeend", `
-      <div id="rbLanguageWidget" class="rb-language-widget" aria-label="Language selector">
-        <button type="button" data-rb-lang-choice="es">Español</button>
-        <button type="button" data-rb-lang-choice="en">English</button>
-      </div>
-    `);
-  }
-
-  function shouldSkipTextNode(node) {
-    const parent = node.parentElement;
-    if (!parent) return true;
-
-    return Boolean(
-      parent.closest("script, style, noscript") ||
-      parent.closest("#versesList") ||
-      parent.closest(".reader-verse") ||
-      parent.closest("#chapterTitle") ||
-      parent.closest("#renebookKeywordDevotional") ||
-      parent.closest(".renebook-keyword-devotional")
-    );
-  }
-
-  function replaceTextNodes(lang) {
-    const pairs = PAIRS
-      .map(function (pair) {
-        return lang === "en"
-          ? { from: pair[0], to: pair[1] }
-          : { from: pair[1], to: pair[0] };
-      })
-      .sort(function (a, b) {
-        return b.from.length - a.from.length;
+        document.querySelectorAll("#rbLanguageWidget button").forEach(function (button) {
+          button.addEventListener("click", function () {
+            setLanguage(button.dataset.lang);
+          });
+        });
       });
-
-    const walker = document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: function (node) {
-          if (shouldSkipTextNode(node)) return NodeFilter.FILTER_REJECT;
-          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      }
-    );
-
-    const nodes = [];
-    while (walker.nextNode()) {
-      nodes.push(walker.currentNode);
-    }
-
-    nodes.forEach(function (node) {
-      let value = node.nodeValue;
-
-      pairs.forEach(function (pair) {
-        if (value.includes(pair.from)) {
-          value = value.split(pair.from).join(pair.to);
-        }
-      });
-
-      node.nodeValue = value;
-    });
-  }
-
-  function updateLinks(lang) {
-    document.querySelectorAll("a").forEach(function (link) {
-      const href = link.getAttribute("href") || "";
-
-      if (href.includes("app-bible.html")) link.setAttribute("href", "/app-bible.html?lang=" + lang);
-      if (href.includes("proyecto.html")) link.setAttribute("href", "/proyecto.html?lang=" + lang);
-      if (href.includes("vision.html")) link.setAttribute("href", "/vision.html?lang=" + lang);
-      if (href === "/" || href.includes("index.html")) link.setAttribute("href", "/?lang=" + lang);
-    });
-  }
-
-  function updateButtons(lang) {
-    document.querySelectorAll("[data-rb-lang-choice], .reader-lang-btn").forEach(function (button) {
-      const value = clean(
-        button.dataset.rbLangChoice ||
-        button.dataset.lang ||
-        button.value ||
-        button.textContent
-      );
-
-      const isEn = value === "en" || value.includes("english") || value.includes("web");
-      const isEs = value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr");
-
-      button.classList.toggle("is-active", (lang === "en" && isEn) || (lang === "es" && isEs));
-      button.classList.toggle("active", (lang === "en" && isEn) || (lang === "es" && isEs));
-    });
-  }
-
-  function translatePage() {
-    const lang = setLang(getLang());
-
-    installWidget();
-    replaceTextNodes(lang);
-    updateLinks(lang);
-    updateButtons(lang);
-  }
-
-  function connectClicks() {
-    if (window.__rbFullPageTranslatorConnected) return;
-    window.__rbFullPageTranslatorConnected = true;
-
-    document.addEventListener("click", function (event) {
-      const control = event.target.closest("[data-rb-lang-choice], .reader-lang-btn");
-
-      if (!control) return;
-
-      const value = clean(
-        control.dataset.rbLangChoice ||
-        control.dataset.lang ||
-        control.value ||
-        control.textContent
-      );
-
-      let lang = null;
-
-      if (value === "en" || value.includes("english") || value.includes("web")) lang = "en";
-      if (value === "es" || value.includes("espanol") || value.includes("español") || value.includes("rvr")) lang = "es";
-
-      if (!lang) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      setLang(lang);
-      translatePage();
-
-      window.dispatchEvent(new CustomEvent("renebook:language-change", { detail: { lang: lang } }));
-    }, true);
-  }
-
-  function init() {
-    installWidget();
-    connectClicks();
-    translatePage();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-
-  window.addEventListener("load", init);
-  window.addEventListener("renebook:language-change", function () {
-    setTimeout(translatePage, 100);
-    setTimeout(translatePage, 450);
-  });
-
-  setTimeout(init, 700);
-  setTimeout(init, 1600);
-  setTimeout(init, 2800);
-})();
-</script>
-  <style>
- <style>
-  /* ===== RENEBOOK DAILY VERSE · COMPACT PREMIUM BILINGUAL ===== */
-
-  .rb-daily-verse {
-    position: fixed;
-    right: 18px;
-    bottom: 92px;
-    z-index: 9998;
-    width: min(390px, calc(100vw - 32px));
-    border-radius: 24px;
-    border: 1px solid rgba(134, 201, 255, 0.36);
-    background:
-      radial-gradient(circle at 12% 10%, rgba(242, 201, 107, 0.14), transparent 28%),
-      radial-gradient(circle at 88% 18%, rgba(79, 209, 197, 0.12), transparent 28%),
-      linear-gradient(145deg, rgba(16, 40, 71, 0.97), rgba(7, 24, 44, 0.98));
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.42);
-    color: #f5f9ff;
-    padding: 16px;
-    transform: translateY(20px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.26s ease, transform 0.26s ease;
-  }
-
-  .rb-daily-verse.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .rb-daily-verse-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.08);
-    color: #f5f9ff;
-    cursor: pointer;
-    font-weight: 900;
-  }
-
-  .rb-daily-verse-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(242, 201, 107, 0.16);
-    color: #f2c96b;
-    font-weight: 950;
-    font-size: 0.78rem;
-    margin-bottom: 9px;
-    max-width: calc(100% - 36px);
-  }
-
-  .rb-daily-verse h3 {
-    margin: 0 34px 8px 0;
-    font-size: 1.08rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  }
-
-  .rb-daily-verse-ref {
-    color: #72f0ea;
-    font-weight: 900;
-    margin-bottom: 10px;
-    font-size: 0.92rem;
-  }
-
-  .rb-daily-verse-lines {
-    display: grid;
-    gap: 8px;
-  }
-
-  .rb-daily-verse-line {
-    padding: 10px 11px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(134, 201, 255, 0.12);
-  }
-
-  .rb-daily-verse-lang {
-    display: inline-block;
-    margin-bottom: 4px;
-    color: #f2c96b;
-    font-weight: 950;
-    font-size: 0.74rem;
-    letter-spacing: 0.02em;
-  }
-
-  .rb-daily-verse-text {
-    color: #dbe8f8;
-    line-height: 1.45;
-    margin: 0;
-    font-size: 0.94rem;
-  }
-
-  .rb-daily-verse-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-top: 11px;
-  }
-
-  .rb-daily-verse-actions a {
-    border: 0;
-    border-radius: 999px;
-    padding: 9px 10px;
-    font-weight: 950;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    transition: all 0.2s ease;
-    font-size: 0.9rem;
-  }
-
-  .rb-daily-verse-primary {
-    background: linear-gradient(135deg, #86c9ff, #4fd1c5);
-    color: #061425;
-  }
-
-  .rb-daily-verse-secondary {
-    background: linear-gradient(135deg, #f2c96b, #f7e08d);
-    color: #061425;
-  }
-
-  .rb-daily-verse-actions a:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.05);
-  }
-
-  @media (max-width: 760px) {
-    .rb-daily-verse {
-      left: 14px;
-      right: 14px;
-      bottom: 86px;
-      width: auto;
-      padding: 15px;
-      border-radius: 22px;
-    }
-
-    .rb-daily-verse h3 {
-      font-size: 1rem;
-    }
-
-    .rb-daily-verse-text {
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-  }
-</style>
-
-<script>
-(function () {
-  "use strict";
-
-  const DAILY_VERSE_KEY = "renebook_daily_verse_last_seen";
-  const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-
-  const DAILY_VERSES = [
-    {
-      chapter: 3,
-      verse: 5,
-      esRef: "Proverbios 3:5",
-      enRef: "Proverbs 3:5",
-      esText: "Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.",
-      enText: "Trust in Yahweh with all your heart, and don’t lean on your own understanding."
-    },
-    {
-      chapter: 3,
-      verse: 6,
-      esRef: "Proverbios 3:6",
-      enRef: "Proverbs 3:6",
-      esText: "Reconócelo en todos tus caminos, y él enderezará tus veredas.",
-      enText: "In all your ways acknowledge him, and he will make your paths straight."
-    },
-    {
-      chapter: 1,
-      verse: 7,
-      esRef: "Proverbios 1:7",
-      enRef: "Proverbs 1:7",
-      esText: "El principio de la sabiduría es el temor de Jehová.",
-      enText: "The fear of Yahweh is the beginning of knowledge."
-    },
-    {
-      chapter: 15,
-      verse: 1,
-      esRef: "Proverbios 15:1",
-      enRef: "Proverbs 15:1",
-      esText: "La blanda respuesta quita la ira; mas la palabra áspera hace subir el furor.",
-      enText: "A gentle answer turns away wrath, but a harsh word stirs up anger."
-    },
-    {
-      chapter: 16,
-      verse: 3,
-      esRef: "Proverbios 16:3",
-      enRef: "Proverbs 16:3",
-      esText: "Encomienda á Jehová tus obras, y tus pensamientos serán afirmados.",
-      enText: "Commit your deeds to Yahweh, and your plans shall succeed."
-    },
-    {
-      chapter: 17,
-      verse: 22,
-      esRef: "Proverbios 17:22",
-      enRef: "Proverbs 17:22",
-      esText: "El corazón alegre constituye buen remedio.",
-      enText: "A cheerful heart makes good medicine."
-    },
-    {
-      chapter: 4,
-      verse: 23,
-      esRef: "Proverbios 4:23",
-      enRef: "Proverbs 4:23",
-      esText: "Sobre toda cosa guardada guarda tu corazón; porque de él mana la vida.",
-      enText: "Keep your heart with all diligence, for out of it is the wellspring of life."
-    }
-  ];
-
-  function shouldShowDailyVerse() {
-    const params = new URLSearchParams(window.location.search);
-
-    if (params.get("daily") === "test") {
-      return true;
-    }
-
-    const lastSeen = Number(localStorage.getItem(DAILY_VERSE_KEY) || 0);
-    return Date.now() - lastSeen >= TWENTY_FOUR_HOURS;
-  }
-
-  function getDailyVerse() {
-    const start = new Date(new Date().getFullYear(), 0, 0);
-    const diff = new Date() - start;
-    const day = Math.floor(diff / 86400000);
-
-    return DAILY_VERSES[day % DAILY_VERSES.length];
-  }
-
-  function renderDailyVerse() {
-    if (!shouldShowDailyVerse()) return;
-    if (document.getElementById("rbDailyVerse")) return;
-
-    const verse = getDailyVerse();
-    const esUrl = "/app-bible.html?lang=es#proverbs-" + verse.chapter;
-    const enUrl = "/app-bible.html?lang=en#proverbs-" + verse.chapter;
-
-    document.body.insertAdjacentHTML("beforeend", `
-      <aside id="rbDailyVerse" class="rb-daily-verse" aria-live="polite">
-        <button type="button" class="rb-daily-verse-close" aria-label="Close">×</button>
-
-        <div class="rb-daily-verse-badge">✦ Daily wisdom · Sabiduría diaria</div>
-        <h3>Verso para hoy · Verse for today</h3>
-        <div class="rb-daily-verse-ref">${verse.esRef} · ${verse.enRef}</div>
-
-        <div class="rb-daily-verse-lines">
-          <div class="rb-daily-verse-line">
-            <div class="rb-daily-verse-lang">ESPAÑOL</div>
-            <p class="rb-daily-verse-text">${verse.esText}</p>
-          </div>
-
-          <div class="rb-daily-verse-line">
-            <div class="rb-daily-verse-lang">ENGLISH</div>
-            <p class="rb-daily-verse-text">${verse.enText}</p>
-          </div>
-        </div>
-
-        <div class="rb-daily-verse-actions">
-          <a class="rb-daily-verse-primary" href="${esUrl}">Leer</a>
-          <a class="rb-daily-verse-secondary" href="${enUrl}">Read</a>
-        </div>
-      </aside>
-    `);
-
-    const card = document.getElementById("rbDailyVerse");
-    const closeX = card.querySelector(".rb-daily-verse-close");
-
-    function closeForToday() {
-      localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
-      card.classList.remove("is-visible");
-
-      setTimeout(function () {
-        card.remove();
-      }, 260);
-    }
-
-    closeX.addEventListener("click", closeForToday);
-
-    setTimeout(function () {
-      card.classList.add("is-visible");
-      localStorage.setItem(DAILY_VERSE_KEY, String(Date.now()));
-    }, 800);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderDailyVerse);
-  } else {
-    renderDailyVerse();
-  }
-
-  window.addEventListener("load", renderDailyVerse);
-})();
-</script>
-  <style>
-    <script>
-/* ===== Final bilingual patch for vision page ===== */
-(function () {
-  function applyVisionLanguage(lang) {
-    document.documentElement.lang = lang;
-    localStorage.setItem("renebookLang", lang);
-
-    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
-      el.textContent = el.getAttribute("data-" + lang);
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const savedLang = localStorage.getItem("renebookLang") || "es";
-    applyVisionLanguage(savedLang);
-
-    document.addEventListener("click", function (event) {
-      const text = (event.target.textContent || "").trim().toLowerCase();
-
-      if (text === "english") {
-        applyVisionLanguage("en");
-      }
-
-      if (text === "español" || text === "spanish") {
-        applyVisionLanguage("es");
-      }
-    });
-  });
-
-  window.applyVisionLanguage = applyVisionLanguage;
-})();
-</script>
-    <script>
-/* ===== Final forced bilingual patch for vision.html ===== */
-(function () {
-  function applyVisionLang(lang) {
-    document.documentElement.lang = lang;
-    localStorage.setItem("renebookLang", lang);
-
-    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
-      el.textContent = el.getAttribute("data-" + lang);
-    });
-  }
-
-  window.applyVisionLang = applyVisionLang;
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const savedLang = localStorage.getItem("renebookLang") || "es";
-    applyVisionLang(savedLang);
-
-    document.addEventListener("click", function (event) {
-      const text = (event.target.textContent || "").trim().toLowerCase();
-
-      if (text === "english") {
-        applyVisionLang("en");
-        setTimeout(function () {
-          applyVisionLang("en");
-        }, 100);
-      }
-
-      if (text === "español" || text === "spanish") {
-        applyVisionLang("es");
-        setTimeout(function () {
-          applyVisionLang("es");
-        }, 100);
-      }
-    });
-  });
-})();
-</script>
-    <script>
-<div class="vision-lang-es">
-  <article class="card">
-    <span class="icon">📊</span>
-
-    <h3>Mejora continua con propósito</h3>
-
-    <p>
-      Renebook está en desarrollo y en constante renovación para ofrecer una experiencia bíblica más clara, bilingüe, accesible y edificante.
-    </p>
-  </article>
-
-  <article class="card">
-    <span class="icon">✅</span>
-
-    <h3>Próximamente en Renebook</h3>
-
-    <ul>
-      <li>Más lecturas de Proverbios para fortalecer la sabiduría diaria.</li>
-      <li>Historias bíblicas para niños y recursos para familias.</li>
-      <li>Planes de lectura de 7, 21 y 31 días.</li>
-      <li>Herramientas para compartir versículos y reflexiones.</li>
-      <li>Mejoras continuas para una experiencia bíblica más clara, accesible y edificante.</li>
-    </ul>
-  </article>
-</div>
-
-<div class="vision-lang-en">
-  <article class="card">
-    <span class="icon">📊</span>
-
-    <h3>Continuous improvement with purpose</h3>
-
-    <p>
-      Renebook is in development and under continuous improvement to offer a clearer, bilingual, accessible, and edifying Bible experience.
-    </p>
-  </article>
-
-  <article class="card">
-    <span class="icon">✅</span>
-
-    <h3>Coming soon to Renebook</h3>
-
-    <ul>
-      <li>More Proverbs readings to strengthen daily wisdom.</li>
-      <li>Bible stories for children and family resources.</li>
-      <li>Reading plans for 7, 21, and 31 days.</li>
-      <li>Tools to share Bible verses and reflections.</li>
-      <li>Ongoing improvements for a clearer, more accessible, and edifying Bible experience.</li>
-    </ul>
-  </article>
-</div>
+    })();
+  </script>
 </body>
 </html>
