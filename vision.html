@@ -1328,5 +1328,43 @@
   window.applyVisionLanguage = applyVisionLanguage;
 })();
 </script>
+    <script>
+/* ===== Final forced bilingual patch for vision.html ===== */
+(function () {
+  function applyVisionLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem("renebookLang", lang);
+
+    document.querySelectorAll("[data-es][data-en]").forEach(function (el) {
+      el.textContent = el.getAttribute("data-" + lang);
+    });
+  }
+
+  window.applyVisionLang = applyVisionLang;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedLang = localStorage.getItem("renebookLang") || "es";
+    applyVisionLang(savedLang);
+
+    document.addEventListener("click", function (event) {
+      const text = (event.target.textContent || "").trim().toLowerCase();
+
+      if (text === "english") {
+        applyVisionLang("en");
+        setTimeout(function () {
+          applyVisionLang("en");
+        }, 100);
+      }
+
+      if (text === "español" || text === "spanish") {
+        applyVisionLang("es");
+        setTimeout(function () {
+          applyVisionLang("es");
+        }, 100);
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
