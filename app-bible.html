@@ -435,7 +435,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
 
-  <script src="/data/proverbs.js?v=20260512-1"></script>
+  <script src="/data/proverbs.js?v=20260512-2"></script>
   <script>
     (function () {
       "use strict";
@@ -663,8 +663,9 @@
         versesList.innerHTML = (chapter.verses || []).map((verse) => {
           const num = Number(verse.verse || verse.number);
           const highlight = state.highlightedVerse && Number(state.highlightedVerse.c) === currentChapter && Number(state.highlightedVerse.v) === num ? " rb-verse-highlight" : "";
-          return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verse.text || "")}</p>`;
-        }).join("");
+          const verseDisplay = state.lang === "es" ? String(verse.text || "").replace(/^LOS\s+proverbios/i, "Los proverbios") : String(verse.text || "");
+
+return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verseDisplay)}</p>`;
 
         const topic = state.lastTopic || findDefaultTopicForChapter(currentChapter);
         renderDevotional(topic);
