@@ -741,7 +741,7 @@
 
         guide.innerHTML = `<h3>${lang === "en" ? "Quick guide for parents and teachers" : "Guía rápida para padres y maestros"}</h3>` +
           guideSteps.map(function (step, index) {
-            return `<div class="family-step"><div class="step-number">${index + 1}</div><div><strong>${step[0]}</strong><span>${step[1]}</span></div></div>`;
+           return `<div class="family-step"><div class="step-number">${index + 1}</div><div><strong>${step[0]}</strong> <span>${step[1]}</span></div></div>`;
           }).join("");
 
         tabs.querySelectorAll("[data-kid]").forEach(function (button) {
