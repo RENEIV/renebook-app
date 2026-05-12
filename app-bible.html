@@ -617,15 +617,21 @@
       }
 
       function verseText(lang, chapterNumber, verseNumber) {
-        const bible = getBible(lang);
-        if (!bible) return "";
-        const chapter = bible.chapters.find((item) => Number(item.chapter || item.number) === Number(chapterNumber));
-        if (!chapter) return "";
-        const verse = (chapter.verses || []).find((item) => Number(item.verse || item.number) === Number(verseNumber));
-        return verse ? verse.text : "";
-      }
+  const bible = getBible(lang);
+  if (!bible) return "";
 
-      function renderReader() {
+  const chapter = bible.chapters.find((item) => Number(item.chapter || item.number) === Number(chapterNumber));
+  if (!chapter) return "";
+
+  const verse = (chapter.verses || []).find((item) => Number(item.verse || item.number) === Number(verseNumber));
+  return verse ? verse.text : "";
+}
+
+function normalizeVerseText(text) {
+  return String(text || "").replace(/^LOS\s+proverbios/i, "Los proverbios");
+}
+
+function renderReader() {
   const t = COPY[state.lang];
   const chapterSelect = $("chapterSelect");
   const chapterTitle = $("chapterTitle");
@@ -664,6 +670,7 @@
 
   versesList.innerHTML = (chapter.verses || []).map((verse) => {
     const num = Number(verse.verse || verse.number);
+
     const highlight =
       state.highlightedVerse &&
       Number(state.highlightedVerse.c) === currentChapter &&
@@ -671,19 +678,10 @@
         ? " rb-verse-highlight"
         : "";
 
-    return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verse.text || "")}</p>`;
-  }).join("");
-
-  const topic = state.lastTopic || findDefaultTopicForChapter(currentChapter);
-  renderDevotional(topic);
-  updateProgress();
-}
-function findDefaultTopicForChapter(chapterNumber) {
-    const rawText = String(verse.text || "");
     const verseDisplay =
       state.lang === "es"
-        ? rawText.replace(/^LOS\s+proverbios/i, "Los proverbios")
-        : rawText;
+        ? normalizeVerseText(verse.text)
+        : String(verse.text || "");
 
     return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verseDisplay)}</p>`;
   }).join("");
@@ -692,25 +690,27 @@ function findDefaultTopicForChapter(chapterNumber) {
   renderDevotional(topic);
   updateProgress();
 }
-        return TOPICS.find((topic) => Number(topic.c) === Number(chapterNumber)) || {
-          c: chapterNumber,
-          v: 1,
-          es: {
-            title: "Sabiduría para el camino",
-            reflection: "Este capítulo invita a leer con atención y a recibir la instrucción de Dios para la vida diaria.",
-            application: "Escoge una frase del capítulo y conviértela en una acción concreta de obediencia.",
-            prayer: "Señor, abre mi entendimiento y guía mis pasos por tu Palabra."
-          },
-          en: {
-            title: "Wisdom for the path",
-            reflection: "This chapter invites you to read carefully and receive God’s instruction for daily life.",
-            application: "Choose one phrase from the chapter and turn it into one concrete act of obedience.",
-            prayer: "Lord, open my understanding and guide my steps through your Word."
-          }
-        };
-      }
 
-      function renderDevotional(topic) {
+function findDefaultTopicForChapter(chapterNumber) {
+  return TOPICS.find((topic) => Number(topic.c) === Number(chapterNumber)) || {
+    c: chapterNumber,
+    v: 1,
+    es: {
+      title: "Sabiduría para el camino",
+      reflection: "Este capítulo invita a leer con atención y a recibir la instrucción de Dios para la vida diaria.",
+      application: "Escoge una frase del capítulo y conviértela en una acción concreta de obediencia.",
+      prayer: "Señor, abre mi entendimiento y guía mis pasos por tu Palabra."
+    },
+    en: {
+      title: "Wisdom for the path",
+      reflection: "This chapter invites you to read carefully and receive God’s instruction for daily life.",
+      application: "Choose one phrase from the chapter and turn it into one concrete act of obedience.",
+      prayer: "Lord, open my understanding and guide my steps through your Word."
+    }
+  };
+}
+
+function renderDevotional(topic) {
   const t = COPY[state.lang];
   const card = $("devotionalCard");
   if (!card || !topic) return;
@@ -718,7 +718,9 @@ function findDefaultTopicForChapter(chapterNumber) {
   const local = topic[state.lang] || topic.es || topic.en;
   const book = state.lang === "en" ? "Proverbs" : "Proverbios";
   const ref = book + " " + topic.c + ":" + (topic.v || 1);
-  const preview = verseText(state.lang, topic.c, topic.v || 1) || t.verseLoaded;
+
+  const rawPreview = verseText(state.lang, topic.c, topic.v || 1) || t.verseLoaded;
+  const preview = state.lang === "es" ? normalizeVerseText(rawPreview) : rawPreview;
 
   const chips = state.lang === "en"
     ? [
@@ -782,25 +784,29 @@ ${t.prayer}: ${local.prayer}`;
     </div>
   `;
 }
-      function renderKids() {
-        const grid = $("kidsGrid");
-        if (!grid) return;
-        grid.innerHTML = KIDS.map((kid) => {
-          const local = kid[state.lang];
-          const book = state.lang === "en" ? "Proverbs" : "Proverbios";
-          const btnText = state.lang === "en" ? "Open passage" : "Abrir pasaje";
-          return `
-            <article class="kids-card">
-              <span class="emoji">${kid.emoji}</span>
-              <h3>${escapeHTML(local.title)}</h3>
-              <p><strong>${book} ${kid.c}:${kid.v}</strong> — ${escapeHTML(local.text)}</p>
-              <p>${escapeHTML(local.question)}</p>
-              <button class="btn btn-secondary" type="button" data-kid-c="${kid.c}" data-kid-v="${kid.v}">${btnText}</button>
-            </article>
-          `;
-        }).join("");
-      }
 
+function renderKids() {
+  const grid = $("kidsGrid");
+  if (!grid) return;
+
+  grid.innerHTML = KIDS.map((kid) => {
+    const local = kid[state.lang];
+    const book = state.lang === "en" ? "Proverbs" : "Proverbios";
+    const btnText = state.lang === "en" ? "Open passage" : "Abrir pasaje";
+
+    return `
+      <article class="kids-card">
+        <span class="emoji">${kid.emoji}</span>
+        <h3>${escapeHTML(local.title)}</h3>
+        <p><strong>${book} ${kid.c}:${kid.v}</strong> — ${escapeHTML(local.text)}</p>
+        <p>${escapeHTML(local.question)}</p>
+        <button class="btn btn-secondary" type="button" data-kid-c="${kid.c}" data-kid-v="${kid.v}">
+          ${btnText}
+        </button>
+      </article>
+    `;
+  }).join("");
+}
       function updateProgress() {
         const read = getReadSet();
         const total = 31;
