@@ -664,7 +664,6 @@
 
   versesList.innerHTML = (chapter.verses || []).map((verse) => {
     const num = Number(verse.verse || verse.number);
-
     const highlight =
       state.highlightedVerse &&
       Number(state.highlightedVerse.c) === currentChapter &&
@@ -672,6 +671,14 @@
         ? " rb-verse-highlight"
         : "";
 
+    return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verse.text || "")}</p>`;
+  }).join("");
+
+  const topic = state.lastTopic || findDefaultTopicForChapter(currentChapter);
+  renderDevotional(topic);
+  updateProgress();
+}
+function findDefaultTopicForChapter(chapterNumber) {
     const rawText = String(verse.text || "");
     const verseDisplay =
       state.lang === "es"
