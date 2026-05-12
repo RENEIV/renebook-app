@@ -264,6 +264,29 @@
       .hero { padding-top: 40px; }
       .links a { padding: 9px 11px; }
     }
+    /* Vision section: balanced 2x2 card layout */
+.vision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.vision-grid .card {
+  min-height: 230px;
+}
+
+/* Mobile: one card per row */
+@media (max-width: 760px) {
+  .vision-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .vision-grid .card {
+    min-height: auto;
+  }
+}
   </style>
 </head>
 <body>
@@ -299,7 +322,7 @@
     <section class="shell section">
       <h2 data-es="Cuatro convicciones" data-en="Four convictions">Cuatro convicciones</h2>
       <p data-es="Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente." data-en="These convictions help keep the project biblically and pastorally focused as it grows technically.">Estas convicciones ayudan a mantener el enfoque bíblico y pastoral del proyecto mientras crece técnicamente.</p>
-      <div class="grid">
+      <div class="grid vision-grid">
         <article class="card">
           <span class="icon">📖</span>
           <h3 data-es="La Palabra al centro" data-en="The Word at the center">La Palabra al centro</h3>
