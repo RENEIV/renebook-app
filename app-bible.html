@@ -626,53 +626,65 @@
       }
 
       function renderReader() {
-        const t = COPY[state.lang];
-        const chapterSelect = $("chapterSelect");
-        const chapterTitle = $("chapterTitle");
-        const versesList = $("versesList");
-        const sourceLabel = $("sourceLabel");
-        const referenceLabel = $("referenceLabel");
+  const t = COPY[state.lang];
+  const chapterSelect = $("chapterSelect");
+  const chapterTitle = $("chapterTitle");
+  const versesList = $("versesList");
+  const sourceLabel = $("sourceLabel");
+  const referenceLabel = $("referenceLabel");
 
-        const data = getChapterData();
-        if (!chapterSelect || !chapterTitle || !versesList) return;
+  const data = getChapterData();
+  if (!chapterSelect || !chapterTitle || !versesList) return;
 
-        if (!data) {
-          chapterTitle.textContent = t.noData;
-          versesList.innerHTML = "<p>" + t.loading + "</p>";
-          return;
-        }
+  if (!data) {
+    chapterTitle.textContent = t.noData;
+    versesList.innerHTML = "<p>" + t.loading + "</p>";
+    return;
+  }
 
-        const { bible, chapter } = data;
-        const currentChapter = Number(chapter.chapter || chapter.number || 1);
-        state.chapter = currentChapter;
+  const { bible, chapter } = data;
+  const currentChapter = Number(chapter.chapter || chapter.number || 1);
+  state.chapter = currentChapter;
 
-        chapterSelect.innerHTML = bible.chapters.map((item) => {
-          const n = Number(item.chapter || item.number);
-          const label = state.lang === "en" ? "Chapter " + n : "Capítulo " + n;
-          return `<option value="${n}">${label}</option>`;
-        }).join("");
-        chapterSelect.value = String(currentChapter);
+  chapterSelect.innerHTML = bible.chapters.map((item) => {
+    const n = Number(item.chapter || item.number);
+    const label = state.lang === "en" ? "Chapter " + n : "Capítulo " + n;
+    return `<option value="${n}">${label}</option>`;
+  }).join("");
 
-        const book = state.lang === "en" ? "Proverbs" : "Proverbios";
-        const version = bible.version || (state.lang === "en" ? "WEB" : "RVR1909");
+  chapterSelect.value = String(currentChapter);
 
-        referenceLabel.textContent = book + " " + currentChapter;
-        sourceLabel.textContent = t.source;
-        chapterTitle.textContent = book + " " + currentChapter + " · " + version;
+  const book = state.lang === "en" ? "Proverbs" : "Proverbios";
+  const version = bible.version || (state.lang === "en" ? "WEB" : "RVR1909");
 
-        versesList.innerHTML = (chapter.verses || []).map((verse) => {
-          const num = Number(verse.verse || verse.number);
-          const highlight = state.highlightedVerse && Number(state.highlightedVerse.c) === currentChapter && Number(state.highlightedVerse.v) === num ? " rb-verse-highlight" : "";
-          const verseDisplay = state.lang === "es" ? String(verse.text || "").replace(/^LOS\s+proverbios/i, "Los proverbios") : String(verse.text || "");
+  if (referenceLabel) referenceLabel.textContent = book + " " + currentChapter;
+  if (sourceLabel) sourceLabel.textContent = t.source;
 
-return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verseDisplay)}</p>`;
+  chapterTitle.textContent = book + " " + currentChapter + " · " + version;
 
-        const topic = state.lastTopic || findDefaultTopicForChapter(currentChapter);
-        renderDevotional(topic);
-        updateProgress();
-      }
+  versesList.innerHTML = (chapter.verses || []).map((verse) => {
+    const num = Number(verse.verse || verse.number);
 
-      function findDefaultTopicForChapter(chapterNumber) {
+    const highlight =
+      state.highlightedVerse &&
+      Number(state.highlightedVerse.c) === currentChapter &&
+      Number(state.highlightedVerse.v) === num
+        ? " rb-verse-highlight"
+        : "";
+
+    const rawText = String(verse.text || "");
+    const verseDisplay =
+      state.lang === "es"
+        ? rawText.replace(/^LOS\s+proverbios/i, "Los proverbios")
+        : rawText;
+
+    return `<p class="reader-verse${highlight}" id="rb-verse-${currentChapter}-${num}" data-rb-verse="${num}"><span class="verse-number">${num}</span>${escapeHTML(verseDisplay)}</p>`;
+  }).join("");
+
+  const topic = state.lastTopic || findDefaultTopicForChapter(currentChapter);
+  renderDevotional(topic);
+  updateProgress();
+}
         return TOPICS.find((topic) => Number(topic.c) === Number(chapterNumber)) || {
           c: chapterNumber,
           v: 1,
