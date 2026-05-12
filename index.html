@@ -428,6 +428,84 @@
       .language-widget button { flex: 1; }
       .daily-verse { left: 14px; right: 14px; bottom: 86px; width: auto; }
     }
+    /* Premium Quick Guide Section */
+.family-step {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  gap: 22px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(148, 220, 255, 0.18);
+}
+
+.family-step:last-child {
+  border-bottom: none;
+}
+
+.family-step .step-number {
+  width: 68px;
+  height: 68px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #8eeeff, #77dbe8);
+  color: #061827;
+  font-size: 1.45rem;
+  font-weight: 900;
+  box-shadow: 0 12px 30px rgba(142, 238, 255, 0.22);
+}
+
+.family-step > div:last-child {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.family-step strong {
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.family-step span {
+  color: rgba(238, 246, 255, 0.92);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.55;
+}
+
+/* Mobile refinement */
+@media (max-width: 640px) {
+  .family-step {
+    grid-template-columns: 54px 1fr;
+    gap: 14px;
+    padding: 20px 0;
+  }
+
+  .family-step .step-number {
+    width: 52px;
+    height: 52px;
+    border-radius: 17px;
+    font-size: 1.15rem;
+  }
+
+  .family-step > div:last-child {
+    display: block;
+  }
+
+  .family-step strong {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 1.25rem;
+  }
+
+  .family-step span {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+}
   </style>
 </head>
 
