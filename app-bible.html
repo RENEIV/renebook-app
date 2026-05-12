@@ -691,40 +691,77 @@
       }
 
       function renderDevotional(topic) {
-        const t = COPY[state.lang];
-        const card = $("devotionalCard");
-        if (!card || !topic) return;
+  const t = COPY[state.lang];
+  const card = $("devotionalCard");
+  if (!card || !topic) return;
 
-        const local = topic[state.lang] || topic.es || topic.en;
-        const book = state.lang === "en" ? "Proverbs" : "Proverbios";
-        const ref = book + " " + topic.c + ":" + (topic.v || 1);
-        const preview = verseText(state.lang, topic.c, topic.v || 1) || t.verseLoaded;
+  const local = topic[state.lang] || topic.es || topic.en;
+  const book = state.lang === "en" ? "Proverbs" : "Proverbios";
+  const ref = book + " " + topic.c + ":" + (topic.v || 1);
+  const preview = verseText(state.lang, topic.c, topic.v || 1) || t.verseLoaded;
 
-        card.dataset.copyText = `${ref}\n${preview}\n\n${t.reflection}: ${local.reflection}\n\n${t.application}: ${local.application}\n\n${t.prayer}: ${local.prayer}`;
+  const chips = state.lang === "en"
+    ? [
+        { label: "Wisdom", value: "wisdom" },
+        { label: "Family", value: "family" },
+        { label: "Trust", value: "trust" },
+        { label: "Prayer", value: "prayer" },
+        { label: "Peace", value: "peace" },
+        { label: "Leadership", value: "leadership" }
+      ]
+    : [
+        { label: "Sabiduría", value: "sabiduría" },
+        { label: "Familia", value: "familia" },
+        { label: "Confianza", value: "confianza" },
+        { label: "Oración", value: "oración" },
+        { label: "Paz", value: "paz" },
+        { label: "Liderazgo", value: "liderazgo" }
+      ];
 
-        card.innerHTML = `
-          <div class="ref-pill">✦ ${escapeHTML(ref)}</div>
-          <h3>${escapeHTML(local.title)}</h3>
-          <div class="verse-preview"><strong>${escapeHTML(ref)}</strong><br>${escapeHTML(preview)}</div>
-          <div class="devotional-grid">
-            <div class="devobox"><strong>${t.reflection}</strong>${escapeHTML(local.reflection)}</div>
-            <div class="devobox"><strong>${t.application}</strong>${escapeHTML(local.application)}</div>
-            <div class="devobox"><strong>${t.prayer}</strong>${escapeHTML(local.prayer)}</div>
-          </div>
-          <div class="topic-chip-row">
-            <button type="button" data-topic="sabiduría">Sabiduría</button>
-            <button type="button" data-topic="familia">Familia</button>
-            <button type="button" data-topic="confianza">Confianza</button>
-            <button type="button" data-topic="oración">Oración</button>
-            <button type="button" data-topic="paz">Paz</button>
-            <button type="button" data-topic="mujer virtuosa">Mujer virtuosa</button>
-            <button type="button" data-topic="wisdom">Wisdom</button>
-            <button type="button" data-topic="family">Family</button>
-            <button type="button" data-topic="leadership">Leadership</button>
-          </div>
-        `;
-      }
+  card.dataset.copyText = `${ref}
+${preview}
 
+${t.reflection}: ${local.reflection}
+
+${t.application}: ${local.application}
+
+${t.prayer}: ${local.prayer}`;
+
+  card.innerHTML = `
+    <div class="ref-pill">✦ ${escapeHTML(ref)}</div>
+    <h3>${escapeHTML(local.title)}</h3>
+
+    <div class="verse-preview">
+      <strong>${escapeHTML(ref)}</strong><br>
+      ${escapeHTML(preview)}
+    </div>
+
+    <div class="devotional-grid">
+      <div class="devobox">
+        <strong>${escapeHTML(t.reflection)}</strong>
+        ${escapeHTML(local.reflection)}
+      </div>
+
+      <div class="devobox">
+        <strong>${escapeHTML(t.application)}</strong>
+        ${escapeHTML(local.application)}
+      </div>
+
+      <div class="devobox">
+        <strong>${escapeHTML(t.prayer)}</strong>
+        ${escapeHTML(local.prayer)}
+      </div>
+    </div>
+
+    <div class="topic-chip-row" aria-label="${state.lang === "en" ? "Suggested topics" : "Temas sugeridos"}">
+      ${chips.map((chip) => `
+        <button type="button" data-topic="${escapeHTML(chip.value)}">
+          ${escapeHTML(chip.label)}
+        </button>
+      `).join("")}
+    </div>
+  `;
+}
       function renderKids() {
         const grid = $("kidsGrid");
         if (!grid) return;
