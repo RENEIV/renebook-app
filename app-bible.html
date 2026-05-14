@@ -302,6 +302,94 @@
       .verses-list { padding: 16px; border-radius: 22px; }
       .reader-verse { font-size: 1.02rem; line-height: 1.74; }
     }
+  /* Biblical Keywords Section */
+.keywords-panel {
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(242,201,107,.12), transparent 26%),
+    radial-gradient(circle at 88% 14%, rgba(79,209,197,.12), transparent 26%),
+    linear-gradient(145deg, rgba(16,40,71,.94), rgba(7,24,44,.96));
+  box-shadow: var(--shadow);
+}
+
+.keyword-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.keyword-card {
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.13);
+  background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.04));
+  box-shadow: 0 18px 42px rgba(0,0,0,.22);
+}
+
+.keyword-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.keyword-original {
+  font-size: 1.75rem;
+  font-weight: 950;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.keyword-language {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #061425;
+  background: linear-gradient(135deg, var(--sky), var(--cyan));
+  font-size: .78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.keyword-card h3 {
+  margin-bottom: 6px;
+}
+
+.keyword-meaning {
+  color: #dcecff;
+  font-weight: 850;
+  margin-bottom: 10px;
+}
+
+.keyword-ref {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #061425;
+  background: linear-gradient(135deg, var(--gold), #ffe49a);
+  font-size: .82rem;
+  font-weight: 950;
+}
+
+@media (max-width: 980px) {
+  .keyword-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .keywords-panel {
+    padding: 20px;
+  }
+
+  .keyword-grid {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
@@ -402,8 +490,7 @@
         </section>
       </div>
     </section>
-
-    <section class="shell section" id="kids">
+ <section class="shell section" id="kids">
       <div class="section-head">
         <span class="eyebrow" data-i18n="kidsBadge">🧒 Proverbios para niños</span>
         <h2 data-i18n="kidsTitle">Una ruta sencilla para enseñar sabiduría con ternura.</h2>
@@ -411,7 +498,19 @@
       </div>
       <div class="kids-grid" id="kidsGrid"></div>
     </section>
+<section class="shell section" id="biblical-keywords">
+  <div class="keywords-panel">
+    <div class="section-head">
+      <span class="eyebrow" id="keywordsBadge">🔤 Palabras bíblicas clave</span>
+      <h2 id="keywordsTitle">Lenguaje bíblico para entender mejor la Palabra.</h2>
+      <p id="keywordsLead">
+        Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.
+      </p>
+    </div>
 
+    <div class="keyword-grid" id="keywordsGrid"></div>
+  </div>
+</section>
     <section class="shell section" id="save-app">
       <div class="save-card">
         <div>
@@ -983,5 +1082,112 @@ function renderKids() {
       }
     })();
   </script>
+  <script>
+  (function () {
+    "use strict";
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = String(params.get("lang") || "").toLowerCase();
+      if (urlLang === "en") return "en";
+      if (urlLang === "es") return "es";
+      return localStorage.getItem("renebook_reader_language") || "es";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function languageLabel(value, lang) {
+      const labels = {
+        hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+        greek: lang === "en" ? "Greek" : "Griego",
+        aramaic: lang === "en" ? "Aramaic" : "Arameo",
+        latin: lang === "en" ? "Latin" : "Latín"
+      };
+
+      return labels[value] || value;
+    }
+
+    function renderBiblicalKeywords() {
+      const grid = document.getElementById("keywordsGrid");
+      const badge = document.getElementById("keywordsBadge");
+      const title = document.getElementById("keywordsTitle");
+      const lead = document.getElementById("keywordsLead");
+
+      if (!grid) return;
+
+      const lang = getLang();
+      const items = Array.isArray(window.RENEBOOK_KEYWORDS) ? window.RENEBOOK_KEYWORDS : [];
+
+      if (badge) {
+        badge.textContent = lang === "en"
+          ? "🔤 Key biblical words"
+          : "🔤 Palabras bíblicas clave";
+      }
+
+      if (title) {
+        title.textContent = lang === "en"
+          ? "Biblical language to better understand the Word."
+          : "Lenguaje bíblico para entender mejor la Palabra.";
+      }
+
+      if (lead) {
+        lead.textContent = lang === "en"
+          ? "A first layer of Hebrew, Aramaic, Greek, and Latin words connecting Bible reading with meaning, devotion, and daily application."
+          : "Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.";
+      }
+
+      if (!items.length) {
+        grid.innerHTML = `
+          <article class="keyword-card">
+            <h3>${lang === "en" ? "Keywords not loaded yet" : "Palabras no cargadas todavía"}</h3>
+            <p>${lang === "en" ? "Check /data/biblical-keywords.js." : "Revisa /data/biblical-keywords.js."}</p>
+          </article>
+        `;
+        return;
+      }
+
+      grid.innerHTML = items.slice(0, 6).map((item) => {
+        const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
+        const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
+        const application = lang === "en" ? item.applicationEn : item.applicationEs;
+        const verse = lang === "en" ? item.verseEn : item.verseEs;
+
+        return `
+          <article class="keyword-card">
+            <div class="keyword-top">
+              <div class="keyword-original">${escapeHTML(item.original)}</div>
+              <span class="keyword-language">${escapeHTML(languageLabel(item.language, lang))}</span>
+            </div>
+
+            <h3>${escapeHTML(item.transliteration)}</h3>
+            <div class="keyword-meaning">${escapeHTML(meaning)}</div>
+            <p>${escapeHTML(devotional)}</p>
+            <p><strong>${lang === "en" ? "Application:" : "Aplicación:"}</strong> ${escapeHTML(application)}</p>
+            <span class="keyword-ref">${escapeHTML(verse)}</span>
+          </article>
+        `;
+      }).join("");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderBiblicalKeywords);
+    } else {
+      renderBiblicalKeywords();
+    }
+
+    document.addEventListener("click", function (event) {
+      if (event.target.closest("[data-lang]")) {
+        setTimeout(renderBiblicalKeywords, 50);
+      }
+    });
+  })();
+</script>
 </body>
 </html>
