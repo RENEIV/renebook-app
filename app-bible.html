@@ -374,7 +374,37 @@
   font-size: .82rem;
   font-weight: 950;
 }
+/* Biblical Keyword Filters */
+.keyword-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 6px;
+}
 
+.keyword-filter-row button {
+  border: 1px solid rgba(134, 201, 255, .32);
+  border-radius: 999px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: rgba(255,255,255,.075);
+  font-weight: 900;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.keyword-filter-row button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(134, 201, 255, .7);
+  background: rgba(125, 220, 255, .13);
+}
+
+.keyword-filter-row button.active {
+  color: #061425;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--gold), #ffe49a);
+  box-shadow: 0 12px 26px rgba(242, 201, 107, .22);
+}
 @media (max-width: 980px) {
   .keyword-grid {
     grid-template-columns: 1fr 1fr;
@@ -513,7 +543,7 @@
         Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.
       </p>
     </div>
-
+<div class="keyword-filter-row" id="keywordFilterRow" aria-label="Filtros de palabras bíblicas"></div>
     <div class="keyword-grid" id="keywordsGrid"></div>
   </div>
 </section>
@@ -1094,11 +1124,15 @@ function renderKids() {
   (function () {
     "use strict";
 
+    let activeFilter = "all";
+
     function getLang() {
       const params = new URLSearchParams(window.location.search);
       const urlLang = String(params.get("lang") || "").toLowerCase();
+
       if (urlLang === "en") return "en";
       if (urlLang === "es") return "es";
+
       return localStorage.getItem("renebook_reader_language") || "es";
     }
 
@@ -1122,6 +1156,39 @@ function renderKids() {
       return labels[value] || value;
     }
 
+    function filterLabel(value, lang) {
+      const labels = {
+        all: lang === "en" ? "All" : "Todos",
+        hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+        greek: lang === "en" ? "Greek" : "Griego",
+        aramaic: lang === "en" ? "Aramaic" : "Arameo",
+        latin: lang === "en" ? "Latin" : "Latín"
+      };
+
+      return labels[value] || value;
+    }
+
+    function renderKeywordFilters(lang) {
+      const row = document.getElementById("keywordFilterRow");
+      if (!row) return;
+
+      const filters = ["all", "hebrew", "greek", "aramaic", "latin"];
+
+      row.setAttribute(
+        "aria-label",
+        lang === "en" ? "Biblical word filters" : "Filtros de palabras bíblicas"
+      );
+
+      row.innerHTML = filters.map((filter) => `
+        <button 
+          type="button" 
+          data-keyword-filter="${escapeHTML(filter)}" 
+          class="${activeFilter === filter ? "active" : ""}">
+          ${escapeHTML(filterLabel(filter, lang))}
+        </button>
+      `).join("");
+    }
+
     function renderBiblicalKeywords() {
       const grid = document.getElementById("keywordsGrid");
       const badge = document.getElementById("keywordsBadge");
@@ -1132,6 +1199,8 @@ function renderKids() {
 
       const lang = getLang();
       const items = Array.isArray(window.RENEBOOK_KEYWORDS) ? window.RENEBOOK_KEYWORDS : [];
+
+      renderKeywordFilters(lang);
 
       if (badge) {
         badge.textContent = lang === "en"
@@ -1161,7 +1230,21 @@ function renderKids() {
         return;
       }
 
-      grid.innerHTML = items.slice(0, 6).map((item) => {
+      const filteredItems = activeFilter === "all"
+        ? items
+        : items.filter((item) => item.language === activeFilter);
+
+      if (!filteredItems.length) {
+        grid.innerHTML = `
+          <article class="keyword-card">
+            <h3>${lang === "en" ? "No words found" : "No se encontraron palabras"}</h3>
+            <p>${lang === "en" ? "Try another filter." : "Prueba otro filtro."}</p>
+          </article>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filteredItems.map((item) => {
         const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
         const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
         const application = lang === "en" ? item.applicationEn : item.applicationEs;
@@ -1191,8 +1274,16 @@ function renderKids() {
     }
 
     document.addEventListener("click", function (event) {
+      const filterButton = event.target.closest("[data-keyword-filter]");
+
+      if (filterButton) {
+        activeFilter = filterButton.dataset.keywordFilter || "all";
+        renderBiblicalKeywords();
+        return;
+      }
+
       if (event.target.closest("[data-lang]")) {
-        setTimeout(renderBiblicalKeywords, 50);
+        setTimeout(renderBiblicalKeywords, 80);
       }
     });
   })();
