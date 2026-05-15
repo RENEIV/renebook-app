@@ -277,7 +277,33 @@
     .toast.show { transform: translateX(-50%) translateY(0); }
 
     footer { margin-top: 46px; padding: 30px 18px; border-top: 1px solid rgba(135,190,255,.18); background: rgba(4,14,26,.56); color: var(--soft); text-align: center; }
+/* Biblical Keyword View More Button */
+.keyword-more-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
 
+.keyword-more-button {
+  border: 1px solid rgba(242, 201, 107, .42);
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: #061425;
+  background: linear-gradient(135deg, var(--gold), #ffe49a);
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(242, 201, 107, .18);
+  transition: all .2s ease;
+}
+
+.keyword-more-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+.keyword-more-button[hidden] {
+  display: none;
+}
     @media (max-width: 980px) {
       .hero-grid, .devotional-grid, .kids-grid, .save-card { grid-template-columns: 1fr; }
       .reader-controls { grid-template-columns: 1fr; }
@@ -545,6 +571,11 @@
     </div>
 <div class="keyword-filter-row" id="keywordFilterRow" aria-label="Filtros de palabras bíblicas"></div>
     <div class="keyword-grid" id="keywordsGrid"></div>
+    <div class="keyword-more-row">
+  <button type="button" id="keywordToggleButton" class="keyword-more-button">
+    Ver más palabras
+  </button>
+</div>
   </div>
 </section>
 
@@ -1278,6 +1309,209 @@ function renderKids() {
 
       if (filterButton) {
         activeFilter = filterButton.dataset.keywordFilter || "all";
+        renderBiblicalKeywords();
+        return;
+      }
+
+      if (event.target.closest("[data-lang]")) {
+        setTimeout(renderBiblicalKeywords, 80);
+      }
+    });
+  })();
+</script>
+  <script>
+  (function () {
+    "use strict";
+
+    let activeFilter = "all";
+    let showAllKeywords = false;
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = String(params.get("lang") || "").toLowerCase();
+
+      if (urlLang === "en") return "en";
+      if (urlLang === "es") return "es";
+
+      return localStorage.getItem("renebook_reader_language") || "es";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function languageLabel(value, lang) {
+      const labels = {
+        hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+        greek: lang === "en" ? "Greek" : "Griego",
+        aramaic: lang === "en" ? "Aramaic" : "Arameo",
+        latin: lang === "en" ? "Latin" : "Latín"
+      };
+
+      return labels[value] || value;
+    }
+
+    function filterLabel(value, lang) {
+      const labels = {
+        all: lang === "en" ? "All" : "Todos",
+        hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+        greek: lang === "en" ? "Greek" : "Griego",
+        aramaic: lang === "en" ? "Aramaic" : "Arameo",
+        latin: lang === "en" ? "Latin" : "Latín"
+      };
+
+      return labels[value] || value;
+    }
+
+    function renderKeywordFilters(lang) {
+      const row = document.getElementById("keywordFilterRow");
+      if (!row) return;
+
+      const filters = ["all", "hebrew", "greek", "aramaic", "latin"];
+
+      row.setAttribute(
+        "aria-label",
+        lang === "en" ? "Biblical word filters" : "Filtros de palabras bíblicas"
+      );
+
+      row.innerHTML = filters.map((filter) => `
+        <button 
+          type="button" 
+          data-keyword-filter="${escapeHTML(filter)}" 
+          class="${activeFilter === filter ? "active" : ""}">
+          ${escapeHTML(filterLabel(filter, lang))}
+        </button>
+      `).join("");
+    }
+
+    function updateToggleButton(lang, totalCount) {
+      const button = document.getElementById("keywordToggleButton");
+      if (!button) return;
+
+      if (totalCount <= 6) {
+        button.hidden = true;
+        return;
+      }
+
+      button.hidden = false;
+      button.textContent = showAllKeywords
+        ? (lang === "en" ? "Show fewer" : "Ver menos")
+        : (lang === "en" ? "Show more words" : "Ver más palabras");
+    }
+
+    function renderBiblicalKeywords() {
+      const grid = document.getElementById("keywordsGrid");
+      const badge = document.getElementById("keywordsBadge");
+      const title = document.getElementById("keywordsTitle");
+      const lead = document.getElementById("keywordsLead");
+
+      if (!grid) return;
+
+      const lang = getLang();
+      const items = Array.isArray(window.RENEBOOK_KEYWORDS) ? window.RENEBOOK_KEYWORDS : [];
+
+      renderKeywordFilters(lang);
+
+      if (badge) {
+        badge.textContent = lang === "en"
+          ? "🔤 Key biblical words"
+          : "🔤 Palabras bíblicas clave";
+      }
+
+      if (title) {
+        title.textContent = lang === "en"
+          ? "Biblical language to better understand the Word."
+          : "Lenguaje bíblico para entender mejor la Palabra.";
+      }
+
+      if (lead) {
+        lead.textContent = lang === "en"
+          ? "A first layer of Hebrew, Aramaic, Greek, and Latin words connecting Bible reading with meaning, devotion, and daily application."
+          : "Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.";
+      }
+
+      if (!items.length) {
+        updateToggleButton(lang, 0);
+
+        grid.innerHTML = `
+          <article class="keyword-card">
+            <h3>${lang === "en" ? "Keywords not loaded yet" : "Palabras no cargadas todavía"}</h3>
+            <p>${lang === "en" ? "Check /data/biblical-keywords.js." : "Revisa /data/biblical-keywords.js."}</p>
+          </article>
+        `;
+        return;
+      }
+
+      const filteredItems = activeFilter === "all"
+        ? items
+        : items.filter((item) => item.language === activeFilter);
+
+      if (!filteredItems.length) {
+        updateToggleButton(lang, 0);
+
+        grid.innerHTML = `
+          <article class="keyword-card">
+            <h3>${lang === "en" ? "No words found" : "No se encontraron palabras"}</h3>
+            <p>${lang === "en" ? "Try another filter." : "Prueba otro filtro."}</p>
+          </article>
+        `;
+        return;
+      }
+
+      const visibleItems = showAllKeywords
+        ? filteredItems
+        : filteredItems.slice(0, 6);
+
+      updateToggleButton(lang, filteredItems.length);
+
+      grid.innerHTML = visibleItems.map((item) => {
+        const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
+        const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
+        const application = lang === "en" ? item.applicationEn : item.applicationEs;
+        const verse = lang === "en" ? item.verseEn : item.verseEs;
+
+        return `
+          <article class="keyword-card">
+            <div class="keyword-top">
+              <div class="keyword-original">${escapeHTML(item.original)}</div>
+              <span class="keyword-language">${escapeHTML(languageLabel(item.language, lang))}</span>
+            </div>
+
+            <h3>${escapeHTML(item.transliteration)}</h3>
+            <div class="keyword-meaning">${escapeHTML(meaning)}</div>
+            <p>${escapeHTML(devotional)}</p>
+            <p><strong>${lang === "en" ? "Application:" : "Aplicación:"}</strong> ${escapeHTML(application)}</p>
+            <span class="keyword-ref">${escapeHTML(verse)}</span>
+          </article>
+        `;
+      }).join("");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderBiblicalKeywords);
+    } else {
+      renderBiblicalKeywords();
+    }
+
+    document.addEventListener("click", function (event) {
+      const filterButton = event.target.closest("[data-keyword-filter]");
+
+      if (filterButton) {
+        activeFilter = filterButton.dataset.keywordFilter || "all";
+        showAllKeywords = false;
+        renderBiblicalKeywords();
+        return;
+      }
+
+      const toggleButton = event.target.closest("#keywordToggleButton");
+
+      if (toggleButton) {
+        showAllKeywords = !showAllKeywords;
         renderBiblicalKeywords();
         return;
       }
