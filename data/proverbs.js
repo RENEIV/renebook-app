@@ -110,7 +110,7 @@ const CACHE_KEY = "renebook_proverbs_bilingual_v20260516b";
 
   return fixes[key] || polished;
 }
-  }
+  
   function normalizeChapter(payload, langKey, fallbackChapterNumber) {
     const source = SOURCES[langKey];
     const rawVerses = Array.isArray(payload?.verses) ? payload.verses : [];
