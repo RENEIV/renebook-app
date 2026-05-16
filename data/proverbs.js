@@ -16,7 +16,7 @@
 
   const BOOK_NUMBER = 20; // Proverbs / Proverbios
   const TOTAL_CHAPTERS = 31;
- const CACHE_KEY = "renebook_proverbs_bilingual_v20260516a";
+const CACHE_KEY = "renebook_proverbs_bilingual_v20260516b";
 
   const SOURCES = {
     es: {
@@ -97,15 +97,19 @@
   }
 
   function patchVerseText(langKey, chapterNumber, verseNumber, text) {
-    if (langKey !== "es") return text;
+  if (langKey !== "es") return text;
 
-    const polished = polishSpanishText(text);
+  const polished = polishSpanishText(text);
+  const key = `${chapterNumber}:${verseNumber}`;
 
-    if (chapterNumber === 2 && verseNumber === 1) {
-      return "Hijo mío, si tomares mis palabras, y mis mandamientos guardares dentro de ti;";
-    }
+  const fixes = {
+    "2:1": "Hijo mío, si tomares mis palabras, y mis mandamientos guardares dentro de ti;",
+    "4:1": "Oíd, hijos, la enseñanza de un padre, y estad atentos, para que conozcáis cordura.",
+    "8:1": "¿No clama la sabiduría, y da su voz la inteligencia?"
+  };
 
-    return polished;
+  return fixes[key] || polished;
+}
   }
   function normalizeChapter(payload, langKey, fallbackChapterNumber) {
     const source = SOURCES[langKey];
