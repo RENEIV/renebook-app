@@ -16,7 +16,7 @@
 
   const BOOK_NUMBER = 20; // Proverbs / Proverbios
   const TOTAL_CHAPTERS = 31;
-  const CACHE_KEY = "renebook_proverbs_bilingual_v20260504b";
+ const CACHE_KEY = "renebook_proverbs_bilingual_v20260516a";
 
   const SOURCES = {
     es: {
@@ -87,7 +87,26 @@
       .replace(/\s+/g, " ")
       .trim();
   }
+  function polishSpanishText(text) {
+    return String(text || "")
+      .replace(/^([A-ZÁÉÍÓÚÜÑ]{2,})(\s+)/, function (_, word, space) {
+        return word.charAt(0) + word.slice(1).toLocaleLowerCase("es") + space;
+      })
+      .replace(/\bmio\b/g, "mío")
+      .replace(/\bMio\b/g, "Mío");
+  }
 
+  function patchVerseText(langKey, chapterNumber, verseNumber, text) {
+    if (langKey !== "es") return text;
+
+    const polished = polishSpanishText(text);
+
+    if (chapterNumber === 2 && verseNumber === 1) {
+      return "Hijo mío, si tomares mis palabras, y mis mandamientos guardares dentro de ti;";
+    }
+
+    return polished;
+  }
   function normalizeChapter(payload, langKey, fallbackChapterNumber) {
     const source = SOURCES[langKey];
     const rawVerses = Array.isArray(payload?.verses) ? payload.verses : [];
@@ -108,7 +127,7 @@
         return {
           number: verseNumber,
           verse: verseNumber,
-          text: cleanText(verse.text)
+          text: patchVerseText(langKey, chapterNumber, verseNumber, cleanText(verse.text))
         };
       })
     };
