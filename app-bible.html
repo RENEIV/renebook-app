@@ -21,7 +21,47 @@
   <meta name="twitter:title" content="Renebook | App Biblia Interactiva" />
   <meta name="twitter:description" content="Proverbios, devocionales y búsqueda bíblica bilingüe para crecer cada día." />
   <meta name="twitter:image" content="https://renebook.org/assets/renebook-logo.png" />
+.devotional-panel {
+  margin-top: 18px;
+}
 
+.devotional-card {
+  background: rgba(8, 26, 55, 0.9);
+  border: 1px solid rgba(110, 180, 255, 0.22);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.devotional-eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+}
+
+.devotional-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.devotional-card p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#devotionalPrayer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-style: italic;
+  color: #fde68a;
+}
   <style>
     :root {
       --bg: #061425;
@@ -578,7 +618,17 @@
 </div>
   </div>
 </section>
-
+<section class="devotional-panel" id="devotionalPanel">
+  <div class="devotional-card">
+    <p class="devotional-eyebrow">Devocional breve</p>
+    <h3 id="devotionalTitle">Selecciona una palabra bíblica</h3>
+    <p id="devotionalReflection">
+      Al tocar una palabra clave, aquí aparecerá una reflexión conectada al texto bíblico.
+    </p>
+    <p id="devotionalApplication"></p>
+    <p id="devotionalPrayer"></p>
+  </div>
+</section>
 <section class="shell section" id="save-app">
   <div class="save-card">
     <div>
@@ -1219,7 +1269,49 @@ function renderKids() {
         </button>
       `).join("");
     }
+function normalizeKeyword(text = "") {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
 
+function getCurrentLang() {
+  return localStorage.getItem("lang") || "es";
+}
+
+function renderDevotional(keyword) {
+  const lang = getCurrentLang();
+  const normalized = normalizeKeyword(keyword);
+
+  const titleEl = document.getElementById("devotionalTitle");
+  const reflectionEl = document.getElementById("devotionalReflection");
+  const applicationEl = document.getElementById("devotionalApplication");
+  const prayerEl = document.getElementById("devotionalPrayer");
+
+  const devotionalBank = DEVOTIONALS[lang] || DEVOTIONALS.es;
+  const devotional = devotionalBank[normalized];
+
+  if (!devotional) {
+    titleEl.textContent = lang === "es"
+      ? "Palabra bíblica"
+      : "Biblical Word";
+
+    reflectionEl.textContent = lang === "es"
+      ? "Todavía no hay un devocional conectado a esta palabra. Podemos agregarlo después."
+      : "There is not yet a devotional connected to this word. We can add it later.";
+
+    applicationEl.textContent = "";
+    prayerEl.textContent = "";
+    return;
+  }
+
+  titleEl.textContent = devotional.title;
+  reflectionEl.textContent = devotional.reflection;
+  applicationEl.textContent = devotional.application;
+  prayerEl.textContent = devotional.prayer;
+}
     function renderBiblicalKeywords() {
       const grid = document.getElementById("keywordsGrid");
       const badge = document.getElementById("keywordsBadge");
@@ -1274,7 +1366,85 @@ function renderKids() {
         `;
         return;
       }
+const DEVOTIONALS = {
+  es: {
+    sabiduria: {
+      title: "Sabiduría",
+      reflection: "La sabiduría bíblica no es solo saber mucho, sino aprender a vivir bajo la dirección de Dios. En Proverbios, la sabiduría forma el corazón, corrige el camino y guía las decisiones diarias.",
+      application: "Aplicación: antes de tomar una decisión hoy, haz una pausa y pregúntate: ¿esto honra a Dios y refleja su sabiduría?",
+      prayer: "Oración: Señor, dame sabiduría para pensar, hablar y actuar conforme a tu voluntad. Amén."
+    },
+    temor: {
+      title: "Temor de Jehová",
+      reflection: "El temor de Jehová no es terror, sino reverencia, obediencia y reconocimiento de que Dios es santo y soberano. Allí comienza la verdadera sabiduría.",
+      application: "Aplicación: reconoce hoy la autoridad de Dios en un área de tu vida donde necesitas obedecer.",
+      prayer: "Oración: Señor, enséñame a vivir con reverencia delante de ti y a honrarte en todo. Amén."
+    },
+    justicia: {
+      title: "Justicia",
+      reflection: "La justicia en la Biblia tiene que ver con rectitud, integridad y una vida alineada con el carácter de Dios. No solo es creer lo correcto, sino vivirlo.",
+      application: "Aplicación: busca actuar con rectitud hoy, aun en detalles pequeños que nadie más vea.",
+      prayer: "Oración: Dios, forma en mí un corazón recto y ayúdame a caminar en justicia. Amén."
+    },
+    camino: {
+      title: "Camino",
+      reflection: "En Proverbios, el camino representa la dirección de la vida. Dios nos llama a dejar el camino del mal y a andar por sendas de verdad, prudencia y paz.",
+      application: "Aplicación: evalúa si el camino que estás tomando en una decisión reciente te acerca o te aleja de Dios.",
+      prayer: "Oración: Señor, endereza mis pasos y guíame por el camino bueno. Amén."
+    },
+    corazon: {
+      title: "Corazón",
+      reflection: "El corazón en la Biblia es el centro de los pensamientos, deseos y decisiones. Dios quiere formar un corazón sensible, sabio y obediente.",
+      application: "Aplicación: guarda tu corazón hoy de actitudes que debilitan tu comunión con Dios.",
+      prayer: "Oración: Señor, limpia mi corazón y llénalo de tu verdad. Amén."
+    },
+    prudencia: {
+      title: "Prudencia",
+      reflection: "La prudencia ayuda a discernir, esperar el momento correcto y actuar con sabiduría. Es una protección contra decisiones apresuradas y dañinas.",
+      application: "Aplicación: antes de responder o actuar hoy, detente un momento y considera si estás siendo prudente.",
+      prayer: "Oración: Señor, dame prudencia para hablar con gracia y actuar con discernimiento. Amén."
+    }
+  },
 
+  en: {
+    wisdom: {
+      title: "Wisdom",
+      reflection: "Biblical wisdom is more than knowledge; it is learning to live under God's direction. In Proverbs, wisdom shapes the heart, corrects the path, and guides daily choices.",
+      application: "Application: before making a decision today, pause and ask: does this honor God and reflect His wisdom?",
+      prayer: "Prayer: Lord, give me wisdom to think, speak, and act according to Your will. Amen."
+    },
+    fear: {
+      title: "Fear of the Lord",
+      reflection: "The fear of the Lord is not terror, but reverence, obedience, and recognition that God is holy and sovereign. This is where true wisdom begins.",
+      application: "Application: recognize God's authority today in one area of your life where you need to obey.",
+      prayer: "Prayer: Lord, teach me to live with reverence before You and to honor You in all things. Amen."
+    },
+    justice: {
+      title: "Justice",
+      reflection: "Justice in Scripture is connected to righteousness, integrity, and a life aligned with God's character. It is not only believing what is right, but living it.",
+      application: "Application: choose to act with integrity today, even in small details no one else sees.",
+      prayer: "Prayer: God, shape in me an upright heart and help me walk in righteousness. Amen."
+    },
+    path: {
+      title: "Path",
+      reflection: "In Proverbs, the path represents the direction of life. God calls us away from evil paths and into ways of truth, prudence, and peace.",
+      application: "Application: evaluate whether a recent decision is leading you closer to God or farther from Him.",
+      prayer: "Prayer: Lord, direct my steps and lead me in the good way. Amen."
+    },
+    heart: {
+      title: "Heart",
+      reflection: "In the Bible, the heart is the center of thoughts, desires, and decisions. God wants to form a heart that is sensitive, wise, and obedient.",
+      application: "Application: guard your heart today from attitudes that weaken your walk with God.",
+      prayer: "Prayer: Lord, cleanse my heart and fill it with Your truth. Amen."
+    },
+    prudence: {
+      title: "Prudence",
+      reflection: "Prudence helps us discern, wait for the right moment, and act wisely. It protects us from rushed and harmful decisions.",
+      application: "Application: before speaking or acting today, pause and ask whether you are acting with prudence.",
+      prayer: "Prayer: Lord, give me prudence to speak with grace and act with discernment. Amen."
+    }
+  }
+};
       grid.innerHTML = filteredItems.map((item) => {
         const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
         const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
