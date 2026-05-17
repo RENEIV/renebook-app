@@ -1166,7 +1166,7 @@ function renderKids() {
     "use strict";
 
     let activeFilter = "all";
-let showAllKeywords = false;
+    let showAllKeywords = false;
 
     function getLang() {
       const params = new URLSearchParams(window.location.search);
@@ -1199,7 +1199,6 @@ let showAllKeywords = false;
     }
 
     function filterLabel(value, lang) {
-      function filterLabel(value, lang) {
   const labels = {
     all: lang === "en" ? "All" : "Todos",
     hebrew: lang === "en" ? "Hebrew" : "Hebreo",
@@ -1210,13 +1209,6 @@ let showAllKeywords = false;
 
   return labels[value] || value;
 }
-        greek: lang === "en" ? "Greek" : "Griego",
-        aramaic: lang === "en" ? "Aramaic" : "Arameo",
-        latin: lang === "en" ? "Latin" : "Latín"
-      };
-
-      return labels[value] || value;
-    }
 
     function renderKeywordFilters(lang) {
       const row = document.getElementById("keywordFilterRow");
