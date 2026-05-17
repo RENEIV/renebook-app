@@ -21,8 +21,7 @@
   <meta name="twitter:title" content="Renebook | App Biblia Interactiva" />
   <meta name="twitter:description" content="Proverbios, devocionales y búsqueda bíblica bilingüe para crecer cada día." />
   <meta name="twitter:image" content="https://renebook.org/assets/renebook-logo.png" />
- color: #fde68a;
-}
+ 
   <style>
     :root {
       --bg: #061425;
@@ -1167,6 +1166,7 @@ function renderKids() {
     "use strict";
 
     let activeFilter = "all";
+let showAllKeywords = false;
 
     function getLang() {
       const params = new URLSearchParams(window.location.search);
@@ -1199,10 +1199,17 @@ function renderKids() {
     }
 
     function filterLabel(value, lang) {
-      const labels = {
-        all: lang === "en" ? "All" : "Todos",
-                all: lang === "en" ? "All" : "Todos",
-        hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+      function filterLabel(value, lang) {
+  const labels = {
+    all: lang === "en" ? "All" : "Todos",
+    hebrew: lang === "en" ? "Hebrew" : "Hebreo",
+    greek: lang === "en" ? "Greek" : "Griego",
+    aramaic: lang === "en" ? "Aramaic" : "Arameo",
+    latin: lang === "en" ? "Latin" : "Latín"
+  };
+
+  return labels[value] || value;
+}
         greek: lang === "en" ? "Greek" : "Griego",
         aramaic: lang === "en" ? "Aramaic" : "Arameo",
         latin: lang === "en" ? "Latin" : "Latín"
