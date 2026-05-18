@@ -578,7 +578,7 @@
 </div>
   </div>
 </section>
-<section class="devotional-panel" id="devotionalPanel">
+<section class="shell section devotional-panel" id="devotionalPanel">
   <div class="devotional-card">
     <p class="devotional-eyebrow">Devocional breve</p>
     <h3 id="devotionalTitle">Selecciona una palabra bíblica</h3>
@@ -1246,7 +1246,38 @@ function renderKids() {
         : (lang === "en" ? "Show more words" : "Ver más palabras");
     }
 
-    function renderBiblicalKeywords() {
+    function renderKeywordDevotionalPanel(item, lang) {
+  const panel = document.getElementById("devotionalPanel");
+  const titleEl = document.getElementById("devotionalTitle");
+  const reflectionEl = document.getElementById("devotionalReflection");
+  const applicationEl = document.getElementById("devotionalApplication");
+  const prayerEl = document.getElementById("devotionalPrayer");
+
+  if (!item || !panel || !titleEl || !reflectionEl || !applicationEl || !prayerEl) return;
+
+  const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
+  const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
+  const application = lang === "en" ? item.applicationEn : item.applicationEs;
+  const verse = lang === "en" ? item.verseEn : item.verseEs;
+
+  titleEl.textContent = item.transliteration || item.original || (lang === "en" ? "Biblical Word" : "Palabra bíblica");
+
+  reflectionEl.textContent = devotional || meaning || (
+    lang === "en"
+      ? "There is not yet a devotional connected to this word."
+      : "Todavía no hay un devocional conectado a esta palabra."
+  );
+
+  applicationEl.textContent = application
+    ? `${lang === "en" ? "Application" : "Aplicación"}: ${application}`
+    : "";
+
+  prayerEl.textContent = verse
+    ? `${lang === "en" ? "Base verse" : "Texto base"}: ${verse}`
+    : "";
+
+  panel.scrollIntoView({ behavior: "smooth", block: "start" });
+}
       const grid = document.getElementById("keywordsGrid");
       const badge = document.getElementById("keywordsBadge");
       const title = document.getElementById("keywordsTitle");
@@ -1311,14 +1342,14 @@ function renderKids() {
 
       updateToggleButton(lang, filteredItems.length);
 
-      grid.innerHTML = visibleItems.map((item) => {
+     grid.innerHTML = visibleItems.map((item, index) => {
         const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
         const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
         const application = lang === "en" ? item.applicationEn : item.applicationEs;
         const verse = lang === "en" ? item.verseEn : item.verseEs;
 
         return `
-          <article class="keyword-card">
+         <article class="keyword-card" data-keyword-index="${index}" role="button" tabindex="0">
             <div class="keyword-top">
               <div class="keyword-original">${escapeHTML(item.original)}</div>
               <span class="keyword-language">${escapeHTML(languageLabel(item.language, lang))}</span>
@@ -1332,9 +1363,24 @@ function renderKids() {
           </article>
         `;
       }).join("");
-    }
+    grid.querySelectorAll(".keyword-card").forEach((card) => {
+  card.addEventListener("click", () => {
+    const index = Number(card.dataset.keywordIndex);
+    const selectedItem = visibleItems[index];
+    renderKeywordDevotionalPanel(selectedItem, lang);
+  });
 
-    if (document.readyState === "loading") {
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      const index = Number(card.dataset.keywordIndex);
+      const selectedItem = visibleItems[index];
+      renderKeywordDevotionalPanel(selectedItem, lang);
+    }
+  });
+  });
+  }
+  if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", renderBiblicalKeywords);
     } else {
       renderBiblicalKeywords();
