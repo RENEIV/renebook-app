@@ -1278,108 +1278,110 @@ function renderKids() {
 
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
-      const grid = document.getElementById("keywordsGrid");
-      const badge = document.getElementById("keywordsBadge");
-      const title = document.getElementById("keywordsTitle");
-      const lead = document.getElementById("keywordsLead");
+     function renderBiblicalKeywords() {
+  const grid = document.getElementById("keywordsGrid");
+  const badge = document.getElementById("keywordsBadge");
+  const title = document.getElementById("keywordsTitle");
+  const lead = document.getElementById("keywordsLead");
 
-      if (!grid) return;
+  if (!grid) return;
 
-      const lang = getLang();
-      const items = Array.isArray(window.RENEBOOK_KEYWORDS) ? window.RENEBOOK_KEYWORDS : [];
+  const lang = getLang();
+  const items = Array.isArray(window.RENEBOOK_KEYWORDS) ? window.RENEBOOK_KEYWORDS : [];
 
-      renderKeywordFilters(lang);
+  renderKeywordFilters(lang);
 
-      if (badge) {
-        badge.textContent = lang === "en"
-          ? "🔤 Key biblical words"
-          : "🔤 Palabras bíblicas clave";
-      }
+  if (badge) {
+    badge.textContent = lang === "en"
+      ? "🔤 Key biblical words"
+      : "🔤 Palabras bíblicas clave";
+  }
 
-      if (title) {
-        title.textContent = lang === "en"
-          ? "Biblical language to better understand the Word."
-          : "Lenguaje bíblico para entender mejor la Palabra.";
-      }
+  if (title) {
+    title.textContent = lang === "en"
+      ? "Biblical language to better understand the Word."
+      : "Lenguaje bíblico para entender mejor la Palabra.";
+  }
 
-      if (lead) {
-        lead.textContent = lang === "en"
-          ? "A first layer of Hebrew, Aramaic, Greek, and Latin words connecting Bible reading with meaning, devotion, and daily application."
-          : "Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.";
-      }
+  if (lead) {
+    lead.textContent = lang === "en"
+      ? "A first layer of Hebrew, Aramaic, Greek, and Latin words connecting Bible reading with meaning, devotion, and daily application."
+      : "Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.";
+  }
 
-      if (!items.length) {
-        updateToggleButton(lang, 0);
+  if (!items.length) {
+    updateToggleButton(lang, 0);
 
-        grid.innerHTML = `
-          <article class="keyword-card">
-            <h3>${lang === "en" ? "Keywords not loaded yet" : "Palabras no cargadas todavía"}</h3>
-            <p>${lang === "en" ? "Check /data/biblical-keywords.js." : "Revisa /data/biblical-keywords.js."}</p>
-          </article>
-        `;
-        return;
-      }
+    grid.innerHTML = `
+      <article class="keyword-card">
+        <h3>${lang === "en" ? "Keywords not loaded yet" : "Palabras no cargadas todavía"}</h3>
+        <p>${lang === "en" ? "Check /data/biblical-keywords.js." : "Revisa /data/biblical-keywords.js."}</p>
+      </article>
+    `;
+    return;
+  }
 
-      const filteredItems = activeFilter === "all"
-        ? items
-        : items.filter((item) => item.language === activeFilter);
+  const filteredItems = activeFilter === "all"
+    ? items
+    : items.filter((item) => item.language === activeFilter);
 
-      if (!filteredItems.length) {
-        updateToggleButton(lang, 0);
+  if (!filteredItems.length) {
+    updateToggleButton(lang, 0);
 
-        grid.innerHTML = `
-          <article class="keyword-card">
-            <h3>${lang === "en" ? "No words found" : "No se encontraron palabras"}</h3>
-            <p>${lang === "en" ? "Try another filter." : "Prueba otro filtro."}</p>
-          </article>
-        `;
-        return;
-      }
+    grid.innerHTML = `
+      <article class="keyword-card">
+        <h3>${lang === "en" ? "No words found" : "No se encontraron palabras"}</h3>
+        <p>${lang === "en" ? "Try another filter." : "Prueba otro filtro."}</p>
+      </article>
+    `;
+    return;
+  }
 
-      const visibleItems = showAllKeywords
-        ? filteredItems
-        : filteredItems.slice(0, 6);
+  const visibleItems = showAllKeywords
+    ? filteredItems
+    : filteredItems.slice(0, 6);
 
-      updateToggleButton(lang, filteredItems.length);
+  updateToggleButton(lang, filteredItems.length);
 
-     grid.innerHTML = visibleItems.map((item, index) => {
-        const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
-        const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
-        const application = lang === "en" ? item.applicationEn : item.applicationEs;
-        const verse = lang === "en" ? item.verseEn : item.verseEs;
+  grid.innerHTML = visibleItems.map((item, index) => {
+    const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
+    const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
+    const application = lang === "en" ? item.applicationEn : item.applicationEs;
+    const verse = lang === "en" ? item.verseEn : item.verseEs;
 
-        return `
-         <article class="keyword-card" data-keyword-index="${index}" role="button" tabindex="0">
-            <div class="keyword-top">
-              <div class="keyword-original">${escapeHTML(item.original)}</div>
-              <span class="keyword-language">${escapeHTML(languageLabel(item.language, lang))}</span>
-            </div>
+    return `
+      <article class="keyword-card" data-keyword-index="${index}" role="button" tabindex="0">
+        <div class="keyword-top">
+          <div class="keyword-original">${escapeHTML(item.original)}</div>
+          <span class="keyword-language">${escapeHTML(languageLabel(item.language, lang))}</span>
+        </div>
 
-            <h3>${escapeHTML(item.transliteration)}</h3>
-            <div class="keyword-meaning">${escapeHTML(meaning)}</div>
-            <p>${escapeHTML(devotional)}</p>
-            <p><strong>${lang === "en" ? "Application:" : "Aplicación:"}</strong> ${escapeHTML(application)}</p>
-            <span class="keyword-ref">${escapeHTML(verse)}</span>
-          </article>
-        `;
-      }).join("");
-    grid.querySelectorAll(".keyword-card").forEach((card) => {
-  card.addEventListener("click", () => {
-    const index = Number(card.dataset.keywordIndex);
-    const selectedItem = visibleItems[index];
-    renderKeywordDevotionalPanel(selectedItem, lang);
-  });
+        <h3>${escapeHTML(item.transliteration)}</h3>
+        <div class="keyword-meaning">${escapeHTML(meaning)}</div>
+        <p>${escapeHTML(devotional)}</p>
+        <p><strong>${lang === "en" ? "Application:" : "Aplicación:"}</strong> ${escapeHTML(application)}</p>
+        <span class="keyword-ref">${escapeHTML(verse)}</span>
+      </article>
+    `;
+  }).join("");
 
-  card.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
+  grid.querySelectorAll(".keyword-card").forEach((card) => {
+    card.addEventListener("click", () => {
       const index = Number(card.dataset.keywordIndex);
       const selectedItem = visibleItems[index];
       renderKeywordDevotionalPanel(selectedItem, lang);
-    }
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        const index = Number(card.dataset.keywordIndex);
+        const selectedItem = visibleItems[index];
+        renderKeywordDevotionalPanel(selectedItem, lang);
+      }
+    });
   });
-  });
-  }
+}
   if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", renderBiblicalKeywords);
     } else {
