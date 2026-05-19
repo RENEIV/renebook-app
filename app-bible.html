@@ -211,7 +211,10 @@
     .reader-verse:hover { background: rgba(255,255,255,.045); border-radius: 12px; }
     .verse-number { display: inline-block; min-width: 2.1em; color: var(--gold); font-weight: 950; }
     .rb-verse-highlight { outline: 3px solid rgba(134,201,255,.98); background: linear-gradient(135deg, rgba(77,163,255,.20), rgba(79,209,197,.14)); border-radius: 16px; padding: 10px 12px; box-shadow: 0 0 0 7px rgba(125,220,255,.08), 0 18px 38px rgba(0,0,0,.28); scroll-margin-top: 100px; }
-
+.devotional-panel.is-hidden {
+  display: none;
+}
+    
     .devotional-card {
   margin-top: 20px;
   padding: clamp(20px, 4vw, 30px);
@@ -667,7 +670,7 @@
 </div>
   </div>
 </section>
-<section class="shell section devotional-panel" id="devotionalPanel">
+<section class="shell section devotional-panel is-hidden" id="devotionalPanel">
   <div class="devotional-card">
     <p class="devotional-eyebrow">Devocional breve</p>
     <h3 id="devotionalTitle">Selecciona una palabra bíblica</h3>
@@ -1343,6 +1346,8 @@ function renderKids() {
   const prayerEl = document.getElementById("devotionalPrayer");
 
   if (!item || !panel || !titleEl || !reflectionEl || !applicationEl || !prayerEl) return;
+      
+  panel.classList.remove("is-hidden");
 
   const meaning = lang === "en" ? item.meaningEn : item.meaningEs;
   const devotional = lang === "en" ? item.devotionalEn : item.devotionalEs;
