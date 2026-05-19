@@ -431,7 +431,19 @@
   outline: 3px solid rgba(134, 201, 255, 0.85);
   outline-offset: 4px;
 }
+.keyword-card.is-selected {
+  border-color: rgba(242, 201, 107, .78);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(242,201,107,.18), transparent 28%),
+    linear-gradient(145deg, rgba(134,201,255,.14), rgba(255,255,255,.06));
+  box-shadow:
+    0 24px 58px rgba(0,0,0,.34),
+    0 0 0 3px rgba(242,201,107,.14);
+}
 
+.keyword-card.is-selected .keyword-original {
+  color: #ffe49a;
+}
 .keyword-top {
   display: flex;
   align-items: center;
@@ -1444,18 +1456,31 @@ function renderKids() {
 
   grid.querySelectorAll(".keyword-card").forEach((card) => {
     card.addEventListener("click", () => {
-      const index = Number(card.dataset.keywordIndex);
-      const selectedItem = visibleItems[index];
-      renderKeywordDevotionalPanel(selectedItem, lang);
-    });
+  grid.querySelectorAll(".keyword-card").forEach((item) => {
+    item.classList.remove("is-selected");
+  });
+
+  card.classList.add("is-selected");
+
+  const index = Number(card.dataset.keywordIndex);
+  const selectedItem = visibleItems[index];
+  renderKeywordDevotionalPanel(selectedItem, lang);
+});
 
     card.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        const index = Number(card.dataset.keywordIndex);
-        const selectedItem = visibleItems[index];
-        renderKeywordDevotionalPanel(selectedItem, lang);
-      }
+  event.preventDefault();
+
+  grid.querySelectorAll(".keyword-card").forEach((item) => {
+    item.classList.remove("is-selected");
+  });
+
+  card.classList.add("is-selected");
+
+  const index = Number(card.dataset.keywordIndex);
+  const selectedItem = visibleItems[index];
+  renderKeywordDevotionalPanel(selectedItem, lang);
+}
     });
   });
 }
