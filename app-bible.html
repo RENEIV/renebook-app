@@ -1337,7 +1337,17 @@ function renderKids() {
         ? (lang === "en" ? "Show fewer" : "Ver menos")
         : (lang === "en" ? "Show more words" : "Ver más palabras");
     }
+function resetKeywordDevotionalPanel() {
+  const panel = document.getElementById("devotionalPanel");
 
+  if (panel) {
+    panel.classList.add("is-hidden");
+  }
+
+  document.querySelectorAll(".keyword-card.is-selected").forEach((card) => {
+    card.classList.remove("is-selected");
+  });
+}
     function renderKeywordDevotionalPanel(item, lang) {
   const panel = document.getElementById("devotionalPanel");
   const titleEl = document.getElementById("devotionalTitle");
@@ -1499,23 +1509,26 @@ function renderKids() {
       const filterButton = event.target.closest("[data-keyword-filter]");
 
       if (filterButton) {
-        activeFilter = filterButton.dataset.keywordFilter || "all";
-        showAllKeywords = false;
-        renderBiblicalKeywords();
-        return;
-      }
+  activeFilter = filterButton.dataset.keywordFilter || "all";
+  showAllKeywords = false;
+  resetKeywordDevotionalPanel();
+  renderBiblicalKeywords();
+  return;
+}
 
       const toggleButton = event.target.closest("#keywordToggleButton");
 
       if (toggleButton) {
-        showAllKeywords = !showAllKeywords;
-        renderBiblicalKeywords();
-        return;
-      }
+  showAllKeywords = !showAllKeywords;
+  resetKeywordDevotionalPanel();
+  renderBiblicalKeywords();
+  return;
+}
 
       if (event.target.closest("[data-lang]")) {
-        setTimeout(renderBiblicalKeywords, 80);
-      }
+  resetKeywordDevotionalPanel();
+  setTimeout(renderBiblicalKeywords, 80);
+}
     });
   })();
 </script>
