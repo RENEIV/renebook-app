@@ -502,7 +502,12 @@
   gap: 10px;
   margin: 18px 0 6px;
 }
-
+.keyword-help-text {
+  margin: 12px 0 4px;
+  color: #dcecff;
+  font-weight: 800;
+  font-size: .98rem;
+}
 .keyword-filter-row button {
   border: 1px solid rgba(134, 201, 255, .32);
   border-radius: 999px;
@@ -665,7 +670,12 @@
       </p>
     </div>
 <div class="keyword-filter-row" id="keywordFilterRow" aria-label="Filtros de palabras bíblicas"></div>
-    <div class="keyword-grid" id="keywordsGrid"></div>
+
+<p class="keyword-help-text" id="keywordHelpText">
+  Toca una palabra para ver su devocional conectado.
+</p>
+
+<div class="keyword-grid" id="keywordsGrid"></div>
     <div class="keyword-more-row">
   <button type="button" id="keywordToggleButton" class="keyword-more-button">
     Ver más palabras
@@ -1387,9 +1397,10 @@ function resetKeywordDevotionalPanel() {
 }
      function renderBiblicalKeywords() {
   const grid = document.getElementById("keywordsGrid");
-  const badge = document.getElementById("keywordsBadge");
-  const title = document.getElementById("keywordsTitle");
-  const lead = document.getElementById("keywordsLead");
+const badge = document.getElementById("keywordsBadge");
+const title = document.getElementById("keywordsTitle");
+const lead = document.getElementById("keywordsLead");
+const helpText = document.getElementById("keywordHelpText");
 
   if (!grid) return;
 
@@ -1415,7 +1426,11 @@ function resetKeywordDevotionalPanel() {
       ? "A first layer of Hebrew, Aramaic, Greek, and Latin words connecting Bible reading with meaning, devotion, and daily application."
       : "Una primera capa de palabras en hebreo, arameo, griego y latín para conectar la lectura bíblica con significado, devoción y aplicación diaria.";
   }
-
+if (helpText) {
+  helpText.textContent = lang === "en"
+    ? "Tap a word to open its connected devotional."
+    : "Toca una palabra para ver su devocional conectado.";
+  }
   if (!items.length) {
     updateToggleButton(lang, 0);
 
