@@ -621,82 +621,140 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
   {
-    day: 24,
-    theme: "community",
-    bookGroup: "Ecclesiastes",
-    es: {
-      reference: "Eclesiastés 4:9",
-      text: "Mejores son dos que uno; porque tienen mejor paga de su trabajo.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Ecclesiastes 4:9",
-      text: "Two are better than one, because they have a good reward for their labor.",
-      version: "WEB"
+  day: 24,
+  theme: "community",
+  bookGroup: "Ecclesiastes",
+  es: {
+    reference: "Eclesiastés 4:9",
+    text: "Mejores son dos que uno; porque tienen mejor paga de su trabajo.",
+    version: "RVR1909",
+    devotional: {
+      title: "Mejores son dos que uno",
+      reflection: "La sabiduría bíblica reconoce el valor de caminar acompañados. Dios usa la comunidad para fortalecer, corregir, animar y sostener el propósito cuando el cansancio llega.",
+      application: "Busca hoy fortalecer una relación sabia con una palabra de ánimo, apoyo o gratitud.",
+      prayer: "Señor, enséñame a caminar en comunidad, a recibir ayuda con humildad y a ser apoyo para otros. Amén."
     }
   },
-  {
-    day: 25,
-    theme: "purpose",
-    bookGroup: "Ecclesiastes",
-    es: {
-      reference: "Eclesiastés 12:13",
-      text: "El fin de todo el discurso oído es este: Teme á Dios, y guarda sus mandamientos; porque esto es el todo del hombre.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Ecclesiastes 12:13",
-      text: "This is the end of the matter. All has been heard. Fear God, and keep his commandments; for this is the whole duty of man.",
-      version: "WEB"
+  en: {
+    reference: "Ecclesiastes 4:9",
+    text: "Two are better than one, because they have a good reward for their labor.",
+    version: "WEB",
+    devotional: {
+      title: "Two Are Better Than One",
+      reflection: "Biblical wisdom recognizes the value of walking with others. God uses community to strengthen, correct, encourage, and sustain purpose when weariness comes.",
+      application: "Strengthen one wise relationship today with a word of encouragement, support, or gratitude.",
+      prayer: "Lord, teach me to walk in community, receive help with humility, and be a support to others. Amen."
+    }
+  }
+},
+{
+  day: 25,
+  theme: "purpose",
+  bookGroup: "Ecclesiastes",
+  es: {
+    reference: "Eclesiastés 12:13",
+    text: "El fin de todo el discurso oído es este: Teme á Dios, y guarda sus mandamientos; porque esto es el todo del hombre.",
+    version: "RVR1909",
+    devotional: {
+      title: "El propósito del hombre",
+      reflection: "Eclesiastés concluye con una verdad sencilla y profunda: temer a Dios y guardar sus mandamientos. La vida encuentra dirección cuando vuelve al centro correcto.",
+      application: "Revisa hoy si tus prioridades están alineadas con honrar a Dios y obedecer su Palabra.",
+      prayer: "Señor, ordena mis prioridades y ayúdame a vivir con propósito, reverencia y obediencia. Amén."
     }
   },
-
-  {
-    day: 26,
-    theme: "asking-wisdom",
-    bookGroup: "James",
-    es: {
-      reference: "Santiago 1:5",
-      text: "Y si alguno de vosotros tiene falta de sabiduría, demándela á Dios, el cual da á todos abundantemente, y no zahiere; y le será dada.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "James 1:5",
-      text: "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach; and it will be given to him.",
-      version: "WEB"
+  en: {
+    reference: "Ecclesiastes 12:13",
+    text: "This is the end of the matter. All has been heard. Fear God, and keep his commandments; for this is the whole duty of man.",
+    version: "WEB",
+    devotional: {
+      title: "The Purpose of Man",
+      reflection: "Ecclesiastes ends with a simple and profound truth: fear God and keep His commandments. Life finds direction when it returns to the right center.",
+      application: "Review today whether your priorities are aligned with honoring God and obeying His Word.",
+      prayer: "Lord, order my priorities and help me live with purpose, reverence, and obedience. Amen."
+    }
+  }
+},
+{
+  day: 26,
+  theme: "asking-wisdom",
+  bookGroup: "James",
+  es: {
+    reference: "Santiago 1:5",
+    text: "Y si alguno de vosotros tiene falta de sabiduría, demándela á Dios, el cual da á todos abundantemente, y no zahiere; y le será dada.",
+    version: "RVR1909",
+    devotional: {
+      title: "Pedir sabiduría",
+      reflection: "Santiago nos recuerda que Dios no retiene sabiduría al corazón que la pide con humildad. La falta de sabiduría no debe llevarnos a la vergüenza, sino a la oración.",
+      application: "Pide hoy sabiduría a Dios para una decisión específica que necesitas tomar.",
+      prayer: "Padre, reconozco mi necesidad de sabiduría. Dame dirección clara y un corazón dispuesto a obedecer. Amén."
     }
   },
-  {
-    day: 27,
-    theme: "good-gifts",
-    bookGroup: "James",
-    es: {
-      reference: "Santiago 1:17",
-      text: "Toda buena dádiva y todo don perfecto es de lo alto, que desciende del Padre de las luces.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "James 1:17",
-      text: "Every good gift and every perfect gift is from above, coming down from the Father of lights.",
-      version: "WEB"
+  en: {
+    reference: "James 1:5",
+    text: "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach; and it will be given to him.",
+    version: "WEB",
+    devotional: {
+      title: "Ask for Wisdom",
+      reflection: "James reminds us that God does not withhold wisdom from the heart that asks with humility. Lacking wisdom should not lead us to shame, but to prayer.",
+      application: "Ask God today for wisdom in one specific decision you need to make.",
+      prayer: "Father, I recognize my need for wisdom. Give me clear direction and a heart willing to obey. Amen."
+    }
+  }
+},
+{
+  day: 27,
+  theme: "good-gifts",
+  bookGroup: "James",
+  es: {
+    reference: "Santiago 1:17",
+    text: "Toda buena dádiva y todo don perfecto es de lo alto, que desciende del Padre de las luces.",
+    version: "RVR1909",
+    devotional: {
+      title: "El Padre de las luces",
+      reflection: "Todo don bueno viene de Dios. Reconocerlo como Padre de las luces nos enseña gratitud, humildad y confianza, porque su bondad no cambia con las sombras de la vida.",
+      application: "Haz hoy una pausa para agradecer tres dones concretos que Dios ha puesto en tu vida.",
+      prayer: "Padre de las luces, gracias por tus buenas dádivas. Enséñame a vivir con gratitud y confianza. Amén."
     }
   },
-  {
-    day: 28,
-    theme: "pure-wisdom",
-    bookGroup: "James",
-    es: {
-      reference: "Santiago 3:17",
-      text: "Mas la sabiduría que es de lo alto, primeramente es pura, después pacífica, modesta, benigna, llena de misericordia y de buenos frutos.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "James 3:17",
-      text: "But the wisdom that is from above is first pure, then peaceful, gentle, reasonable, full of mercy and good fruits.",
-      version: "WEB"
+  en: {
+    reference: "James 1:17",
+    text: "Every good gift and every perfect gift is from above, coming down from the Father of lights.",
+    version: "WEB",
+    devotional: {
+      title: "The Father of Lights",
+      reflection: "Every good gift comes from God. Recognizing Him as the Father of lights teaches us gratitude, humility, and trust, because His goodness does not change with life’s shadows.",
+      application: "Pause today to thank God for three concrete gifts He has placed in your life.",
+      prayer: "Father of lights, thank You for Your good gifts. Teach me to live with gratitude and trust. Amen."
+    }
+  }
+},
+{
+  day: 28,
+  theme: "pure-wisdom",
+  bookGroup: "James",
+  es: {
+    reference: "Santiago 3:17",
+    text: "Mas la sabiduría que es de lo alto, primeramente es pura, después pacífica, modesta, benigna, llena de misericordia y de buenos frutos.",
+    version: "RVR1909",
+    devotional: {
+      title: "Sabiduría de lo alto",
+      reflection: "La sabiduría que viene de Dios se reconoce por su fruto: pureza, paz, mansedumbre, misericordia y bondad. No solo informa la mente; transforma el carácter.",
+      application: "Escoge hoy una reacción pacífica y misericordiosa en una situación donde podrías responder con orgullo.",
+      prayer: "Señor, llena mi vida de la sabiduría que viene de lo alto y produce fruto agradable a ti. Amén."
     }
   },
-
+  en: {
+    reference: "James 3:17",
+    text: "But the wisdom that is from above is first pure, then peaceful, gentle, reasonable, full of mercy and good fruits.",
+    version: "WEB",
+    devotional: {
+      title: "Wisdom from Above",
+      reflection: "The wisdom that comes from God is recognized by its fruit: purity, peace, gentleness, mercy, and goodness. It does not only inform the mind; it transforms character.",
+      application: "Choose a peaceful and merciful response today in a situation where you could react with pride.",
+      prayer: "Lord, fill my life with the wisdom from above and produce fruit that pleases You. Amen."
+    }
+  }
+},
   {
     day: 29,
     theme: "light",
