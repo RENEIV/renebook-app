@@ -80,6 +80,7 @@ window.RENEBOOK_DAILY_VERSES = [
     }
   }
 },
+ {
     day: 4,
     theme: "heart",
     bookGroup: "Proverbs",
