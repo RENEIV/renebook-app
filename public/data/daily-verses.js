@@ -756,48 +756,84 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
   {
-    day: 29,
-    theme: "light",
-    bookGroup: "Teachings of Jesus",
-    es: {
-      reference: "Mateo 5:14",
-      text: "Vosotros sois la luz del mundo: una ciudad asentada sobre un monte no se puede esconder.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Matthew 5:14",
-      text: "You are the light of the world. A city located on a hill can’t be hidden.",
-      version: "WEB"
+  day: 29,
+  theme: "light",
+  bookGroup: "Teachings of Jesus",
+  es: {
+    reference: "Mateo 5:14",
+    text: "Vosotros sois la luz del mundo: una ciudad asentada sobre un monte no se puede esconder.",
+    version: "RVR1909",
+    devotional: {
+      title: "Luz del mundo",
+      reflection: "Jesús llama a sus discípulos luz del mundo. La sabiduría del Reino no se esconde; se vive con humildad, verdad y obras que reflejan la gloria de Dios.",
+      application: "Busca hoy una forma sencilla de reflejar la luz de Cristo con tus palabras o acciones.",
+      prayer: "Señor Jesús, haz brillar tu luz en mi vida para que otros puedan ver tu bondad y glorificar al Padre. Amén."
     }
   },
-  {
-    day: 30,
-    theme: "kingdom",
-    bookGroup: "Teachings of Jesus",
-    es: {
-      reference: "Mateo 6:33",
-      text: "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Matthew 6:33",
-      text: "But seek first God’s Kingdom and his righteousness; and all these things will be given to you as well.",
-      version: "WEB"
-    }
-  },
-  {
-    day: 31,
-    theme: "rest",
-    bookGroup: "Teachings of Jesus",
-    es: {
-      reference: "Mateo 11:28",
-      text: "Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Matthew 11:28",
-      text: "Come to me, all you who labor and are heavily burdened, and I will give you rest.",
-      version: "WEB"
+  en: {
+    reference: "Matthew 5:14",
+    text: "You are the light of the world. A city located on a hill can’t be hidden.",
+    version: "WEB",
+    devotional: {
+      title: "Light of the World",
+      reflection: "Jesus calls His disciples the light of the world. Kingdom wisdom is not hidden; it is lived with humility, truth, and works that reflect God’s glory.",
+      application: "Find one simple way today to reflect the light of Christ through your words or actions.",
+      prayer: "Lord Jesus, let Your light shine through my life so others may see Your goodness and glorify the Father. Amen."
     }
   }
+},
+{
+  day: 30,
+  theme: "kingdom",
+  bookGroup: "Teachings of Jesus",
+  es: {
+    reference: "Mateo 6:33",
+    text: "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",
+    version: "RVR1909",
+    devotional: {
+      title: "Primero el Reino",
+      reflection: "Jesús nos enseña a ordenar las prioridades del corazón. Buscar primero el Reino significa colocar la voluntad de Dios por encima de la ansiedad, la ambición y el afán diario.",
+      application: "Antes de organizar tu día, pregúntate qué decisión refleja mejor el Reino de Dios y su justicia.",
+      prayer: "Señor Jesús, ordena mis prioridades y enséñame a buscar primero tu Reino y tu justicia. Amén."
+    }
+  },
+  en: {
+    reference: "Matthew 6:33",
+    text: "But seek first God’s Kingdom and his righteousness; and all these things will be given to you as well.",
+    version: "WEB",
+    devotional: {
+      title: "First the Kingdom",
+      reflection: "Jesus teaches us to order the priorities of the heart. Seeking first the Kingdom means placing God’s will above anxiety, ambition, and daily worry.",
+      application: "Before organizing your day, ask which decision best reflects God’s Kingdom and His righteousness.",
+      prayer: "Lord Jesus, order my priorities and teach me to seek first Your Kingdom and Your righteousness. Amen."
+    }
+  }
+},
+{
+  day: 31,
+  theme: "rest",
+  bookGroup: "Teachings of Jesus",
+  es: {
+    reference: "Mateo 11:28",
+    text: "Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.",
+    version: "RVR1909",
+    devotional: {
+      title: "Descanso para el alma",
+      reflection: "Jesús no llama solamente a los fuertes, sino también a los cansados y cargados. Su sabiduría nos invita a dejar el peso del alma en sus manos y recibir descanso verdadero.",
+      application: "Entrega hoy a Cristo una carga específica que has estado llevando solo.",
+      prayer: "Señor Jesús, vengo a ti con mis cargas. Dame descanso, paz y confianza en tu cuidado. Amén."
+    }
+  },
+  en: {
+    reference: "Matthew 11:28",
+    text: "Come to me, all you who labor and are heavily burdened, and I will give you rest.",
+    version: "WEB",
+    devotional: {
+      title: "Rest for the Soul",
+      reflection: "Jesus does not call only the strong, but also the weary and burdened. His wisdom invites us to place the weight of the soul in His hands and receive true rest.",
+      application: "Give Christ one specific burden today that you have been carrying alone.",
+      prayer: "Lord Jesus, I come to You with my burdens. Give me rest, peace, and confidence in Your care. Amen."
+    }
+  }
+}
 ];
