@@ -81,81 +81,141 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
  {
-    day: 4,
-    theme: "heart",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 4:23",
-      text: "Sobre toda cosa guardada guarda tu corazón; Porque de él mana la vida.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 4:23",
-      text: "Keep your heart with all diligence, for out of it is the wellspring of life.",
-      version: "WEB"
+  day: 4,
+  theme: "heart",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 4:23",
+    text: "Sobre toda cosa guardada guarda tu corazón; Porque de él mana la vida.",
+    version: "RVR1909",
+    devotional: {
+      title: "Guarda tu corazón",
+      reflection: "El corazón es el centro de los deseos, pensamientos y decisiones. Proverbios nos recuerda que la vida fluye desde lo que permitimos entrar y permanecer dentro de nosotros.",
+      application: "Revisa hoy qué pensamientos, conversaciones o contenidos están formando tu corazón.",
+      prayer: "Señor, guarda mi corazón de todo lo que me aleja de ti y llénalo de tu verdad. Amén."
     }
   },
-  {
-    day: 5,
-    theme: "reverence",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 9:10",
-      text: "El temor de Jehová es el principio de la sabiduría; Y la ciencia de los santos es inteligencia.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 9:10",
-      text: "The fear of Yahweh is the beginning of wisdom. The knowledge of the Holy One is understanding.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 4:23",
+    text: "Keep your heart with all diligence, for out of it is the wellspring of life.",
+    version: "WEB",
+    devotional: {
+      title: "Guard Your Heart",
+      reflection: "The heart is the center of desires, thoughts, and decisions. Proverbs reminds us that life flows from what we allow to enter and remain within us.",
+      application: "Review today what thoughts, conversations, or content are shaping your heart.",
+      prayer: "Lord, guard my heart from anything that draws me away from You and fill it with Your truth. Amen."
+    }
+  }
+},
+{
+  day: 5,
+  theme: "reverence",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 9:10",
+    text: "El temor de Jehová es el principio de la sabiduría; Y la ciencia de los santos es inteligencia.",
+    version: "RVR1909",
+    devotional: {
+      title: "Reverencia que forma sabiduría",
+      reflection: "La sabiduría verdadera comienza cuando reconocemos que Dios es santo, bueno y digno de obediencia. La reverencia ordena el alma y nos enseña a vivir con discernimiento.",
+      application: "Antes de actuar hoy, reconoce la presencia de Dios y decide honrarlo en lo pequeño.",
+      prayer: "Señor, enséñame a vivir con reverencia, obediencia y entendimiento delante de ti. Amén."
     }
   },
-  {
-    day: 6,
-    theme: "love",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 10:12",
-      text: "El odio despierta rencillas: Mas la caridad cubrirá todas las faltas.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 10:12",
-      text: "Hatred stirs up strife, but love covers all wrongs.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 9:10",
+    text: "The fear of Yahweh is the beginning of wisdom. The knowledge of the Holy One is understanding.",
+    version: "WEB",
+    devotional: {
+      title: "Reverence That Forms Wisdom",
+      reflection: "True wisdom begins when we recognize that God is holy, good, and worthy of obedience. Reverence orders the soul and teaches us to live with discernment.",
+      application: "Before acting today, acknowledge God’s presence and choose to honor Him in small things.",
+      prayer: "Lord, teach me to live with reverence, obedience, and understanding before You. Amen."
+    }
+  }
+},
+{
+  day: 6,
+  theme: "love",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 10:12",
+    text: "El odio despierta rencillas: Mas la caridad cubrirá todas las faltas.",
+    version: "RVR1909",
+    devotional: {
+      title: "El amor cubre la falta",
+      reflection: "El odio alimenta el conflicto, pero el amor busca restaurar, perdonar y guardar la paz. La sabiduría bíblica nos llama a responder con gracia cuando sería más fácil herir.",
+      application: "Escoge hoy una respuesta de amor en una situación donde podrías reaccionar con dureza.",
+      prayer: "Señor, llena mi corazón de amor, perdón y gracia para vivir en paz con otros. Amén."
     }
   },
-  {
-    day: 7,
-    theme: "generosity",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 11:25",
-      text: "El alma liberal será engordada: Y el que saciare, él también será saciado.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 11:25",
-      text: "The generous soul will be made rich. He who waters will also be watered himself.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 10:12",
+    text: "Hatred stirs up strife, but love covers all wrongs.",
+    version: "WEB",
+    devotional: {
+      title: "Love Covers Wrong",
+      reflection: "Hatred feeds conflict, but love seeks restoration, forgiveness, and peace. Biblical wisdom calls us to respond with grace when it would be easier to wound.",
+      application: "Choose a loving response today in a situation where you could react harshly.",
+      prayer: "Lord, fill my heart with love, forgiveness, and grace so I may live at peace with others. Amen."
+    }
+  }
+},
+{
+  day: 7,
+  theme: "generosity",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 11:25",
+    text: "El alma liberal será engordada: Y el que saciare, él también será saciado.",
+    version: "RVR1909",
+    devotional: {
+      title: "La bendición de dar",
+      reflection: "La generosidad bíblica no empobrece el alma; la ensancha. Quien refresca a otros también es renovado por Dios, porque la sabiduría vive con manos abiertas.",
+      application: "Busca hoy una forma concreta de animar, ayudar o bendecir a alguien.",
+      prayer: "Señor, hazme generoso con mi tiempo, mis palabras y mis recursos. Amén."
     }
   },
-  {
-    day: 8,
-    theme: "words",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 15:1",
-      text: "La blanda respuesta quita la ira: Mas la palabra áspera hace subir el furor.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 15:1",
-      text: "A gentle answer turns away wrath, but a harsh word stirs up anger.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 11:25",
+    text: "The generous soul will be made rich. He who waters will also be watered himself.",
+    version: "WEB",
+    devotional: {
+      title: "The Blessing of Giving",
+      reflection: "Biblical generosity does not impoverish the soul; it enlarges it. The one who refreshes others is also renewed by God, because wisdom lives with open hands.",
+      application: "Find one concrete way today to encourage, help, or bless someone.",
+      prayer: "Lord, make me generous with my time, my words, and my resources. Amen."
+    }
+  }
+},
+{
+  day: 8,
+  theme: "words",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 15:1",
+    text: "La blanda respuesta quita la ira: Mas la palabra áspera hace subir el furor.",
+    version: "RVR1909",
+    devotional: {
+      title: "Palabras que traen paz",
+      reflection: "Una palabra suave puede apagar un fuego que una respuesta dura habría encendido. La sabiduría se nota en la forma en que hablamos bajo presión.",
+      application: "Antes de responder hoy, haz una pausa y escoge palabras que construyan paz.",
+      prayer: "Señor, guarda mi lengua y enséñame a hablar con mansedumbre, verdad y gracia. Amén."
     }
   },
-  {
+  en: {
+    reference: "Proverbs 15:1",
+    text: "A gentle answer turns away wrath, but a harsh word stirs up anger.",
+    version: "WEB",
+    devotional: {
+      title: "Words That Bring Peace",
+      reflection: "A gentle word can put out a fire that a harsh answer would have ignited. Wisdom is revealed in the way we speak under pressure.",
+      application: "Before responding today, pause and choose words that build peace.",
+      prayer: "Lord, guard my tongue and teach me to speak with gentleness, truth, and grace. Amen."
+    }
+  }
+},
+ {
     day: 9,
     theme: "commitment",
     bookGroup: "Proverbs",
