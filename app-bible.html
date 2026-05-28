@@ -397,6 +397,89 @@
       .verses-list { padding: 16px; border-radius: 22px; }
       .reader-verse { font-size: 1.02rem; line-height: 1.74; }
     }
+    /* Wisdom Books Section */
+.wisdom-books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.wisdom-book-card {
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.13);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(242,201,107,.10), transparent 28%),
+    linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.04));
+  box-shadow: 0 18px 42px rgba(0,0,0,.22);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.wisdom-book-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(242, 201, 107, .58);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(242,201,107,.16), transparent 28%),
+    linear-gradient(145deg, rgba(134,201,255,.11), rgba(255,255,255,.055));
+  box-shadow: 0 22px 52px rgba(0,0,0,.3);
+}
+
+.wisdom-book-card h3 {
+  margin-bottom: 8px;
+}
+
+.wisdom-book-card p {
+  color: #dcecff;
+}
+
+.wisdom-book-status {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #061425;
+  background: linear-gradient(135deg, var(--gold), #ffe49a);
+  font-size: .78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.wisdom-book-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(134, 201, 255, .32);
+  color: var(--text);
+  background: rgba(255,255,255,.075);
+  font-weight: 900;
+}
+
+.wisdom-book-card.is-active .wisdom-book-button {
+  color: #061425;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--sky), var(--cyan));
+}
+
+.wisdom-book-card.is-coming-soon {
+  opacity: .86;
+}
+
+@media (max-width: 980px) {
+  .wisdom-books-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .wisdom-books-grid {
+    grid-template-columns: 1fr;
+  }
+}
   /* Biblical Keywords Section */
 .keywords-panel {
   padding: 24px;
@@ -655,7 +738,23 @@
 
   <div class="kids-grid" id="kidsGrid"></div>
 </section>
+<section class="shell section" id="wisdom-books">
+  <div class="keywords-panel">
+    <div class="section-head">
+      <span class="eyebrow" id="wisdomBooksBadge">📚 Libros de sabiduría</span>
 
+      <h2 id="wisdomBooksTitle">
+        Una colección bíblica para crecer en sabiduría.
+      </h2>
+
+      <p id="wisdomBooksLead">
+        Explora Proverbios y los próximos libros de sabiduría que serán añadidos a Renebook.
+      </p>
+    </div>
+
+    <div class="wisdom-books-grid" id="wisdomBooksGrid"></div>
+  </div>
+</section>
 <section class="shell section" id="biblical-keywords">
   <div class="keywords-panel">
     <div class="section-head">
@@ -719,8 +818,8 @@
   <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
 
   <script src="/data/proverbs.js?v=20260512-2"></script>
-  <script src="/data/biblical-keywords.js?v=20260514-1"></script>
-  <script>
+<script src="/data/biblical-keywords.js?v=20260514-1"></script>
+<script src="/data/wisdom-books.js?v=20260527-1"></script>
     (function () {
       "use strict";
 
@@ -857,6 +956,7 @@
         updateLanguageButtons();
         renderReader();
         renderKids();
+        renderWisdomBooks();
         updateLinks();
       }
 
@@ -1087,6 +1187,72 @@ function renderKids() {
         <button class="btn btn-secondary" type="button" data-kid-c="${kid.c}" data-kid-v="${kid.v}">
           ${btnText}
         </button>
+      </article>
+    `;
+  }).join("");
+}
+            function renderWisdomBooks() {
+  const grid = $("wisdomBooksGrid");
+  const badge = $("wisdomBooksBadge");
+  const title = $("wisdomBooksTitle");
+  const lead = $("wisdomBooksLead");
+
+  if (!grid) return;
+
+  const books = Array.isArray(window.RENEBOOK_WISDOM_BOOKS)
+    ? window.RENEBOOK_WISDOM_BOOKS.slice().sort((a, b) => Number(a.order) - Number(b.order))
+    : [];
+
+  if (badge) {
+    badge.textContent = state.lang === "en"
+      ? "📚 Wisdom books"
+      : "📚 Libros de sabiduría";
+  }
+
+  if (title) {
+    title.textContent = state.lang === "en"
+      ? "A biblical collection to grow in wisdom."
+      : "Una colección bíblica para crecer en sabiduría.";
+  }
+
+  if (lead) {
+    lead.textContent = state.lang === "en"
+      ? "Explore Proverbs and the next wisdom books that will be added to Renebook."
+      : "Explora Proverbios y los próximos libros de sabiduría que serán añadidos a Renebook.";
+  }
+
+  if (!books.length) {
+    grid.innerHTML = `
+      <article class="wisdom-book-card">
+        <h3>${state.lang === "en" ? "Wisdom books not loaded yet" : "Libros no cargados todavía"}</h3>
+        <p>${state.lang === "en" ? "Check /data/wisdom-books.js." : "Revisa /data/wisdom-books.js."}</p>
+      </article>
+    `;
+    return;
+  }
+
+  grid.innerHTML = books.map((book) => {
+    const local = book[state.lang] || book.es || book.en;
+    const isActive = book.status === "active";
+    const statusText = isActive
+      ? (state.lang === "en" ? "Available" : "Disponible")
+      : (state.lang === "en" ? "Coming soon" : "Próximamente");
+
+    const cardClass = isActive
+      ? "wisdom-book-card is-active"
+      : "wisdom-book-card is-coming-soon";
+
+    const action = isActive && book.route
+      ? `<a class="wisdom-book-button" href="${escapeHTML(book.route)}">${escapeHTML(local.button)}</a>`
+      : `<span class="wisdom-book-button">${escapeHTML(local.button)}</span>`;
+
+    return `
+      <article class="${cardClass}">
+        <span class="wisdom-book-status">${escapeHTML(statusText)}</span>
+        <h3>${escapeHTML(local.name)}</h3>
+        <p><strong>${escapeHTML(local.subtitle)}</strong></p>
+        <p>${escapeHTML(local.description)}</p>
+        ${action}
       </article>
     `;
   }).join("");
