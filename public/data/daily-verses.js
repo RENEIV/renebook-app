@@ -216,81 +216,140 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
  {
-    day: 9,
-    theme: "commitment",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 16:3",
-      text: "Encomienda á Jehová tus obras, Y tus pensamientos serán afirmados.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 16:3",
-      text: "Commit your deeds to Yahweh, and your plans shall succeed.",
-      version: "WEB"
+  day: 9,
+  theme: "commitment",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 16:3",
+    text: "Encomienda á Jehová tus obras, Y tus pensamientos serán afirmados.",
+    version: "RVR1909",
+    devotional: {
+      title: "Encomienda tus obras",
+      reflection: "La sabiduría aprende a entregar sus planes a Dios. Encomendar nuestras obras a Jehová significa trabajar con responsabilidad, pero descansar en su dirección.",
+      application: "Pon hoy delante de Dios un proyecto, decisión o responsabilidad importante.",
+      prayer: "Señor, encomiendo mis obras a ti. Afirma mis pensamientos y guía mis decisiones. Amén."
     }
   },
-  {
-    day: 10,
-    theme: "friendship",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 17:17",
-      text: "En todo tiempo ama el amigo; Y el hermano para la angustia es nacido.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 17:17",
-      text: "A friend loves at all times; and a brother is born for adversity.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 16:3",
+    text: "Commit your deeds to Yahweh, and your plans shall succeed.",
+    version: "WEB",
+    devotional: {
+      title: "Commit Your Work",
+      reflection: "Wisdom learns to place its plans before God. Committing our work to Yahweh means laboring with responsibility while resting in His direction.",
+      application: "Place one project, decision, or responsibility before God today.",
+      prayer: "Lord, I commit my work to You. Establish my thoughts and guide my decisions. Amen."
+    }
+  }
+},
+{
+  day: 10,
+  theme: "friendship",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 17:17",
+    text: "En todo tiempo ama el amigo; Y el hermano para la angustia es nacido.",
+    version: "RVR1909",
+    devotional: {
+      title: "Amistad fiel",
+      reflection: "La amistad sabia no aparece solo en tiempos fáciles. El verdadero amor permanece, acompaña y fortalece cuando llega la angustia.",
+      application: "Envía hoy una palabra de ánimo a alguien que necesita saber que no está solo.",
+      prayer: "Señor, ayúdame a ser un amigo fiel, presente y lleno de gracia. Amén."
     }
   },
-
-  {
-    day: 11,
-    theme: "meditation",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 1:1",
-      text: "Bienaventurado el varón que no anduvo en consejo de malos, Ni estuvo en camino de pecadores, Ni en silla de escarnecedores se ha sentado.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 1:1",
-      text: "Blessed is the man who doesn’t walk in the counsel of the wicked, nor stand on the path of sinners, nor sit in the seat of scoffers.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 17:17",
+    text: "A friend loves at all times; and a brother is born for adversity.",
+    version: "WEB",
+    devotional: {
+      title: "Faithful Friendship",
+      reflection: "Wise friendship does not appear only in easy times. True love remains, walks alongside, and strengthens when adversity comes.",
+      application: "Send a word of encouragement today to someone who needs to know they are not alone.",
+      prayer: "Lord, help me be a faithful, present, and grace-filled friend. Amen."
+    }
+  }
+},
+{
+  day: 11,
+  theme: "meditation",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 1:1",
+    text: "Bienaventurado el varón que no anduvo en consejo de malos, Ni estuvo en camino de pecadores, Ni en silla de escarnecedores se ha sentado.",
+    version: "RVR1909",
+    devotional: {
+      title: "El camino del bienaventurado",
+      reflection: "El Salmo 1 muestra que la bendición comienza con dirección. No todo consejo edifica, no todo camino conviene y no toda compañía forma sabiduría.",
+      application: "Evalúa hoy qué voces están influyendo tu manera de pensar y caminar.",
+      prayer: "Señor, guíame por el camino de tu verdad y líbrame del consejo que aparta mi corazón de ti. Amén."
     }
   },
-  {
-    day: 12,
-    theme: "speech",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 19:14",
-      text: "Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti, Oh Jehová, roca mía, y redentor mío.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 19:14",
-      text: "Let the words of my mouth and the meditation of my heart be acceptable in your sight, Yahweh, my rock, and my redeemer.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 1:1",
+    text: "Blessed is the man who doesn’t walk in the counsel of the wicked, nor stand on the path of sinners, nor sit in the seat of scoffers.",
+    version: "WEB",
+    devotional: {
+      title: "The Way of the Blessed",
+      reflection: "Psalm 1 shows that blessing begins with direction. Not every counsel builds up, not every path is fitting, and not every influence forms wisdom.",
+      application: "Evaluate today which voices are shaping the way you think and walk.",
+      prayer: "Lord, guide me in the way of Your truth and keep me from counsel that turns my heart away from You. Amen."
+    }
+  }
+},
+{
+  day: 12,
+  theme: "speech",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 19:14",
+    text: "Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti, Oh Jehová, roca mía, y redentor mío.",
+    version: "RVR1909",
+    devotional: {
+      title: "Palabras y meditación",
+      reflection: "Dios no solo escucha nuestras palabras; también conoce la meditación del corazón. La sabiduría une lo que pensamos con lo que hablamos delante del Señor.",
+      application: "Antes de hablar hoy, pide que tus palabras sean agradables delante de Dios.",
+      prayer: "Jehová, roca mía y redentor mío, purifica mis pensamientos y mis palabras. Amén."
     }
   },
-  {
-    day: 13,
-    theme: "care",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 23:1",
-      text: "Jehová es mi pastor; nada me faltará.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 23:1",
-      text: "Yahweh is my shepherd: I shall lack nothing.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 19:14",
+    text: "Let the words of my mouth and the meditation of my heart be acceptable in your sight, Yahweh, my rock, and my redeemer.",
+    version: "WEB",
+    devotional: {
+      title: "Words and Meditation",
+      reflection: "God does not only hear our words; He also knows the meditation of the heart. Wisdom brings together what we think and what we speak before the Lord.",
+      application: "Before speaking today, ask that your words may be pleasing before God.",
+      prayer: "Yahweh, my rock and my redeemer, purify my thoughts and my words. Amen."
+    }
+  }
+},
+{
+  day: 13,
+  theme: "care",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 23:1",
+    text: "Jehová es mi pastor; nada me faltará.",
+    version: "RVR1909",
+    devotional: {
+      title: "Nada me faltará",
+      reflection: "Cuando Jehová es nuestro Pastor, la vida no depende solo de lo que tenemos, sino de quién nos guía. Su cuidado sostiene el alma aun en temporadas inciertas.",
+      application: "Descansa hoy recordando que Dios conoce tus necesidades antes que tú puedas explicarlas.",
+      prayer: "Jehová, Pastor de mi vida, guíame, susténtame y enséñame a descansar en tu cuidado. Amén."
     }
   },
+  en: {
+    reference: "Psalm 23:1",
+    text: "Yahweh is my shepherd: I shall lack nothing.",
+    version: "WEB",
+    devotional: {
+      title: "I Shall Lack Nothing",
+      reflection: "When Yahweh is our Shepherd, life does not depend only on what we possess, but on who is guiding us. His care sustains the soul even in uncertain seasons.",
+      application: "Rest today remembering that God knows your needs before you can explain them.",
+      prayer: "Yahweh, Shepherd of my life, guide me, sustain me, and teach me to rest in Your care. Amen."
+    }
+  }
+},
   {
     day: 14,
     theme: "confidence",
