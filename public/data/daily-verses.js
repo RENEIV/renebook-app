@@ -1,50 +1,85 @@
 window.RENEBOOK_DAILY_VERSES = [
-  {
-    day: 1,
-    theme: "wisdom",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 1:7",
-      text: "El principio de la sabiduría es el temor de Jehová: Los insensatos desprecian la sabiduría y la enseñanza.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 1:7",
-      text: "The fear of Yahweh is the beginning of knowledge; but the foolish despise wisdom and instruction.",
-      version: "WEB"
+ {
+  day: 1,
+  theme: "wisdom",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 1:7",
+    text: "El principio de la sabiduría es el temor de Jehová: Los insensatos desprecian la sabiduría y la enseñanza.",
+    version: "RVR1909",
+    devotional: {
+      title: "La sabiduría comienza con reverencia",
+      reflection: "La sabiduría bíblica no empieza solamente con información, sino con un corazón que reconoce a Dios como Señor. Cuando el alma aprende a reverenciar a Jehová, también aprende a caminar con humildad, dirección y discernimiento.",
+      application: "Antes de tomar una decisión hoy, detente un momento y pregúntate si esa decisión honra a Dios.",
+      prayer: "Señor, enséñame a vivir con reverencia y a recibir tu sabiduría con humildad. Amén."
     }
   },
-  {
-    day: 2,
-    theme: "understanding",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 2:6",
-      text: "Porque Jehová da la sabiduría, Y de su boca viene el conocimiento y la inteligencia.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 2:6",
-      text: "For Yahweh gives wisdom. Out of his mouth comes knowledge and understanding.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 1:7",
+    text: "The fear of Yahweh is the beginning of knowledge; but the foolish despise wisdom and instruction.",
+    version: "WEB",
+    devotional: {
+      title: "Wisdom Begins with Reverence",
+      reflection: "Biblical wisdom does not begin merely with information, but with a heart that recognizes God as Lord. When the soul learns to reverence Yahweh, it also learns to walk with humility, direction, and discernment.",
+      application: "Before making a decision today, pause and ask whether that decision honors God.",
+      prayer: "Lord, teach me to live with reverence and to receive Your wisdom with humility. Amen."
+    }
+  }
+},
+    {
+  day: 2,
+  theme: "understanding",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 2:6",
+    text: "Porque Jehová da la sabiduría, Y de su boca viene el conocimiento y la inteligencia.",
+    version: "RVR1909",
+    devotional: {
+      title: "Dios da entendimiento",
+      reflection: "La verdadera inteligencia no nace solo de la experiencia humana, sino de escuchar la voz de Dios. Proverbios enseña que Jehová da sabiduría, y que su Palabra forma una mente clara y un corazón prudente.",
+      application: "Lee hoy la Palabra con atención, no solo para aprender, sino para ser formado por Dios.",
+      prayer: "Señor, dame conocimiento, inteligencia y un corazón dispuesto a obedecer tu dirección. Amén."
     }
   },
-  {
-    day: 3,
-    theme: "trust",
-    bookGroup: "Proverbs",
-    es: {
-      reference: "Proverbios 3:5-6",
-      text: "Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia. Reconócelo en todos tus caminos, Y él enderezará tus veredas.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Proverbs 3:5-6",
-      text: "Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
-      version: "WEB"
+  en: {
+    reference: "Proverbs 2:6",
+    text: "For Yahweh gives wisdom. Out of his mouth comes knowledge and understanding.",
+    version: "WEB",
+    devotional: {
+      title: "God Gives Understanding",
+      reflection: "True understanding does not come only from human experience, but from listening to God’s voice. Proverbs teaches that Yahweh gives wisdom, and His Word forms a clear mind and a prudent heart.",
+      application: "Read God’s Word today with attention, not only to learn, but to be formed by Him.",
+      prayer: "Lord, give me knowledge, understanding, and a heart willing to obey Your direction. Amen."
+    }
+  }
+},
+    {
+  day: 3,
+  theme: "trust",
+  bookGroup: "Proverbs",
+  es: {
+    reference: "Proverbios 3:5-6",
+    text: "Fíate de Jehová de todo tu corazón, Y no estribes en tu prudencia. Reconócelo en todos tus caminos, Y él enderezará tus veredas.",
+    version: "RVR1909",
+    devotional: {
+      title: "Confiar más que controlar",
+      reflection: "Confiar en Jehová significa entregar el peso del corazón a su dirección. La sabiduría no consiste en controlar cada resultado, sino en reconocer a Dios en cada camino y caminar bajo su guía.",
+      application: "Entrega hoy una preocupación específica al Señor y da un paso de obediencia con paz.",
+      prayer: "Padre, ayúdame a confiar en ti con todo mi corazón y a reconocer tu dirección en mis caminos. Amén."
     }
   },
-  {
+  en: {
+    reference: "Proverbs 3:5-6",
+    text: "Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.",
+    version: "WEB",
+    devotional: {
+      title: "Trust More Than Control",
+      reflection: "Trusting Yahweh means placing the weight of the heart under His direction. Wisdom is not controlling every outcome, but acknowledging God in every path and walking under His guidance.",
+      application: "Give one specific concern to the Lord today and take one step of obedience with peace.",
+      prayer: "Father, help me trust You with all my heart and acknowledge Your direction in my ways. Amen."
+    }
+  }
+},
     day: 4,
     theme: "heart",
     bookGroup: "Proverbs",
