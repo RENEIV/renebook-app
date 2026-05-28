@@ -351,81 +351,140 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
   {
-    day: 14,
-    theme: "confidence",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 27:1",
-      text: "Jehová es mi luz y mi salvación; ¿de quién temeré? Jehová es la fortaleza de mi vida; ¿de quién he de atemorizarme?",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 27:1",
-      text: "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
-      version: "WEB"
+  day: 14,
+  theme: "confidence",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 27:1",
+    text: "Jehová es mi luz y mi salvación; ¿de quién temeré? Jehová es la fortaleza de mi vida; ¿de quién he de atemorizarme?",
+    version: "RVR1909",
+    devotional: {
+      title: "Luz en medio del temor",
+      reflection: "El salmista no niega la presencia del temor, pero afirma una verdad mayor: Jehová es luz, salvación y fortaleza. Cuando Dios ilumina el camino, el miedo pierde autoridad sobre el corazón.",
+      application: "Identifica hoy un temor específico y preséntalo delante de Dios en oración.",
+      prayer: "Jehová, sé mi luz, mi salvación y mi fortaleza. Ayúdame a caminar con confianza en ti. Amén."
     }
   },
-  {
-    day: 15,
-    theme: "goodness",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 34:8",
-      text: "Gustad, y ved que es bueno Jehová: Dichoso el hombre que confiará en él.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 34:8",
-      text: "Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 27:1",
+    text: "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
+    version: "WEB",
+    devotional: {
+      title: "Light in the Midst of Fear",
+      reflection: "The psalmist does not deny the presence of fear, but declares a greater truth: Yahweh is light, salvation, and strength. When God lights the way, fear loses authority over the heart.",
+      application: "Identify one specific fear today and bring it before God in prayer.",
+      prayer: "Yahweh, be my light, my salvation, and my strength. Help me walk with confidence in You. Amen."
+    }
+  }
+},
+{
+  day: 15,
+  theme: "goodness",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 34:8",
+    text: "Gustad, y ved que es bueno Jehová: Dichoso el hombre que confiará en él.",
+    version: "RVR1909",
+    devotional: {
+      title: "Probar la bondad de Dios",
+      reflection: "La bondad de Dios no es solo una idea para creer, sino una realidad para experimentar. El salmo invita a acercarnos, confiar y descubrir que Jehová es bueno para el alma que busca refugio en él.",
+      application: "Recuerda hoy una evidencia concreta de la bondad de Dios en tu vida.",
+      prayer: "Señor, abre mis ojos para reconocer tu bondad y confiar más profundamente en ti. Amén."
     }
   },
-  {
-    day: 16,
-    theme: "direction",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 37:5",
-      text: "Encomienda á Jehová tu camino, Y espera en él; y él hará.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 37:5",
-      text: "Commit your way to Yahweh. Trust also in him, and he will do this.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 34:8",
+    text: "Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him.",
+    version: "WEB",
+    devotional: {
+      title: "Taste God’s Goodness",
+      reflection: "God’s goodness is not only an idea to believe, but a reality to experience. The psalm invites us to draw near, trust, and discover that Yahweh is good to the soul that takes refuge in Him.",
+      application: "Remember one concrete evidence of God’s goodness in your life today.",
+      prayer: "Lord, open my eyes to recognize Your goodness and trust You more deeply. Amen."
+    }
+  }
+},
+{
+  day: 16,
+  theme: "direction",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 37:5",
+    text: "Encomienda á Jehová tu camino, Y espera en él; y él hará.",
+    version: "RVR1909",
+    devotional: {
+      title: "Entregar el camino",
+      reflection: "Encomendar el camino a Jehová es más que pedir ayuda; es rendir la dirección de la vida a su voluntad. La sabiduría aprende a confiar, esperar y dejar que Dios obre en su tiempo.",
+      application: "Entrega hoy a Dios una decisión que has intentado controlar con tus propias fuerzas.",
+      prayer: "Jehová, encomiendo mi camino a ti. Enséñame a esperar con fe y obedecer con paz. Amén."
     }
   },
-  {
-    day: 17,
-    theme: "time",
-    bookGroup: "Psalms",
-    es: {
-      reference: "Salmos 90:12",
-      text: "Enséñanos de tal modo á contar nuestros días, Que traigamos al corazón sabiduría.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Psalm 90:12",
-      text: "So teach us to count our days, that we may gain a heart of wisdom.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 37:5",
+    text: "Commit your way to Yahweh. Trust also in him, and he will do this.",
+    version: "WEB",
+    devotional: {
+      title: "Surrender the Way",
+      reflection: "Committing your way to Yahweh is more than asking for help; it is surrendering the direction of life to His will. Wisdom learns to trust, wait, and let God work in His time.",
+      application: "Give God one decision today that you have tried to control in your own strength.",
+      prayer: "Yahweh, I commit my way to You. Teach me to wait with faith and obey with peace. Amen."
+    }
+  }
+},
+{
+  day: 17,
+  theme: "time",
+  bookGroup: "Psalms",
+  es: {
+    reference: "Salmos 90:12",
+    text: "Enséñanos de tal modo á contar nuestros días, Que traigamos al corazón sabiduría.",
+    version: "RVR1909",
+    devotional: {
+      title: "Contar los días con sabiduría",
+      reflection: "Reconocer la brevedad de la vida no debe producir temor, sino sabiduría. Cuando Dios nos enseña a contar nuestros días, aprendemos a vivir con propósito, humildad y discernimiento.",
+      application: "Usa hoy tu tiempo en algo que tenga valor eterno y edifique a otros.",
+      prayer: "Señor, enséñame a contar mis días y a vivir con un corazón lleno de sabiduría. Amén."
     }
   },
-
-  {
-    day: 18,
-    theme: "surrender",
-    bookGroup: "Job",
-    es: {
-      reference: "Job 1:21",
-      text: "Jehová dió, y Jehová quitó: sea el nombre de Jehová bendito.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Job 1:21",
-      text: "Yahweh gave, and Yahweh has taken away. Blessed be Yahweh’s name.",
-      version: "WEB"
+  en: {
+    reference: "Psalm 90:12",
+    text: "So teach us to count our days, that we may gain a heart of wisdom.",
+    version: "WEB",
+    devotional: {
+      title: "Number the Days with Wisdom",
+      reflection: "Recognizing the brevity of life should not produce fear, but wisdom. When God teaches us to number our days, we learn to live with purpose, humility, and discernment.",
+      application: "Use your time today for something that carries eternal value and builds others up.",
+      prayer: "Lord, teach me to number my days and to live with a heart full of wisdom. Amen."
+    }
+  }
+},
+{
+  day: 18,
+  theme: "surrender",
+  bookGroup: "Job",
+  es: {
+    reference: "Job 1:21",
+    text: "Jehová dió, y Jehová quitó: sea el nombre de Jehová bendito.",
+    version: "RVR1909",
+    devotional: {
+      title: "Adorar en la pérdida",
+      reflection: "Job nos muestra una fe que no depende solamente de recibir, sino de reconocer a Dios aun en la pérdida. La sabiduría madura aprende a bendecir el nombre de Jehová en toda temporada.",
+      application: "Presenta hoy delante de Dios una pérdida, una preocupación o una carga que todavía pesa en tu corazón.",
+      prayer: "Jehová, ayúdame a adorarte en toda temporada y a confiar en tu fidelidad aun cuando no entiendo. Amén."
     }
   },
+  en: {
+    reference: "Job 1:21",
+    text: "Yahweh gave, and Yahweh has taken away. Blessed be Yahweh’s name.",
+    version: "WEB",
+    devotional: {
+      title: "Worship in Loss",
+      reflection: "Job shows us a faith that does not depend only on receiving, but on recognizing God even in loss. Mature wisdom learns to bless the name of Yahweh in every season.",
+      application: "Bring before God today one loss, concern, or burden that still weighs on your heart.",
+      prayer: "Yahweh, help me worship You in every season and trust Your faithfulness even when I do not understand. Amen."
+    }
+  }
+},
   {
     day: 19,
     theme: "hope",
