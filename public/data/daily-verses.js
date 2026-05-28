@@ -486,81 +486,140 @@ window.RENEBOOK_DAILY_VERSES = [
   }
 },
   {
-    day: 19,
-    theme: "hope",
-    bookGroup: "Job",
-    es: {
-      reference: "Job 19:25",
-      text: "Yo sé que mi Redentor vive, Y al fin se levantará sobre el polvo.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Job 19:25",
-      text: "But as for me, I know that my Redeemer lives. In the end, he will stand upon the earth.",
-      version: "WEB"
+  day: 19,
+  theme: "hope",
+  bookGroup: "Job",
+  es: {
+    reference: "Job 19:25",
+    text: "Yo sé que mi Redentor vive, Y al fin se levantará sobre el polvo.",
+    version: "RVR1909",
+    devotional: {
+      title: "Mi Redentor vive",
+      reflection: "La esperanza de Job nace en medio del dolor. Aunque no entiende todo lo que ocurre, declara una verdad firme: su Redentor vive. La sabiduría sostiene la fe cuando las circunstancias no dan respuestas fáciles.",
+      application: "Afirma hoy tu esperanza en Dios, aun si todavía hay preguntas sin resolver.",
+      prayer: "Señor, fortalece mi fe y ayúdame a descansar en la verdad de que mi Redentor vive. Amén."
     }
   },
-  {
-    day: 20,
-    theme: "testing",
-    bookGroup: "Job",
-    es: {
-      reference: "Job 23:10",
-      text: "Mas él conoció mi camino: Probaráme, y saldré como oro.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Job 23:10",
-      text: "But he knows the way that I take. When he has tried me, I will come out like gold.",
-      version: "WEB"
+  en: {
+    reference: "Job 19:25",
+    text: "But as for me, I know that my Redeemer lives. In the end, he will stand upon the earth.",
+    version: "WEB",
+    devotional: {
+      title: "My Redeemer Lives",
+      reflection: "Job’s hope rises in the middle of pain. Even when he does not understand everything that is happening, he declares a firm truth: his Redeemer lives. Wisdom sustains faith when circumstances offer no easy answers.",
+      application: "Anchor your hope in God today, even if some questions remain unanswered.",
+      prayer: "Lord, strengthen my faith and help me rest in the truth that my Redeemer lives. Amen."
+    }
+  }
+},
+{
+  day: 20,
+  theme: "testing",
+  bookGroup: "Job",
+  es: {
+    reference: "Job 23:10",
+    text: "Mas él conoció mi camino: Probaráme, y saldré como oro.",
+    version: "RVR1909",
+    devotional: {
+      title: "Probado como oro",
+      reflection: "La prueba no siempre significa abandono. Job reconoce que Dios conoce su camino y que aun el proceso difícil puede producir una fe más pura, firme y valiosa.",
+      application: "Mira una dificultad actual como una oportunidad para crecer en paciencia, fidelidad y confianza.",
+      prayer: "Señor, purifica mi corazón en medio de la prueba y hazme salir con una fe más fuerte. Amén."
     }
   },
-  {
-    day: 21,
-    theme: "fear-of-the-lord",
-    bookGroup: "Job",
-    es: {
-      reference: "Job 28:28",
-      text: "Y dijo al hombre: He aquí que el temor del Señor es la sabiduría, Y el apartarse del mal la inteligencia.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Job 28:28",
-      text: "To man he said, ‘Behold, the fear of the Lord, that is wisdom. To depart from evil is understanding.’",
-      version: "WEB"
+  en: {
+    reference: "Job 23:10",
+    text: "But he knows the way that I take. When he has tried me, I will come out like gold.",
+    version: "WEB",
+    devotional: {
+      title: "Tested Like Gold",
+      reflection: "Testing does not always mean abandonment. Job recognizes that God knows his way, and even a difficult process can produce faith that is purer, stronger, and more precious.",
+      application: "View one current difficulty as an opportunity to grow in patience, faithfulness, and trust.",
+      prayer: "Lord, purify my heart in the testing and bring me forth with stronger faith. Amen."
+    }
+  }
+},
+{
+  day: 21,
+  theme: "fear-of-the-lord",
+  bookGroup: "Job",
+  es: {
+    reference: "Job 28:28",
+    text: "Y dijo al hombre: He aquí que el temor del Señor es la sabiduría, Y el apartarse del mal la inteligencia.",
+    version: "RVR1909",
+    devotional: {
+      title: "Apartarse del mal",
+      reflection: "Job conecta la sabiduría con el temor del Señor y la inteligencia con apartarse del mal. La sabiduría verdadera no solo piensa correctamente; también escoge caminos limpios delante de Dios.",
+      application: "Identifica hoy una actitud, hábito o decisión de la cual necesitas apartarte para honrar a Dios.",
+      prayer: "Señor, dame temor santo, inteligencia espiritual y fuerza para apartarme de todo mal. Amén."
     }
   },
-
-  {
-    day: 22,
-    theme: "season",
-    bookGroup: "Ecclesiastes",
-    es: {
-      reference: "Eclesiastés 3:1",
-      text: "Para todas las cosas hay sazón, y todo lo que se quiere debajo del cielo, tiene su tiempo.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Ecclesiastes 3:1",
-      text: "For everything there is a season, and a time for every purpose under heaven.",
-      version: "WEB"
+  en: {
+    reference: "Job 28:28",
+    text: "To man he said, ‘Behold, the fear of the Lord, that is wisdom. To depart from evil is understanding.’",
+    version: "WEB",
+    devotional: {
+      title: "Turn Away from Evil",
+      reflection: "Job connects wisdom with the fear of the Lord and understanding with turning away from evil. True wisdom does not only think rightly; it also chooses clean paths before God.",
+      application: "Identify one attitude, habit, or decision you need to turn away from in order to honor God.",
+      prayer: "Lord, give me holy reverence, spiritual understanding, and strength to turn away from every evil. Amen."
+    }
+  }
+},
+{
+  day: 22,
+  theme: "season",
+  bookGroup: "Ecclesiastes",
+  es: {
+    reference: "Eclesiastés 3:1",
+    text: "Para todas las cosas hay sazón, y todo lo que se quiere debajo del cielo, tiene su tiempo.",
+    version: "RVR1909",
+    devotional: {
+      title: "Cada cosa tiene su tiempo",
+      reflection: "Eclesiastés nos enseña que la vida tiene temporadas. La sabiduría no fuerza todo al mismo tiempo; aprende a discernir, esperar y caminar con Dios en cada estación.",
+      application: "Pregúntate hoy qué temporada estás viviendo y qué obediencia corresponde a este tiempo.",
+      prayer: "Señor, dame discernimiento para reconocer los tiempos y caminar fielmente en tu voluntad. Amén."
     }
   },
-  {
-    day: 23,
-    theme: "wisdom-protection",
-    bookGroup: "Ecclesiastes",
-    es: {
-      reference: "Eclesiastés 7:12",
-      text: "Porque escudo es la sabiduría, y escudo es el dinero: mas la sabiduría excede, en que da vida á sus poseedores.",
-      version: "RVR1909"
-    },
-    en: {
-      reference: "Ecclesiastes 7:12",
-      text: "For wisdom is a defense, even as money is a defense; but the excellency of knowledge is that wisdom preserves the life of him who has it.",
-      version: "WEB"
+  en: {
+    reference: "Ecclesiastes 3:1",
+    text: "For everything there is a season, and a time for every purpose under heaven.",
+    version: "WEB",
+    devotional: {
+      title: "Everything Has Its Season",
+      reflection: "Ecclesiastes teaches us that life has seasons. Wisdom does not force everything at once; it learns to discern, wait, and walk with God in each season.",
+      application: "Ask yourself what season you are living in and what obedience belongs to this moment.",
+      prayer: "Lord, give me discernment to recognize the times and walk faithfully in Your will. Amen."
+    }
+  }
+},
+{
+  day: 23,
+  theme: "wisdom-protection",
+  bookGroup: "Ecclesiastes",
+  es: {
+    reference: "Eclesiastés 7:12",
+    text: "Porque escudo es la sabiduría, y escudo es el dinero: mas la sabiduría excede, en que da vida á sus poseedores.",
+    version: "RVR1909",
+    devotional: {
+      title: "La sabiduría da vida",
+      reflection: "Eclesiastés reconoce que hay recursos que protegen, pero afirma que la sabiduría tiene una excelencia mayor: da vida. La sabiduría de Dios protege el alma, dirige las decisiones y preserva el camino.",
+      application: "Busca hoy una decisión sabia que proteja tu paz, tu familia o tu propósito.",
+      prayer: "Señor, dame sabiduría que proteja mi vida y dirija mis pasos hacia lo que te agrada. Amén."
     }
   },
+  en: {
+    reference: "Ecclesiastes 7:12",
+    text: "For wisdom is a defense, even as money is a defense; but the excellency of knowledge is that wisdom preserves the life of him who has it.",
+    version: "WEB",
+    devotional: {
+      title: "Wisdom Gives Life",
+      reflection: "Ecclesiastes recognizes that some resources can protect, but it declares that wisdom has a greater excellence: it gives life. God’s wisdom protects the soul, directs decisions, and preserves the path.",
+      application: "Seek one wise decision today that protects your peace, your family, or your purpose.",
+      prayer: "Lord, give me wisdom that protects my life and directs my steps toward what pleases You. Amen."
+    }
+  }
+},
   {
     day: 24,
     theme: "community",
