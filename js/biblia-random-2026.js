@@ -150,3 +150,123 @@
       : "Volver a Renebook";
   }
 }
+function renderRandomExperience() {
+  const lang = getLang();
+
+  const verses = Array.isArray(window.RENEBOOK_RANDOM_WISDOM_VERSES)
+    ? window.RENEBOOK_RANDOM_WISDOM_VERSES
+    : [];
+
+  const verse = getRandomItem(verses);
+  const match = getMatchOfTheDay();
+
+  const verseReference = $("randomVerseReference");
+  const verseText = $("randomVerseText");
+  const verseTheme = $("randomVerseTheme");
+  const matchTitle = $("matchTitle");
+  const matchDetails = $("matchDetails");
+  const matchLocation = $("matchLocation");
+
+  if (verse) {
+    const localVerse = verse[lang] || verse.es || verse.en || {};
+
+    if (verseReference) verseReference.textContent = localVerse.reference || "";
+    if (verseText) verseText.textContent = localVerse.text || "";
+
+    if (verseTheme) {
+      const title = localVerse.title || "";
+      const version = localVerse.version || "";
+      verseTheme.textContent = title && version
+        ? `${title} · ${version}`
+        : title || version || "";
+    }
+  } else {
+    if (verseReference) {
+      verseReference.textContent = lang === "en"
+        ? "Wisdom data not loaded"
+        : "Sabiduría no cargada";
+    }
+
+    if (verseText) {
+      verseText.textContent = lang === "en"
+        ? "Check /data/wisdom-random-verses.js."
+        : "Revisa /data/wisdom-random-verses.js.";
+    }
+
+    if (verseTheme) verseTheme.textContent = "Renebook";
+  }
+
+  if (match) {
+    const localMatch = match[lang] || match.es || match.en || {};
+
+    if (matchTitle) matchTitle.textContent = localMatch.title || "";
+
+    if (matchDetails) {
+      const dateText = match.date ? formatDate(match.date, lang) : "";
+      const stageText = match.stage || "";
+      const teamsText = localMatch.teams || "";
+
+      matchDetails.textContent = [teamsText, stageText, dateText]
+        .filter(Boolean)
+        .join(" · ");
+    }
+
+    if (matchLocation) {
+      const location = localMatch.location || "";
+      const note = localMatch.note || "";
+
+      matchLocation.textContent = note
+        ? `${location} — ${note}`
+        : location;
+    }
+  } else {
+    if (matchTitle) {
+      matchTitle.textContent = lang === "en"
+        ? "Match data not loaded"
+        : "Partidos no cargados";
+    }
+
+    if (matchDetails) {
+      matchDetails.textContent = lang === "en"
+        ? "Check /data/worldcup-2026-matches.js."
+        : "Revisa /data/worldcup-2026-matches.js.";
+    }
+
+    if (matchLocation) matchLocation.textContent = "Renebook";
+  }
+}
+
+function formatDate(dateString, lang) {
+  try {
+    const date = new Date(dateString + "T12:00:00");
+
+    return date.toLocaleDateString(lang === "en" ? "en-US" : "es-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  } catch (error) {
+    return dateString;
+  }
+}
+
+function bindEvents() {
+  const playBtn = $("randomPlayBtn");
+
+  if (playBtn) {
+    playBtn.addEventListener("click", renderRandomExperience);
+  }
+}
+
+function init() {
+  renderInitialLanguage();
+  bindEvents();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+})();
