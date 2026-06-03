@@ -1135,6 +1135,7 @@
         renderReader();
         renderKids();
         renderWisdomBooks();
+        renderDailyVerse();
         updateLinks();
       }
 
@@ -1435,6 +1436,152 @@ function renderKids() {
     `;
   }).join("");
 }
+       function getDailyVerse() {
+  const verses = Array.isArray(window.RENEBOOK_DAILY_VERSES)
+    ? window.RENEBOOK_DAILY_VERSES
+    : [];
+
+  if (!verses.length) return null;
+
+  const today = new Date();
+  const day = today.getDate();
+  const index = (day - 1) % verses.length;
+
+  return verses[index];
+}
+
+function renderDailyVerse() {
+  const item = getDailyVerse();
+
+  const badge = $("dailyVerseBadge");
+  const reference = $("dailyVerseReference");
+  const text = $("dailyVerseText");
+  const version = $("dailyVerseVersion");
+  const devotionalTitle = $("dailyVerseDevotionalTitle");
+  const reflection = $("dailyVerseReflection");
+  const application = $("dailyVerseApplication");
+  const prayer = $("dailyVersePrayer");
+  const openBtn = $("openDailyVerseBtn");
+  const copyBtn = $("copyDailyVerseBtn");
+
+  if (!badge || !reference || !text || !version) return;
+
+  const lang = state.lang === "en" ? "en" : "es";
+
+  badge.textContent = lang === "en"
+    ? "✨ Daily Verse"
+    : "✨ Verso del Día";
+
+  if (!item) {
+    reference.textContent = lang === "en"
+      ? "Daily verse not loaded yet"
+      : "Verso diario no cargado todavía";
+
+    text.textContent = lang === "en"
+      ? "Check /data/daily-verses.js."
+      : "Revisa /data/daily-verses.js.";
+
+    version.textContent = "Renebook";
+
+    return;
+  }
+
+  const local = item[lang] || item.es || item.en || {};
+  const devotional = local.devotional || {};
+
+  reference.textContent = local.reference || "";
+  text.textContent = local.text || "";
+  version.textContent = "Renebook · " + (local.version || "");
+
+  if (devotionalTitle) {
+    devotionalTitle.textContent = devotional.title || (
+      lang === "en" ? "Short devotional" : "Devocional breve"
+    );
+  }
+
+  if (reflection) {
+    reflection.textContent = devotional.reflection || "";
+  }
+
+  if (application) {
+    application.textContent = devotional.application
+      ? (lang === "en" ? "Application: " : "Aplicación: ") + devotional.application
+      : "";
+  }
+
+  if (prayer) {
+    prayer.textContent = devotional.prayer
+      ? (lang === "en" ? "Prayer: " : "Oración: ") + devotional.prayer
+      : "";
+  }
+
+  if (openBtn) {
+    openBtn.textContent = lang === "en"
+      ? "Open in reader"
+      : "Abrir en el lector";
+  }
+
+  if (copyBtn) {
+    copyBtn.textContent = lang === "en"
+      ? "Copy verse"
+      : "Copiar verso";
+  }
+}
+
+function openDailyVerseInReader() {
+  const item = getDailyVerse();
+  if (!item) return;
+
+  const lang = state.lang === "en" ? "en" : "es";
+  const local = item[lang] || item.es || item.en || {};
+  const ref = String(local.reference || "");
+
+  const match = ref.match(/(\d{1,2})\s*[:.]\s*(\d{1,2})/);
+
+  if (!match) {
+    showToast(lang === "en" ? "Reference not found." : "Referencia no encontrada.");
+    return;
+  }
+
+  const chapter = Number(match[1]);
+  const verse = Number(match[2]);
+
+  state.chapter = chapter;
+  state.highlightedVerse = { c: chapter, v: verse };
+  state.lastTopic = null;
+
+  localStorage.setItem(CHAPTER_KEY, String(chapter));
+  renderReader();
+
+  setTimeout(() => {
+    const target = document.getElementById(`rb-verse-${chapter}-${verse}`);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 120);
+}
+
+function copyDailyVerse() {
+  const item = getDailyVerse();
+  if (!item) return;
+
+  const lang = state.lang === "en" ? "en" : "es";
+  const local = item[lang] || item.es || item.en || {};
+  const devotional = local.devotional || {};
+
+  const textToCopy = `${local.reference || ""}
+${local.text || ""}
+
+${devotional.title || ""}
+
+${devotional.reflection || ""}
+
+${devotional.application || ""}
+
+${devotional.prayer || ""}
+
+Renebook.org`;
+
+  copyText(textToCopy);
+}
       function updateProgress() {
         const read = getReadSet();
         const total = 31;
@@ -1593,8 +1740,16 @@ function renderKids() {
         $("markReadBtn").addEventListener("click", markRead);
         $("copyChapterBtn").addEventListener("click", () => copyText(getCurrentChapterText()));
         $("copyDevotionalBtn").addEventListener("click", () => copyText($("devotionalCard").dataset.copyText || ""));
-      }
+      const openDailyVerseBtn = $("openDailyVerseBtn");
+if (openDailyVerseBtn) {
+  openDailyVerseBtn.addEventListener("click", openDailyVerseInReader);
+}
 
+const copyDailyVerseBtn = $("copyDailyVerseBtn");
+if (copyDailyVerseBtn) {
+  copyDailyVerseBtn.addEventListener("click", copyDailyVerse);
+}
+}
       function init() {
         const initialLang = getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
         const savedChapter = Number(localStorage.getItem(CHAPTER_KEY) || 1);
