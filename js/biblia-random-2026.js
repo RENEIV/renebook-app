@@ -150,9 +150,37 @@
       : "Volver a Renebook";
   }
 }
+  function launchCelebration() {
+  const existingLayer = document.querySelector(".confetti-layer");
+  if (existingLayer) existingLayer.remove();
+
+  const layer = document.createElement("div");
+  layer.className = "confetti-layer";
+
+  const icons = ["⚽", "🏆", "✨", "🎉", "⭐"];
+  const total = 38;
+
+  for (let i = 0; i < total; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.animationDelay = Math.random() * 0.7 + "s";
+    piece.style.fontSize = 1.15 + Math.random() * 1.2 + "rem";
+
+    layer.appendChild(piece);
+  }
+
+  document.body.appendChild(layer);
+
+  setTimeout(() => {
+    layer.remove();
+  }, 3600);
+}
 function renderRandomExperience() {
   const lang = getLang();
-
+launchCelebration();
   const verses = Array.isArray(window.RENEBOOK_RANDOM_WISDOM_VERSES)
     ? window.RENEBOOK_RANDOM_WISDOM_VERSES
     : [];
