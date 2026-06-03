@@ -41,187 +41,112 @@
   }
 
   function renderInitialLanguage() {
-    const lang = getLang();
+  const lang = getLang();
 
-    const playBtn = $("randomPlayBtn");
-    const verseReference = $("randomVerseReference");
-    const verseText = $("randomVerseText");
-    const verseTheme = $("randomVerseTheme");
-    const matchTitle = $("matchTitle");
-    const matchDetails = $("matchDetails");
-    const matchLocation = $("matchLocation");
+  document.documentElement.lang = lang;
 
-    if (playBtn) {
-      playBtn.textContent = lang === "en"
-        ? "▶ Play Wisdom + Match of the Day"
-        : "▶ Play Sabiduría + Partido del Día";
-    }
+  const brandSubtitle = document.querySelector(".brand-row span");
+  const eyebrow = document.querySelector(".eyebrow");
+  const title = document.querySelector("h1");
+  const lead = document.querySelector(".lead");
+  const resultLabels = document.querySelectorAll(".result-label");
+  const links = document.querySelectorAll(".secondary-link");
 
-    if (verseReference) {
-      verseReference.textContent = lang === "en"
-        ? "Biblical Wisdom"
-        : "Sabiduría bíblica";
-    }
+  const playBtn = $("randomPlayBtn");
+  const verseReference = $("randomVerseReference");
+  const verseText = $("randomVerseText");
+  const verseTheme = $("randomVerseTheme");
+  const matchTitle = $("matchTitle");
+  const matchDetails = $("matchDetails");
+  const matchLocation = $("matchLocation");
 
-    if (verseText) {
-      verseText.textContent = lang === "en"
-        ? "A biblical word of wisdom will appear here."
-        : "Aquí aparecerá una palabra bíblica de sabiduría.";
-    }
-
-    if (verseTheme) {
-      verseTheme.textContent = lang === "en"
-        ? "Daily wisdom"
-        : "Sabiduría diaria";
-    }
-
-    if (matchTitle) {
-      matchTitle.textContent = lang === "en"
-        ? "World Cup 2026"
-        : "Mundial 2026";
-    }
-
-    if (matchDetails) {
-      matchDetails.textContent = lang === "en"
-        ? "The featured match of the day will appear here."
-        : "Aquí aparecerá el partido destacado del día.";
-    }
-
-    if (matchLocation) {
-      matchLocation.textContent = lang === "en"
-        ? "United States · Mexico · Canada"
-        : "Estados Unidos · México · Canadá";
-    }
+  if (brandSubtitle) {
+    brandSubtitle.textContent = lang === "en"
+      ? "Bible Random World Cup 2026"
+      : "Biblia Random Mundial 2026";
   }
 
-  function renderRandomExperience() {
-    const lang = getLang();
-
-    const verses = Array.isArray(window.RENEBOOK_RANDOM_WISDOM_VERSES)
-      ? window.RENEBOOK_RANDOM_WISDOM_VERSES
-      : [];
-
-    const verse = getRandomItem(verses);
-    const match = getMatchOfTheDay();
-
-    const verseReference = $("randomVerseReference");
-    const verseText = $("randomVerseText");
-    const verseTheme = $("randomVerseTheme");
-    const matchTitle = $("matchTitle");
-    const matchDetails = $("matchDetails");
-    const matchLocation = $("matchLocation");
-
-    if (verse) {
-      const localVerse = verse[lang] || verse.es || verse.en || {};
-
-      if (verseReference) {
-        verseReference.textContent = localVerse.reference || "";
-      }
-
-      if (verseText) {
-        verseText.textContent = localVerse.text || "";
-      }
-
-      if (verseTheme) {
-        const title = localVerse.title || "";
-        const version = localVerse.version || "";
-        verseTheme.textContent = title && version
-          ? `${title} · ${version}`
-          : title || version || "";
-      }
-    } else {
-      if (verseReference) {
-        verseReference.textContent = lang === "en"
-          ? "Wisdom data not loaded"
-          : "Sabiduría no cargada";
-      }
-
-      if (verseText) {
-        verseText.textContent = lang === "en"
-          ? "Check /data/wisdom-random-verses.js."
-          : "Revisa /data/wisdom-random-verses.js.";
-      }
-
-      if (verseTheme) {
-        verseTheme.textContent = "Renebook";
-      }
-    }
-
-    if (match) {
-      const localMatch = match[lang] || match.es || match.en || {};
-
-      if (matchTitle) {
-        matchTitle.textContent = localMatch.title || "";
-      }
-
-      if (matchDetails) {
-        const dateText = match.date ? formatDate(match.date, lang) : "";
-        const stageText = match.stage || "";
-        const teamsText = localMatch.teams || "";
-
-        matchDetails.textContent = [teamsText, stageText, dateText]
-          .filter(Boolean)
-          .join(" · ");
-      }
-
-      if (matchLocation) {
-        const location = localMatch.location || "";
-        const note = localMatch.note || "";
-
-        matchLocation.textContent = note
-          ? `${location} — ${note}`
-          : location;
-      }
-    } else {
-      if (matchTitle) {
-        matchTitle.textContent = lang === "en"
-          ? "Match data not loaded"
-          : "Partidos no cargados";
-      }
-
-      if (matchDetails) {
-        matchDetails.textContent = lang === "en"
-          ? "Check /data/worldcup-2026-matches.js."
-          : "Revisa /data/worldcup-2026-matches.js.";
-      }
-
-      if (matchLocation) {
-        matchLocation.textContent = "Renebook";
-      }
-    }
+  if (eyebrow) {
+    eyebrow.textContent = lang === "en"
+      ? "⚽ Biblical Wisdom + World Cup 2026"
+      : "⚽ Sabiduría bíblica + Mundial 2026";
   }
 
-  function formatDate(dateString, lang) {
-    try {
-      const date = new Date(dateString + "T12:00:00");
-
-      return date.toLocaleDateString(lang === "en" ? "en-US" : "es-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-    } catch (error) {
-      return dateString;
-    }
+  if (title) {
+    title.textContent = lang === "en"
+      ? "Bible Random World Cup 2026"
+      : "Biblia Random Mundial 2026";
   }
 
-  function bindEvents() {
-    const playBtn = $("randomPlayBtn");
-
-    if (playBtn) {
-      playBtn.addEventListener("click", renderRandomExperience);
-    }
+  if (lead) {
+    lead.textContent = lang === "en"
+      ? "Tap play to receive a biblical word of wisdom and see the featured match of the day."
+      : "Toca play para recibir una palabra bíblica de sabiduría y ver el partido destacado del día.";
   }
 
-  function init() {
-    renderInitialLanguage();
-    bindEvents();
+  if (playBtn) {
+    playBtn.textContent = lang === "en"
+      ? "▶ Play Wisdom + Match of the Day"
+      : "▶ Play Sabiduría + Partido del Día";
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
+  if (resultLabels[0]) {
+    resultLabels[0].textContent = lang === "en"
+      ? "📜 Biblical word"
+      : "📜 Palabra bíblica";
   }
-})();
+
+  if (resultLabels[1]) {
+    resultLabels[1].textContent = lang === "en"
+      ? "🏟️ Match of the day"
+      : "🏟️ Partido del día";
+  }
+
+  if (verseReference) {
+    verseReference.textContent = lang === "en"
+      ? "Biblical Wisdom"
+      : "Sabiduría bíblica";
+  }
+
+  if (verseText) {
+    verseText.textContent = lang === "en"
+      ? "A biblical word of wisdom will appear here."
+      : "Aquí aparecerá una palabra bíblica de sabiduría.";
+  }
+
+  if (verseTheme) {
+    verseTheme.textContent = lang === "en"
+      ? "Daily wisdom"
+      : "Sabiduría diaria";
+  }
+
+  if (matchTitle) {
+    matchTitle.textContent = lang === "en"
+      ? "World Cup 2026"
+      : "Mundial 2026";
+  }
+
+  if (matchDetails) {
+    matchDetails.textContent = lang === "en"
+      ? "The featured match of the day will appear here."
+      : "Aquí aparecerá el partido destacado del día.";
+  }
+
+  if (matchLocation) {
+    matchLocation.textContent = lang === "en"
+      ? "United States · Mexico · Canada"
+      : "Estados Unidos · México · Canadá";
+  }
+
+  if (links[0]) {
+    links[0].textContent = lang === "en"
+      ? "Open Bible App"
+      : "Abrir App Biblia";
+  }
+
+  if (links[1]) {
+    links[1].textContent = lang === "en"
+      ? "Back to Renebook"
+      : "Volver a Renebook";
+  }
+}
