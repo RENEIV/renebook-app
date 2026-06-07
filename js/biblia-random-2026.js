@@ -225,28 +225,40 @@ launchCelebration();
   }
 
   if (match) {
-    const localMatch = match[lang] || match.es || match.en || {};
+  const localMatch = match[lang] || match.es || match.en || {};
 
-    if (matchTitle) matchTitle.textContent = localMatch.title || "";
+  const homeName = match.home ? (match.home[lang] || match.home.es || "") : "";
+  const awayName = match.away ? (match.away[lang] || match.away.es || "") : "";
+  const homeFlag = match.home ? (match.home.flag || "") : "";
+  const awayFlag = match.away ? (match.away.flag || "") : "";
+  const stadiumText = match.stadium ? (match.stadium[lang] || match.stadium.es || "") : (localMatch.location || "");
+  const kickoffText = match.kickoffUtc ? formatKickoffTime(match.kickoffUtc, lang) : "";
 
-    if (matchDetails) {
-      const dateText = match.date ? formatDate(match.date, lang) : "";
-      const stageText = match.stage || "";
-      const teamsText = localMatch.teams || "";
-
-      matchDetails.textContent = [teamsText, stageText, dateText]
-        .filter(Boolean)
-        .join(" · ");
+  if (matchTitle) {
+    if (homeName || awayName) {
+      matchTitle.textContent = `${homeFlag} ${homeName} vs ${awayName} ${awayFlag}`.trim();
+    } else {
+      matchTitle.textContent = localMatch.title || "";
     }
+  }
 
-    if (matchLocation) {
-      const location = localMatch.location || "";
-      const note = localMatch.note || "";
+  if (matchDetails) {
+    const stageText = match.stage || "";
+    const teamsText = localMatch.teams || "";
 
-      matchLocation.textContent = note
-        ? `${location} — ${note}`
-        : location;
-    }
+    matchDetails.textContent = [kickoffText, stageText, teamsText]
+      .filter(Boolean)
+      .join(" · ");
+  }
+
+  if (matchLocation) {
+    const note = localMatch.note || "";
+
+    matchLocation.textContent = note
+      ? `${stadiumText} — ${note}`
+      : stadiumText;
+  }
+}
   } else {
     if (matchTitle) {
       matchTitle.textContent = lang === "en"
@@ -263,7 +275,21 @@ launchCelebration();
     if (matchLocation) matchLocation.textContent = "Renebook";
   }
 }
+function formatKickoffTime(kickoffUtc, lang) {
+  try {
+    const date = new Date(kickoffUtc);
 
+    return date.toLocaleString(lang === "en" ? "en-US" : "es-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZoneName: "short"
+    });
+  } catch (error) {
+    return kickoffUtc;
+  }
+}
 function formatDate(dateString, lang) {
   try {
     const date = new Date(dateString + "T12:00:00");
