@@ -180,7 +180,8 @@
 }
 function renderRandomExperience() {
   const lang = getLang();
-launchCelebration();
+
+  launchCelebration();
   const verses = Array.isArray(window.RENEBOOK_RANDOM_WISDOM_VERSES)
     ? window.RENEBOOK_RANDOM_WISDOM_VERSES
     : [];
@@ -258,7 +259,6 @@ launchCelebration();
       ? `${stadiumText} — ${note}`
       : stadiumText;
   }
-}
   } else {
     if (matchTitle) {
       matchTitle.textContent = lang === "en"
