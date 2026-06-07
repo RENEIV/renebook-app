@@ -226,75 +226,234 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       location: "Monterrey Stadium · Monterrey",
       note: "Final Group A match."
     }
-  },
-  {
+  },  {
     id: 7,
-    date: "2026-06-23",
+    matchNumber: 3,
+    date: "2026-06-12",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-12T19:00:00Z",
     stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "CAN",
+      flag: "🇨🇦",
+      es: "Canadá",
+      en: "Canada"
+    },
+    away: {
+      code: "BIH",
+      flag: "🇧🇦",
+      es: "Bosnia y Herzegovina",
+      en: "Bosnia and Herzegovina"
+    },
+    stadium: {
+      es: "Toronto Stadium · Toronto",
+      en: "Toronto Stadium · Toronto"
+    },
     es: {
-      title: "Portugal vs Uzbekistán",
-      teams: "Portugal vs Uzbekistán",
-      location: "Houston · Estados Unidos",
-      note: "Una jornada para recordar que el liderazgo verdadero necesita humildad y dirección."
+      title: "Canadá vs Bosnia y Herzegovina",
+      teams: "Canadá vs Bosnia y Herzegovina",
+      location: "Toronto Stadium · Toronto",
+      note: "Primer partido del Grupo B."
     },
     en: {
-      title: "Portugal vs Uzbekistan",
-      teams: "Portugal vs Uzbekistan",
-      location: "Houston · United States",
-      note: "A day to remember that true leadership needs humility and direction."
+      title: "Canada vs Bosnia and Herzegovina",
+      teams: "Canada vs Bosnia and Herzegovina",
+      location: "Toronto Stadium · Toronto",
+      note: "First match of Group B."
     }
   },
   {
     id: 8,
-    date: "2026-06-27",
+    matchNumber: 5,
+    date: "2026-06-13",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-13T19:00:00Z",
     stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "QAT",
+      flag: "🇶🇦",
+      es: "Qatar",
+      en: "Qatar"
+    },
+    away: {
+      code: "SUI",
+      flag: "🇨🇭",
+      es: "Suiza",
+      en: "Switzerland"
+    },
+    stadium: {
+      es: "San Francisco Bay Stadium · Santa Clara",
+      en: "San Francisco Bay Stadium · Santa Clara"
+    },
     es: {
-      title: "Jordania vs Argentina",
-      teams: "Jordania vs Argentina",
-      location: "Dallas Stadium · Arlington, Texas",
-      note: "Un encuentro para reflexionar sobre valentía, oportunidad y propósito."
+      title: "Qatar vs Suiza",
+      teams: "Qatar vs Suiza",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Partido del Grupo B."
     },
     en: {
-      title: "Jordan vs Argentina",
-      teams: "Jordan vs Argentina",
-      location: "Dallas Stadium · Arlington, Texas",
-      note: "A matchup for reflecting on courage, opportunity, and purpose."
+      title: "Qatar vs Switzerland",
+      teams: "Qatar vs Switzerland",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Group B match."
     }
   },
   {
     id: 9,
-    date: "2026-06-30",
-    stage: "Round of 32",
+    matchNumber: 26,
+    date: "2026-06-18",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-18T19:00:00Z",
+    stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "SUI",
+      flag: "🇨🇭",
+      es: "Suiza",
+      en: "Switzerland"
+    },
+    away: {
+      code: "BIH",
+      flag: "🇧🇦",
+      es: "Bosnia y Herzegovina",
+      en: "Bosnia and Herzegovina"
+    },
+    stadium: {
+      es: "Los Angeles Stadium · Los Angeles",
+      en: "Los Angeles Stadium · Los Angeles"
+    },
     es: {
-      title: "Inicio de eliminación directa",
-      teams: "Ronda de 32",
-      location: "Sedes del Mundial 2026",
-      note: "Cuando aumenta la presión, la sabiduría bíblica llama a caminar con firmeza y dominio propio."
+      title: "Suiza vs Bosnia y Herzegovina",
+      teams: "Suiza vs Bosnia y Herzegovina",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "Partido del Grupo B."
     },
     en: {
-      title: "Knockout Stage Begins",
-      teams: "Round of 32",
-      location: "World Cup 2026 host cities",
-      note: "When pressure rises, biblical wisdom calls us to walk with steadiness and self-control."
+      title: "Switzerland vs Bosnia and Herzegovina",
+      teams: "Switzerland vs Bosnia and Herzegovina",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "Group B match."
     }
   },
   {
     id: 10,
-    date: "2026-07-19",
-    stage: "Final",
+    matchNumber: 27,
+    date: "2026-06-18",
+    officialTime: "18:00 ET",
+    kickoffUtc: "2026-06-18T22:00:00Z",
+    stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "CAN",
+      flag: "🇨🇦",
+      es: "Canadá",
+      en: "Canada"
+    },
+    away: {
+      code: "QAT",
+      flag: "🇶🇦",
+      es: "Qatar",
+      en: "Qatar"
+    },
+    stadium: {
+      es: "BC Place Vancouver · Vancouver",
+      en: "BC Place Vancouver · Vancouver"
+    },
     es: {
-      title: "Final del Mundial 2026",
-      teams: "Final",
-      location: "NYNJ Stadium · New Jersey",
-      note: "El cierre del torneo recuerda que toda meta requiere camino, disciplina y perseverancia."
+      title: "Canadá vs Qatar",
+      teams: "Canadá vs Qatar",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Segundo partido de Canadá en el Grupo B."
     },
     en: {
-      title: "World Cup 2026 Final",
-      teams: "Final",
-      location: "NYNJ Stadium · New Jersey",
-      note: "The end of the tournament reminds us that every goal requires a path, discipline, and perseverance."
+      title: "Canada vs Qatar",
+      teams: "Canada vs Qatar",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Canada’s second match in Group B."
     }
-  }
+  },
+  {
+    id: 11,
+    matchNumber: 49,
+    date: "2026-06-24",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-24T19:00:00Z",
+    stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "SUI",
+      flag: "🇨🇭",
+      es: "Suiza",
+      en: "Switzerland"
+    },
+    away: {
+      code: "CAN",
+      flag: "🇨🇦",
+      es: "Canadá",
+      en: "Canada"
+    },
+    stadium: {
+      es: "BC Place Vancouver · Vancouver",
+      en: "BC Place Vancouver · Vancouver"
+    },
+    es: {
+      title: "Suiza vs Canadá",
+      teams: "Suiza vs Canadá",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Partido final del Grupo B para Canadá."
+    },
+    en: {
+      title: "Switzerland vs Canada",
+      teams: "Switzerland vs Canada",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Canada’s final Group B match."
+    }
+  },
+  {
+    id: 12,
+    matchNumber: 50,
+    date: "2026-06-24",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-24T19:00:00Z",
+    stage: "Group Stage",
+    group: "B",
+    source: "FIFA",
+    home: {
+      code: "BIH",
+      flag: "🇧🇦",
+      es: "Bosnia y Herzegovina",
+      en: "Bosnia and Herzegovina"
+    },
+    away: {
+      code: "QAT",
+      flag: "🇶🇦",
+      es: "Qatar",
+      en: "Qatar"
+    },
+    stadium: {
+      es: "Seattle Stadium · Seattle",
+      en: "Seattle Stadium · Seattle"
+    },
+    es: {
+      title: "Bosnia y Herzegovina vs Qatar",
+      teams: "Bosnia y Herzegovina vs Qatar",
+      location: "Seattle Stadium · Seattle",
+      note: "Partido final del Grupo B."
+    },
+    en: {
+      title: "Bosnia and Herzegovina vs Qatar",
+      teams: "Bosnia and Herzegovina vs Qatar",
+      location: "Seattle Stadium · Seattle",
+      note: "Final Group B match."
+    }
+  },
 ];
 
 console.log("✅ Renebook World Cup 2026 matches loaded:", window.RENEBOOK_WORLDCUP_2026_MATCHES);
