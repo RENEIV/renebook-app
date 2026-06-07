@@ -1,7 +1,6 @@
 window.RENEBOOK_WORLDCUP_2026_MATCHES = [
- {
+  {
     id: 1,
-    matchNumber: 1,
     date: "2026-06-11",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-11T19:00:00Z",
@@ -10,13 +9,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "MEX",
-      flag: "🇲🇽",
+      flag: "MEX",
       es: "México",
       en: "Mexico"
     },
     away: {
       code: "RSA",
-      flag: "🇿🇦",
+      flag: "RSA",
       es: "Sudáfrica",
       en: "South Africa"
     },
@@ -39,7 +38,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 2,
-    matchNumber: 2,
     date: "2026-06-11",
     officialTime: "22:00 ET",
     kickoffUtc: "2026-06-12T02:00:00Z",
@@ -48,13 +46,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "KOR",
-      flag: "🇰🇷",
+      flag: "KOR",
       es: "Corea República",
       en: "Korea Republic"
     },
     away: {
       code: "CZE",
-      flag: "🇨🇿",
+      flag: "CZE",
       es: "Chequia",
       en: "Czechia"
     },
@@ -77,7 +75,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 3,
-    matchNumber: 25,
     date: "2026-06-18",
     officialTime: "12:00 ET",
     kickoffUtc: "2026-06-18T16:00:00Z",
@@ -86,13 +83,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "CZE",
-      flag: "🇨🇿",
+      flag: "CZE",
       es: "Chequia",
       en: "Czechia"
     },
     away: {
       code: "RSA",
-      flag: "🇿🇦",
+      flag: "RSA",
       es: "Sudáfrica",
       en: "South Africa"
     },
@@ -115,7 +112,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 4,
-    matchNumber: 28,
     date: "2026-06-18",
     officialTime: "21:00 ET",
     kickoffUtc: "2026-06-19T01:00:00Z",
@@ -124,13 +120,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "MEX",
-      flag: "🇲🇽",
+      flag: "MEX",
       es: "México",
       en: "Mexico"
     },
     away: {
       code: "KOR",
-      flag: "🇰🇷",
+      flag: "KOR",
       es: "Corea República",
       en: "Korea Republic"
     },
@@ -153,7 +149,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 5,
-    matchNumber: 53,
     date: "2026-06-24",
     officialTime: "21:00 ET",
     kickoffUtc: "2026-06-25T01:00:00Z",
@@ -162,13 +157,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "CZE",
-      flag: "🇨🇿",
+      flag: "CZE",
       es: "Chequia",
       en: "Czechia"
     },
     away: {
       code: "MEX",
-      flag: "🇲🇽",
+      flag: "MEX",
       es: "México",
       en: "Mexico"
     },
@@ -191,7 +186,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 6,
-    matchNumber: 54,
     date: "2026-06-24",
     officialTime: "21:00 ET",
     kickoffUtc: "2026-06-25T01:00:00Z",
@@ -200,13 +194,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "RSA",
-      flag: "🇿🇦",
+      flag: "RSA",
       es: "Sudáfrica",
       en: "South Africa"
     },
     away: {
       code: "KOR",
-      flag: "🇰🇷",
+      flag: "KOR",
       es: "Corea República",
       en: "Korea Republic"
     },
@@ -226,9 +220,9 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       location: "Monterrey Stadium · Monterrey",
       note: "Final Group A match."
     }
-  },  {
+  },
+  {
     id: 7,
-    matchNumber: 3,
     date: "2026-06-12",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-12T19:00:00Z",
@@ -237,13 +231,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "CAN",
-      flag: "🇨🇦",
+      flag: "CAN",
       es: "Canadá",
       en: "Canada"
     },
     away: {
       code: "BIH",
-      flag: "🇧🇦",
+      flag: "BIH",
       es: "Bosnia y Herzegovina",
       en: "Bosnia and Herzegovina"
     },
@@ -266,7 +260,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 8,
-    matchNumber: 5,
     date: "2026-06-13",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-13T19:00:00Z",
@@ -275,13 +268,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "QAT",
-      flag: "🇶🇦",
+      flag: "QAT",
       es: "Qatar",
       en: "Qatar"
     },
     away: {
       code: "SUI",
-      flag: "🇨🇭",
+      flag: "SUI",
       es: "Suiza",
       en: "Switzerland"
     },
@@ -304,7 +297,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 9,
-    matchNumber: 26,
     date: "2026-06-18",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-18T19:00:00Z",
@@ -313,13 +305,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "SUI",
-      flag: "🇨🇭",
+      flag: "SUI",
       es: "Suiza",
       en: "Switzerland"
     },
     away: {
       code: "BIH",
-      flag: "🇧🇦",
+      flag: "BIH",
       es: "Bosnia y Herzegovina",
       en: "Bosnia and Herzegovina"
     },
@@ -342,7 +334,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 10,
-    matchNumber: 27,
     date: "2026-06-18",
     officialTime: "18:00 ET",
     kickoffUtc: "2026-06-18T22:00:00Z",
@@ -351,13 +342,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "CAN",
-      flag: "🇨🇦",
+      flag: "CAN",
       es: "Canadá",
       en: "Canada"
     },
     away: {
       code: "QAT",
-      flag: "🇶🇦",
+      flag: "QAT",
       es: "Qatar",
       en: "Qatar"
     },
@@ -380,7 +371,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 11,
-    matchNumber: 49,
     date: "2026-06-24",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-24T19:00:00Z",
@@ -389,13 +379,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "SUI",
-      flag: "🇨🇭",
+      flag: "SUI",
       es: "Suiza",
       en: "Switzerland"
     },
     away: {
       code: "CAN",
-      flag: "🇨🇦",
+      flag: "CAN",
       es: "Canadá",
       en: "Canada"
     },
@@ -418,7 +408,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 12,
-    matchNumber: 50,
     date: "2026-06-24",
     officialTime: "15:00 ET",
     kickoffUtc: "2026-06-24T19:00:00Z",
@@ -427,13 +416,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "BIH",
-      flag: "🇧🇦",
+      flag: "BIH",
       es: "Bosnia y Herzegovina",
       en: "Bosnia and Herzegovina"
     },
     away: {
       code: "QAT",
-      flag: "🇶🇦",
+      flag: "QAT",
       es: "Qatar",
       en: "Qatar"
     },
@@ -454,9 +443,8 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       note: "Final Group B match."
     }
   },
-    {
+  {
     id: 13,
-    matchNumber: 7,
     date: "2026-06-13",
     officialTime: "18:00 ET",
     kickoffUtc: "2026-06-13T22:00:00Z",
@@ -465,13 +453,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "BRA",
-      flag: "🇧🇷",
+      flag: "BRA",
       es: "Brasil",
       en: "Brazil"
     },
     away: {
       code: "MAR",
-      flag: "🇲🇦",
+      flag: "MAR",
       es: "Marruecos",
       en: "Morocco"
     },
@@ -494,7 +482,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 14,
-    matchNumber: 8,
     date: "2026-06-13",
     officialTime: "21:00 ET",
     kickoffUtc: "2026-06-14T01:00:00Z",
@@ -503,13 +490,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "HAI",
-      flag: "🇭🇹",
+      flag: "HAI",
       es: "Haití",
       en: "Haiti"
     },
     away: {
       code: "SCO",
-      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      flag: "SCO",
       es: "Escocia",
       en: "Scotland"
     },
@@ -532,7 +519,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 15,
-    matchNumber: 31,
     date: "2026-06-19",
     officialTime: "18:00 ET",
     kickoffUtc: "2026-06-19T22:00:00Z",
@@ -541,13 +527,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "SCO",
-      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      flag: "SCO",
       es: "Escocia",
       en: "Scotland"
     },
     away: {
       code: "MAR",
-      flag: "🇲🇦",
+      flag: "MAR",
       es: "Marruecos",
       en: "Morocco"
     },
@@ -570,7 +556,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 16,
-    matchNumber: 32,
     date: "2026-06-19",
     officialTime: "21:00 ET",
     kickoffUtc: "2026-06-20T01:00:00Z",
@@ -579,13 +564,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "BRA",
-      flag: "🇧🇷",
+      flag: "BRA",
       es: "Brasil",
       en: "Brazil"
     },
     away: {
       code: "HAI",
-      flag: "🇭🇹",
+      flag: "HAI",
       es: "Haití",
       en: "Haiti"
     },
@@ -608,7 +593,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 17,
-    matchNumber: 49,
     date: "2026-06-24",
     officialTime: "18:00 ET",
     kickoffUtc: "2026-06-24T22:00:00Z",
@@ -617,13 +601,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "SCO",
-      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      flag: "SCO",
       es: "Escocia",
       en: "Scotland"
     },
     away: {
       code: "BRA",
-      flag: "🇧🇷",
+      flag: "BRA",
       es: "Brasil",
       en: "Brazil"
     },
@@ -646,7 +630,6 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   },
   {
     id: 18,
-    matchNumber: 50,
     date: "2026-06-24",
     officialTime: "18:00 ET",
     kickoffUtc: "2026-06-24T22:00:00Z",
@@ -655,13 +638,13 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     source: "FIFA",
     home: {
       code: "MAR",
-      flag: "🇲🇦",
+      flag: "MAR",
       es: "Marruecos",
       en: "Morocco"
     },
     away: {
       code: "HAI",
-      flag: "🇭🇹",
+      flag: "HAI",
       es: "Haití",
       en: "Haiti"
     },
@@ -681,7 +664,7 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       location: "Atlanta Stadium · Atlanta",
       note: "Final Group C match."
     }
-  },
+  }
 ];
 
 console.log("✅ Renebook World Cup 2026 matches loaded:", window.RENEBOOK_WORLDCUP_2026_MATCHES);
