@@ -1,5 +1,5 @@
 window.RENEBOOK_WORLDCUP_2026_MATCHES = [
-  {
+ {
     id: 1,
     matchNumber: 1,
     date: "2026-06-11",
