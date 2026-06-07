@@ -23,88 +23,7 @@
   <meta name="twitter:title" content="Renebook | Biblia interactiva en español e inglés" />
   <meta name="twitter:description" content="Una plataforma bíblica interactiva para leer, reflexionar y crecer cada día." />
   <meta name="twitter:image" content="https://renebook.org/assets/renebook-logo.png" />
-<style>
-/* estilos anteriores */
 
-/* ================= PREMIUM MENU UPDATE ================= */
-.premium-nav {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.nav-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 24px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #f5f7fb;
-  background: linear-gradient(180deg, rgba(37,45,63,0.88), rgba(20,26,40,0.92));
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 24px rgba(0,0,0,0.22);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-  letter-spacing: 0.01em;
-}
-
-.nav-pill:hover {
-  transform: translateY(-2px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 16px 30px rgba(0,0,0,0.28);
-  border-color: rgba(122,204,255,0.48);
-}
-
-.nav-pill-highlight {
-  color: #08111f;
-  background: linear-gradient(135deg, #7ad1ff 0%, #60dfd1 45%, #ffd96a 100%);
-  border: 1px solid rgba(255,217,106,0.7);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 14px 30px rgba(64,176,255,0.28);
-}
-
-.nav-pill-highlight:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 18px 34px rgba(64,176,255,0.34);
-}
-
-.bible-version-select {
-  min-height: 54px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.96);
-  color: #111827;
-  font-weight: 700;
-  font-size: 1rem;
-  outline: none;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-}
-
-@media (max-width:1100px) {
-  .premium-nav { gap: 10px; }
-  .nav-pill { padding: 12px 18px; font-size: 0.95rem; }
-}
-
-@media (max-width:768px) {
-  .premium-nav {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .nav-pill {
-    width: auto;
-    font-size: 0.95rem;
-    padding: 12px 16px;
-  }
-
-  .bible-version-select {
-    width: 100%;
-    max-width: 280px;
-  }
-}
-</style>
   <style>
     :root {
       --bg: #06111f;
@@ -585,6 +504,109 @@
   .family-step span {
     font-size: 1.05rem;
     line-height: 1.5;
+  }
+}
+    /* =========================
+   PREMIUM MENU UPDATE
+   ========================= */
+
+.premium-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #f5f7fb;
+  background: linear-gradient(180deg, rgba(37,45,63,0.88), rgba(20,26,40,0.92));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 10px 24px rgba(0,0,0,0.22);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  letter-spacing: 0.01em;
+}
+
+.nav-pill:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 16px 30px rgba(0,0,0,0.28);
+  border-color: rgba(122, 204, 255, 0.48);
+}
+
+.nav-pill-highlight {
+  color: #08111f;
+  background:
+    linear-gradient(135deg, #7ad1ff 0%, #60dfd1 45%, #ffd96a 100%);
+  border: 1px solid rgba(255,217,106,0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    0 14px 30px rgba(64,176,255,0.28);
+}
+
+.nav-pill-highlight:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    0 18px 34px rgba(64,176,255,0.34);
+}
+
+.bible-version-select {
+  min-height: 54px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.96);
+  color: #111827;
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+/* para pantallas medianas */
+@media (max-width: 1100px) {
+  .premium-nav {
+    gap: 10px;
+  }
+
+  .nav-pill {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+
+  .bible-version-select {
+    min-height: 48px;
+    font-size: 0.95rem;
+  }
+}
+
+/* para celular */
+@media (max-width: 768px) {
+  .premium-nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-pill {
+    width: auto;
+    font-size: 0.92rem;
+    padding: 12px 16px;
+  }
+
+  .bible-version-select {
+    width: 100%;
+    max-width: 280px;
   }
 }
   </style>
