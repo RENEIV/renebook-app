@@ -1,21 +1,38 @@
 window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   {
-    id: 1,
-    date: "2026-06-11",
-    stage: "Group Stage",
-    es: {
-      title: "Inicio del Mundial 2026",
-      teams: "Partido inaugural",
-      location: "Estadio Azteca · Ciudad de México",
-      note: "El Mundial 2026 comienza oficialmente. Renebook conecta este día con sabiduría bíblica para iniciar bien el camino."
-    },
-    en: {
-      title: "World Cup 2026 Opening Day",
-      teams: "Opening match",
-      location: "Estadio Azteca · Mexico City",
-      note: "The 2026 World Cup officially begins. Renebook connects this day with biblical wisdom to start the journey well."
-    }
+  id: 1,
+  date: "2026-06-11",
+  kickoffUtc: "2026-06-11T19:00:00Z",
+  stage: "Group Stage",
+  home: {
+    code: "MEX",
+    flag: "🇲🇽",
+    es: "México",
+    en: "Mexico"
   },
+  away: {
+    code: "TBD",
+    flag: "🏳️",
+    es: "Rival por confirmar",
+    en: "Opponent TBD"
+  },
+  stadium: {
+    es: "Estadio Azteca · Ciudad de México",
+    en: "Estadio Azteca · Mexico City"
+  },
+  es: {
+    title: "Inicio del Mundial 2026",
+    teams: "México vs Rival por confirmar",
+    location: "Estadio Azteca · Ciudad de México",
+    note: "El Mundial 2026 comienza oficialmente. Renebook conecta este día con sabiduría bíblica para iniciar bien el camino."
+  },
+  en: {
+    title: "World Cup 2026 Opening Day",
+    teams: "Mexico vs Opponent TBD",
+    location: "Estadio Azteca · Mexico City",
+    note: "The 2026 World Cup officially begins. Renebook connects this day with biblical wisdom to start the journey well."
+  }
+},
   {
     id: 2,
     date: "2026-06-12",
