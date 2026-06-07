@@ -4,6 +4,7 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
   date: "2026-06-11",
   kickoffUtc: "2026-06-11T19:00:00Z",
   stage: "Group Stage",
+  group: "A",
   home: {
     code: "MEX",
     flag: "🇲🇽",
@@ -11,25 +12,25 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
     en: "Mexico"
   },
   away: {
-    code: "TBD",
-    flag: "🏳️",
-    es: "Rival por confirmar",
-    en: "Opponent TBD"
+    code: "RSA",
+    flag: "🇿🇦",
+    es: "Sudáfrica",
+    en: "South Africa"
   },
   stadium: {
-    es: "Estadio Azteca · Ciudad de México",
-    en: "Estadio Azteca · Mexico City"
+    es: "Mexico City Stadium · Ciudad de México",
+    en: "Mexico City Stadium · Mexico City"
   },
   es: {
-    title: "Inicio del Mundial 2026",
-    teams: "México vs Rival por confirmar",
-    location: "Estadio Azteca · Ciudad de México",
+    title: "México vs Sudáfrica",
+    teams: "México vs Sudáfrica",
+    location: "Mexico City Stadium · Ciudad de México",
     note: "El Mundial 2026 comienza oficialmente. Renebook conecta este día con sabiduría bíblica para iniciar bien el camino."
   },
   en: {
-    title: "World Cup 2026 Opening Day",
-    teams: "Mexico vs Opponent TBD",
-    location: "Estadio Azteca · Mexico City",
+    title: "Mexico vs South Africa",
+    teams: "Mexico vs South Africa",
+    location: "Mexico City Stadium · Mexico City",
     note: "The 2026 World Cup officially begins. Renebook connects this day with biblical wisdom to start the journey well."
   }
 },
