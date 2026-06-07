@@ -454,6 +454,234 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       note: "Final Group B match."
     }
   },
+    {
+    id: 13,
+    matchNumber: 7,
+    date: "2026-06-13",
+    officialTime: "18:00 ET",
+    kickoffUtc: "2026-06-13T22:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "BRA",
+      flag: "🇧🇷",
+      es: "Brasil",
+      en: "Brazil"
+    },
+    away: {
+      code: "MAR",
+      flag: "🇲🇦",
+      es: "Marruecos",
+      en: "Morocco"
+    },
+    stadium: {
+      es: "New York New Jersey Stadium · East Rutherford",
+      en: "New York New Jersey Stadium · East Rutherford"
+    },
+    es: {
+      title: "Brasil vs Marruecos",
+      teams: "Brasil vs Marruecos",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "Partido inicial del Grupo C."
+    },
+    en: {
+      title: "Brazil vs Morocco",
+      teams: "Brazil vs Morocco",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "Opening match of Group C."
+    }
+  },
+  {
+    id: 14,
+    matchNumber: 8,
+    date: "2026-06-13",
+    officialTime: "21:00 ET",
+    kickoffUtc: "2026-06-14T01:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "HAI",
+      flag: "🇭🇹",
+      es: "Haití",
+      en: "Haiti"
+    },
+    away: {
+      code: "SCO",
+      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      es: "Escocia",
+      en: "Scotland"
+    },
+    stadium: {
+      es: "Boston Stadium · Foxborough",
+      en: "Boston Stadium · Foxborough"
+    },
+    es: {
+      title: "Haití vs Escocia",
+      teams: "Haití vs Escocia",
+      location: "Boston Stadium · Foxborough",
+      note: "Partido del Grupo C."
+    },
+    en: {
+      title: "Haiti vs Scotland",
+      teams: "Haiti vs Scotland",
+      location: "Boston Stadium · Foxborough",
+      note: "Group C match."
+    }
+  },
+  {
+    id: 15,
+    matchNumber: 31,
+    date: "2026-06-19",
+    officialTime: "18:00 ET",
+    kickoffUtc: "2026-06-19T22:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "SCO",
+      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      es: "Escocia",
+      en: "Scotland"
+    },
+    away: {
+      code: "MAR",
+      flag: "🇲🇦",
+      es: "Marruecos",
+      en: "Morocco"
+    },
+    stadium: {
+      es: "Boston Stadium · Foxborough",
+      en: "Boston Stadium · Foxborough"
+    },
+    es: {
+      title: "Escocia vs Marruecos",
+      teams: "Escocia vs Marruecos",
+      location: "Boston Stadium · Foxborough",
+      note: "Partido del Grupo C."
+    },
+    en: {
+      title: "Scotland vs Morocco",
+      teams: "Scotland vs Morocco",
+      location: "Boston Stadium · Foxborough",
+      note: "Group C match."
+    }
+  },
+  {
+    id: 16,
+    matchNumber: 32,
+    date: "2026-06-19",
+    officialTime: "21:00 ET",
+    kickoffUtc: "2026-06-20T01:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "BRA",
+      flag: "🇧🇷",
+      es: "Brasil",
+      en: "Brazil"
+    },
+    away: {
+      code: "HAI",
+      flag: "🇭🇹",
+      es: "Haití",
+      en: "Haiti"
+    },
+    stadium: {
+      es: "Philadelphia Stadium · Philadelphia",
+      en: "Philadelphia Stadium · Philadelphia"
+    },
+    es: {
+      title: "Brasil vs Haití",
+      teams: "Brasil vs Haití",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Segundo partido de Brasil en el Grupo C."
+    },
+    en: {
+      title: "Brazil vs Haiti",
+      teams: "Brazil vs Haiti",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Brazil’s second match in Group C."
+    }
+  },
+  {
+    id: 17,
+    matchNumber: 49,
+    date: "2026-06-24",
+    officialTime: "18:00 ET",
+    kickoffUtc: "2026-06-24T22:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "SCO",
+      flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      es: "Escocia",
+      en: "Scotland"
+    },
+    away: {
+      code: "BRA",
+      flag: "🇧🇷",
+      es: "Brasil",
+      en: "Brazil"
+    },
+    stadium: {
+      es: "Miami Stadium · Miami",
+      en: "Miami Stadium · Miami"
+    },
+    es: {
+      title: "Escocia vs Brasil",
+      teams: "Escocia vs Brasil",
+      location: "Miami Stadium · Miami",
+      note: "Partido final del Grupo C para Brasil."
+    },
+    en: {
+      title: "Scotland vs Brazil",
+      teams: "Scotland vs Brazil",
+      location: "Miami Stadium · Miami",
+      note: "Brazil’s final Group C match."
+    }
+  },
+  {
+    id: 18,
+    matchNumber: 50,
+    date: "2026-06-24",
+    officialTime: "18:00 ET",
+    kickoffUtc: "2026-06-24T22:00:00Z",
+    stage: "Group Stage",
+    group: "C",
+    source: "FIFA",
+    home: {
+      code: "MAR",
+      flag: "🇲🇦",
+      es: "Marruecos",
+      en: "Morocco"
+    },
+    away: {
+      code: "HAI",
+      flag: "🇭🇹",
+      es: "Haití",
+      en: "Haiti"
+    },
+    stadium: {
+      es: "Atlanta Stadium · Atlanta",
+      en: "Atlanta Stadium · Atlanta"
+    },
+    es: {
+      title: "Marruecos vs Haití",
+      teams: "Marruecos vs Haití",
+      location: "Atlanta Stadium · Atlanta",
+      note: "Partido final del Grupo C."
+    },
+    en: {
+      title: "Morocco vs Haiti",
+      teams: "Morocco vs Haiti",
+      location: "Atlanta Stadium · Atlanta",
+      note: "Final Group C match."
+    }
+  },
 ];
 
 console.log("✅ Renebook World Cup 2026 matches loaded:", window.RENEBOOK_WORLDCUP_2026_MATCHES);
