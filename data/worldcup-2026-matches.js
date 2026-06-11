@@ -664,6 +664,672 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       location: "Atlanta Stadium · Atlanta",
       note: "Final Group C match."
     }
+  },
+  {
+    id: 19,
+    date: "2026-06-12",
+    officialTime: "21:00 ET",
+    kickoffUtc: "2026-06-13T01:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "USA",
+      flag: "USA",
+      es: "Estados Unidos",
+      en: "United States"
+    },
+    away: {
+      code: "PAR",
+      flag: "PAR",
+      es: "Paraguay",
+      en: "Paraguay"
+    },
+    stadium: {
+      es: "Los Angeles Stadium · Los Angeles",
+      en: "Los Angeles Stadium · Los Angeles"
+    },
+    es: {
+      title: "Estados Unidos vs Paraguay",
+      teams: "Estados Unidos vs Paraguay",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "Primer partido de Estados Unidos en el Grupo D."
+    },
+    en: {
+      title: "United States vs Paraguay",
+      teams: "United States vs Paraguay",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "United States’ opening match in Group D."
+    }
+  },
+  {
+    id: 20,
+    date: "2026-06-13",
+    officialTime: "00:00 ET",
+    kickoffUtc: "2026-06-13T04:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "AUS",
+      flag: "AUS",
+      es: "Australia",
+      en: "Australia"
+    },
+    away: {
+      code: "TUR",
+      flag: "TUR",
+      es: "Türkiye",
+      en: "Türkiye"
+    },
+    stadium: {
+      es: "BC Place Vancouver · Vancouver",
+      en: "BC Place Vancouver · Vancouver"
+    },
+    es: {
+      title: "Australia vs Türkiye",
+      teams: "Australia vs Türkiye",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Partido del Grupo D."
+    },
+    en: {
+      title: "Australia vs Türkiye",
+      teams: "Australia vs Türkiye",
+      location: "BC Place Vancouver · Vancouver",
+      note: "Group D match."
+    }
+  },
+  {
+    id: 21,
+    date: "2026-06-19",
+    officialTime: "15:00 ET",
+    kickoffUtc: "2026-06-19T19:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "USA",
+      flag: "USA",
+      es: "Estados Unidos",
+      en: "United States"
+    },
+    away: {
+      code: "AUS",
+      flag: "AUS",
+      es: "Australia",
+      en: "Australia"
+    },
+    stadium: {
+      es: "Seattle Stadium · Seattle",
+      en: "Seattle Stadium · Seattle"
+    },
+    es: {
+      title: "Estados Unidos vs Australia",
+      teams: "Estados Unidos vs Australia",
+      location: "Seattle Stadium · Seattle",
+      note: "Segundo partido de Estados Unidos en el Grupo D."
+    },
+    en: {
+      title: "United States vs Australia",
+      teams: "United States vs Australia",
+      location: "Seattle Stadium · Seattle",
+      note: "United States’ second match in Group D."
+    }
+  },
+  {
+    id: 22,
+    date: "2026-06-20",
+    officialTime: "00:00 ET",
+    kickoffUtc: "2026-06-20T04:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "TUR",
+      flag: "TUR",
+      es: "Türkiye",
+      en: "Türkiye"
+    },
+    away: {
+      code: "PAR",
+      flag: "PAR",
+      es: "Paraguay",
+      en: "Paraguay"
+    },
+    stadium: {
+      es: "San Francisco Bay Stadium · Santa Clara",
+      en: "San Francisco Bay Stadium · Santa Clara"
+    },
+    es: {
+      title: "Türkiye vs Paraguay",
+      teams: "Türkiye vs Paraguay",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Partido del Grupo D."
+    },
+    en: {
+      title: "Türkiye vs Paraguay",
+      teams: "Türkiye vs Paraguay",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Group D match."
+    }
+  },
+  {
+    id: 23,
+    date: "2026-06-25",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-26T02:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "USA",
+      flag: "USA",
+      es: "Estados Unidos",
+      en: "United States"
+    },
+    away: {
+      code: "TUR",
+      flag: "TUR",
+      es: "Türkiye",
+      en: "Türkiye"
+    },
+    stadium: {
+      es: "Los Angeles Stadium · Los Angeles",
+      en: "Los Angeles Stadium · Los Angeles"
+    },
+    es: {
+      title: "Estados Unidos vs Türkiye",
+      teams: "Estados Unidos vs Türkiye",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "Cierre de fase de grupos para Estados Unidos."
+    },
+    en: {
+      title: "United States vs Türkiye",
+      teams: "United States vs Türkiye",
+      location: "Los Angeles Stadium · Los Angeles",
+      note: "United States’ final group stage match."
+    }
+  },
+  {
+    id: 24,
+    date: "2026-06-25",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-26T02:00:00Z",
+    stage: "Group Stage",
+    group: "D",
+    source: "FIFA",
+    home: {
+      code: "PAR",
+      flag: "PAR",
+      es: "Paraguay",
+      en: "Paraguay"
+    },
+    away: {
+      code: "AUS",
+      flag: "AUS",
+      es: "Australia",
+      en: "Australia"
+    },
+    stadium: {
+      es: "San Francisco Bay Stadium · Santa Clara",
+      en: "San Francisco Bay Stadium · Santa Clara"
+    },
+    es: {
+      title: "Paraguay vs Australia",
+      teams: "Paraguay vs Australia",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Partido final del Grupo D."
+    },
+    en: {
+      title: "Paraguay vs Australia",
+      teams: "Paraguay vs Australia",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Final Group D match."
+    }
+  },
+  {
+    id: 25,
+    date: "2026-06-14",
+    officialTime: "13:00 ET",
+    kickoffUtc: "2026-06-14T17:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "GER",
+      flag: "GER",
+      es: "Alemania",
+      en: "Germany"
+    },
+    away: {
+      code: "CUW",
+      flag: "CUW",
+      es: "Curaçao",
+      en: "Curaçao"
+    },
+    stadium: {
+      es: "Houston Stadium · Houston",
+      en: "Houston Stadium · Houston"
+    },
+    es: {
+      title: "Alemania vs Curaçao",
+      teams: "Alemania vs Curaçao",
+      location: "Houston Stadium · Houston",
+      note: "Primer partido de Alemania en el Grupo E."
+    },
+    en: {
+      title: "Germany vs Curaçao",
+      teams: "Germany vs Curaçao",
+      location: "Houston Stadium · Houston",
+      note: "Germany’s opening match in Group E."
+    }
+  },
+  {
+    id: 26,
+    date: "2026-06-14",
+    officialTime: "19:00 ET",
+    kickoffUtc: "2026-06-14T23:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "CIV",
+      flag: "CIV",
+      es: "Costa de Marfil",
+      en: "Côte d'Ivoire"
+    },
+    away: {
+      code: "ECU",
+      flag: "ECU",
+      es: "Ecuador",
+      en: "Ecuador"
+    },
+    stadium: {
+      es: "Philadelphia Stadium · Philadelphia",
+      en: "Philadelphia Stadium · Philadelphia"
+    },
+    es: {
+      title: "Costa de Marfil vs Ecuador",
+      teams: "Costa de Marfil vs Ecuador",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Partido del Grupo E."
+    },
+    en: {
+      title: "Côte d'Ivoire vs Ecuador",
+      teams: "Côte d'Ivoire vs Ecuador",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Group E match."
+    }
+  },
+  {
+    id: 27,
+    date: "2026-06-20",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-20T20:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "GER",
+      flag: "GER",
+      es: "Alemania",
+      en: "Germany"
+    },
+    away: {
+      code: "CIV",
+      flag: "CIV",
+      es: "Costa de Marfil",
+      en: "Côte d'Ivoire"
+    },
+    stadium: {
+      es: "Toronto Stadium · Toronto",
+      en: "Toronto Stadium · Toronto"
+    },
+    es: {
+      title: "Alemania vs Costa de Marfil",
+      teams: "Alemania vs Costa de Marfil",
+      location: "Toronto Stadium · Toronto",
+      note: "Segundo partido de Alemania en el Grupo E."
+    },
+    en: {
+      title: "Germany vs Côte d'Ivoire",
+      teams: "Germany vs Côte d'Ivoire",
+      location: "Toronto Stadium · Toronto",
+      note: "Germany’s second match in Group E."
+    }
+  },
+  {
+    id: 28,
+    date: "2026-06-20",
+    officialTime: "20:00 ET",
+    kickoffUtc: "2026-06-21T00:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "ECU",
+      flag: "ECU",
+      es: "Ecuador",
+      en: "Ecuador"
+    },
+    away: {
+      code: "CUW",
+      flag: "CUW",
+      es: "Curaçao",
+      en: "Curaçao"
+    },
+    stadium: {
+      es: "Kansas City Stadium · Kansas City",
+      en: "Kansas City Stadium · Kansas City"
+    },
+    es: {
+      title: "Ecuador vs Curaçao",
+      teams: "Ecuador vs Curaçao",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Partido del Grupo E."
+    },
+    en: {
+      title: "Ecuador vs Curaçao",
+      teams: "Ecuador vs Curaçao",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Group E match."
+    }
+  },
+  {
+    id: 29,
+    date: "2026-06-25",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-25T20:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "ECU",
+      flag: "ECU",
+      es: "Ecuador",
+      en: "Ecuador"
+    },
+    away: {
+      code: "GER",
+      flag: "GER",
+      es: "Alemania",
+      en: "Germany"
+    },
+    stadium: {
+      es: "New York New Jersey Stadium · East Rutherford",
+      en: "New York New Jersey Stadium · East Rutherford"
+    },
+    es: {
+      title: "Ecuador vs Alemania",
+      teams: "Ecuador vs Alemania",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "Partido final del Grupo E para Alemania."
+    },
+    en: {
+      title: "Ecuador vs Germany",
+      teams: "Ecuador vs Germany",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "Germany’s final Group E match."
+    }
+  },
+  {
+    id: 30,
+    date: "2026-06-25",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-25T20:00:00Z",
+    stage: "Group Stage",
+    group: "E",
+    source: "FIFA",
+    home: {
+      code: "CUW",
+      flag: "CUW",
+      es: "Curaçao",
+      en: "Curaçao"
+    },
+    away: {
+      code: "CIV",
+      flag: "CIV",
+      es: "Costa de Marfil",
+      en: "Côte d'Ivoire"
+    },
+    stadium: {
+      es: "Philadelphia Stadium · Philadelphia",
+      en: "Philadelphia Stadium · Philadelphia"
+    },
+    es: {
+      title: "Curaçao vs Costa de Marfil",
+      teams: "Curaçao vs Costa de Marfil",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Partido final del Grupo E."
+    },
+    en: {
+      title: "Curaçao vs Côte d'Ivoire",
+      teams: "Curaçao vs Côte d'Ivoire",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Final Group E match."
+    }
+  },
+  {
+    id: 31,
+    date: "2026-06-14",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-14T20:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "NED",
+      flag: "NED",
+      es: "Países Bajos",
+      en: "Netherlands"
+    },
+    away: {
+      code: "JPN",
+      flag: "JPN",
+      es: "Japón",
+      en: "Japan"
+    },
+    stadium: {
+      es: "Dallas Stadium · Dallas",
+      en: "Dallas Stadium · Dallas"
+    },
+    es: {
+      title: "Países Bajos vs Japón",
+      teams: "Países Bajos vs Japón",
+      location: "Dallas Stadium · Dallas",
+      note: "Primer partido del Grupo F."
+    },
+    en: {
+      title: "Netherlands vs Japan",
+      teams: "Netherlands vs Japan",
+      location: "Dallas Stadium · Dallas",
+      note: "Opening match of Group F."
+    }
+  },
+  {
+    id: 32,
+    date: "2026-06-14",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-15T02:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "TUN",
+      flag: "TUN",
+      es: "Túnez",
+      en: "Tunisia"
+    },
+    away: {
+      code: "SWE",
+      flag: "SWE",
+      es: "Suecia",
+      en: "Sweden"
+    },
+    stadium: {
+      es: "Monterrey Stadium · Monterrey",
+      en: "Monterrey Stadium · Monterrey"
+    },
+    es: {
+      title: "Túnez vs Suecia",
+      teams: "Túnez vs Suecia",
+      location: "Monterrey Stadium · Monterrey",
+      note: "Partido del Grupo F."
+    },
+    en: {
+      title: "Tunisia vs Sweden",
+      teams: "Tunisia vs Sweden",
+      location: "Monterrey Stadium · Monterrey",
+      note: "Group F match."
+    }
+  },
+  {
+    id: 33,
+    date: "2026-06-20",
+    officialTime: "13:00 ET",
+    kickoffUtc: "2026-06-20T17:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "NED",
+      flag: "NED",
+      es: "Países Bajos",
+      en: "Netherlands"
+    },
+    away: {
+      code: "SWE",
+      flag: "SWE",
+      es: "Suecia",
+      en: "Sweden"
+    },
+    stadium: {
+      es: "Houston Stadium · Houston",
+      en: "Houston Stadium · Houston"
+    },
+    es: {
+      title: "Países Bajos vs Suecia",
+      teams: "Países Bajos vs Suecia",
+      location: "Houston Stadium · Houston",
+      note: "Segundo partido de Países Bajos en el Grupo F."
+    },
+    en: {
+      title: "Netherlands vs Sweden",
+      teams: "Netherlands vs Sweden",
+      location: "Houston Stadium · Houston",
+      note: "Netherlands’ second match in Group F."
+    }
+  },
+  {
+    id: 34,
+    date: "2026-06-21",
+    officialTime: "00:00 ET",
+    kickoffUtc: "2026-06-21T04:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "TUN",
+      flag: "TUN",
+      es: "Túnez",
+      en: "Tunisia"
+    },
+    away: {
+      code: "JPN",
+      flag: "JPN",
+      es: "Japón",
+      en: "Japan"
+    },
+    stadium: {
+      es: "Monterrey Stadium · Monterrey",
+      en: "Monterrey Stadium · Monterrey"
+    },
+    es: {
+      title: "Túnez vs Japón",
+      teams: "Túnez vs Japón",
+      location: "Monterrey Stadium · Monterrey",
+      note: "Partido del Grupo F."
+    },
+    en: {
+      title: "Tunisia vs Japan",
+      teams: "Tunisia vs Japan",
+      location: "Monterrey Stadium · Monterrey",
+      note: "Group F match."
+    }
+  },
+  {
+    id: 35,
+    date: "2026-06-25",
+    officialTime: "19:00 ET",
+    kickoffUtc: "2026-06-25T23:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "TUN",
+      flag: "TUN",
+      es: "Túnez",
+      en: "Tunisia"
+    },
+    away: {
+      code: "NED",
+      flag: "NED",
+      es: "Países Bajos",
+      en: "Netherlands"
+    },
+    stadium: {
+      es: "Kansas City Stadium · Kansas City",
+      en: "Kansas City Stadium · Kansas City"
+    },
+    es: {
+      title: "Túnez vs Países Bajos",
+      teams: "Túnez vs Países Bajos",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Partido final del Grupo F para Países Bajos."
+    },
+    en: {
+      title: "Tunisia vs Netherlands",
+      teams: "Tunisia vs Netherlands",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Netherlands’ final Group F match."
+    }
+  },
+  {
+    id: 36,
+    date: "2026-06-25",
+    officialTime: "19:00 ET",
+    kickoffUtc: "2026-06-25T23:00:00Z",
+    stage: "Group Stage",
+    group: "F",
+    source: "FIFA",
+    home: {
+      code: "JPN",
+      flag: "JPN",
+      es: "Japón",
+      en: "Japan"
+    },
+    away: {
+      code: "SWE",
+      flag: "SWE",
+      es: "Suecia",
+      en: "Sweden"
+    },
+    stadium: {
+      es: "Dallas Stadium · Dallas",
+      en: "Dallas Stadium · Dallas"
+    },
+    es: {
+      title: "Japón vs Suecia",
+      teams: "Japón vs Suecia",
+      location: "Dallas Stadium · Dallas",
+      note: "Partido final del Grupo F."
+    },
+    en: {
+      title: "Japan vs Sweden",
+      teams: "Japan vs Sweden",
+      location: "Dallas Stadium · Dallas",
+      note: "Final Group F match."
+    }
   }
 ];
 
