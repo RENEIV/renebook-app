@@ -1996,6 +1996,672 @@ window.RENEBOOK_WORLDCUP_2026_MATCHES = [
       location: "Toronto Stadium · Toronto",
       note: "Final Group I match."
     }
+  },
+  {
+    id: 55,
+    date: "2026-06-16",
+    officialTime: "21:00 ET",
+    kickoffUtc: "2026-06-17T01:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "ARG",
+      flag: "ARG",
+      es: "Argentina",
+      en: "Argentina"
+    },
+    away: {
+      code: "ALG",
+      flag: "ALG",
+      es: "Argelia",
+      en: "Algeria"
+    },
+    stadium: {
+      es: "Kansas City Stadium · Kansas City",
+      en: "Kansas City Stadium · Kansas City"
+    },
+    es: {
+      title: "Argentina vs Argelia",
+      teams: "Argentina vs Argelia",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Primer partido de Argentina en el Grupo J."
+    },
+    en: {
+      title: "Argentina vs Algeria",
+      teams: "Argentina vs Algeria",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Argentina’s opening match in Group J."
+    }
+  },
+  {
+    id: 56,
+    date: "2026-06-17",
+    officialTime: "00:00 ET",
+    kickoffUtc: "2026-06-17T04:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "AUT",
+      flag: "AUT",
+      es: "Austria",
+      en: "Austria"
+    },
+    away: {
+      code: "JOR",
+      flag: "JOR",
+      es: "Jordania",
+      en: "Jordan"
+    },
+    stadium: {
+      es: "San Francisco Bay Stadium · Santa Clara",
+      en: "San Francisco Bay Stadium · Santa Clara"
+    },
+    es: {
+      title: "Austria vs Jordania",
+      teams: "Austria vs Jordania",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Partido del Grupo J."
+    },
+    en: {
+      title: "Austria vs Jordan",
+      teams: "Austria vs Jordan",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Group J match."
+    }
+  },
+  {
+    id: 57,
+    date: "2026-06-22",
+    officialTime: "13:00 ET",
+    kickoffUtc: "2026-06-22T17:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "ARG",
+      flag: "ARG",
+      es: "Argentina",
+      en: "Argentina"
+    },
+    away: {
+      code: "AUT",
+      flag: "AUT",
+      es: "Austria",
+      en: "Austria"
+    },
+    stadium: {
+      es: "Dallas Stadium · Dallas",
+      en: "Dallas Stadium · Dallas"
+    },
+    es: {
+      title: "Argentina vs Austria",
+      teams: "Argentina vs Austria",
+      location: "Dallas Stadium · Dallas",
+      note: "Segundo partido de Argentina en el Grupo J."
+    },
+    en: {
+      title: "Argentina vs Austria",
+      teams: "Argentina vs Austria",
+      location: "Dallas Stadium · Dallas",
+      note: "Argentina’s second match in Group J."
+    }
+  },
+  {
+    id: 58,
+    date: "2026-06-22",
+    officialTime: "23:00 ET",
+    kickoffUtc: "2026-06-23T03:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "JOR",
+      flag: "JOR",
+      es: "Jordania",
+      en: "Jordan"
+    },
+    away: {
+      code: "ALG",
+      flag: "ALG",
+      es: "Argelia",
+      en: "Algeria"
+    },
+    stadium: {
+      es: "San Francisco Bay Stadium · Santa Clara",
+      en: "San Francisco Bay Stadium · Santa Clara"
+    },
+    es: {
+      title: "Jordania vs Argelia",
+      teams: "Jordania vs Argelia",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Partido del Grupo J."
+    },
+    en: {
+      title: "Jordan vs Algeria",
+      teams: "Jordan vs Algeria",
+      location: "San Francisco Bay Stadium · Santa Clara",
+      note: "Group J match."
+    }
+  },
+  {
+    id: 59,
+    date: "2026-06-27",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-28T02:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "ALG",
+      flag: "ALG",
+      es: "Argelia",
+      en: "Algeria"
+    },
+    away: {
+      code: "AUT",
+      flag: "AUT",
+      es: "Austria",
+      en: "Austria"
+    },
+    stadium: {
+      es: "Kansas City Stadium · Kansas City",
+      en: "Kansas City Stadium · Kansas City"
+    },
+    es: {
+      title: "Argelia vs Austria",
+      teams: "Argelia vs Austria",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Partido final del Grupo J."
+    },
+    en: {
+      title: "Algeria vs Austria",
+      teams: "Algeria vs Austria",
+      location: "Kansas City Stadium · Kansas City",
+      note: "Final Group J match."
+    }
+  },
+  {
+    id: 60,
+    date: "2026-06-27",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-28T02:00:00Z",
+    stage: "Group Stage",
+    group: "J",
+    source: "FIFA",
+    home: {
+      code: "JOR",
+      flag: "JOR",
+      es: "Jordania",
+      en: "Jordan"
+    },
+    away: {
+      code: "ARG",
+      flag: "ARG",
+      es: "Argentina",
+      en: "Argentina"
+    },
+    stadium: {
+      es: "Dallas Stadium · Dallas",
+      en: "Dallas Stadium · Dallas"
+    },
+    es: {
+      title: "Jordania vs Argentina",
+      teams: "Jordania vs Argentina",
+      location: "Dallas Stadium · Dallas",
+      note: "Partido final del Grupo J para Argentina."
+    },
+    en: {
+      title: "Jordan vs Argentina",
+      teams: "Jordan vs Argentina",
+      location: "Dallas Stadium · Dallas",
+      note: "Argentina’s final Group J match."
+    }
+  },
+  {
+    id: 61,
+    date: "2026-06-17",
+    officialTime: "13:00 ET",
+    kickoffUtc: "2026-06-17T17:00:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "POR",
+      flag: "POR",
+      es: "Portugal",
+      en: "Portugal"
+    },
+    away: {
+      code: "COD",
+      flag: "COD",
+      es: "RD Congo",
+      en: "DR Congo"
+    },
+    stadium: {
+      es: "Houston Stadium · Houston",
+      en: "Houston Stadium · Houston"
+    },
+    es: {
+      title: "Portugal vs RD Congo",
+      teams: "Portugal vs RD Congo",
+      location: "Houston Stadium · Houston",
+      note: "Primer partido de Portugal en el Grupo K."
+    },
+    en: {
+      title: "Portugal vs DR Congo",
+      teams: "Portugal vs DR Congo",
+      location: "Houston Stadium · Houston",
+      note: "Portugal’s opening match in Group K."
+    }
+  },
+  {
+    id: 62,
+    date: "2026-06-17",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-18T02:00:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "UZB",
+      flag: "UZB",
+      es: "Uzbekistán",
+      en: "Uzbekistan"
+    },
+    away: {
+      code: "COL",
+      flag: "COL",
+      es: "Colombia",
+      en: "Colombia"
+    },
+    stadium: {
+      es: "Mexico City Stadium · Ciudad de México",
+      en: "Mexico City Stadium · Mexico City"
+    },
+    es: {
+      title: "Uzbekistán vs Colombia",
+      teams: "Uzbekistán vs Colombia",
+      location: "Mexico City Stadium · Ciudad de México",
+      note: "Partido del Grupo K."
+    },
+    en: {
+      title: "Uzbekistan vs Colombia",
+      teams: "Uzbekistan vs Colombia",
+      location: "Mexico City Stadium · Mexico City",
+      note: "Group K match."
+    }
+  },
+  {
+    id: 63,
+    date: "2026-06-23",
+    officialTime: "13:00 ET",
+    kickoffUtc: "2026-06-23T17:00:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "POR",
+      flag: "POR",
+      es: "Portugal",
+      en: "Portugal"
+    },
+    away: {
+      code: "UZB",
+      flag: "UZB",
+      es: "Uzbekistán",
+      en: "Uzbekistan"
+    },
+    stadium: {
+      es: "Houston Stadium · Houston",
+      en: "Houston Stadium · Houston"
+    },
+    es: {
+      title: "Portugal vs Uzbekistán",
+      teams: "Portugal vs Uzbekistán",
+      location: "Houston Stadium · Houston",
+      note: "Segundo partido de Portugal en el Grupo K."
+    },
+    en: {
+      title: "Portugal vs Uzbekistan",
+      teams: "Portugal vs Uzbekistan",
+      location: "Houston Stadium · Houston",
+      note: "Portugal’s second match in Group K."
+    }
+  },
+  {
+    id: 64,
+    date: "2026-06-23",
+    officialTime: "22:00 ET",
+    kickoffUtc: "2026-06-24T02:00:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "COL",
+      flag: "COL",
+      es: "Colombia",
+      en: "Colombia"
+    },
+    away: {
+      code: "COD",
+      flag: "COD",
+      es: "RD Congo",
+      en: "DR Congo"
+    },
+    stadium: {
+      es: "Guadalajara Stadium · Guadalajara",
+      en: "Guadalajara Stadium · Guadalajara"
+    },
+    es: {
+      title: "Colombia vs RD Congo",
+      teams: "Colombia vs RD Congo",
+      location: "Guadalajara Stadium · Guadalajara",
+      note: "Partido del Grupo K."
+    },
+    en: {
+      title: "Colombia vs DR Congo",
+      teams: "Colombia vs DR Congo",
+      location: "Guadalajara Stadium · Guadalajara",
+      note: "Group K match."
+    }
+  },
+  {
+    id: 65,
+    date: "2026-06-27",
+    officialTime: "19:30 ET",
+    kickoffUtc: "2026-06-27T23:30:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "COL",
+      flag: "COL",
+      es: "Colombia",
+      en: "Colombia"
+    },
+    away: {
+      code: "POR",
+      flag: "POR",
+      es: "Portugal",
+      en: "Portugal"
+    },
+    stadium: {
+      es: "Miami Stadium · Miami",
+      en: "Miami Stadium · Miami"
+    },
+    es: {
+      title: "Colombia vs Portugal",
+      teams: "Colombia vs Portugal",
+      location: "Miami Stadium · Miami",
+      note: "Partido final del Grupo K."
+    },
+    en: {
+      title: "Colombia vs Portugal",
+      teams: "Colombia vs Portugal",
+      location: "Miami Stadium · Miami",
+      note: "Final Group K match."
+    }
+  },
+  {
+    id: 66,
+    date: "2026-06-27",
+    officialTime: "19:30 ET",
+    kickoffUtc: "2026-06-27T23:30:00Z",
+    stage: "Group Stage",
+    group: "K",
+    source: "FIFA",
+    home: {
+      code: "COD",
+      flag: "COD",
+      es: "RD Congo",
+      en: "DR Congo"
+    },
+    away: {
+      code: "UZB",
+      flag: "UZB",
+      es: "Uzbekistán",
+      en: "Uzbekistan"
+    },
+    stadium: {
+      es: "Atlanta Stadium · Atlanta",
+      en: "Atlanta Stadium · Atlanta"
+    },
+    es: {
+      title: "RD Congo vs Uzbekistán",
+      teams: "RD Congo vs Uzbekistán",
+      location: "Atlanta Stadium · Atlanta",
+      note: "Partido final del Grupo K."
+    },
+    en: {
+      title: "DR Congo vs Uzbekistan",
+      teams: "DR Congo vs Uzbekistan",
+      location: "Atlanta Stadium · Atlanta",
+      note: "Final Group K match."
+    }
+  },
+  {
+    id: 67,
+    date: "2026-06-17",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-17T20:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "ENG",
+      flag: "ENG",
+      es: "Inglaterra",
+      en: "England"
+    },
+    away: {
+      code: "CRO",
+      flag: "CRO",
+      es: "Croacia",
+      en: "Croatia"
+    },
+    stadium: {
+      es: "Dallas Stadium · Dallas",
+      en: "Dallas Stadium · Dallas"
+    },
+    es: {
+      title: "Inglaterra vs Croacia",
+      teams: "Inglaterra vs Croacia",
+      location: "Dallas Stadium · Dallas",
+      note: "Primer partido de Inglaterra en el Grupo L."
+    },
+    en: {
+      title: "England vs Croatia",
+      teams: "England vs Croatia",
+      location: "Dallas Stadium · Dallas",
+      note: "England’s opening match in Group L."
+    }
+  },
+  {
+    id: 68,
+    date: "2026-06-17",
+    officialTime: "19:00 ET",
+    kickoffUtc: "2026-06-17T23:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "GHA",
+      flag: "GHA",
+      es: "Ghana",
+      en: "Ghana"
+    },
+    away: {
+      code: "PAN",
+      flag: "PAN",
+      es: "Panamá",
+      en: "Panama"
+    },
+    stadium: {
+      es: "Toronto Stadium · Toronto",
+      en: "Toronto Stadium · Toronto"
+    },
+    es: {
+      title: "Ghana vs Panamá",
+      teams: "Ghana vs Panamá",
+      location: "Toronto Stadium · Toronto",
+      note: "Partido del Grupo L."
+    },
+    en: {
+      title: "Ghana vs Panama",
+      teams: "Ghana vs Panama",
+      location: "Toronto Stadium · Toronto",
+      note: "Group L match."
+    }
+  },
+  {
+    id: 69,
+    date: "2026-06-23",
+    officialTime: "16:00 ET",
+    kickoffUtc: "2026-06-23T20:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "ENG",
+      flag: "ENG",
+      es: "Inglaterra",
+      en: "England"
+    },
+    away: {
+      code: "GHA",
+      flag: "GHA",
+      es: "Ghana",
+      en: "Ghana"
+    },
+    stadium: {
+      es: "Boston Stadium · Foxborough",
+      en: "Boston Stadium · Foxborough"
+    },
+    es: {
+      title: "Inglaterra vs Ghana",
+      teams: "Inglaterra vs Ghana",
+      location: "Boston Stadium · Foxborough",
+      note: "Segundo partido de Inglaterra en el Grupo L."
+    },
+    en: {
+      title: "England vs Ghana",
+      teams: "England vs Ghana",
+      location: "Boston Stadium · Foxborough",
+      note: "England’s second match in Group L."
+    }
+  },
+  {
+    id: 70,
+    date: "2026-06-23",
+    officialTime: "19:00 ET",
+    kickoffUtc: "2026-06-23T23:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "PAN",
+      flag: "PAN",
+      es: "Panamá",
+      en: "Panama"
+    },
+    away: {
+      code: "CRO",
+      flag: "CRO",
+      es: "Croacia",
+      en: "Croatia"
+    },
+    stadium: {
+      es: "Toronto Stadium · Toronto",
+      en: "Toronto Stadium · Toronto"
+    },
+    es: {
+      title: "Panamá vs Croacia",
+      teams: "Panamá vs Croacia",
+      location: "Toronto Stadium · Toronto",
+      note: "Partido del Grupo L."
+    },
+    en: {
+      title: "Panama vs Croatia",
+      teams: "Panama vs Croatia",
+      location: "Toronto Stadium · Toronto",
+      note: "Group L match."
+    }
+  },
+  {
+    id: 71,
+    date: "2026-06-27",
+    officialTime: "17:00 ET",
+    kickoffUtc: "2026-06-27T21:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "PAN",
+      flag: "PAN",
+      es: "Panamá",
+      en: "Panama"
+    },
+    away: {
+      code: "ENG",
+      flag: "ENG",
+      es: "Inglaterra",
+      en: "England"
+    },
+    stadium: {
+      es: "New York New Jersey Stadium · East Rutherford",
+      en: "New York New Jersey Stadium · East Rutherford"
+    },
+    es: {
+      title: "Panamá vs Inglaterra",
+      teams: "Panamá vs Inglaterra",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "Partido final del Grupo L para Inglaterra."
+    },
+    en: {
+      title: "Panama vs England",
+      teams: "Panama vs England",
+      location: "New York New Jersey Stadium · East Rutherford",
+      note: "England’s final Group L match."
+    }
+  },
+  {
+    id: 72,
+    date: "2026-06-27",
+    officialTime: "17:00 ET",
+    kickoffUtc: "2026-06-27T21:00:00Z",
+    stage: "Group Stage",
+    group: "L",
+    source: "FIFA",
+    home: {
+      code: "CRO",
+      flag: "CRO",
+      es: "Croacia",
+      en: "Croatia"
+    },
+    away: {
+      code: "GHA",
+      flag: "GHA",
+      es: "Ghana",
+      en: "Ghana"
+    },
+    stadium: {
+      es: "Philadelphia Stadium · Philadelphia",
+      en: "Philadelphia Stadium · Philadelphia"
+    },
+    es: {
+      title: "Croacia vs Ghana",
+      teams: "Croacia vs Ghana",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Partido final del Grupo L."
+    },
+    en: {
+      title: "Croatia vs Ghana",
+      teams: "Croatia vs Ghana",
+      location: "Philadelphia Stadium · Philadelphia",
+      note: "Final Group L match."
+    }
   }
 ];
 
