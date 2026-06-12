@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Solicitud Recibida | Renebook</title>
+  <title>Solicitud Recibida | Request Received | Renebook</title>
 
   <style>
     body {
@@ -20,40 +20,78 @@
     }
 
     .card {
-      max-width: 560px;
+      max-width: 620px;
       text-align: center;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(250, 204, 21, 0.25);
       border-radius: 24px;
-      padding: 32px;
+      padding: 34px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand {
+      margin: 0 0 14px;
+      color: #facc15;
+      font-weight: 800;
+      letter-spacing: 0.04em;
     }
 
     h1 {
       color: #facc15;
-      margin-top: 0;
+      margin: 0 0 10px;
+      font-size: 2.1rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 0 0 24px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      opacity: 0.9;
     }
 
     p {
-      line-height: 1.6;
+      line-height: 1.65;
       color: #e5e7eb;
+      margin: 14px 0;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.16);
+      margin: 24px 0;
     }
 
     a {
       display: inline-block;
-      margin-top: 20px;
-      padding: 14px 20px;
+      margin-top: 22px;
+      padding: 14px 22px;
       border-radius: 14px;
       background: #facc15;
       color: #111827;
       font-weight: bold;
       text-decoration: none;
     }
+
+    a:hover {
+      filter: brightness(1.05);
+    }
+
+    .small {
+      margin-top: 20px;
+      font-size: 0.92rem;
+      opacity: 0.75;
+    }
   </style>
 </head>
 
 <body>
   <main class="card">
+    <p class="brand">Renebook.org</p>
+
     <h1>Solicitud recibida</h1>
+    <h2>Request received</h2>
 
     <p>
       Gracias por escribir a Renebook. Hemos recibido tu solicitud de oración,
@@ -64,9 +102,24 @@
       Nuestro equipo revisará tu mensaje con respeto, cuidado y confidencialidad.
     </p>
 
+    <div class="divider"></div>
+
+    <p>
+      Thank you for contacting Renebook. We have received your request for prayer,
+      spiritual guidance, or help connecting with a church.
+    </p>
+
+    <p>
+      Our team will review your message with respect, care, and confidentiality.
+    </p>
+
     <a href="/app-biblia-random-2026.html">
-      Volver a Renebook
+      Volver a Renebook / Back to Renebook
     </a>
+
+    <p class="small">
+      Contacto oficial / Official contact: contacto@renebook.org
+    </p>
   </main>
 </body>
 </html>
