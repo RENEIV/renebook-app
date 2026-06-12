@@ -431,4 +431,14 @@ h1 {
 
 .hidden-field {
   display: none;
+}.english-subtitle {
+  margin-top: -4px;
+  font-size: 1.25rem;
+  opacity: 0.86;
+  font-weight: 700;
+}
+
+.contact-intro + .contact-intro {
+  margin-top: -8px;
+  opacity: 0.78;
 }
