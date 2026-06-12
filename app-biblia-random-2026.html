@@ -64,7 +64,109 @@
           <a href="/index.html" class="secondary-link">Volver a Renebook</a>
         </div>
       </div>
-    </section>
+    </section><section class="blessing-contact-card" id="contacto-bendicion">
+  <p class="result-label">🙏 Contacto de Bendición</p>
+
+  <h2>¿Necesitas oración o guía espiritual?</h2>
+
+  <p class="contact-intro">
+    Si necesitas oración, deseas conocer más de Cristo o buscas una iglesia cerca de ti,
+    completa este formulario. Revisaremos tu solicitud con respeto, cuidado y confidencialidad.
+  </p>
+
+  <form
+    name="renebook-contacto-bendicion"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="blessing-form"
+  >
+    <input type="hidden" name="form-name" value="renebook-contacto-bendicion" />
+
+    <p class="hidden-field">
+      <label>
+        No llenar este campo:
+        <input name="bot-field" />
+      </label>
+    </p>
+
+    <label for="nombre">Nombre</label>
+    <input
+      type="text"
+      id="nombre"
+      name="nombre"
+      placeholder="Tu nombre"
+      required
+    />
+
+    <label for="email">Correo electrónico</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="tuemail@email.com"
+      required
+    />
+
+    <label for="telefono">Teléfono opcional</label>
+    <input
+      type="tel"
+      id="telefono"
+      name="telefono"
+      placeholder="Opcional"
+    />
+
+    <label for="ciudad">Ciudad</label>
+    <input
+      type="text"
+      id="ciudad"
+      name="ciudad"
+      placeholder="Ejemplo: Riverside, Garden Grove, Fresno"
+      required
+    />
+
+    <label for="zona">Zona</label>
+    <select id="zona" name="zona" required>
+      <option value="">Selecciona una zona</option>
+      <option value="Norte de California">Norte de California</option>
+      <option value="Centro de California">Centro de California</option>
+      <option value="Sur de California">Sur de California</option>
+      <option value="Fuera de California">Fuera de California</option>
+    </select>
+
+    <label for="motivo">Motivo de contacto</label>
+    <select id="motivo" name="motivo" required>
+      <option value="">Selecciona una opción</option>
+      <option value="Petición de oración">Petición de oración</option>
+      <option value="Quiero conocer más de Cristo">Quiero conocer más de Cristo</option>
+      <option value="Busco una iglesia cerca de mí">Busco una iglesia cerca de mí</option>
+      <option value="Necesito seguimiento pastoral">Necesito seguimiento pastoral</option>
+      <option value="Otro">Otro</option>
+    </select>
+
+    <label for="mensaje">Mensaje</label>
+    <textarea
+      id="mensaje"
+      name="mensaje"
+      rows="5"
+      placeholder="Escribe brevemente cómo podemos ayudarte."
+      required
+    ></textarea>
+
+    <label class="checkbox-row">
+      <input type="checkbox" name="permiso_contacto" value="Sí" required />
+      Acepto ser contactado por el equipo de Renebook.
+    </label>
+
+    <button type="submit" class="blessing-submit-btn">
+      Enviar solicitud
+    </button>
+
+    <p class="contact-footer">
+      También puedes escribirnos a: contacto@renebook.org
+    </p>
+  </form>
+</section>
   </main>
 
   <script src="/data/wisdom-random-verses.js"></script>
