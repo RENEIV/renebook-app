@@ -319,4 +319,32 @@ h1 {
     transform: translateY(110vh) rotate(520deg) scale(.9);
     opacity: 0;
   }
+}.match-day-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.match-day-item:last-child {
+  border-bottom: none;
+}
+
+.match-day-item strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.match-day-item span {
+  display: block;
+  opacity: 0.9;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.match-day-item small {
+  display: block;
+  margin-top: 6px;
+  color: #facc15;
+  line-height: 1.4;
 }
