@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblia Random | Sabiduría bíblica diaria — Renebook</title>
+  <meta name="description" content="Recibe una palabra bíblica de sabiduría para reflexionar, orar y aplicar a tu vida cada día con Renebook." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://renebook.org/app-biblia-random.html" />
+  <link rel="icon" type="image/png" href="/assets/renebook-logo.png" />
+  <link rel="apple-touch-icon" href="/assets/renebook-logo.png" />
+  <link rel="stylesheet" href="/css/biblia-random.css" />
+  <meta name="theme-color" content="#061425" />
+</head>
+<body>
+  <main class="random-page">
+    <section class="random-hero">
+      <div class="random-card">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true">📖</div>
+          <div><strong>Renebook</strong><span>Sabiduría bíblica diaria</span></div>
+        </div>
+        <p class="eyebrow">Una palabra para tu camino</p>
+        <h1>Biblia Random</h1>
+        <p class="lead">Descubre una palabra bíblica de sabiduría para reflexionar, orar y aplicar a tu vida durante el día.</p>
+        <button class="play-button" type="button" id="randomPlayBtn">Mostrar palabra bíblica</button>
+
+        <div class="result-grid result-grid-single">
+          <article class="result-box" aria-live="polite" aria-atomic="true">
+            <span class="result-label">Palabra bíblica</span>
+            <h2 id="randomVerseReference">Proverbios</h2>
+            <blockquote id="randomVerseText">Aquí aparecerá una palabra bíblica de sabiduría.</blockquote>
+            <p id="randomVerseTheme">Sabiduría diaria</p>
+          </article>
+        </div>
+
+        <div class="button-row">
+          <a href="/app-bible.html" class="secondary-link">Abrir App Biblia</a>
+          <a href="/index.html" class="secondary-link">Volver a Renebook</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="blessing-contact-card" id="contacto-bendicion">
+      <p class="result-label">Contacto de bendición</p>
+      <h2>¿Necesitas oración o guía espiritual?</h2>
+      <p class="contact-intro">Si necesitas oración, deseas conocer más de Cristo o buscas una iglesia cerca de ti, completa este formulario. Revisaremos tu solicitud con respeto, cuidado y confidencialidad.</p>
+
+      <form name="renebook-contacto-bendicion" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" class="blessing-form">
+        <input type="hidden" name="form-name" value="renebook-contacto-bendicion" />
+        <p class="hidden-field"><label>No llenar este campo:<input type="text" name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <label for="idioma">Idioma preferido</label>
+        <select id="idioma" name="idioma" required>
+          <option value="">Selecciona tu idioma</option>
+          <option value="Español">Español</option>
+          <option value="Inglés">Inglés</option>
+          <option value="Portugués">Portugués</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required />
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="nombre@correo.com" autocomplete="email" required />
+
+        <label for="telefono">Teléfono opcional</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="Opcional" autocomplete="tel" />
+
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" placeholder="Ejemplo: Riverside, Fresno o Los Ángeles" autocomplete="address-level2" required />
+
+        <label for="zona">Zona</label>
+        <select id="zona" name="zona" required>
+          <option value="">Selecciona una zona</option>
+          <option value="Norte de California">Norte de California</option>
+          <option value="Centro de California">Centro de California</option>
+          <option value="Sur de California">Sur de California</option>
+          <option value="Fuera de California">Fuera de California</option>
+        </select>
+
+        <label for="motivo">Motivo de contacto</label>
+        <select id="motivo" name="motivo" required>
+          <option value="">Selecciona una opción</option>
+          <option value="Petición de oración">Petición de oración</option>
+          <option value="Quiero conocer más de Cristo">Quiero conocer más de Cristo</option>
+          <option value="Busco una iglesia cerca de mí">Busco una iglesia cerca de mí</option>
+          <option value="Necesito seguimiento pastoral">Necesito seguimiento pastoral</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe brevemente cómo podemos ayudarte." required></textarea>
+
+        <label class="checkbox-row">
+          <input type="checkbox" name="permiso_contacto" value="Sí" required />
+          <span>Acepto ser contactado por el equipo de Renebook.</span>
+        </label>
+
+        <button type="submit" class="blessing-submit-btn">Enviar solicitud</button>
+        <p class="contact-footer">También puedes escribirnos a: <a href="mailto:contacto@renebook.org">contacto@renebook.org</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/data/wisdom-random-verses.js" defer></script>
+  <script src="/js/biblia-random.js" defer></script>
+</body>
+</html>
