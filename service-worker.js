@@ -1,4 +1,4 @@
-const CACHE_NAME = "renebook-v2-20260804";
+const CACHE_NAME = "renebook-v3-20260804-controls";
 const CORE_FILES = [
   "/",
   "/index.html",
