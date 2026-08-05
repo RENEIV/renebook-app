@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Biblia Random | Sabiduría bíblica diaria — Renebook</title>
-  <meta name="description" content="Recibe una palabra bíblica de sabiduría para reflexionar, orar y aplicar a tu vida cada día con Renebook." />
+  <title>Palabra del Día | Rotación bíblica inteligente — Renebook</title>
+  <meta name="description" content="Recibe una palabra bíblica distinta cada día, completa una reflexión pastoral y fortalece tu hábito de lectura con Renebook." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://renebook.org/app-biblia-random.html" />
   <link rel="icon" type="image/png" href="/assets/renebook-logo.png" />
@@ -13,98 +13,162 @@
   <meta name="theme-color" content="#061425" />
 </head>
 <body>
+  <header class="app-header">
+    <a class="app-brand" href="/index.html" aria-label="Volver a Renebook">
+      <img src="/assets/renebook-logo.png" alt="Renebook" />
+      <span><strong>Renebook</strong><small data-es="Palabra diaria y crecimiento" data-en="Daily Scripture and growth">Palabra diaria y crecimiento</small></span>
+    </a>
+    <nav class="header-actions" aria-label="Navegación de la aplicación">
+      <a href="/app-bible.html" data-es="App Biblia" data-en="Bible App">App Biblia</a>
+      <a href="/index.html" data-es="Inicio" data-en="Home">Inicio</a>
+      <div class="language-switch" aria-label="Selector de idioma">
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </nav>
+  </header>
+
   <main class="random-page">
     <section class="random-hero">
-      <div class="random-card">
-        <div class="brand-row">
-          <div class="brand-mark" aria-hidden="true">📖</div>
-          <div><strong>Renebook</strong><span>Sabiduría bíblica diaria</span></div>
-        </div>
-        <p class="eyebrow">Una palabra para tu camino</p>
-        <h1>Biblia Random</h1>
-        <p class="lead">Descubre una palabra bíblica de sabiduría para reflexionar, orar y aplicar a tu vida durante el día.</p>
-        <button class="play-button" type="button" id="randomPlayBtn">Mostrar palabra bíblica</button>
-
-        <div class="result-grid result-grid-single">
-          <article class="result-box" aria-live="polite" aria-atomic="true">
-            <span class="result-label">Palabra bíblica</span>
-            <h2 id="randomVerseReference">Proverbios</h2>
-            <blockquote id="randomVerseText">Aquí aparecerá una palabra bíblica de sabiduría.</blockquote>
-            <p id="randomVerseTheme">Sabiduría diaria</p>
-          </article>
-        </div>
-
-        <div class="button-row">
-          <a href="/app-bible.html" class="secondary-link">Abrir App Biblia</a>
-          <a href="/index.html" class="secondary-link">Volver a Renebook</a>
-        </div>
+      <div class="random-card hero-card">
+        <div class="engine-badge">✦ Smart Bible Rotation Engine™</div>
+        <p class="eyebrow" data-es="Una palabra nueva para cada día" data-en="A fresh Scripture for each day">Una palabra nueva para cada día</p>
+        <h1 data-es="Palabra bíblica para hoy" data-en="Scripture for today">Palabra bíblica para hoy</h1>
+        <p class="lead" data-es="Renebook selecciona el pasaje con una rotación inteligente que evita repeticiones hasta completar el conjunto disponible." data-en="Renebook selects the passage through an intelligent rotation that avoids repetition until the available collection is completed.">Renebook selecciona el pasaje con una rotación inteligente que evita repeticiones hasta completar el conjunto disponible.</p>
+        <button class="play-button" type="button" id="randomPlayBtn" data-es="Leer la palabra de hoy" data-en="Read today’s Scripture">Leer la palabra de hoy</button>
+        <p class="privacy-inline" data-es="La selección y el progreso se guardan únicamente en este dispositivo." data-en="The selection and progress are stored only on this device.">La selección y el progreso se guardan únicamente en este dispositivo.</p>
       </div>
     </section>
 
+    <section class="reading-section" id="readingExperience" aria-labelledby="randomVerseReference">
+      <article class="scripture-card">
+        <div class="scripture-topline">
+          <span class="result-label" data-es="Palabra del día" data-en="Scripture of the day">Palabra del día</span>
+          <time id="dailyDate"></time>
+        </div>
+        <p class="theme-line" id="randomVerseTheme">Renebook</p>
+        <h2 id="randomVerseReference">Cargando pasaje…</h2>
+        <blockquote id="randomVerseText">La Palabra de Dios aparecerá aquí.</blockquote>
+
+        <div class="devotional-grid">
+          <section class="devotional-main">
+            <p class="section-kicker" data-es="Reflexión pastoral" data-en="Pastoral reflection">Reflexión pastoral</p>
+            <h3 id="randomVerseTitle"></h3>
+            <p id="randomVerseReflection"></p>
+          </section>
+          <aside class="application-panel">
+            <div>
+              <strong data-es="Aplicación para hoy" data-en="Application for today">Aplicación para hoy</strong>
+              <p id="randomVerseApplication"></p>
+            </div>
+            <div>
+              <strong data-es="Oración" data-en="Prayer">Oración</strong>
+              <p id="randomVersePrayer"></p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="reading-actions">
+          <div>
+            <button class="complete-button" type="button" id="completeReadingBtn" disabled>Preparando lectura…</button>
+            <p id="readingTimerStatus" class="reading-status" aria-live="polite"></p>
+          </div>
+          <button class="share-button" type="button" id="shareVerseBtn" data-es="Compartir" data-en="Share">Compartir</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="growth-card" aria-labelledby="growthTitle">
+      <div class="growth-heading">
+        <div>
+          <p class="section-kicker">Renebook Growth Journey™</p>
+          <h2 id="growthTitle" data-es="Tu camino de lectura" data-en="Your reading journey">Tu camino de lectura</h2>
+        </div>
+        <span class="level-badge" id="readingLevel">🌱 Semilla</span>
+      </div>
+
+      <div class="progress-stats">
+        <div class="progress-stat"><strong id="readingStreak">0</strong><span data-es="días de constancia" data-en="days of consistency">días de constancia</span></div>
+        <div class="progress-stat"><strong id="readingTotal">0</strong><span data-es="lecturas completadas" data-en="completed readings">lecturas completadas</span></div>
+        <div class="progress-stat"><strong>100%</strong><span data-es="progreso privado" data-en="private progress">progreso privado</span></div>
+      </div>
+
+      <div class="level-progress" aria-label="Progreso de nivel">
+        <div class="level-progress-track"><span id="levelProgressBar"></span></div>
+        <p id="levelProgressText"></p>
+      </div>
+
+      <label class="recognition-option">
+        <input type="checkbox" id="publicRecognitionConsent" />
+        <span>
+          <strong data-es="Deseo participar en futuros reconocimientos de la comunidad." data-en="I want to participate in future community recognitions.">Deseo participar en futuros reconocimientos de la comunidad.</strong>
+          <small data-es="Esta preferencia se guarda localmente y todavía no envía información a Renebook." data-en="This preference is stored locally and does not yet send information to Renebook.">Esta preferencia se guarda localmente y todavía no envía información a Renebook.</small>
+        </span>
+      </label>
+    </section>
+
     <section class="blessing-contact-card" id="contacto-bendicion">
-      <p class="result-label">Contacto de bendición</p>
-      <h2>¿Necesitas oración o guía espiritual?</h2>
-      <p class="contact-intro">Si necesitas oración, deseas conocer más de Cristo o buscas una iglesia cerca de ti, completa este formulario. Revisaremos tu solicitud con respeto, cuidado y confidencialidad.</p>
+      <p class="result-label" data-es="Contacto de bendición" data-en="Blessing contact">Contacto de bendición</p>
+      <h2 data-es="¿Necesitas oración o guía espiritual?" data-en="Do you need prayer or spiritual guidance?">¿Necesitas oración o guía espiritual?</h2>
+      <p class="contact-intro" data-es="Si necesitas oración, deseas conocer más de Cristo o buscas una iglesia cerca de ti, completa este formulario. Revisaremos tu solicitud con respeto, cuidado y confidencialidad." data-en="If you need prayer, want to know more about Christ, or are looking for a church near you, complete this form. We will review your request with respect, care, and confidentiality.">Si necesitas oración, deseas conocer más de Cristo o buscas una iglesia cerca de ti, completa este formulario. Revisaremos tu solicitud con respeto, cuidado y confidencialidad.</p>
 
       <form name="renebook-contacto-bendicion" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html" class="blessing-form">
         <input type="hidden" name="form-name" value="renebook-contacto-bendicion" />
         <p class="hidden-field"><label>No llenar este campo:<input type="text" name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
 
-        <label for="idioma">Idioma preferido</label>
+        <label for="idioma" data-es="Idioma preferido" data-en="Preferred language">Idioma preferido</label>
         <select id="idioma" name="idioma" required>
-          <option value="">Selecciona tu idioma</option>
+          <option value="">Selecciona tu idioma / Select your language</option>
           <option value="Español">Español</option>
-          <option value="Inglés">Inglés</option>
-          <option value="Portugués">Portugués</option>
-          <option value="Otro">Otro</option>
+          <option value="English">English</option>
+          <option value="Português">Português</option>
+          <option value="Otro">Otro / Other</option>
         </select>
 
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required />
+        <label for="nombre" data-es="Nombre" data-en="Name">Nombre</label>
+        <input type="text" id="nombre" name="nombre" autocomplete="name" required />
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="nombre@correo.com" autocomplete="email" required />
+        <label for="email" data-es="Correo electrónico" data-en="Email">Correo electrónico</label>
+        <input type="email" id="email" name="email" autocomplete="email" required />
 
-        <label for="telefono">Teléfono opcional</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="Opcional" autocomplete="tel" />
+        <label for="ciudad" data-es="Ciudad" data-en="City">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" autocomplete="address-level2" required />
 
-        <label for="ciudad">Ciudad</label>
-        <input type="text" id="ciudad" name="ciudad" placeholder="Ejemplo: Riverside, Fresno o Los Ángeles" autocomplete="address-level2" required />
-
-        <label for="zona">Zona</label>
-        <select id="zona" name="zona" required>
-          <option value="">Selecciona una zona</option>
-          <option value="Norte de California">Norte de California</option>
-          <option value="Centro de California">Centro de California</option>
-          <option value="Sur de California">Sur de California</option>
-          <option value="Fuera de California">Fuera de California</option>
-        </select>
-
-        <label for="motivo">Motivo de contacto</label>
+        <label for="motivo" data-es="Motivo de contacto" data-en="Reason for contact">Motivo de contacto</label>
         <select id="motivo" name="motivo" required>
-          <option value="">Selecciona una opción</option>
-          <option value="Petición de oración">Petición de oración</option>
-          <option value="Quiero conocer más de Cristo">Quiero conocer más de Cristo</option>
-          <option value="Busco una iglesia cerca de mí">Busco una iglesia cerca de mí</option>
-          <option value="Necesito seguimiento pastoral">Necesito seguimiento pastoral</option>
-          <option value="Otro">Otro</option>
+          <option value="">Selecciona una opción / Select an option</option>
+          <option value="Petición de oración">Petición de oración / Prayer request</option>
+          <option value="Quiero conocer más de Cristo">Quiero conocer más de Cristo / I want to know more about Christ</option>
+          <option value="Busco una iglesia cerca de mí">Busco una iglesia cerca de mí / I am looking for a church</option>
+          <option value="Necesito seguimiento pastoral">Necesito seguimiento pastoral / I need pastoral follow-up</option>
         </select>
 
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe brevemente cómo podemos ayudarte." required></textarea>
+        <label for="mensaje" data-es="Mensaje" data-en="Message">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
 
         <label class="checkbox-row">
           <input type="checkbox" name="permiso_contacto" value="Sí" required />
-          <span>Acepto ser contactado por el equipo de Renebook.</span>
+          <span data-es="Acepto ser contactado por el equipo de Renebook." data-en="I agree to be contacted by the Renebook team.">Acepto ser contactado por el equipo de Renebook.</span>
         </label>
 
-        <button type="submit" class="blessing-submit-btn">Enviar solicitud</button>
-        <p class="contact-footer">También puedes escribirnos a: <a href="mailto:contacto@renebook.org">contacto@renebook.org</a></p>
+        <button type="submit" class="blessing-submit-btn" data-es="Enviar solicitud" data-en="Send request">Enviar solicitud</button>
+        <p class="contact-footer">contacto@renebook.org</p>
       </form>
     </section>
   </main>
 
-  <script src="/data/wisdom-random-verses.js" defer></script>
+  <div class="celebration-overlay" id="readingCelebration" hidden role="dialog" aria-modal="true" aria-labelledby="celebrationTitle">
+    <div class="applause-field" id="applauseField" aria-hidden="true"></div>
+    <div class="celebration-card">
+      <div class="celebration-icon">👏</div>
+      <h2 id="celebrationTitle">Lectura completada</h2>
+      <p id="celebrationText"></p>
+      <p data-es="Gracias por permanecer en la Palabra. Mañana habrá un nuevo pasaje para continuar." data-en="Thank you for remaining in the Word. A new passage will be ready tomorrow.">Gracias por permanecer en la Palabra. Mañana habrá un nuevo pasaje para continuar.</p>
+      <button type="button" id="closeCelebrationBtn" data-es="Continuar" data-en="Continue">Continuar</button>
+    </div>
+  </div>
+
+  <script src="/data/daily-verses.js" defer></script>
   <script src="/js/biblia-random.js" defer></script>
 </body>
 </html>
