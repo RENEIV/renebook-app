@@ -222,8 +222,8 @@ h3 { margin: 10px 0; font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.15; 
 .level-progress-track span { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--sky), var(--cyan), var(--gold)); transition: width .45s ease; }
 .level-progress p { margin: 8px 0 0; color: var(--soft); }
 
-.recognition-option { margin-top: 22px; padding: 17px; display: flex; gap: 12px; align-items: flex-start; border-radius: 20px; border: 1px solid rgba(155,233,185,.2); background: rgba(155,233,185,.07); }
-.recognition-option input { margin-top: 5px; transform: scale(1.2); }
+.recognition-option { margin-top: 22px; padding: 17px; display: flex; gap: 12px; align-items: flex-start; border-radius: 20px; border: 1px solid rgba(155,233,185,.2); background: rgba(155,233,185,.07); cursor: pointer; }
+.recognition-option input { margin-top: 5px; transform: scale(1.2); cursor: pointer; }
 .recognition-option strong, .recognition-option small { display: block; }
 .recognition-option small { margin-top: 4px; color: var(--soft); }
 
@@ -242,10 +242,17 @@ h3 { margin: 10px 0; font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.15; 
   background: rgba(255,255,255,.97);
 }
 .blessing-form textarea { resize: vertical; }
-.checkbox-row { display: flex; align-items: flex-start; gap: 10px; }
-.checkbox-row input { width: auto; margin-top: 4px; }
+.checkbox-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.checkbox-row input { width: auto; margin-top: 4px; cursor: pointer; }
 .contact-footer { color: var(--soft); }
 .hidden-field { display: none; }
+
+/* La capa de celebración debe desaparecer por completo mientras tenga hidden.
+   Sin esta regla, display:grid sobrescribe el comportamiento nativo de [hidden]
+   y una capa transparente puede bloquear todos los botones y campos. */
+.celebration-overlay[hidden] {
+  display: none !important;
+}
 
 .celebration-overlay {
   position: fixed;
@@ -257,9 +264,15 @@ h3 { margin: 10px 0; font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.15; 
   background: rgba(1, 6, 13, .78);
   backdrop-filter: blur(12px);
   opacity: 0;
-  transition: opacity .22s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .22s ease, visibility .22s ease;
 }
-.celebration-overlay.is-visible { opacity: 1; }
+.celebration-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .celebration-card {
   position: relative;
   z-index: 2;
