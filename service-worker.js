@@ -1,4 +1,4 @@
-const CACHE_NAME = "renebook-v4-20260811-smart-install";
+const CACHE_NAME = "renebook-v5-20260811-prisma-sabiduria";
 const CORE_FILES = [
   "/",
   "/index.html",
