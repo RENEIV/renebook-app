@@ -12,6 +12,7 @@
   let selectedVerse = null;
   let readingSeconds = 0;
   let readingTimer = null;
+  let activeLang = null;
 
   function safeParse(value, fallback) {
     try {
@@ -37,6 +38,7 @@
   }
 
   function getLang() {
+    if (activeLang) return activeLang;
     const params = new URLSearchParams(window.location.search);
     const queryLang = String(params.get("lang") || "").toLowerCase();
     if (queryLang === "en" || queryLang === "english" || queryLang === "web") return "en";
@@ -46,6 +48,7 @@
 
   function setLang(lang) {
     const safeLang = lang === "en" ? "en" : "es";
+    activeLang = safeLang;
     document.documentElement.lang = safeLang;
     localStorage.setItem(LANG_KEY, safeLang);
 
