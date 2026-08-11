@@ -171,7 +171,7 @@
       flex-wrap: wrap;
     }
 
-    .links a, .bible-version-select {
+    .links a {
       min-height: 42px;
       display: inline-flex;
       align-items: center;
@@ -186,8 +186,6 @@
     }
 
     .links a:hover { border-color: rgba(122,195,255,0.68); color: #fff; }
-    .bible-version-select { color: #06111f; background: #f7fbff; padding: 8px 12px; }
-
     .welcome {
       padding: 34px 0 24px;
     }
@@ -588,7 +586,7 @@
       .welcome-card { padding: 24px 18px; border-radius: 28px; }
       .need-grid, .stats, .pathway, .mini-grid { grid-template-columns: 1fr; }
       .actions, .links { flex-direction: column; align-items: stretch; }
-      .btn, .links a, .bible-version-select { width: 100%; }
+      .btn, .links a { width: 100%; }
       .language-widget { left: 14px; right: 14px; bottom: 14px; justify-content: center; }
       .language-widget button { flex: 1; }
       .daily-verse { left: 14px; right: 14px; bottom: 86px; width: auto; }
@@ -730,19 +728,6 @@
     0 18px 34px rgba(64,176,255,0.34);
 }
 
-.bible-version-select {
-  min-height: 54px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.96);
-  color: #111827;
-  font-weight: 700;
-  font-size: 1rem;
-  outline: none;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-}
-
 /* para pantallas medianas */
 @media (max-width: 1100px) {
   .premium-nav {
@@ -754,10 +739,6 @@
     font-size: 0.95rem;
   }
 
-  .bible-version-select {
-    min-height: 48px;
-    font-size: 0.95rem;
-  }
 }
 
 /* para celular */
@@ -773,10 +754,6 @@
     padding: 12px 16px;
   }
 
-  .bible-version-select {
-    width: 100%;
-    max-width: 280px;
-  }
 }
   </style>
 </head>
@@ -812,10 +789,6 @@
 
   <a class="nav-pill" href="/vision.html" data-es="Visión" data-en="Vision">Visión</a>
 
-  <select id="bibleVersion" class="bible-version-select" aria-label="Bible version selector">
-    <option value="es">Español (RVR1909)</option>
-    <option value="en">English (WEB)</option>
-  </select>
 </div>
         
     </nav>
@@ -1255,9 +1228,6 @@
           button.classList.toggle("is-active", button.dataset.lang === safe);
         });
 
-        const version = document.getElementById("bibleVersion");
-        if (version) version.value = safe;
-
         updateLinks(safe);
         renderPathPanel(currentStep || "read", false);
         renderKids(currentKid || kids[0].key);
@@ -1373,11 +1343,6 @@
         document.querySelectorAll("[data-lang]").forEach(function (button) {
           button.addEventListener("click", function () { setLang(button.dataset.lang); });
         });
-
-        const version = document.getElementById("bibleVersion");
-        if (version) {
-          version.addEventListener("change", function () { setLang(version.value); });
-        }
 
         document.querySelectorAll("[data-step]").forEach(function (step) {
           step.addEventListener("click", function () { renderPathPanel(step.dataset.step, true); });
