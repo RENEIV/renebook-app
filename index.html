@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+<head>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -53,7 +54,6 @@
   ]
 }
 </script>
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Renebook | Biblia interactiva bilingüe</title>
@@ -61,9 +61,15 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://renebook.org/" />
   <link rel="icon" type="image/png" href="/assets/renebook-logo.png" />
-  <link rel="apple-touch-icon" href="/assets/renebook-logo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#07111f" />
+  <meta name="application-name" content="ReneBook" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ReneBook" />
+  <meta name="format-detection" content="telephone=no" />
 
   <meta property="og:title" content="Renebook | Biblia interactiva en español e inglés" />
   <meta property="og:description" content="Lee, reflexiona y crece cada día con la Palabra de Dios. Biblia, Proverbios y devocionales breves en una experiencia moderna y bilingüe." />
@@ -272,6 +278,21 @@
     .btn-primary { color: #06111f; background: linear-gradient(135deg, #99dcff, var(--blue)); box-shadow: 0 18px 44px rgba(122,195,255,.28); }
     .btn-secondary { color: #06111f; background: linear-gradient(135deg, #ffd36b, #ffe59e); }
     .btn-ghost { color: #eff8ff; background: rgba(255,255,255,.08); }
+    .install-trigger { appearance: none; }
+    .welcome .install-trigger {
+      min-width: min(100%, 310px);
+      min-height: 58px;
+      font-size: 1.02rem;
+      border-color: rgba(255,255,255,.3);
+      box-shadow: 0 20px 48px rgba(122,195,255,.32), inset 0 1px 0 rgba(255,255,255,.5);
+    }
+    .install-reassurance {
+      margin: 14px auto 0;
+      color: #dfffee;
+      font-size: .92rem;
+      font-weight: 850;
+      letter-spacing: .01em;
+    }
 
     .need-box {
       margin: 28px auto 0;
@@ -409,6 +430,97 @@
       color: #dfffee;
     }
 
+    .smart-install-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .smart-install-row p { margin: 0; flex: 1 1 260px; }
+
+    .install-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      display: grid;
+      align-items: end;
+      padding: 18px;
+      background: rgba(1, 5, 12, .76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .install-dialog[hidden] { display: none; }
+    .install-dialog-panel {
+      position: relative;
+      width: min(100%, 600px);
+      max-height: min(760px, calc(100dvh - 36px));
+      overflow-y: auto;
+      margin: 0 auto;
+      padding: 26px;
+      border-radius: 30px;
+      border: 1px solid rgba(122,195,255,.34);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(255,211,107,.16), transparent 30%),
+        linear-gradient(145deg, rgba(16,40,71,.99), rgba(5,17,31,.99));
+      box-shadow: 0 32px 100px rgba(0,0,0,.58);
+    }
+    .install-dialog-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+      font-size: 1.35rem;
+    }
+    .install-dialog-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-right: 46px;
+    }
+    .install-dialog-brand img {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    .install-dialog-kicker { margin: 0; color: var(--gold); font-size: .78rem; font-weight: 950; letter-spacing: .1em; text-transform: uppercase; }
+    .install-dialog h2 { margin: 4px 0 0; font-size: clamp(1.7rem, 6vw, 2.35rem); }
+    .install-dialog-copy { margin: 18px 0; color: var(--muted); font-size: 1.02rem; }
+    .install-steps { display: grid; gap: 11px; }
+    .install-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      align-items: center;
+      gap: 13px;
+      padding: 13px;
+      border-radius: 19px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.065);
+    }
+    .install-step-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #06111f;
+      background: linear-gradient(135deg, #99dcff, #72f0ea);
+      font-size: 1.45rem;
+      font-weight: 950;
+    }
+    .install-step strong { display: block; color: #fff; }
+    .install-step span:last-child { display: block; color: var(--muted); font-size: .92rem; }
+    .install-dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+    body.install-dialog-open { overflow: hidden; }
+
     footer { padding: 36px 0 100px; text-align: center; color: var(--soft); }
 
     .language-widget {
@@ -480,6 +592,10 @@
       .language-widget { left: 14px; right: 14px; bottom: 14px; justify-content: center; }
       .language-widget button { flex: 1; }
       .daily-verse { left: 14px; right: 14px; bottom: 86px; width: auto; }
+      .install-dialog { padding: 0; }
+      .install-dialog-panel { max-height: 92dvh; border-radius: 30px 30px 0 0; padding: 24px 18px calc(22px + env(safe-area-inset-bottom)); }
+      .install-dialog-actions { grid-template-columns: 1fr; }
+      .smart-install-row .btn { width: 100%; }
     }
     /* Premium Quick Guide Section */
 .family-step {
@@ -711,15 +827,15 @@
         <div class="welcome-card">
           <div class="welcome-inner">
             <img src="/assets/renebook-logo.png" alt="Renebook Logo" class="welcome-logo" />
-            <div class="mini-title" data-es="Biblia interactiva bilingüe" data-en="Bilingual interactive Bible">Biblia interactiva bilingüe</div>
-            <h1 data-es="La Palabra de Dios para tu día" data-en="God’s Word for your day">La Palabra de Dios para tu día</h1>
-            <p class="welcome-text" data-es="Lee, reflexiona y crece con una experiencia bíblica clara, moderna y espiritual en español e inglés." data-en="Read, reflect, and grow through a clear, modern, and spiritual Bible experience in Spanish and English.">Lee, reflexiona y crece con una experiencia bíblica clara, moderna y espiritual en español e inglés.</p>
+            <div class="mini-title" data-es="Tu Biblia diaria, sin distracciones" data-en="Your daily Bible, without distractions">Tu Biblia diaria, sin distracciones</div>
+            <h1 data-es="La Palabra de Dios, cada día contigo" data-en="God’s Word, with you every day">La Palabra de Dios, cada día contigo</h1>
+            <p class="welcome-text" data-es="Biblia, devocionales y progreso personal en una experiencia clara, privada y sin registro." data-en="Bible, devotionals, and personal progress in a clear, private experience with no sign-up.">Biblia, devocionales y progreso personal en una experiencia clara, privada y sin registro.</p>
 
             <div class="actions">
-              <a class="btn btn-primary app-link" href="/app-bible.html" data-es="Entrar a la Biblia" data-en="Enter the Bible">Entrar a la Biblia</a>
-              <a class="btn btn-secondary" href="#versiculo-dia" data-es="Versículo de hoy" data-en="Today’s Verse">Versículo de hoy</a>
-              <a class="btn btn-ghost" href="#guardar-app" data-es="Guardar como app" data-en="Save as app">Guardar como app</a>
+              <button class="btn btn-primary install-trigger" type="button" data-install-trigger data-es="Guardar ReneBook en mi celular" data-en="Save ReneBook on my phone">Guardar ReneBook en mi celular</button>
+              <a class="btn btn-ghost" href="/app-biblia-random.html?lang=es" data-daily-link data-es="Explorar primero" data-en="Explore first">Explorar primero</a>
             </div>
+            <p class="install-reassurance" data-es="Gratis · Sin anuncios · Sin crear cuenta · Progreso privado" data-en="Free · No ads · No account · Private progress">Gratis · Sin anuncios · Sin crear cuenta · Progreso privado</p>
 
             <div class="need-box">
               <p data-es="¿Qué necesitas hoy?" data-en="What do you need today?">¿Qué necesitas hoy?</p>
@@ -825,16 +941,16 @@
     <section class="shell section" id="guardar-app">
       <div class="install-panel">
         <span class="eyebrow" data-es="Guardar Renebook" data-en="Save Renebook">Guardar Renebook</span>
-        <h2 data-es="Lleva la Palabra contigo." data-en="Carry the Word with you.">Lleva la Palabra contigo.</h2>
-        <p class="section-intro" data-es="Puedes guardar Renebook en tu celular para volver cada día a la lectura bíblica, los devocionales y Proverbios." data-en="You can save Renebook on your phone to return each day to Bible reading, devotionals, and Proverbs.">Puedes guardar Renebook en tu celular para volver cada día a la lectura bíblica, los devocionales y Proverbios.</p>
+        <h2 data-es="Un toque para volver cada día." data-en="One tap to return every day.">Un toque para volver cada día.</h2>
+        <p class="section-intro" data-es="Guarda ReneBook en la pantalla de inicio. Al abrirlo entrarás directamente a Palabra de hoy." data-en="Save ReneBook to your Home Screen. When you open it, you’ll go directly to Today’s Scripture.">Guarda ReneBook en la pantalla de inicio. Al abrirlo entrarás directamente a Palabra de hoy.</p>
         <div class="mini-grid">
-          <div class="mini-box"><strong data-es="iPhone" data-en="iPhone">iPhone</strong><span data-es="Abrir en Safari, tocar compartir y elegir “Agregar a pantalla de inicio”." data-en="Open in Safari, tap Share, and choose “Add to Home Screen”.">Abrir en Safari, tocar compartir y elegir “Agregar a pantalla de inicio”.</span></div>
-          <div class="mini-box"><strong data-es="Android" data-en="Android">Android</strong><span data-es="Abrir en Chrome y elegir “Agregar a pantalla principal” o “Instalar app”." data-en="Open in Chrome and choose “Add to Home Screen” or “Install app”.">Abrir en Chrome y elegir “Agregar a pantalla principal” o “Instalar app”.</span></div>
-          <div class="mini-box"><strong data-es="Privacidad" data-en="Privacy">Privacidad</strong><span data-es="Puedes comenzar sin iniciar sesión ni compartir datos personales." data-en="You can begin without signing in or sharing personal data.">Puedes comenzar sin iniciar sesión ni compartir datos personales.</span></div>
+          <div class="mini-box"><strong data-es="iPhone" data-en="iPhone">iPhone</strong><span data-es="Te mostramos una guía visual exacta para agregarlo a Inicio desde Safari." data-en="We show you the exact visual steps to add it to Home Screen from Safari.">Te mostramos una guía visual exacta para agregarlo a Inicio desde Safari.</span></div>
+          <div class="mini-box"><strong data-es="Android" data-en="Android">Android</strong><span data-es="Cuando Chrome lo permite, aparece directamente el botón nativo de instalación." data-en="When Chrome allows it, the native installation prompt opens directly.">Cuando Chrome lo permite, aparece directamente el botón nativo de instalación.</span></div>
+          <div class="mini-box"><strong data-es="Acceso diario" data-en="Daily access">Acceso diario</strong><span data-es="Abre como app, funciona con conexión limitada y conserva tu idioma." data-en="Opens like an app, works with limited connectivity, and remembers your language.">Abre como app, funciona con conexión limitada y conserva tu idioma.</span></div>
         </div>
-        <div class="privacy-note">
-          <span>🔒</span>
-          <span data-es="Renebook está en desarrollo y en mejora continua. Nuestro compromiso es ofrecer una experiencia bíblica clara, segura y edificante." data-en="Renebook is in development and under continuous improvement. Our commitment is to offer a clear, safe, and edifying Bible experience.">Renebook está en desarrollo y en mejora continua. Nuestro compromiso es ofrecer una experiencia bíblica clara, segura y edificante.</span>
+        <div class="smart-install-row">
+          <button class="btn btn-primary install-trigger" type="button" data-install-trigger data-es="Guardar ReneBook ahora" data-en="Save ReneBook now">Guardar ReneBook ahora</button>
+          <p data-es="Gratis, sin anuncios y sin crear cuenta. El progreso permanece en este dispositivo." data-en="Free, ad-free, and no account required. Progress stays on this device.">Gratis, sin anuncios y sin crear cuenta. El progreso permanece en este dispositivo.</p>
         </div>
       </div>
     </section>
@@ -849,14 +965,50 @@
     <button type="button" data-lang="en">English</button>
   </div>
 
+  <div class="install-dialog" id="installDialog" hidden>
+    <section class="install-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="installDialogTitle" aria-describedby="installDialogCopy">
+      <button class="install-dialog-close" id="installDialogClose" type="button" aria-label="Cerrar">×</button>
+      <div class="install-dialog-brand">
+        <img src="/assets/renebook-logo.png" alt="" />
+        <div>
+          <p class="install-dialog-kicker" id="installDialogKicker">ReneBook en tu celular</p>
+          <h2 id="installDialogTitle">Guardar ReneBook</h2>
+        </div>
+      </div>
+      <p class="install-dialog-copy" id="installDialogCopy"></p>
+      <div class="install-steps" id="installSteps"></div>
+      <div class="install-dialog-actions">
+        <button class="btn btn-primary" id="installDialogPrimary" type="button">Entendido</button>
+        <button class="btn btn-ghost" id="installDialogSecondary" type="button">Explorar Palabra de hoy</button>
+      </div>
+    </section>
+  </div>
+
   <script>
     (function () {
       "use strict";
 
       const LANG_KEY = "renebookLang";
       const READER_LANG_KEY = "renebook_reader_language";
-      const DAILY_KEY = "renebook_daily_verse_last_seen";
-      const DAY = 24 * 60 * 60 * 1000;
+      const INSTALL_METRICS_KEY = "renebook_install_metrics_v1";
+      let deferredInstallPrompt = null;
+      let installConfirmed = false;
+      let lastInstallTrigger = null;
+      let activeLang = null;
+
+      window.addEventListener("beforeinstallprompt", function (event) {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        trackInstallEvent("prompt_available");
+      });
+
+      window.addEventListener("appinstalled", function () {
+        installConfirmed = true;
+        deferredInstallPrompt = null;
+        trackInstallEvent("installed");
+        updateInstallButtons();
+        closeInstallGuide("installed");
+      });
 
       const pathData = {
         read: {
@@ -902,12 +1054,195 @@
         return null;
       }
 
+      function getBrowserLang() {
+        const preferred = Array.isArray(navigator.languages) && navigator.languages.length
+          ? navigator.languages[0]
+          : navigator.language;
+        return String(preferred || "es").toLowerCase().startsWith("en") ? "en" : "es";
+      }
+
       function getLang() {
-        return getUrlLang() || localStorage.getItem(LANG_KEY) || localStorage.getItem(READER_LANG_KEY) || "es";
+        return activeLang || getUrlLang() || localStorage.getItem(LANG_KEY) || localStorage.getItem(READER_LANG_KEY) || getBrowserLang();
+      }
+
+      function getPlatform() {
+        const ua = navigator.userAgent || "";
+        const iPadDesktopMode = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || iPadDesktopMode;
+        const isAndroid = /Android/i.test(ua);
+        const isSafari = isIOS && /Safari/i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+        const isStandalone = installConfirmed || window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+        return {
+          key: isIOS ? "ios" : isAndroid ? "android" : "desktop",
+          isIOS,
+          isAndroid,
+          isSafari,
+          isStandalone
+        };
+      }
+
+      function getDailyUrl() {
+        return "/app-biblia-random.html?lang=" + getLang() + "&source=pwa-cta";
+      }
+
+      function trackInstallEvent(action, details) {
+        const platform = getPlatform();
+        const payload = Object.assign({
+          event: "renebook_pwa",
+          pwa_action: action,
+          pwa_platform: platform.key,
+          pwa_language: getLang(),
+          pwa_standalone: platform.isStandalone,
+          timestamp: new Date().toISOString()
+        }, details || {});
+
+        try {
+          const metrics = JSON.parse(localStorage.getItem(INSTALL_METRICS_KEY) || "{}") || {};
+          metrics.version = 1;
+          metrics.firstSeen = metrics.firstSeen || payload.timestamp;
+          metrics.lastUpdated = payload.timestamp;
+          metrics.platform = platform.key;
+          metrics.language = getLang();
+          metrics.events = metrics.events || {};
+          const current = metrics.events[action] || { count: 0 };
+          current.count += 1;
+          current.lastAt = payload.timestamp;
+          metrics.events[action] = current;
+          localStorage.setItem(INSTALL_METRICS_KEY, JSON.stringify(metrics));
+        } catch (error) {}
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(payload);
+        window.dispatchEvent(new CustomEvent("renebook:pwa", { detail: payload }));
+      }
+
+      function updateInstallButtons() {
+        const platform = getPlatform();
+        if (!platform.isStandalone) return;
+        const lang = getLang();
+        document.querySelectorAll("[data-install-trigger]").forEach(function (button) {
+          button.setAttribute("data-es", "Abrir Palabra de hoy");
+          button.setAttribute("data-en", "Open Today’s Scripture");
+          button.textContent = lang === "en" ? "Open Today’s Scripture" : "Abrir Palabra de hoy";
+        });
+      }
+
+      function getInstallGuide(platform, lang) {
+        const en = lang === "en";
+        if (platform.isIOS) {
+          return {
+            kicker: en ? "Install on iPhone or iPad" : "Instalación en iPhone o iPad",
+            title: en ? "Add ReneBook to Home Screen" : "Agrega ReneBook a tu pantalla de inicio",
+            copy: platform.isSafari
+              ? (en ? "Apple uses a short manual process in Safari. Follow these three steps:" : "Apple utiliza un proceso manual breve en Safari. Sigue estos tres pasos:")
+              : (en ? "For the most reliable installation, open this page in Safari and follow these steps:" : "Para instalarlo correctamente, abre esta página en Safari y sigue estos pasos:"),
+            steps: en
+              ? [["↥", "Tap Share", "Use the Share button in Safari’s toolbar."], ["＋", "Add to Home Screen", "Scroll through the actions and select this option."], ["✓", "Tap Add", "ReneBook will appear with your other apps."]]
+              : [["↥", "Toca Compartir", "Usa el botón Compartir en la barra de Safari."], ["＋", "Agregar a pantalla de inicio", "Desliza entre las acciones y selecciona esta opción."], ["✓", "Toca Agregar", "ReneBook aparecerá junto a tus demás aplicaciones."]]
+          };
+        }
+
+        if (platform.isAndroid) {
+          return {
+            kicker: en ? "Install on Android" : "Instalación en Android",
+            title: en ? "Add ReneBook to your phone" : "Agrega ReneBook a tu celular",
+            copy: en ? "Your browser can install ReneBook from its menu:" : "Tu navegador puede instalar ReneBook desde su menú:",
+            steps: en
+              ? [["⋮", "Open the browser menu", "Tap the three dots in Chrome."], ["＋", "Choose Install app", "You may also see Add to Home Screen."], ["✓", "Confirm Install", "ReneBook will open in its own window."]]
+              : [["⋮", "Abre el menú del navegador", "Toca los tres puntos en Chrome."], ["＋", "Elige Instalar app", "También puede aparecer Agregar a pantalla principal."], ["✓", "Confirma Instalar", "ReneBook abrirá en su propia ventana."]]
+          };
+        }
+
+        return {
+          kicker: en ? "Install on this computer" : "Instalación en esta computadora",
+          title: en ? "Keep ReneBook one click away" : "Ten ReneBook siempre a un clic",
+          copy: en ? "Use the install icon in the address bar or your browser menu:" : "Usa el icono de instalación en la barra de direcciones o el menú del navegador:",
+          steps: en
+            ? [["⊕", "Find Install", "Look in the address bar or the browser menu."], ["✓", "Confirm", "Choose Install ReneBook when prompted."], ["📖", "Open Today’s Scripture", "ReneBook will launch as a separate app."]]
+            : [["⊕", "Busca Instalar", "Revisa la barra de direcciones o el menú del navegador."], ["✓", "Confirma", "Elige Instalar ReneBook cuando aparezca."], ["📖", "Abre Palabra de hoy", "ReneBook iniciará como una aplicación independiente."]]
+        };
+      }
+
+      function openInstallGuide(trigger) {
+        const dialog = document.getElementById("installDialog");
+        if (!dialog) return;
+        const lang = getLang();
+        const guide = getInstallGuide(getPlatform(), lang);
+        lastInstallTrigger = trigger || document.activeElement;
+
+        document.getElementById("installDialogKicker").textContent = guide.kicker;
+        document.getElementById("installDialogTitle").textContent = guide.title;
+        document.getElementById("installDialogCopy").textContent = guide.copy;
+        document.getElementById("installDialogClose").setAttribute("aria-label", lang === "en" ? "Close" : "Cerrar");
+        document.getElementById("installDialogPrimary").textContent = lang === "en" ? "Got it" : "Entendido";
+        document.getElementById("installDialogSecondary").textContent = lang === "en" ? "Explore Today’s Scripture" : "Explorar Palabra de hoy";
+
+        const steps = document.getElementById("installSteps");
+        steps.innerHTML = "";
+        guide.steps.forEach(function (step) {
+          const item = document.createElement("div");
+          item.className = "install-step";
+          const icon = document.createElement("span");
+          icon.className = "install-step-icon";
+          icon.setAttribute("aria-hidden", "true");
+          icon.textContent = step[0];
+          const copy = document.createElement("div");
+          const title = document.createElement("strong");
+          const description = document.createElement("span");
+          title.textContent = step[1];
+          description.textContent = step[2];
+          copy.append(title, description);
+          item.append(icon, copy);
+          steps.appendChild(item);
+        });
+
+        dialog.hidden = false;
+        document.body.classList.add("install-dialog-open");
+        document.getElementById("installDialogClose").focus();
+        trackInstallEvent("guide_opened");
+      }
+
+      function closeInstallGuide(reason) {
+        const dialog = document.getElementById("installDialog");
+        if (!dialog || dialog.hidden) return;
+        dialog.hidden = true;
+        document.body.classList.remove("install-dialog-open");
+        if (reason !== "installed") trackInstallEvent("guide_closed", { pwa_reason: reason || "dismissed" });
+        if (lastInstallTrigger && typeof lastInstallTrigger.focus === "function") lastInstallTrigger.focus();
+      }
+
+      async function handleInstallClick(event) {
+        const trigger = event.currentTarget;
+        const platform = getPlatform();
+        trackInstallEvent("cta_clicked");
+
+        if (platform.isStandalone) {
+          trackInstallEvent("opened_today_from_installed_cta");
+          window.location.href = getDailyUrl();
+          return;
+        }
+
+        if (deferredInstallPrompt) {
+          const prompt = deferredInstallPrompt;
+          deferredInstallPrompt = null;
+          try {
+            trackInstallEvent("native_prompt_opened");
+            await prompt.prompt();
+            const choice = await prompt.userChoice;
+            trackInstallEvent(choice.outcome === "accepted" ? "native_prompt_accepted" : "native_prompt_dismissed");
+          } catch (error) {
+            trackInstallEvent("native_prompt_error");
+            openInstallGuide(trigger);
+          }
+          return;
+        }
+
+        openInstallGuide(trigger);
       }
 
       function setLang(lang) {
         const safe = lang === "en" ? "en" : "es";
+        activeLang = safe;
         document.documentElement.lang = safe;
         localStorage.setItem(LANG_KEY, safe);
         localStorage.setItem(READER_LANG_KEY, safe);
@@ -926,12 +1261,16 @@
         updateLinks(safe);
         renderPathPanel(currentStep || "read", false);
         renderKids(currentKid || kids[0].key);
+        updateInstallButtons();
       }
 
       function updateLinks(lang) {
         document.querySelectorAll("a.app-link, a[href*='app-bible.html']").forEach(function (link) {
           const hasHash = link.href.includes("#") ? "#" + link.href.split("#").pop() : "";
           link.setAttribute("href", "/app-bible.html?lang=" + lang + hasHash);
+        });
+        document.querySelectorAll("[data-daily-link]").forEach(function (link) {
+          link.setAttribute("href", "/app-biblia-random.html?lang=" + lang + "&source=homepage");
         });
       }
 
@@ -1004,34 +1343,30 @@
       function installDailyVerse() {
         const params = new URLSearchParams(window.location.search);
         const force = params.get("daily") === "test";
-        const lastSeen = Number(localStorage.getItem(DAILY_KEY) || 0);
-        if (!force && Date.now() - lastSeen < DAY) return;
+        if (!force) return;
         if (document.getElementById("dailyVerseCard")) return;
 
         const verse = dailyVerses[new Date().getDate() % dailyVerses.length];
         const lang = getLang();
         const html = `
           <aside id="dailyVerseCard" class="daily-verse" aria-live="polite">
-            <button type="button" class="daily-close" aria-label="Close">×</button>
-            <div class="daily-badge">✦ Daily wisdom · Sabiduría diaria</div>
+            <button type="button" class="daily-close" aria-label="${lang === "en" ? "Close" : "Cerrar"}">×</button>
+            <div class="daily-badge">${lang === "en" ? "✦ Daily wisdom" : "✦ Sabiduría diaria"}</div>
             <h3>${lang === "en" ? "Verse for today" : "Verso para hoy"}</h3>
-            <div class="daily-ref">${verse.esRef} · ${verse.enRef}</div>
-            <p>${verse.esText}</p>
-            <p>${verse.enText}</p>
+            <div class="daily-ref">${lang === "en" ? verse.enRef + " · WEB" : verse.esRef + " · RVR1909"}</div>
+            <p>${lang === "en" ? verse.enText : verse.esText}</p>
             <div class="daily-actions">
-              <a href="/app-bible.html?lang=es">Leer</a>
-              <a href="/app-bible.html?lang=en">Read</a>
+              <a href="/app-biblia-random.html?lang=${lang}">${lang === "en" ? "Open Today’s Scripture" : "Abrir Palabra de hoy"}</a>
             </div>
           </aside>
         `;
         document.body.insertAdjacentHTML("beforeend", html);
         const card = document.getElementById("dailyVerseCard");
         card.querySelector(".daily-close").addEventListener("click", function () {
-          localStorage.setItem(DAILY_KEY, String(Date.now()));
           card.classList.remove("is-visible");
           setTimeout(function () { card.remove(); }, 260);
         });
-        setTimeout(function () { card.classList.add("is-visible"); localStorage.setItem(DAILY_KEY, String(Date.now())); }, 900);
+        setTimeout(function () { card.classList.add("is-visible"); }, 900);
       }
 
       function connectEvents() {
@@ -1053,6 +1388,26 @@
             window.location.href = "/app-bible.html?lang=" + getLang() + "#devocionales";
           });
         });
+
+        document.querySelectorAll("[data-install-trigger]").forEach(function (button) {
+          button.addEventListener("click", handleInstallClick);
+        });
+
+        const dialog = document.getElementById("installDialog");
+        if (dialog) {
+          document.getElementById("installDialogClose").addEventListener("click", function () { closeInstallGuide("close_button"); });
+          document.getElementById("installDialogPrimary").addEventListener("click", function () { closeInstallGuide("understood"); });
+          document.getElementById("installDialogSecondary").addEventListener("click", function () {
+            trackInstallEvent("guide_explore_today");
+            window.location.href = getDailyUrl();
+          });
+          dialog.addEventListener("click", function (event) {
+            if (event.target === dialog) closeInstallGuide("backdrop");
+          });
+          document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !dialog.hidden) closeInstallGuide("escape");
+          });
+        }
       }
 
       function registerServiceWorker() {

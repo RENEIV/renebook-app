@@ -1,4 +1,4 @@
-const CACHE_NAME = "renebook-v3-20260804-controls";
+const CACHE_NAME = "renebook-v4-20260811-smart-install";
 const CORE_FILES = [
   "/",
   "/index.html",
@@ -8,9 +8,17 @@ const CORE_FILES = [
   "/vision.html",
   "/manifest.json",
   "/assets/renebook-logo.png",
+  "/assets/apple-touch-icon.png",
+  "/assets/icon-192.png",
+  "/assets/icon-512.png",
+  "/assets/icon-maskable-192.png",
+  "/assets/icon-maskable-512.png",
   "/css/biblia-random.css",
   "/js/biblia-random.js",
-  "/data/daily-verses.js"
+  "/data/daily-verses.js",
+  "/data/proverbs.js",
+  "/data/wisdom-books.js",
+  "/data/biblical-keywords.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -47,14 +55,16 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(async () => {
-          return (await caches.match(request)) || (await caches.match("/index.html"));
+          return (await caches.match(request, { ignoreSearch: true })) ||
+            (await caches.match("/app-biblia-random.html")) ||
+            (await caches.match("/index.html"));
         })
     );
     return;
   }
 
   event.respondWith(
-    caches.match(request).then((cached) => {
+    caches.match(request, { ignoreSearch: true }).then((cached) => {
       const networkRequest = fetch(request)
         .then((response) => {
           if (response.ok && new URL(request.url).origin === self.location.origin) {

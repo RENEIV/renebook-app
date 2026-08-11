@@ -8,8 +8,13 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://renebook.org/app-bible.html" />
   <link rel="icon" type="image/png" href="/assets/renebook-logo.png" />
-  <link rel="apple-touch-icon" href="/assets/renebook-logo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#061425" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ReneBook" />
 
   <meta property="og:title" content="Renebook | App Biblia Interactiva" />
   <meta property="og:description" content="Lee Proverbios, busca por temas y recibe devocionales breves en español e inglés." />
@@ -2048,6 +2053,13 @@ if (helpText) {
 }
     });
   })();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/service-worker.js").catch(function () {});
+    });
+  }
 </script>
 </body>
 </html>
