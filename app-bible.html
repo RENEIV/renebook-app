@@ -929,7 +929,7 @@
       </h2>
 
       <p id="wisdomBooksLead">
-        Explora Proverbios y los próximos libros de sabiduría que serán añadidos a Renebook.
+        Explora Proverbios y Salmos, junto con los próximos libros de sabiduría que serán añadidos a ReneBook.
       </p>
     </div>
 
@@ -1000,7 +1000,7 @@
 
  <script src="/data/proverbs.js?v=20260512-2"></script>
 <script src="/data/biblical-keywords.js?v=20260514-1"></script>
-<script src="/data/wisdom-books.js?v=20260527-1"></script>
+<script src="/data/wisdom-books.js?v=20260812-1"></script>
 <script src="/data/daily-verses.js?v=20260602-1"></script>
 <script>
      (function () {
@@ -1401,8 +1401,8 @@ function renderKids() {
 
   if (lead) {
     lead.textContent = state.lang === "en"
-      ? "Explore Proverbs and the next wisdom books that will be added to Renebook."
-      : "Explora Proverbios y los próximos libros de sabiduría que serán añadidos a Renebook.";
+      ? "Explore Proverbs and Psalms, along with the next wisdom books that will be added to ReneBook."
+      : "Explora Proverbios y Salmos, junto con los próximos libros de sabiduría que serán añadidos a ReneBook.";
   }
 
   if (!books.length) {
@@ -1426,8 +1426,12 @@ function renderKids() {
       ? "wisdom-book-card is-active"
       : "wisdom-book-card is-coming-soon";
 
-    const action = isActive && book.route
-      ? `<a class="wisdom-book-button" href="${escapeHTML(book.route)}">${escapeHTML(local.button)}</a>`
+    const actionRoute = book.route
+      ? `${book.route}${book.route.includes("?") ? "&" : "?"}lang=${state.lang}`
+      : "";
+
+    const action = isActive && actionRoute
+      ? `<a class="wisdom-book-button" href="${escapeHTML(actionRoute)}">${escapeHTML(local.button)}</a>`
       : `<span class="wisdom-book-button">${escapeHTML(local.button)}</span>`;
 
     return `

@@ -1,6 +1,6 @@
-# ReneBook — Proverbios
+# ReneBook — Biblioteca bíblica interactiva
 
-App bíblica premium enfocada en el libro de Proverbios.
+Plataforma bíblica premium con Palabra del Día, Proverbios y los 150 Salmos.
 
 ## Idioma principal
 
@@ -18,9 +18,12 @@ La app abre primero en **español** y permite cambiar a **English**.
 - Modo claro / oscuro
 - Tarjetas reveladoras de métricas
 - Versículo del día
-- Lectura por capítulo
+- Lectura por capítulo de Proverbios y Salmos
 - Filtro por tema
-- Plan de 31 días
+- Progreso local privado
+- Búsqueda por referencia o palabra
+- Rutas pastorales de oración en Salmos
+- Notas privadas por Salmo
 - Devocional editable
 - Firma: By ReneBook
 
@@ -42,9 +45,9 @@ npm run build
 ```bash
 git init
 git add .
-git commit -m "Initial commit: ReneBook Proverbios app"
+git commit -m "Actualizar biblioteca ReneBook"
 git branch -M main
-git remote add origin https://github.com/TU-USUARIO/renebook-proverbios.git
+git remote add origin https://github.com/TU-USUARIO/renebook-app.git
 git push -u origin main
 ```
 
