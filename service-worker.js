@@ -1,4 +1,4 @@
-const CACHE_NAME = "renebook-v6-20260812-salmos";
+const CACHE_NAME = "renebook-v7-20260812-salmos-idioma";
 const CORE_FILES = [
   "/",
   "/index.html",
