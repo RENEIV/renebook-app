@@ -40,6 +40,13 @@ npm run dev
 npm run build
 ```
 
+El proceso genera `dist/` con las siete páginas públicas, lectores, datos,
+iconos, manifiesto y service worker. La construcción termina con una
+verificación automática de los archivos esenciales.
+
+Netlify usa la configuración versionada en `netlify.toml` y publica únicamente
+`dist/`; así no expone `src/`, dependencias ni archivos internos del repositorio.
+
 ## Subir a GitHub
 
 ```bash
