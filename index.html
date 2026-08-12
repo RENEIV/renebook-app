@@ -1649,7 +1649,7 @@ select:focus-visible {
           const hasHash = link.href.includes("#") ? "#" + link.href.split("#").pop() : "";
           link.setAttribute("href", "/app-bible.html?lang=" + lang + hasHash);
         });
-        document.querySelectorAll("a[href*='app-psalms.html']").forEach(function (link) {
+        document.querySelectorAll("a[href*='app-psalms']").forEach(function (link) {
           link.setAttribute("href", "/app-psalms.html?lang=" + lang);
         });
         document.querySelectorAll("[data-daily-link]").forEach(function (link) {
