@@ -1179,8 +1179,9 @@
 
       function getChapterData() {
         const bible = getBible(state.lang);
-        if (!bible) return null;
+        if (!bible || !Array.isArray(bible.chapters) || !bible.chapters.length) return null;
         const chapter = bible.chapters.find((item) => Number(item.chapter || item.number) === Number(state.chapter)) || bible.chapters[0];
+        if (!chapter) return null;
         return { bible, chapter };
       }
 
@@ -1763,6 +1764,8 @@ if (copyDailyVerseBtn) {
         const initialLang = getUrlLang() || localStorage.getItem(LANG_KEY) || "es";
         const savedChapter = Number(localStorage.getItem(CHAPTER_KEY) || 1);
         state.chapter = savedChapter >= 1 && savedChapter <= 31 ? savedChapter : 1;
+        window.addEventListener("renebook:proverbs-ready", renderReader);
+        window.addEventListener("renebook:proverbs-error", renderReader);
         bindEvents();
         setLanguage(initialLang, { skipUrl: Boolean(getUrlLang()) });
       }
