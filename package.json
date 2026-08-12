@@ -1,6 +1,6 @@
 {
-  "name": "renebook-proverbios",
-  "version": "1.0.0",
+  "name": "renebook-app",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {

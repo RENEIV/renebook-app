@@ -1,8 +1,9 @@
-const CACHE_NAME = "renebook-v5-20260811-prisma-sabiduria";
+const CACHE_NAME = "renebook-v6-20260812-salmos";
 const CORE_FILES = [
   "/",
   "/index.html",
   "/app-bible.html",
+  "/app-psalms.html",
   "/app-biblia-random.html",
   "/proyecto.html",
   "/vision.html",
@@ -17,6 +18,7 @@ const CORE_FILES = [
   "/js/biblia-random.js",
   "/data/daily-verses.js",
   "/data/proverbs.js",
+  "/data/psalms.js",
   "/data/wisdom-books.js",
   "/data/biblical-keywords.js"
 ];

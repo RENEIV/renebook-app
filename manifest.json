@@ -74,6 +74,19 @@
       ]
     },
     {
+      "name": "Salmos",
+      "short_name": "Salmos",
+      "description": "Abrir el lector bilingüe de los 150 Salmos.",
+      "url": "/app-psalms.html?source=shortcut",
+      "icons": [
+        {
+          "src": "/assets/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
       "name": "Devocional",
       "short_name": "Devocional",
       "description": "Abrir los devocionales breves.",

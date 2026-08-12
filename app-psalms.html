@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salmos | ReneBook</title>
+  <meta name="description" content="Lee los 150 Salmos en RVR1909 o WEB, busca por referencia o palabra, sigue rutas de oración y guarda tu progreso de forma privada en ReneBook.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://renebook.org/app-psalms.html">
+  <link rel="icon" type="image/png" href="/assets/renebook-logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#07182c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ReneBook">
+
+  <meta property="og:title" content="Salmos | ReneBook">
+  <meta property="og:description" content="Oración, adoración y sabiduría del corazón en los 150 Salmos.">
+  <meta property="og:image" content="https://renebook.org/assets/renebook-preview.png">
+  <meta property="og:url" content="https://renebook.org/app-psalms.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Salmos | ReneBook">
+  <meta name="twitter:description" content="Lee, ora y recorre los 150 Salmos en español o inglés.">
+  <meta name="twitter:image" content="https://renebook.org/assets/renebook-preview.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Salmos | ReneBook",
+    "url": "https://renebook.org/app-psalms.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "inLanguage": ["es", "en"],
+    "isAccessibleForFree": true,
+    "description": "Lector bilingüe de los 150 Salmos con búsqueda, rutas de oración y progreso local privado."
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #061425;
+      --bg-deep: #04101d;
+      --panel: rgba(13, 36, 64, .88);
+      --panel-strong: rgba(11, 30, 54, .97);
+      --text: #f5f9ff;
+      --muted: #bdcce0;
+      --soft: #92abc8;
+      --line: rgba(135, 190, 255, .25);
+      --line-soft: rgba(255, 255, 255, .11);
+      --blue: #4da3ff;
+      --sky: #86c9ff;
+      --cyan: #4fd1c5;
+      --gold: #f2c96b;
+      --gold-light: #ffe49a;
+      --mint: #7ed6a7;
+      --coral: #ff9e8a;
+      --violet: #b9a7ff;
+      --shadow: 0 26px 72px rgba(0, 0, 0, .38);
+      --radius: 30px;
+      --reader-size: 1.14rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 7% 5%, rgba(77, 163, 255, .18), transparent 29rem),
+        radial-gradient(circle at 94% 15%, rgba(185, 167, 255, .13), transparent 27rem),
+        radial-gradient(circle at 56% 96%, rgba(242, 201, 107, .09), transparent 30rem),
+        linear-gradient(180deg, #061425 0%, #07182c 55%, #04101d 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .26;
+      background:
+        linear-gradient(115deg, transparent 0 35%, rgba(77, 163, 255, .05) 47%, transparent 58%),
+        linear-gradient(245deg, transparent 0 39%, rgba(242, 201, 107, .045) 51%, transparent 62%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    img { max-width: 100%; }
+    [hidden] { display: none !important; }
+
+    :focus-visible {
+      outline: 3px solid var(--gold-light);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 500;
+      transform: translateY(-150%);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: #061425;
+      background: var(--gold-light);
+      font-weight: 900;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell { width: min(1200px, calc(100% - 36px)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(135, 190, 255, .18);
+      background: rgba(6, 20, 37, .86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, .25);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; min-width: max-content; }
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #061425;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      box-shadow: 0 12px 30px rgba(242, 201, 107, .24);
+      font-size: 1.35rem;
+    }
+    .brand strong { display: block; font-size: 1.08rem; letter-spacing: -.02em; }
+    .brand small { display: block; margin-top: -3px; color: var(--muted); font-weight: 650; }
+
+    .nav-links { display: flex; align-items: center; justify-content: flex-end; gap: 7px; flex-wrap: wrap; }
+    .nav-links a {
+      padding: 10px 13px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 850;
+      transition: .2s ease;
+    }
+    .nav-links a:hover { color: var(--text); border-color: var(--line); background: rgba(134, 201, 255, .08); transform: translateY(-1px); }
+    .nav-links a.active { color: #061425; background: linear-gradient(135deg, var(--sky), var(--cyan)); box-shadow: 0 12px 28px rgba(77, 163, 255, .22); }
+    .nav-links a.cta { color: #061425; background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+    .hero { padding: clamp(38px, 6vw, 72px) 0 30px; }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .72fr; gap: 22px; align-items: stretch; }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 88% 10%, rgba(185, 167, 255, .13), transparent 28%),
+        linear-gradient(145deg, rgba(16, 40, 71, .96), rgba(7, 24, 44, .98));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main { padding: clamp(26px, 5vw, 50px); }
+    .hero-main::after {
+      content: "תהלים";
+      position: absolute;
+      right: clamp(16px, 4vw, 48px);
+      bottom: -24px;
+      color: rgba(255, 255, 255, .035);
+      font-family: Georgia, serif;
+      font-size: clamp(5rem, 13vw, 10rem);
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .eyebrow, .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(242, 201, 107, .28);
+      border-radius: 999px;
+      color: var(--gold-light);
+      background: rgba(242, 201, 107, .11);
+      font-size: .82rem;
+      font-weight: 950;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { letter-spacing: -.035em; }
+    h1 { margin: 18px 0 14px; max-width: 790px; font-size: clamp(2.55rem, 6vw, 5.15rem); line-height: .98; text-wrap: balance; text-shadow: 0 12px 38px rgba(0, 0, 0, .34); }
+    h2 { margin: 0 0 12px; font-size: clamp(1.8rem, 4vw, 3.15rem); line-height: 1.06; text-wrap: balance; }
+    h3 { margin: 0 0 9px; font-size: clamp(1.2rem, 2.3vw, 1.6rem); line-height: 1.2; }
+    p { margin: 0 0 14px; color: var(--muted); }
+    .lead { max-width: 760px; color: #dcecff; font-size: clamp(1.05rem, 2vw, 1.26rem); }
+
+    .button-row, .toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
+    .button-row { margin-top: 22px; }
+
+    .btn, .chip, .icon-btn, .lang-btn {
+      min-height: 44px;
+      border: 1px solid rgba(134, 201, 255, .32);
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .072);
+      font-weight: 900;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover, .chip:hover, .icon-btn:hover, .lang-btn:hover { transform: translateY(-2px); border-color: rgba(134, 201, 255, .7); background: rgba(125, 220, 255, .13); }
+    .btn-primary { color: #061425; border-color: transparent; background: linear-gradient(135deg, var(--sky), var(--cyan)); box-shadow: 0 14px 30px rgba(77, 163, 255, .25); }
+    .btn-gold, .chip.active, .lang-btn.active { color: #061425; border-color: transparent; background: linear-gradient(135deg, var(--gold), var(--gold-light)); box-shadow: 0 13px 28px rgba(242, 201, 107, .2); }
+    .btn:disabled { cursor: not-allowed; opacity: .52; transform: none; }
+
+    .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0 0; padding: 0; list-style: none; }
+    .stat {
+      padding: 16px;
+      border: 1px solid var(--line-soft);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .052);
+    }
+    .stat strong { display: block; color: var(--text); font-size: 1.75rem; line-height: 1; }
+    .stat span { display: block; margin-top: 7px; color: var(--soft); font-size: .84rem; font-weight: 800; }
+
+    .journey-card { padding: clamp(24px, 4vw, 34px); display: flex; flex-direction: column; justify-content: space-between; }
+    .journey-orb {
+      width: 86px;
+      height: 86px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(242, 201, 107, .38);
+      border-radius: 28px;
+      color: #061425;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .42), transparent),
+        linear-gradient(135deg, var(--gold), #d79cff 52%, var(--cyan));
+      box-shadow: 0 18px 45px rgba(134, 201, 255, .2);
+      font-size: 2.25rem;
+    }
+    .journey-card h2 { margin-top: 24px; font-size: clamp(1.75rem, 3vw, 2.55rem); }
+    .progress-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; color: var(--soft); font-size: .88rem; font-weight: 850; }
+    .progress { width: 100%; height: 12px; margin-top: 8px; overflow: hidden; appearance: none; -webkit-appearance: none; border: 1px solid var(--line-soft); border-radius: 999px; background: rgba(255, 255, 255, .07); }
+    .progress::-webkit-progress-bar { background: rgba(255, 255, 255, .07); }
+    .progress::-webkit-progress-value { border-radius: 999px; background: linear-gradient(90deg, var(--gold), #d79cff, var(--cyan)); transition: width .35s ease; }
+    .progress::-moz-progress-bar { border-radius: 999px; background: linear-gradient(90deg, var(--gold), #d79cff, var(--cyan)); }
+
+    .section { padding: 34px 0; }
+    .section-heading { display: grid; gap: 7px; margin-bottom: 20px; }
+    .section-heading p { max-width: 790px; }
+
+    .routes-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .route-card {
+      min-height: 210px;
+      padding: 22px;
+      border: 1px solid var(--line-soft);
+      border-radius: 25px;
+      color: var(--text);
+      text-align: left;
+      background:
+        radial-gradient(circle at 88% 12%, var(--route-glow, rgba(77, 163, 255, .16)), transparent 30%),
+        linear-gradient(145deg, rgba(16, 40, 71, .92), rgba(7, 24, 44, .96));
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .24);
+      transition: .22s ease;
+    }
+    .route-card:hover { transform: translateY(-4px); border-color: rgba(242, 201, 107, .45); box-shadow: 0 24px 56px rgba(0, 0, 0, .32); }
+    .route-card .route-icon { display: block; margin-bottom: 14px; font-size: 2rem; }
+    .route-card h3 { color: var(--text); }
+    .route-card p { min-height: 50px; font-size: .94rem; }
+    .route-card span:last-child { color: var(--gold-light); font-size: .85rem; font-weight: 900; }
+
+    .reader-shell {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      min-height: 720px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(16, 40, 71, .96), rgba(7, 24, 44, .98));
+      box-shadow: var(--shadow);
+    }
+
+    .reader-sidebar {
+      padding: 24px;
+      border-right: 1px solid rgba(135, 190, 255, .18);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(242, 201, 107, .11), transparent 28%),
+        rgba(4, 17, 31, .52);
+    }
+
+    .control-group { margin-top: 17px; }
+    .control-group label { display: block; margin-bottom: 7px; color: var(--muted); font-size: .9rem; font-weight: 900; }
+    select, input[type="search"], textarea {
+      width: 100%;
+      border: 1px solid rgba(170, 205, 255, .31);
+      border-radius: 16px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .075);
+      outline: 0;
+    }
+    select, input[type="search"] { min-height: 50px; padding: 0 14px; }
+    textarea { min-height: 138px; padding: 13px 14px; resize: vertical; line-height: 1.55; }
+    select:focus, input[type="search"]:focus, textarea:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(134, 201, 255, .13); }
+    option, optgroup { color: #061425; background: #f5f9ff; }
+
+    .search-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .search-row .icon-btn { min-width: 50px; padding-inline: 12px; }
+    .side-actions { display: grid; gap: 10px; margin-top: 18px; }
+    .side-actions .btn { width: 100%; }
+
+    .book-map { display: grid; gap: 8px; margin-top: 22px; }
+    .book-map button {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line-soft);
+      border-radius: 14px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .045);
+      text-align: left;
+      font-size: .85rem;
+      font-weight: 850;
+    }
+    .book-map button:hover, .book-map button.active { color: #061425; border-color: transparent; background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+    .reader-main { min-width: 0; }
+    .reader-toolbar {
+      position: sticky;
+      top: 76px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 22px;
+      border-bottom: 1px solid rgba(135, 190, 255, .18);
+      background: rgba(8, 27, 49, .9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .reader-toolbar .toolbar { flex-wrap: nowrap; margin: 0; }
+    .icon-btn { min-width: 44px; padding: 8px 12px; }
+
+    .reader-content { padding: clamp(22px, 5vw, 50px); }
+    .reader-head { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid rgba(135, 190, 255, .18); }
+    .reader-reference { color: var(--cyan); font-size: .9rem; font-weight: 950; text-transform: uppercase; letter-spacing: .05em; }
+    .reader-title { margin: 6px 0 5px; font-size: clamp(2.25rem, 5vw, 4.25rem); line-height: 1; }
+    .reader-source { color: var(--soft); font-size: .88rem; font-weight: 750; }
+
+    .text-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .055);
+      font-size: .82rem;
+      font-weight: 850;
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 14px rgba(242, 201, 107, .7); }
+    .text-status.ready .status-dot { background: var(--mint); box-shadow: 0 0 14px rgba(126, 214, 167, .7); }
+    .text-status.error .status-dot { background: var(--coral); }
+
+    .verses-list { margin-top: 24px; }
+    .reader-verse {
+      position: relative;
+      margin: 0;
+      padding: 10px 54px 10px 8px;
+      border-radius: 15px;
+      color: rgba(245, 249, 255, .96);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: var(--reader-size);
+      line-height: 1.92;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+    .reader-verse:hover { background: rgba(255, 255, 255, .045); }
+    .verse-number { display: inline-block; min-width: 2.25em; color: var(--gold); font-family: Inter, system-ui, sans-serif; font-size: .8em; font-weight: 950; vertical-align: .12em; }
+    .copy-verse {
+      position: absolute;
+      top: 9px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--soft);
+      background: transparent;
+      opacity: 0;
+      transition: .2s ease;
+    }
+    .reader-verse:hover .copy-verse, .copy-verse:focus-visible { opacity: 1; border-color: var(--line-soft); background: rgba(255, 255, 255, .07); }
+    .reader-verse.highlight { outline: 2px solid var(--gold); background: linear-gradient(135deg, rgba(242, 201, 107, .14), rgba(79, 209, 197, .1)); box-shadow: 0 0 0 7px rgba(242, 201, 107, .055); scroll-margin-top: 150px; }
+
+    .reader-empty { padding: 50px 20px; color: var(--muted); text-align: center; }
+    .reader-empty strong { display: block; margin-bottom: 8px; color: var(--text); font-size: 1.25rem; }
+
+    .chapter-actions { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(135, 190, 255, .18); }
+    .chapter-actions > div { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .search-results {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(4, 17, 31, .72);
+    }
+    .results-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .results-head h3 { margin: 0; }
+    .results-list { display: grid; gap: 9px; max-height: 410px; overflow: auto; padding-right: 4px; }
+    .result-btn {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line-soft);
+      border-radius: 15px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .045);
+      text-align: left;
+    }
+    .result-btn:hover { border-color: var(--sky); background: rgba(134, 201, 255, .09); }
+    .result-ref { color: var(--gold-light); font-weight: 950; white-space: nowrap; }
+    .result-text { color: var(--muted); font-family: Georgia, serif; line-height: 1.55; }
+
+    .practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .practice-card {
+      padding: clamp(22px, 4vw, 32px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(16, 40, 71, .92), rgba(7, 24, 44, .97));
+      box-shadow: 0 20px 52px rgba(0, 0, 0, .27);
+    }
+    .steps { display: grid; gap: 12px; margin-top: 18px; }
+    .step { display: grid; grid-template-columns: 38px 1fr; gap: 12px; padding: 13px; border: 1px solid var(--line-soft); border-radius: 17px; background: rgba(255, 255, 255, .045); }
+    .step-number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; color: #061425; background: linear-gradient(135deg, var(--gold), var(--gold-light)); font-weight: 950; }
+    .step strong { display: block; color: var(--text); }
+    .step p { margin: 3px 0 0; font-size: .9rem; }
+    .note-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--soft); font-size: .82rem; font-weight: 750; }
+
+    .books-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .book-card {
+      padding: 20px;
+      border: 1px solid var(--line-soft);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(16, 40, 71, .88), rgba(7, 24, 44, .94));
+      box-shadow: 0 16px 38px rgba(0, 0, 0, .2);
+    }
+    .book-card strong { display: block; color: var(--gold-light); font-size: 1.08rem; }
+    .book-card span { display: block; margin-top: 7px; color: var(--muted); font-size: .88rem; }
+    .book-card button { margin-top: 14px; }
+
+    .privacy-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: clamp(24px, 4vw, 34px);
+      border: 1px solid rgba(242, 201, 107, .34);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(242, 201, 107, .13), transparent 26%),
+        radial-gradient(circle at 90% 20%, rgba(79, 209, 197, .12), transparent 28%),
+        linear-gradient(145deg, rgba(16, 40, 71, .94), rgba(7, 24, 44, .97));
+      box-shadow: var(--shadow);
+    }
+
+    .language-widget {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 150;
+      display: flex;
+      gap: 7px;
+      padding: 8px;
+      border: 1px solid rgba(134, 201, 255, .34);
+      border-radius: 999px;
+      background: rgba(6, 20, 37, .9);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .34);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 88px;
+      z-index: 180;
+      max-width: min(92vw, 560px);
+      padding: 12px 17px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--text);
+      background: rgba(4, 12, 23, .97);
+      box-shadow: var(--shadow);
+      text-align: center;
+      transform: translateX(-50%) translateY(140px);
+      transition: transform .23s ease;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    footer { margin-top: 42px; padding: 32px 18px 96px; border-top: 1px solid rgba(135, 190, 255, .16); color: var(--soft); background: rgba(4, 14, 26, .58); text-align: center; }
+
+    body.focus-mode .topbar,
+    body.focus-mode .hero,
+    body.focus-mode #routes,
+    body.focus-mode #practice,
+    body.focus-mode #books,
+    body.focus-mode #privacy,
+    body.focus-mode footer,
+    body.focus-mode .reader-sidebar,
+    body.focus-mode .language-widget { display: none; }
+    body.focus-mode .section.reader-section { padding: 0; }
+    body.focus-mode .reader-section .shell { width: 100%; }
+    body.focus-mode .reader-shell { grid-template-columns: 1fr; min-height: 100vh; border: 0; border-radius: 0; }
+    body.focus-mode .reader-toolbar { top: 0; }
+    body.focus-mode .reader-content { width: min(840px, calc(100% - 28px)); margin: 0 auto; }
+
+    @media (max-width: 1040px) {
+      .hero-grid, .practice-grid { grid-template-columns: 1fr; }
+      .reader-shell { grid-template-columns: 270px minmax(0, 1fr); }
+      .books-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { width: 100%; justify-content: flex-start; }
+      .reader-shell { display: block; }
+      .reader-sidebar { border-right: 0; border-bottom: 1px solid rgba(135, 190, 255, .18); }
+      .book-map { grid-template-columns: 1fr 1fr; }
+      .reader-toolbar { top: 128px; }
+      .routes-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, 1200px); }
+      .hero { padding-top: 30px; }
+      .brand small { display: none; }
+      .nav-links { display: grid; grid-template-columns: 1fr 1fr; }
+      .nav-links a { text-align: center; }
+      .hero-stats, .routes-grid, .books-grid { grid-template-columns: 1fr; }
+      .journey-orb { width: 72px; height: 72px; border-radius: 23px; }
+      .reader-toolbar { position: static; padding: 13px 15px; }
+      .reader-toolbar > span { display: none; }
+      .reader-toolbar .toolbar { width: 100%; justify-content: space-between; }
+      .reader-content { padding: 22px 17px; }
+      .reader-verse { padding-right: 44px; font-size: calc(var(--reader-size) * .96); line-height: 1.83; }
+      .copy-verse { opacity: .72; }
+      .chapter-actions, .chapter-actions > div { display: grid; grid-template-columns: 1fr; width: 100%; }
+      .chapter-actions .btn { width: 100%; }
+      .book-map { grid-template-columns: 1fr; }
+      .privacy-card { grid-template-columns: 1fr; }
+      .privacy-card .btn { width: 100%; }
+      .language-widget { left: 14px; right: 14px; bottom: 12px; justify-content: center; }
+      .language-widget .lang-btn { flex: 1; }
+      h1 { font-size: clamp(2.3rem, 13vw, 3.8rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#reader" data-copy="skipLink">Saltar al lector</a>
+
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Navegación principal" data-aria="mainNavigation">
+      <a class="brand" href="/index.html" aria-label="ReneBook inicio" data-aria="brandHome">
+        <span class="brand-mark" aria-hidden="true">📖</span>
+        <span>
+          <strong>ReneBook</strong>
+          <small data-copy="brandSubtitle">Biblioteca bíblica interactiva</small>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="/index.html" data-copy="navHome">Inicio</a>
+        <a href="/app-bible.html#wisdom-books" data-copy="navLibrary">Biblioteca</a>
+        <a href="/app-bible.html" data-copy="navProverbs">Proverbios</a>
+        <a class="active" href="/app-psalms.html" aria-current="page" data-copy="navPsalms">Salmos</a>
+        <a class="cta" href="#reader" data-copy="navRead">Leer ahora</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div class="hero-grid">
+        <article class="panel hero-main">
+          <span class="eyebrow" data-copy="heroBadge">Disponible · Libro completo</span>
+          <h1 data-copy="heroTitle">Salmos: una oración para cada estación del alma.</h1>
+          <p class="lead" data-copy="heroLead">Lee, ora, adora, lamenta y descansa delante de Dios recorriendo los 150 Salmos en una experiencia serena, bilingüe y privada.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#reader" data-copy="startReading">Comenzar lectura</a>
+            <button class="btn btn-gold" id="continueHeroBtn" type="button" data-action="continue" data-copy="continueReading">Continuar donde quedé</button>
+            <button class="btn" type="button" data-action="random" data-copy="randomPsalm">Salmo al azar</button>
+          </div>
+          <ul class="hero-stats">
+            <li class="stat"><strong>150</strong><span data-copy="statPsalms">Salmos completos</span></li>
+            <li class="stat"><strong>5</strong><span data-copy="statBooks">Libros del Salterio</span></li>
+            <li class="stat"><strong>2</strong><span data-copy="statLanguages">Idiomas disponibles</span></li>
+          </ul>
+        </article>
+
+        <aside class="panel journey-card" aria-labelledby="journeyTitle">
+          <div>
+            <div class="journey-orb" aria-hidden="true">♫</div>
+            <h2 id="journeyTitle" data-copy="journeyTitle">Tu recorrido por el Salterio</h2>
+            <p data-copy="journeyText">Tu progreso y tus notas permanecen únicamente en este navegador. No necesitas crear una cuenta.</p>
+          </div>
+          <div>
+            <div class="progress-meta">
+              <span data-copy="progressLabel">Progreso de lectura</span>
+              <span id="heroProgressCount">0/150</span>
+            </div>
+            <progress class="progress" max="150" value="0" id="heroProgress" data-aria="readingProgress">0/150</progress>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shell section" id="routes">
+      <div class="section-heading">
+        <span class="eyebrow" data-copy="routesBadge">Rutas de oración</span>
+        <h2 data-copy="routesTitle">Empieza por lo que hoy necesita tu corazón.</h2>
+        <p data-copy="routesLead">Estas rutas pastorales te llevan a salmos representativos. No sustituyen la lectura completa ni son categorías exclusivas.</p>
+      </div>
+      <div class="routes-grid" id="routesGrid"></div>
+    </section>
+
+    <section class="section reader-section" id="reader">
+      <div class="shell">
+        <div class="reader-shell">
+          <aside class="reader-sidebar" aria-label="Controles del lector" data-aria="readerControls">
+            <span class="eyebrow" data-copy="readerBadge">Lector de Salmos</span>
+
+            <div class="control-group">
+              <label for="psalmSelect" data-copy="psalmLabel">Seleccionar Salmo</label>
+              <select id="psalmSelect"></select>
+            </div>
+
+            <div class="control-group">
+              <label for="psalmSearch" data-copy="searchLabel">Buscar referencia o palabra</label>
+              <div class="search-row">
+                <input id="psalmSearch" type="search" autocomplete="off" enterkeyhint="search" placeholder="Salmo 23:1, refugio, alabanza">
+                <button class="icon-btn" id="searchBtn" type="button" aria-label="Buscar" data-aria="search">⌕</button>
+              </div>
+            </div>
+
+            <div class="side-actions">
+              <button class="btn btn-primary" type="button" data-action="continue" data-copy="continueReading">Continuar donde quedé</button>
+              <button class="btn" type="button" data-action="random" data-copy="randomPsalm">Salmo al azar</button>
+              <button class="btn" type="button" id="copyPsalmSideBtn" data-action="copy-psalm" data-copy="copyPsalm">Copiar Salmo</button>
+            </div>
+
+            <div class="book-map" id="bookMap" role="group" aria-label="Cinco libros de Salmos" data-aria="fiveBooks"></div>
+          </aside>
+
+          <article class="reader-main">
+            <div class="reader-toolbar">
+              <span class="text-status" id="dataStatus" role="status" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="dataStatusText" data-copy="loadingShort">Cargando texto…</span>
+              </span>
+              <div class="toolbar" role="group" aria-label="Herramientas de lectura" data-aria="readingTools">
+                <button class="icon-btn" type="button" data-action="font-down" aria-label="Reducir texto" data-aria="fontDown">A−</button>
+                <button class="icon-btn" type="button" data-action="font-up" aria-label="Aumentar texto" data-aria="fontUp">A+</button>
+                <button class="icon-btn" type="button" data-action="focus" aria-label="Modo lectura" data-aria="focusMode">◉</button>
+                <button class="icon-btn" type="button" data-action="copy-psalm" aria-label="Copiar Salmo" data-aria="copyPsalm">⧉</button>
+              </div>
+            </div>
+
+            <div class="reader-content">
+              <header class="reader-head">
+                <div>
+                  <div class="reader-reference" id="bookReference">Libro I · Salmos 1–41</div>
+                  <h2 class="reader-title" id="readerTitle">Salmo 1</h2>
+                  <div class="reader-source" id="readerSource">RVR1909 · Texto bíblico de dominio público</div>
+                </div>
+                <span class="status-pill" id="readPill" data-copy="notRead">Pendiente</span>
+              </header>
+
+              <div class="verses-list" id="versesList" aria-live="polite">
+                <div class="reader-empty">
+                  <strong data-copy="loadingTitle">Preparando los Salmos</strong>
+                  <span data-copy="loadingText">La primera carga puede tomar unos segundos.</span>
+                </div>
+              </div>
+
+              <section class="search-results" id="searchResults" hidden aria-live="polite">
+                <div class="results-head">
+                  <h3 id="resultsTitle" data-copy="resultsTitle">Resultados</h3>
+                  <button class="icon-btn" id="closeResultsBtn" type="button" aria-label="Cerrar resultados" data-aria="closeResults">×</button>
+                </div>
+                <div class="results-list" id="resultsList"></div>
+              </section>
+
+              <div class="chapter-actions">
+                <div>
+                  <button class="btn" type="button" data-action="previous" data-copy="previousPsalm">← Salmo anterior</button>
+                  <button class="btn btn-primary" type="button" data-action="next" data-copy="nextPsalm">Salmo siguiente →</button>
+                </div>
+                <div>
+                  <button class="btn btn-gold" type="button" data-action="toggle-read" id="readButton" data-copy="markRead">Marcar como leído</button>
+                  <button class="btn" type="button" data-action="copy-psalm" data-copy="copyPsalm">Copiar Salmo</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="practice">
+      <div class="section-heading">
+        <span class="eyebrow" data-copy="practiceBadge">Lectura y oración</span>
+        <h2 data-copy="practiceTitle">Lee el Salmo hasta convertirlo en oración.</h2>
+        <p data-copy="practiceLead">Una guía sencilla para escuchar el texto, responder a Dios y llevar una verdad a la vida diaria.</p>
+      </div>
+
+      <div class="practice-grid">
+        <article class="practice-card">
+          <h3 data-copy="fourStepsTitle">Cuatro movimientos</h3>
+          <div class="steps" id="stepsList"></div>
+        </article>
+
+        <article class="practice-card">
+          <h3 id="notesTitle">Mi oración · Salmo 1</h3>
+          <p data-copy="notesText">Escribe una oración personal. Se guarda solamente en este dispositivo.</p>
+          <label class="control-group">
+            <span data-copy="notesLabel">Nota privada</span>
+            <textarea id="psalmNote" maxlength="3000" placeholder="Señor, al leer este Salmo…"></textarea>
+          </label>
+          <div class="note-meta">
+            <span id="noteStatus" data-copy="noteReady">Lista para escribir</span>
+            <span id="noteCount">0/3000</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell section" id="books">
+      <div class="section-heading">
+        <span class="eyebrow" data-copy="booksBadge">Estructura del Salterio</span>
+        <h2 data-copy="booksTitle">Cinco libros, una gran escuela de oración.</h2>
+        <p data-copy="booksLead">La división tradicional del Salterio ayuda a recorrer sus 150 composiciones de manera ordenada.</p>
+      </div>
+      <div class="books-grid" id="booksGrid"></div>
+    </section>
+
+    <section class="shell section" id="privacy">
+      <div class="privacy-card">
+        <div>
+          <span class="eyebrow" data-copy="privacyBadge">Privacidad y fuente</span>
+          <h2 data-copy="privacyTitle">Lectura espiritual sin registro ni seguimiento.</h2>
+          <p data-copy="privacyText">ReneBook guarda progreso, posición y notas solo en este navegador. El texto bíblico se obtiene de GetBible en RVR1909 y WEB.</p>
+        </div>
+        <a class="btn btn-primary" href="/app-bible.html#wisdom-books" data-copy="backLibrary">Volver a la biblioteca</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell" data-copy="footerText">ReneBook.org · Salmos completos · RVR1909 / WEB · Progreso privado.</div>
+  </footer>
+
+  <div class="language-widget" role="group" aria-label="Selector de idioma" data-aria="languageSelector">
+    <button class="lang-btn" type="button" data-lang="es">Español</button>
+    <button class="lang-btn" type="button" data-lang="en">English</button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
+
+  <script src="/data/psalms.js?v=20260812-1"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const TOTAL_PSALMS = 150;
+      const STORAGE = {
+        language: "renebook_psalms_language",
+        chapter: "renebook_psalms_chapter",
+        read: "renebook_psalms_read_v1",
+        notes: "renebook_psalms_notes_v1",
+        font: "renebook_psalms_font_v1"
+      };
+
+      const BOOKS = [
+        { id: 1, start: 1, end: 41 },
+        { id: 2, start: 42, end: 72 },
+        { id: 3, start: 73, end: 89 },
+        { id: 4, start: 90, end: 106 },
+        { id: 5, start: 107, end: 150 }
+      ];
+
+      const ROUTES = [
+        { id: "trust", icon: "🕊️", color: "rgba(134, 201, 255, .2)", psalms: [23, 27, 46, 91, 121] },
+        { id: "lament", icon: "💧", color: "rgba(185, 167, 255, .2)", psalms: [13, 22, 42, 77, 88, 130] },
+        { id: "worship", icon: "♫", color: "rgba(242, 201, 107, .2)", psalms: [8, 29, 95, 96, 100, 150] },
+        { id: "gratitude", icon: "☀️", color: "rgba(126, 214, 167, .2)", psalms: [30, 34, 103, 107, 116, 136] },
+        { id: "refuge", icon: "🛡️", color: "rgba(77, 163, 255, .2)", psalms: [18, 46, 62, 91, 121, 144] },
+        { id: "wisdom", icon: "🌿", color: "rgba(255, 158, 138, .18)", psalms: [1, 19, 37, 49, 73, 112, 119, 127, 128, 133] }
+      ];
+
+      const COPY = {
+        es: {
+          skipLink: "Saltar al lector",
+          brandSubtitle: "Biblioteca bíblica interactiva",
+          navHome: "Inicio", navLibrary: "Biblioteca", navProverbs: "Proverbios", navPsalms: "Salmos", navRead: "Leer ahora",
+          heroBadge: "Disponible · Libro completo",
+          heroTitle: "Salmos: una oración para cada estación del alma.",
+          heroLead: "Lee, ora, adora, lamenta y descansa delante de Dios recorriendo los 150 Salmos en una experiencia serena, bilingüe y privada.",
+          startReading: "Comenzar lectura", continueReading: "Continuar donde quedé", randomPsalm: "Salmo al azar",
+          statPsalms: "Salmos completos", statBooks: "Libros del Salterio", statLanguages: "Idiomas disponibles",
+          journeyTitle: "Tu recorrido por el Salterio", journeyText: "Tu progreso y tus notas permanecen únicamente en este navegador. No necesitas crear una cuenta.", progressLabel: "Progreso de lectura",
+          routesBadge: "Rutas de oración", routesTitle: "Empieza por lo que hoy necesita tu corazón.", routesLead: "Estas rutas pastorales te llevan a salmos representativos. No sustituyen la lectura completa ni son categorías exclusivas.",
+          readerBadge: "Lector de Salmos", psalmLabel: "Seleccionar Salmo", searchLabel: "Buscar referencia o palabra", searchPlaceholder: "Salmo 23:1, refugio, alabanza",
+          copyPsalm: "Copiar Salmo", loadingShort: "Cargando texto…", loadingTitle: "Preparando los Salmos", loadingText: "La primera carga puede tomar unos segundos.",
+          notRead: "Pendiente", read: "Leído", resultsTitle: "Resultados", previousPsalm: "← Salmo anterior", nextPsalm: "Salmo siguiente →", markRead: "Marcar como leído", unmarkRead: "Quitar marca de leído",
+          practiceBadge: "Lectura y oración", practiceTitle: "Lee el Salmo hasta convertirlo en oración.", practiceLead: "Una guía sencilla para escuchar el texto, responder a Dios y llevar una verdad a la vida diaria.", fourStepsTitle: "Cuatro movimientos",
+          notesText: "Escribe una oración personal. Se guarda solamente en este dispositivo.", notesLabel: "Nota privada", notesPlaceholder: "Señor, al leer este Salmo…", noteReady: "Lista para escribir", noteSaved: "Guardado en este dispositivo",
+          booksBadge: "Estructura del Salterio", booksTitle: "Cinco libros, una gran escuela de oración.", booksLead: "La división tradicional del Salterio ayuda a recorrer sus 150 composiciones de manera ordenada.", openBook: "Abrir libro",
+          privacyBadge: "Privacidad y fuente", privacyTitle: "Lectura espiritual sin registro ni seguimiento.", privacyText: "ReneBook guarda progreso, posición y notas solo en este navegador. El texto bíblico se obtiene de GetBible en RVR1909 y WEB.", backLibrary: "Volver a la biblioteca",
+          footerText: "ReneBook.org · Salmos completos · RVR1909 / WEB · Progreso privado.",
+          psalm: "Salmo", psalms: "Salmos", chapter: "Salmo", verses: "versículos", book: "Libro", source: "RVR1909 · Texto bíblico de dominio público", loading: "Cargando el texto bíblico…", ready: "Texto completo disponible", cached: "Texto disponible desde este dispositivo", error: "No fue posible cargar el texto", retry: "Reintentar",
+          noResults: "No encontramos coincidencias. Prueba otra palabra o una referencia como Salmo 23:1.", resultCount: "coincidencias", resultLimit: "Se muestran las primeras 60 coincidencias.", copied: "Copiado", copyFailed: "No fue posible copiar. Selecciona el texto manualmente.", markedRead: "Salmo marcado como leído", unmarkedRead: "Marca de lectura eliminada", invalidReference: "La referencia debe estar entre Salmo 1 y Salmo 150.", noText: "El texto todavía no está disponible.",
+          focusEnter: "Entrar en modo lectura", focusExit: "Salir del modo lectura", fontChanged: "Tamaño de texto ajustado",
+          routeOpen: "Abrir ruta", routeTrust: "Confianza", routeTrustText: "Descansa en el cuidado, la guía y la fidelidad de Dios.", routeLament: "Lamento y consuelo", routeLamentText: "Presenta el dolor con honestidad y espera delante de Dios.", routeWorship: "Adoración", routeWorshipText: "Contempla la grandeza de Dios y responde con alabanza.", routeGratitude: "Gratitud", routeGratitudeText: "Recuerda las misericordias de Dios y dale gracias.", routeRefuge: "Refugio", routeRefugeText: "Busca seguridad en Dios en medio del temor y la presión.", routeWisdom: "Sabiduría", routeWisdomText: "Forma el corazón en la Palabra, la justicia y el temor de Jehová.",
+          stepRead: "Leer", stepReadText: "Lee despacio. Observa palabras, imágenes y repeticiones.", stepMeditate: "Meditar", stepMeditateText: "Pregunta qué revela el Salmo acerca de Dios y del corazón humano.", stepPray: "Orar", stepPrayText: "Convierte una frase del Salmo en una oración personal.", stepRespond: "Responder", stepRespondText: "Elige una verdad que obedecerás o recordarás hoy.",
+          mainNavigation: "Navegación principal", brandHome: "ReneBook inicio", psalmsSummary: "Resumen de Salmos", readingProgress: "Progreso de lectura", readerControls: "Controles del lector", search: "Buscar", fiveBooks: "Cinco libros de Salmos", readingTools: "Herramientas de lectura", fontDown: "Reducir texto", fontUp: "Aumentar texto", focusMode: "Modo lectura", copyPsalmAria: "Copiar Salmo", closeResults: "Cerrar resultados", languageSelector: "Selector de idioma"
+        },
+        en: {
+          skipLink: "Skip to reader",
+          brandSubtitle: "Interactive biblical library",
+          navHome: "Home", navLibrary: "Library", navProverbs: "Proverbs", navPsalms: "Psalms", navRead: "Read now",
+          heroBadge: "Available · Complete book",
+          heroTitle: "Psalms: a prayer for every season of the soul.",
+          heroLead: "Read, pray, worship, lament, and rest before God through all 150 Psalms in a peaceful, bilingual, and private experience.",
+          startReading: "Start reading", continueReading: "Continue where I left off", randomPsalm: "Random Psalm",
+          statPsalms: "Complete Psalms", statBooks: "Books of the Psalter", statLanguages: "Available languages",
+          journeyTitle: "Your journey through the Psalter", journeyText: "Your progress and notes remain only in this browser. No account is required.", progressLabel: "Reading progress",
+          routesBadge: "Prayer paths", routesTitle: "Begin with what your heart needs today.", routesLead: "These pastoral paths lead to representative psalms. They do not replace reading the whole book or claim exclusive categories.",
+          readerBadge: "Psalms reader", psalmLabel: "Select a Psalm", searchLabel: "Search reference or word", searchPlaceholder: "Psalm 23:1, refuge, praise",
+          copyPsalm: "Copy Psalm", loadingShort: "Loading text…", loadingTitle: "Preparing the Psalms", loadingText: "The first load may take a few seconds.",
+          notRead: "Not read", read: "Read", resultsTitle: "Results", previousPsalm: "← Previous Psalm", nextPsalm: "Next Psalm →", markRead: "Mark as read", unmarkRead: "Remove read mark",
+          practiceBadge: "Reading and prayer", practiceTitle: "Read the Psalm until it becomes prayer.", practiceLead: "A simple guide to hear the text, answer God, and carry one truth into daily life.", fourStepsTitle: "Four movements",
+          notesText: "Write a personal prayer. It is saved only on this device.", notesLabel: "Private note", notesPlaceholder: "Lord, as I read this Psalm…", noteReady: "Ready to write", noteSaved: "Saved on this device",
+          booksBadge: "Psalter structure", booksTitle: "Five books, one great school of prayer.", booksLead: "The traditional division of the Psalter helps readers move through its 150 compositions in an orderly way.", openBook: "Open book",
+          privacyBadge: "Privacy and source", privacyTitle: "Spiritual reading without registration or tracking.", privacyText: "ReneBook stores progress, position, and notes only in this browser. The biblical text is retrieved from GetBible in RVR1909 and WEB.", backLibrary: "Back to library",
+          footerText: "ReneBook.org · Complete Psalms · RVR1909 / WEB · Private progress.",
+          psalm: "Psalm", psalms: "Psalms", chapter: "Psalm", verses: "verses", book: "Book", source: "WEB · Public domain biblical text", loading: "Loading the biblical text…", ready: "Complete text available", cached: "Text available from this device", error: "The text could not be loaded", retry: "Retry",
+          noResults: "No matches were found. Try another word or a reference such as Psalm 23:1.", resultCount: "matches", resultLimit: "The first 60 matches are shown.", copied: "Copied", copyFailed: "Copy failed. Select the text manually.", markedRead: "Psalm marked as read", unmarkedRead: "Read mark removed", invalidReference: "The reference must be between Psalm 1 and Psalm 150.", noText: "The text is not available yet.",
+          focusEnter: "Enter reading mode", focusExit: "Exit reading mode", fontChanged: "Text size adjusted",
+          routeOpen: "Open path", routeTrust: "Trust", routeTrustText: "Rest in God's care, guidance, and faithfulness.", routeLament: "Lament and comfort", routeLamentText: "Bring pain honestly and wait before God.", routeWorship: "Worship", routeWorshipText: "Behold God's greatness and answer with praise.", routeGratitude: "Gratitude", routeGratitudeText: "Remember God's mercies and give thanks.", routeRefuge: "Refuge", routeRefugeText: "Seek safety in God amid fear and pressure.", routeWisdom: "Wisdom", routeWisdomText: "Form the heart through God's Word, righteousness, and reverence.",
+          stepRead: "Read", stepReadText: "Read slowly. Notice words, images, and repetition.", stepMeditate: "Meditate", stepMeditateText: "Ask what the Psalm reveals about God and the human heart.", stepPray: "Pray", stepPrayText: "Turn one phrase from the Psalm into a personal prayer.", stepRespond: "Respond", stepRespondText: "Choose one truth to obey or remember today.",
+          mainNavigation: "Main navigation", brandHome: "ReneBook home", psalmsSummary: "Psalms summary", readingProgress: "Reading progress", readerControls: "Reader controls", search: "Search", fiveBooks: "Five books of Psalms", readingTools: "Reading tools", fontDown: "Decrease text size", fontUp: "Increase text size", focusMode: "Reading mode", copyPsalmAria: "Copy Psalm", closeResults: "Close results", languageSelector: "Language selector"
+        }
+      };
+
+      const state = {
+        lang: getInitialLanguage(),
+        psalm: getInitialPsalm(),
+        verse: getInitialVerse(),
+        read: readSet(),
+        notes: readNotes(),
+        font: clamp(Number(localStorage.getItem(STORAGE.font) || 1.14), .95, 1.52),
+        focus: false,
+        dataSource: "initial",
+        route: null
+      };
+
+      const $ = function (id) { return document.getElementById(id); };
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function safeJSON(value, fallback) {
+        try { return JSON.parse(value); } catch { return fallback; }
+      }
+
+      function readSet() {
+        const values = safeJSON(localStorage.getItem(STORAGE.read) || "[]", []);
+        return new Set(Array.isArray(values) ? values.map(String) : []);
+      }
+
+      function readNotes() {
+        const value = safeJSON(localStorage.getItem(STORAGE.notes) || "{}", {});
+        return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+      }
+
+      function getInitialLanguage() {
+        const url = new URL(window.location.href);
+        const value = String(url.searchParams.get("lang") || localStorage.getItem(STORAGE.language) || "es").toLowerCase();
+        return value === "en" ? "en" : "es";
+      }
+
+      function getInitialPsalm() {
+        const url = new URL(window.location.href);
+        const value = Number(url.searchParams.get("psalm") || localStorage.getItem(STORAGE.chapter) || 1);
+        return Number.isFinite(value) ? clamp(Math.round(value), 1, TOTAL_PSALMS) : 1;
+      }
+
+      function getInitialVerse() {
+        const url = new URL(window.location.href);
+        const value = Number(url.searchParams.get("verse") || 0);
+        return Number.isFinite(value) && value > 0 ? Math.round(value) : null;
+      }
+
+      function t(key) {
+        return COPY[state.lang][key] || COPY.es[key] || key;
+      }
+
+      function normalize(value) {
+        return String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function escapeHTML(value) {
+        return String(value == null ? "" : value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function getBible() {
+        const data = window.PSALMS || window.psalms || window.SALMOS || {};
+        return data[state.lang] || data.es || data.en || { chapters: [] };
+      }
+
+      function getChapter(number) {
+        const bible = getBible();
+        return (bible.chapters || []).find(function (chapter) {
+          return Number(chapter.chapter || chapter.number) === Number(number);
+        }) || null;
+      }
+
+      function currentBook(number) {
+        return BOOKS.find(function (book) { return number >= book.start && number <= book.end; }) || BOOKS[0];
+      }
+
+      function updateURL() {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", state.lang);
+        url.searchParams.set("psalm", String(state.psalm));
+        if (state.verse) url.searchParams.set("verse", String(state.verse));
+        else url.searchParams.delete("verse");
+        window.history.replaceState({}, "", url.toString());
+      }
+
+      function applyCopy() {
+        document.documentElement.lang = state.lang;
+        document.title = state.lang === "en" ? "Psalms | ReneBook" : "Salmos | ReneBook";
+
+        document.querySelectorAll("[data-copy]").forEach(function (node) {
+          const value = COPY[state.lang][node.dataset.copy];
+          if (value) node.textContent = value;
+        });
+
+        document.querySelectorAll("[data-aria]").forEach(function (node) {
+          const value = COPY[state.lang][node.dataset.aria];
+          if (value) node.setAttribute("aria-label", value);
+        });
+
+        $("psalmSearch").placeholder = t("searchPlaceholder");
+        $("psalmNote").placeholder = t("notesPlaceholder");
+
+        document.querySelectorAll("[data-lang]").forEach(function (button) {
+          button.classList.toggle("active", button.dataset.lang === state.lang);
+          button.setAttribute("aria-pressed", button.dataset.lang === state.lang ? "true" : "false");
+        });
+      }
+
+      function renderRoutes() {
+        $("routesGrid").innerHTML = ROUTES.map(function (route) {
+          const title = t(`route${route.id.charAt(0).toUpperCase()}${route.id.slice(1)}`);
+          const text = t(`route${route.id.charAt(0).toUpperCase()}${route.id.slice(1)}Text`);
+          return `
+            <button class="route-card" type="button" data-route="${route.id}" style="--route-glow:${route.color}">
+              <span class="route-icon" aria-hidden="true">${route.icon}</span>
+              <h3>${escapeHTML(title)}</h3>
+              <p>${escapeHTML(text)}</p>
+              <span>${escapeHTML(t("routeOpen"))} · ${route.psalms.map(function (n) { return state.lang === "en" ? `Ps ${n}` : `Sal ${n}`; }).join(" · ")}</span>
+            </button>
+          `;
+        }).join("");
+      }
+
+      function renderSteps() {
+        const steps = [
+          ["stepRead", "stepReadText"],
+          ["stepMeditate", "stepMeditateText"],
+          ["stepPray", "stepPrayText"],
+          ["stepRespond", "stepRespondText"]
+        ];
+
+        $("stepsList").innerHTML = steps.map(function (keys, index) {
+          return `
+            <div class="step">
+              <span class="step-number">${index + 1}</span>
+              <div><strong>${escapeHTML(t(keys[0]))}</strong><p>${escapeHTML(t(keys[1]))}</p></div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function bookLabel(book) {
+        return `${t("book")} ${roman(book.id)}`;
+      }
+
+      function roman(value) {
+        return ["I", "II", "III", "IV", "V"][value - 1] || String(value);
+      }
+
+      function renderBookMap() {
+        const html = BOOKS.map(function (book) {
+          const active = state.psalm >= book.start && state.psalm <= book.end;
+          return `
+            <button type="button" class="${active ? "active" : ""}" data-book-start="${book.start}">
+              <span>${escapeHTML(bookLabel(book))}</span>
+              <span>${book.start}–${book.end}</span>
+            </button>
+          `;
+        }).join("");
+        $("bookMap").innerHTML = html;
+      }
+
+      function renderBooksGrid() {
+        $("booksGrid").innerHTML = BOOKS.map(function (book) {
+          return `
+            <article class="book-card">
+              <strong>${escapeHTML(bookLabel(book))}</strong>
+              <span>${escapeHTML(t("psalms"))} ${book.start}–${book.end}</span>
+              <button class="btn" type="button" data-book-start="${book.start}">${escapeHTML(t("openBook"))}</button>
+            </article>
+          `;
+        }).join("");
+      }
+
+      function renderPsalmSelect() {
+        const select = $("psalmSelect");
+        const groups = BOOKS.map(function (book) {
+          const options = [];
+          for (let number = book.start; number <= book.end; number += 1) {
+            options.push(`<option value="${number}"${number === state.psalm ? " selected" : ""}>${escapeHTML(t("psalm"))} ${number}</option>`);
+          }
+          return `<optgroup label="${escapeHTML(bookLabel(book))} · ${book.start}–${book.end}">${options.join("")}</optgroup>`;
+        });
+        select.innerHTML = groups.join("");
+        select.value = String(state.psalm);
+      }
+
+      function renderReader() {
+        const bible = getBible();
+        const chapter = getChapter(state.psalm);
+        const book = currentBook(state.psalm);
+        const version = bible.version || (state.lang === "en" ? "WEB" : "RVR1909");
+
+        $("bookReference").textContent = `${bookLabel(book)} · ${t("psalms")} ${book.start}–${book.end}`;
+        $("readerTitle").textContent = `${t("psalm")} ${state.psalm}`;
+        $("readerSource").textContent = `${version} · ${state.lang === "en" ? "Public domain biblical text" : "Texto bíblico de dominio público"}`;
+        $("psalmSelect").value = String(state.psalm);
+
+        const versesList = $("versesList");
+        if (!chapter || !Array.isArray(chapter.verses) || !chapter.verses.length) {
+          const hasError = Boolean(window.RENEBOOK_PSALMS_ERROR);
+          versesList.innerHTML = `
+            <div class="reader-empty">
+              <strong>${escapeHTML(hasError ? t("error") : t("loadingTitle"))}</strong>
+              <span>${escapeHTML(hasError ? t("noText") : t("loadingText"))}</span>
+              ${hasError ? `<div class="button-row" style="justify-content:center"><button class="btn btn-primary" type="button" data-action="retry">${escapeHTML(t("retry"))}</button></div>` : ""}
+            </div>
+          `;
+        } else {
+          versesList.innerHTML = chapter.verses.map(function (verse) {
+            const number = Number(verse.verse || verse.number);
+            const highlight = state.verse === number ? " highlight" : "";
+            return `
+              <p class="reader-verse${highlight}" id="psalm-${state.psalm}-verse-${number}" data-verse-number="${number}">
+                <span class="verse-number">${number}</span>${escapeHTML(verse.text)}
+                <button class="copy-verse" type="button" data-copy-verse="${number}" aria-label="${escapeHTML(t("copied"))} ${escapeHTML(t("psalm"))} ${state.psalm}:${number}">⧉</button>
+              </p>
+            `;
+          }).join("");
+        }
+
+        renderBookMap();
+        renderReadState();
+        renderNotes();
+        updateDataStatus();
+        updateURL();
+
+        if (state.verse && chapter) {
+          window.setTimeout(function () {
+            const target = $(`psalm-${state.psalm}-verse-${state.verse}`);
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 80);
+        }
+      }
+
+      function renderReadState() {
+        const isRead = state.read.has(String(state.psalm));
+        $("readPill").textContent = isRead ? t("read") : t("notRead");
+        $("readPill").style.background = isRead ? "linear-gradient(135deg, var(--mint), var(--cyan))" : "";
+        $("readPill").style.color = isRead ? "#061425" : "";
+        $("readButton").textContent = isRead ? t("unmarkRead") : t("markRead");
+
+        const count = state.read.size;
+        $("heroProgressCount").textContent = `${count}/${TOTAL_PSALMS}`;
+        $("heroProgress").value = count;
+        $("heroProgress").textContent = `${count}/${TOTAL_PSALMS}`;
+      }
+
+      function noteKey() {
+        return `${state.lang}:${state.psalm}`;
+      }
+
+      function renderNotes() {
+        const value = String(state.notes[noteKey()] || "");
+        $("notesTitle").textContent = `${state.lang === "en" ? "My prayer" : "Mi oración"} · ${t("psalm")} ${state.psalm}`;
+        $("psalmNote").value = value;
+        $("noteCount").textContent = `${value.length}/3000`;
+        $("noteStatus").textContent = t("noteReady");
+      }
+
+      let noteTimer = null;
+      function saveNote() {
+        const value = $("psalmNote").value;
+        if (value.trim()) state.notes[noteKey()] = value;
+        else delete state.notes[noteKey()];
+        localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+        $("noteCount").textContent = `${value.length}/3000`;
+        $("noteStatus").textContent = t("noteSaved");
+      }
+
+      function updateDataStatus() {
+        const status = $("dataStatus");
+        const label = $("dataStatusText");
+        const bible = getBible();
+        const ready = Array.isArray(bible.chapters) && bible.chapters.length === TOTAL_PSALMS;
+        const error = Boolean(window.RENEBOOK_PSALMS_ERROR) && !ready;
+
+        status.classList.toggle("ready", ready);
+        status.classList.toggle("error", error);
+        label.textContent = error ? t("error") : ready ? (state.dataSource.includes("cache") ? t("cached") : t("ready")) : t("loading");
+      }
+
+      function setLanguage(lang) {
+        state.lang = lang === "en" ? "en" : "es";
+        localStorage.setItem(STORAGE.language, state.lang);
+        state.verse = null;
+        applyCopy();
+        renderRoutes();
+        renderSteps();
+        renderPsalmSelect();
+        renderBooksGrid();
+        renderReader();
+        closeResults();
+      }
+
+      function goToPsalm(number, verse, options) {
+        const next = Number(number);
+        if (!Number.isFinite(next) || next < 1 || next > TOTAL_PSALMS) {
+          showToast(t("invalidReference"));
+          return;
+        }
+
+        state.psalm = Math.round(next);
+        state.verse = verse && Number(verse) > 0 ? Math.round(Number(verse)) : null;
+        state.route = options && options.route ? options.route : null;
+        localStorage.setItem(STORAGE.chapter, String(state.psalm));
+        renderReader();
+
+        if (!options || options.scroll !== false) {
+          $("reader").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function toggleRead() {
+        const key = String(state.psalm);
+        if (state.read.has(key)) {
+          state.read.delete(key);
+          showToast(t("unmarkedRead"));
+        } else {
+          state.read.add(key);
+          showToast(t("markedRead"));
+        }
+        localStorage.setItem(STORAGE.read, JSON.stringify(Array.from(state.read)));
+        renderReadState();
+      }
+
+      function referenceMatch(query) {
+        const match = normalize(query).match(/^(?:salmos?|sal|psalms?|ps)?\s*(\d{1,3})(?:\s*[:.]\s*(\d{1,3}))?$/);
+        if (!match) return null;
+        return { psalm: Number(match[1]), verse: match[2] ? Number(match[2]) : null };
+      }
+
+      function search() {
+        const raw = $("psalmSearch").value.trim();
+        if (!raw) return;
+
+        const reference = referenceMatch(raw);
+        if (reference) {
+          goToPsalm(reference.psalm, reference.verse);
+          closeResults();
+          return;
+        }
+
+        const query = normalize(raw);
+        const bible = getBible();
+        const allMatches = [];
+
+        (bible.chapters || []).forEach(function (chapter) {
+          (chapter.verses || []).forEach(function (verse) {
+            if (normalize(verse.text).includes(query)) {
+              allMatches.push({
+                psalm: Number(chapter.chapter || chapter.number),
+                verse: Number(verse.verse || verse.number),
+                text: verse.text
+              });
+            }
+          });
+        });
+
+        renderSearchResults(allMatches, raw);
+      }
+
+      function renderSearchResults(matches, query) {
+        const panel = $("searchResults");
+        const visible = matches.slice(0, 60);
+        $("resultsTitle").textContent = `${matches.length} ${t("resultCount")} · “${query}”`;
+
+        if (!visible.length) {
+          $("resultsList").innerHTML = `<div class="reader-empty"><strong>${escapeHTML(t("noResults"))}</strong></div>`;
+        } else {
+          $("resultsList").innerHTML = visible.map(function (result) {
+            return `
+              <button class="result-btn" type="button" data-result-psalm="${result.psalm}" data-result-verse="${result.verse}">
+                <span class="result-ref">${escapeHTML(t("psalm"))} ${result.psalm}:${result.verse}</span>
+                <span class="result-text">${escapeHTML(result.text)}</span>
+              </button>
+            `;
+          }).join("") + (matches.length > visible.length ? `<p>${escapeHTML(t("resultLimit"))}</p>` : "");
+        }
+
+        panel.hidden = false;
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function closeResults() {
+        $("searchResults").hidden = true;
+      }
+
+      function currentPsalmText(verseNumber) {
+        const chapter = getChapter(state.psalm);
+        if (!chapter) return "";
+        const book = t("psalm");
+        const version = getBible().version || (state.lang === "en" ? "WEB" : "RVR1909");
+
+        if (verseNumber) {
+          const verse = (chapter.verses || []).find(function (item) {
+            return Number(item.verse || item.number) === Number(verseNumber);
+          });
+          return verse ? `${book} ${state.psalm}:${verseNumber} — ${verse.text}\n${version} · ReneBook.org` : "";
+        }
+
+        const verses = (chapter.verses || []).map(function (verse) {
+          return `${verse.verse || verse.number}. ${verse.text}`;
+        }).join("\n");
+        return `${book} ${state.psalm}\n${version}\n\n${verses}\n\nReneBook.org`;
+      }
+
+      async function copyText(text) {
+        if (!text) {
+          showToast(t("noText"));
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast(t("copied"));
+        } catch {
+          const area = document.createElement("textarea");
+          area.value = text;
+          area.setAttribute("readonly", "");
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+          const success = document.execCommand("copy");
+          area.remove();
+          showToast(success ? t("copied") : t("copyFailed"));
+        }
+      }
+
+      function changeFont(delta) {
+        state.font = clamp(Math.round((state.font + delta) * 100) / 100, .95, 1.52);
+        document.documentElement.style.setProperty("--reader-size", `${state.font}rem`);
+        localStorage.setItem(STORAGE.font, String(state.font));
+        showToast(t("fontChanged"));
+      }
+
+      function toggleFocus() {
+        state.focus = !state.focus;
+        document.body.classList.toggle("focus-mode", state.focus);
+        const button = document.querySelector('[data-action="focus"]');
+        button.setAttribute("aria-label", state.focus ? t("focusExit") : t("focusEnter"));
+        showToast(state.focus ? t("focusExit") : t("focusEnter"));
+        if (state.focus) $("reader").scrollIntoView({ block: "start" });
+      }
+
+      function openRoute(routeId) {
+        const route = ROUTES.find(function (item) { return item.id === routeId; });
+        if (!route) return;
+        const nextUnread = route.psalms.find(function (number) { return !state.read.has(String(number)); });
+        goToPsalm(nextUnread || route.psalms[0], null, { route: route.id });
+      }
+
+      let toastTimer = null;
+      function showToast(message) {
+        const toast = $("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2300);
+      }
+
+      function handleAction(action) {
+        if (action === "continue") goToPsalm(Number(localStorage.getItem(STORAGE.chapter) || 1));
+        if (action === "random") goToPsalm(Math.floor(Math.random() * TOTAL_PSALMS) + 1);
+        if (action === "previous") goToPsalm(Math.max(1, state.psalm - 1));
+        if (action === "next") goToPsalm(Math.min(TOTAL_PSALMS, state.psalm + 1));
+        if (action === "toggle-read") toggleRead();
+        if (action === "copy-psalm") copyText(currentPsalmText());
+        if (action === "font-down") changeFont(-.08);
+        if (action === "font-up") changeFont(.08);
+        if (action === "focus") toggleFocus();
+        if (action === "retry" && typeof window.RENEBOOK_LOAD_PSALMS === "function") {
+          window.RENEBOOK_PSALMS_ERROR = null;
+          updateDataStatus();
+          window.RENEBOOK_LOAD_PSALMS({ force: true });
+        }
+      }
+
+      function bindEvents() {
+        document.addEventListener("click", function (event) {
+          const language = event.target.closest("[data-lang]");
+          if (language) { setLanguage(language.dataset.lang); return; }
+
+          const action = event.target.closest("[data-action]");
+          if (action) { handleAction(action.dataset.action); return; }
+
+          const route = event.target.closest("[data-route]");
+          if (route) { openRoute(route.dataset.route); return; }
+
+          const book = event.target.closest("[data-book-start]");
+          if (book) { goToPsalm(Number(book.dataset.bookStart)); return; }
+
+          const result = event.target.closest("[data-result-psalm]");
+          if (result) {
+            goToPsalm(Number(result.dataset.resultPsalm), Number(result.dataset.resultVerse));
+            closeResults();
+            return;
+          }
+
+          const verse = event.target.closest("[data-copy-verse]");
+          if (verse) copyText(currentPsalmText(Number(verse.dataset.copyVerse)));
+        });
+
+        $("psalmSelect").addEventListener("change", function (event) {
+          goToPsalm(Number(event.target.value), null, { scroll: false });
+        });
+
+        $("searchBtn").addEventListener("click", search);
+        $("psalmSearch").addEventListener("keydown", function (event) {
+          if (event.key === "Enter") search();
+          if (event.key === "Escape") closeResults();
+        });
+        $("closeResultsBtn").addEventListener("click", closeResults);
+
+        $("psalmNote").addEventListener("input", function () {
+          $("noteCount").textContent = `${$("psalmNote").value.length}/3000`;
+          $("noteStatus").textContent = t("noteReady");
+          clearTimeout(noteTimer);
+          noteTimer = setTimeout(saveNote, 500);
+        });
+        $("psalmNote").addEventListener("blur", saveNote);
+
+        window.addEventListener("keydown", function (event) {
+          if (event.target.matches("input, textarea, select")) return;
+          if (event.key === "ArrowLeft") goToPsalm(Math.max(1, state.psalm - 1), null, { scroll: false });
+          if (event.key === "ArrowRight") goToPsalm(Math.min(TOTAL_PSALMS, state.psalm + 1), null, { scroll: false });
+          if (event.key === "Escape" && state.focus) toggleFocus();
+        });
+
+        window.addEventListener("renebook:psalms-ready", function (event) {
+          state.dataSource = event.detail && event.detail.source ? event.detail.source : "network";
+          renderReader();
+        });
+
+        window.addEventListener("renebook:psalms-error", function () {
+          updateDataStatus();
+          renderReader();
+        });
+      }
+
+      function init() {
+        document.documentElement.style.setProperty("--reader-size", `${state.font}rem`);
+        applyCopy();
+        renderRoutes();
+        renderSteps();
+        renderPsalmSelect();
+        renderBooksGrid();
+        renderReader();
+        bindEvents();
+
+        window.RENEBOOK_RENDER_PSALMS = renderReader;
+
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", function () {
+            navigator.serviceWorker.register("/service-worker.js").catch(function () {});
+          });
+        }
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

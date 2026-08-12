@@ -22,22 +22,22 @@ window.RENEBOOK_WISDOM_BOOKS = [
   {
     id: "psalms",
     order: 2,
-    status: "coming-soon",
+    status: "active",
     category: "prayer-wisdom",
     es: {
       name: "Salmos",
       subtitle: "Oración, adoración y sabiduría del corazón",
       description: "Salmos ayuda al lector a orar, confiar, adorar, lamentar, descansar y encontrar dirección espiritual delante de Dios.",
-      button: "Próximamente"
+      button: "Abrir Salmos"
     },
     en: {
       name: "Psalms",
       subtitle: "Prayer, worship, and wisdom of the heart",
       description: "Psalms helps the reader pray, trust, worship, lament, rest, and find spiritual direction before God.",
-      button: "Coming soon"
+      button: "Open Psalms"
     },
-    route: null,
-    dataFile: null
+    route: "/app-psalms.html",
+    dataFile: "/data/psalms.js"
   },
   {
     id: "job",
