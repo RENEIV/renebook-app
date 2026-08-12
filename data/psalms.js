@@ -6,8 +6,8 @@
    Archivo público esperado:
    https://renebook.org/data/psalms.js
 
-   Carga Salmos 1–150 completo en ES/EN, normaliza la
-   respuesta, conserva una copia local y publica eventos para
+   Carga primero el idioma solicitado, normaliza Salmos 1–150,
+   conserva una copia local por idioma y publica eventos para
    que el lector pueda funcionar incluso con red inestable.
 ========================================================== */
 
@@ -16,9 +16,13 @@
 
   const BOOK_NUMBER = 19;
   const TOTAL_CHAPTERS = 150;
-  const CACHE_KEY = "renebook_psalms_bilingual_v20260812a";
-  const CACHE_DATE_KEY = `${CACHE_KEY}_saved_at`;
+  const CACHE_VERSION = "v20260812b";
+  const CACHE_PREFIX = `renebook_psalms_${CACHE_VERSION}`;
+  const LEGACY_CACHE_KEY = "renebook_psalms_bilingual_v20260812a";
+  const LEGACY_CACHE_DATE_KEY = `${LEGACY_CACHE_KEY}_saved_at`;
+  const LANGUAGE_STORAGE_KEY = "renebook_psalms_language";
   const MAX_CACHE_AGE = 24 * 60 * 60 * 1000;
+  const inFlight = { es: null, en: null };
 
   const SOURCES = {
     es: {
@@ -46,45 +50,98 @@
     return [];
   }
 
-  function isComplete(data) {
+  function normalizeLanguage(value) {
+    return String(value || "").toLowerCase() === "en" ? "en" : "es";
+  }
+
+  function getInitialLanguage() {
+    try {
+      const url = new URL(window.location.href);
+      const queryLanguage = url.searchParams.get("lang");
+      if (queryLanguage) return normalizeLanguage(queryLanguage);
+    } catch {}
+
+    try {
+      const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (savedLanguage) return normalizeLanguage(savedLanguage);
+    } catch {}
+
+    return normalizeLanguage(document.documentElement.lang || "es");
+  }
+
+  function cacheKey(langKey) {
+    return `${CACHE_PREFIX}_${langKey}`;
+  }
+
+  function cacheDateKey(langKey) {
+    return `${cacheKey(langKey)}_saved_at`;
+  }
+
+  function isLanguageComplete(data) {
     return Boolean(
       data &&
-      data.es &&
-      data.en &&
-      Array.isArray(data.es.chapters) &&
-      Array.isArray(data.en.chapters) &&
-      data.es.chapters.length === TOTAL_CHAPTERS &&
-      data.en.chapters.length === TOTAL_CHAPTERS
+      Array.isArray(data.chapters) &&
+      data.chapters.length === TOTAL_CHAPTERS
     );
   }
 
-  function readCache() {
+  function readLanguageCache(langKey) {
     try {
-      const raw = localStorage.getItem(CACHE_KEY);
+      const raw = localStorage.getItem(cacheKey(langKey));
       if (!raw) return null;
       const parsed = JSON.parse(raw);
-      return isComplete(parsed) ? parsed : null;
+      return isLanguageComplete(parsed) ? parsed : null;
     } catch (error) {
-      console.warn("ReneBook: no se pudo leer la copia local de Salmos.", error);
+      console.warn(`ReneBook: no se pudo leer Salmos desde la copia local (${langKey}).`, error);
       return null;
     }
   }
 
-  function cacheIsFresh() {
+  function cacheIsFresh(langKey) {
     try {
-      const savedAt = Number(localStorage.getItem(CACHE_DATE_KEY) || 0);
+      const savedAt = Number(localStorage.getItem(cacheDateKey(langKey)) || 0);
       return savedAt > 0 && Date.now() - savedAt < MAX_CACHE_AGE;
     } catch {
       return false;
     }
   }
 
-  function saveCache(data) {
+  function saveLanguageCache(langKey, data, savedAt) {
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-      localStorage.setItem(CACHE_DATE_KEY, String(Date.now()));
+      localStorage.setItem(cacheKey(langKey), JSON.stringify(data));
+      localStorage.setItem(cacheDateKey(langKey), String(savedAt || Date.now()));
+      return true;
     } catch (error) {
-      console.warn("ReneBook: no se pudo guardar la copia local de Salmos.", error);
+      console.warn(`ReneBook: no se pudo guardar Salmos localmente (${langKey}).`, error);
+      return false;
+    }
+  }
+
+  function migrateLegacyCache() {
+    try {
+      const raw = localStorage.getItem(LEGACY_CACHE_KEY);
+      if (!raw) return;
+
+      const legacy = JSON.parse(raw);
+      const savedAt = Number(localStorage.getItem(LEGACY_CACHE_DATE_KEY) || Date.now());
+      let migrated = true;
+
+      ["es", "en"].forEach(function (langKey) {
+        if (!isLanguageComplete(legacy && legacy[langKey])) {
+          migrated = false;
+          return;
+        }
+        if (!readLanguageCache(langKey)) {
+          migrated = saveLanguageCache(langKey, legacy[langKey], savedAt) && migrated;
+        }
+      });
+
+      if (migrated) {
+        localStorage.removeItem(LEGACY_CACHE_KEY);
+        localStorage.removeItem(LEGACY_CACHE_DATE_KEY);
+      }
+    } catch (error) {
+      console.warn("ReneBook: no se pudo migrar la copia bilingüe anterior.", error);
     }
   }
 
@@ -240,13 +297,29 @@
     }
   }
 
-  function publishData(data, source) {
+  function getCurrentData() {
+    const current = window.PSALMS || window.psalms || window.SALMOS || {};
+    return {
+      es: isLanguageComplete(current.es) ? current.es : EMPTY_DATA.es,
+      en: isLanguageComplete(current.en) ? current.en : EMPTY_DATA.en
+    };
+  }
+
+  function publishData(data, source, langKey) {
     window.PSALMS = data;
     window.psalms = data;
     window.SALMOS = data;
+    window.RENEBOOK_PSALMS_SOURCES = window.RENEBOOK_PSALMS_SOURCES || {
+      es: "initial",
+      en: "initial"
+    };
+
+    if (langKey) {
+      window.RENEBOOK_PSALMS_SOURCES[langKey] = source || "network";
+    }
 
     window.dispatchEvent(new CustomEvent("renebook:psalms-ready", {
-      detail: { data, source: source || "network" }
+      detail: { data, source: source || "network", lang: langKey || null }
     }));
 
     setTimeout(function () {
@@ -254,48 +327,94 @@
         window.RENEBOOK_RENDER_PSALMS();
       }
     }, 0);
+
+    return data;
+  }
+
+  function publishLanguage(langKey, languageData, source) {
+    const data = getCurrentData();
+    data[langKey] = isLanguageComplete(languageData)
+      ? languageData
+      : EMPTY_DATA[langKey];
+    return publishData(data, source, langKey);
+  }
+
+  function setLanguageError(langKey, error) {
+    window.RENEBOOK_PSALMS_ERRORS = window.RENEBOOK_PSALMS_ERRORS || {
+      es: null,
+      en: null
+    };
+    window.RENEBOOK_PSALMS_ERRORS[langKey] = error || null;
+    window.RENEBOOK_PSALMS_ERROR = error || null;
   }
 
   async function loadPsalms(options) {
+    const langKey = normalizeLanguage(
+      options && options.lang ? options.lang : getInitialLanguage()
+    );
     const force = Boolean(options && options.force);
-    const cached = readCache();
+    const cached = readLanguageCache(langKey);
 
-    if (!force && cached && cacheIsFresh()) {
-      publishData(cached, "cache");
-      return cached;
+    if (!force && cached && cacheIsFresh(langKey)) {
+      setLanguageError(langKey, null);
+      return publishLanguage(langKey, cached, "cache");
     }
 
-    try {
-      const result = await Promise.all([
-        loadLanguage("es"),
-        loadLanguage("en")
-      ]);
+    if (!force && cached) {
+      publishLanguage(langKey, cached, "stale-cache");
+    }
 
-      const data = { es: result[0], en: result[1] };
-      saveCache(data);
-      publishData(data, "network");
-      console.log("ReneBook: Salmos bilingüe cargado correctamente.");
-      return data;
-    } catch (error) {
-      console.error("ReneBook: error cargando Salmos bilingüe.", error);
-      window.RENEBOOK_PSALMS_ERROR = error;
+    if (inFlight[langKey]) return inFlight[langKey];
 
-      if (cached) {
-        publishData(cached, "stale-cache");
-        return cached;
+    inFlight[langKey] = (async function () {
+      try {
+        const languageData = await loadLanguage(langKey);
+        saveLanguageCache(langKey, languageData);
+        setLanguageError(langKey, null);
+        const data = publishLanguage(langKey, languageData, "network");
+        console.log(`ReneBook: Salmos cargado correctamente (${langKey}).`);
+        return data;
+      } catch (error) {
+        console.error(`ReneBook: error cargando Salmos (${langKey}).`, error);
+        setLanguageError(langKey, error);
+
+        if (!cached) {
+          publishLanguage(langKey, EMPTY_DATA[langKey], "error");
+        }
+
+        window.dispatchEvent(new CustomEvent("renebook:psalms-error", {
+          detail: { error, lang: langKey }
+        }));
+        return getCurrentData();
+      } finally {
+        inFlight[langKey] = null;
       }
+    })();
 
-      publishData(EMPTY_DATA, "error");
-      window.dispatchEvent(new CustomEvent("renebook:psalms-error", {
-        detail: error
-      }));
-      return EMPTY_DATA;
-    }
+    return inFlight[langKey];
   }
 
-  const cached = readCache();
-  publishData(cached || EMPTY_DATA, cached ? "cache" : "initial");
+  migrateLegacyCache();
+
+  const initialLanguage = getInitialLanguage();
+  const initialCache = {
+    es: readLanguageCache("es") || EMPTY_DATA.es,
+    en: readLanguageCache("en") || EMPTY_DATA.en
+  };
+
+  window.RENEBOOK_PSALMS_INITIAL_LANGUAGE = initialLanguage;
+  window.RENEBOOK_PSALMS_ERRORS = { es: null, en: null };
+  window.RENEBOOK_PSALMS_SOURCES = {
+    es: isLanguageComplete(initialCache.es) ? "cache" : "initial",
+    en: isLanguageComplete(initialCache.en) ? "cache" : "initial"
+  };
+
+  publishData(
+    initialCache,
+    window.RENEBOOK_PSALMS_SOURCES[initialLanguage],
+    initialLanguage
+  );
 
   window.RENEBOOK_LOAD_PSALMS = loadPsalms;
-  window.RENEBOOK_PSALMS_READY = loadPsalms();
+  window.RENEBOOK_PSALMS_READY = loadPsalms({ lang: initialLanguage });
 })();

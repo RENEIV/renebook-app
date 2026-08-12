@@ -799,7 +799,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">Listo</div>
 
-  <script src="/data/psalms.js?v=20260812-1"></script>
+  <script src="/data/psalms.js?v=20260812-2"></script>
   <script>
     (function () {
       "use strict";
@@ -893,7 +893,10 @@
         notes: readNotes(),
         font: clamp(Number(localStorage.getItem(STORAGE.font) || 1.14), .95, 1.52),
         focus: false,
-        dataSource: "initial",
+        dataSources: Object.assign(
+          { es: "initial", en: "initial" },
+          window.RENEBOOK_PSALMS_SOURCES || {}
+        ),
         route: null
       };
 
@@ -959,7 +962,45 @@
 
       function getBible() {
         const data = window.PSALMS || window.psalms || window.SALMOS || {};
-        return data[state.lang] || data.es || data.en || { chapters: [] };
+        const bible = data[state.lang];
+
+        if (bible && Array.isArray(bible.chapters)) return bible;
+
+        return {
+          version: state.lang === "en" ? "WEB" : "RVR1909",
+          book: state.lang === "en" ? "Psalms" : "Salmos",
+          chapters: []
+        };
+      }
+
+      function currentLanguageError() {
+        const errors = window.RENEBOOK_PSALMS_ERRORS;
+        if (errors && Object.prototype.hasOwnProperty.call(errors, state.lang)) {
+          return Boolean(errors[state.lang]);
+        }
+        return Boolean(window.RENEBOOK_PSALMS_ERROR);
+      }
+
+      function ensureCurrentLanguage(options) {
+        const bible = getBible();
+        if (Array.isArray(bible.chapters) && bible.chapters.length === TOTAL_PSALMS) {
+          return window.RENEBOOK_PSALMS_READY || null;
+        }
+
+        if (typeof window.RENEBOOK_LOAD_PSALMS !== "function") return null;
+
+        if (
+          !(options && options.force) &&
+          !window.RENEBOOK_PSALMS_INITIAL_LANGUAGE &&
+          window.RENEBOOK_PSALMS_READY
+        ) {
+          return window.RENEBOOK_PSALMS_READY;
+        }
+
+        return window.RENEBOOK_LOAD_PSALMS({
+          lang: state.lang,
+          force: Boolean(options && options.force)
+        });
       }
 
       function getChapter(number) {
@@ -1097,7 +1138,7 @@
 
         const versesList = $("versesList");
         if (!chapter || !Array.isArray(chapter.verses) || !chapter.verses.length) {
-          const hasError = Boolean(window.RENEBOOK_PSALMS_ERROR);
+          const hasError = currentLanguageError();
           versesList.innerHTML = `
             <div class="reader-empty">
               <strong>${escapeHTML(hasError ? t("error") : t("loadingTitle"))}</strong>
@@ -1172,11 +1213,12 @@
         const label = $("dataStatusText");
         const bible = getBible();
         const ready = Array.isArray(bible.chapters) && bible.chapters.length === TOTAL_PSALMS;
-        const error = Boolean(window.RENEBOOK_PSALMS_ERROR) && !ready;
+        const error = currentLanguageError() && !ready;
+        const source = state.dataSources[state.lang] || "initial";
 
         status.classList.toggle("ready", ready);
         status.classList.toggle("error", error);
-        label.textContent = error ? t("error") : ready ? (state.dataSource.includes("cache") ? t("cached") : t("ready")) : t("loading");
+        label.textContent = error ? t("error") : ready ? (source.includes("cache") ? t("cached") : t("ready")) : t("loading");
       }
 
       function setLanguage(lang) {
@@ -1190,6 +1232,7 @@
         renderBooksGrid();
         renderReader();
         closeResults();
+        ensureCurrentLanguage();
       }
 
       function goToPsalm(number, verse, options) {
@@ -1369,9 +1412,12 @@
         if (action === "font-up") changeFont(.08);
         if (action === "focus") toggleFocus();
         if (action === "retry" && typeof window.RENEBOOK_LOAD_PSALMS === "function") {
+          if (window.RENEBOOK_PSALMS_ERRORS) {
+            window.RENEBOOK_PSALMS_ERRORS[state.lang] = null;
+          }
           window.RENEBOOK_PSALMS_ERROR = null;
-          updateDataStatus();
-          window.RENEBOOK_LOAD_PSALMS({ force: true });
+          renderReader();
+          ensureCurrentLanguage({ force: true });
         }
       }
 
@@ -1427,13 +1473,24 @@
         });
 
         window.addEventListener("renebook:psalms-ready", function (event) {
-          state.dataSource = event.detail && event.detail.source ? event.detail.source : "network";
-          renderReader();
+          const detail = event.detail || {};
+          const eventLanguage = detail.lang === "en" || detail.lang === "es" ? detail.lang : null;
+          const source = detail.source || "network";
+
+          if (eventLanguage) {
+            state.dataSources[eventLanguage] = source;
+          } else {
+            state.dataSources.es = source;
+            state.dataSources.en = source;
+          }
+
+          if (!eventLanguage || eventLanguage === state.lang) renderReader();
         });
 
-        window.addEventListener("renebook:psalms-error", function () {
-          updateDataStatus();
-          renderReader();
+        window.addEventListener("renebook:psalms-error", function (event) {
+          const detail = event.detail || {};
+          const eventLanguage = detail.lang === "en" || detail.lang === "es" ? detail.lang : null;
+          if (!eventLanguage || eventLanguage === state.lang) renderReader();
         });
       }
 
